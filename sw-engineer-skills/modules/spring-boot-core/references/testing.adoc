@@ -1,0 +1,24 @@
+= Spring Boot Testing
+
+== Test strategy
+- Use unit tests for pure logic.
+- Use slice tests for web or data wiring.
+- Use integration tests for real bootstrapping, config, and infrastructure.
+- Use the narrowest test that proves the behavior.
+
+== Spring Boot test tools
+- `@SpringBootTest` for full context tests.
+- Web test clients or mock MVC for controller behavior.
+- `@DynamicPropertySource` for runtime test configuration.
+- `Testcontainers` for external systems when wiring matters.
+- Use test slices to keep the feedback loop tight.
+
+== Good habits
+- Keep tests deterministic.
+- Verify the observable contract, not internal implementation details.
+- Test failure cases, especially validation and auth paths.
+- Prefer reproducible infrastructure in tests over mocks for boundary behavior.
+
+== When a test fails
+- Check whether the issue is config, wiring, or behavior.
+- Fix the narrowest layer that explains the failure.

@@ -1,0 +1,590 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [java.awt](package-summary.md)
+
+# Class FlowLayout
+
+[java.lang.Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+java.awt.FlowLayout
+
+All Implemented Interfaces:
+:   `LayoutManager`, `Serializable`
+
+---
+
+public class FlowLayout
+extends [Object](../../../java.base/java/lang/Object.md "class in java.lang")
+implements [LayoutManager](LayoutManager.md "interface in java.awt"), [Serializable](../../../java.base/java/io/Serializable.md "interface in java.io")
+
+A flow layout arranges components in a directional flow, much
+like lines of text in a paragraph. The flow direction is
+determined by the container's `componentOrientation`
+property and may be one of two values:
+
+* `ComponentOrientation.LEFT_TO_RIGHT`* `ComponentOrientation.RIGHT_TO_LEFT`
+
+Flow layouts are typically used
+to arrange buttons in a panel. It arranges buttons
+horizontally until no more buttons fit on the same line.
+The line alignment is determined by the `align`
+property. The possible values are:
+
+* [`LEFT`](#LEFT)* [`RIGHT`](#RIGHT)* [`CENTER`](#CENTER)* [`LEADING`](#LEADING)* [`TRAILING`](#TRAILING)
+
+For example, the following picture shows an applet using the flow
+layout manager (its default layout manager) to position three buttons:
+
+![Graphic of Layout for Three Buttons](doc-files/FlowLayout-1.gif)
+
+Here is the code for this applet:
+
+---
+
+> ```
+>  import java.awt.*;
+>  import java.applet.Applet;
+>
+>  public class myButtons extends Applet {
+>      Button button1, button2, button3;
+>      public void init() {
+>          button1 = new Button("Ok");
+>          button2 = new Button("Open");
+>          button3 = new Button("Close");
+>          add(button1);
+>          add(button2);
+>          add(button3);
+>      }
+>  }
+> ```
+
+---
+
+A flow layout lets each component assume its natural (preferred) size.
+
+Since:
+:   1.0
+
+See Also:
+:   * [`ComponentOrientation`](ComponentOrientation.md "class in java.awt")
+    * [Serialized Form](../../../serialized-form.md#java.awt.FlowLayout)
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final int`
+
+  `CENTER`
+
+  This value indicates that each row of components
+  should be centered.
+
+  `static final int`
+
+  `LEADING`
+
+  This value indicates that each row of components
+  should be justified to the leading edge of the container's
+  orientation, for example, to the left in left-to-right orientations.
+
+  `static final int`
+
+  `LEFT`
+
+  This value indicates that each row of components
+  should be left-justified.
+
+  `static final int`
+
+  `RIGHT`
+
+  This value indicates that each row of components
+  should be right-justified.
+
+  `static final int`
+
+  `TRAILING`
+
+  This value indicates that each row of components
+  should be justified to the trailing edge of the container's
+  orientation, for example, to the right in left-to-right orientations.
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `FlowLayout()`
+
+  Constructs a new `FlowLayout` with a centered alignment and a
+  default 5-unit horizontal and vertical gap.
+
+  `FlowLayout(int align)`
+
+  Constructs a new `FlowLayout` with the specified
+  alignment and a default 5-unit horizontal and vertical gap.
+
+  `FlowLayout(int align,
+  int hgap,
+  int vgap)`
+
+  Creates a new flow layout manager with the indicated alignment
+  and the indicated horizontal and vertical gaps.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `addLayoutComponent(String name,
+  Component comp)`
+
+  Adds the specified component to the layout.
+
+  `int`
+
+  `getAlignment()`
+
+  Gets the alignment for this layout.
+
+  `boolean`
+
+  `getAlignOnBaseline()`
+
+  Returns true if components are to be vertically aligned along
+  their baseline.
+
+  `int`
+
+  `getHgap()`
+
+  Gets the horizontal gap between components
+  and between the components and the borders
+  of the `Container`
+
+  `int`
+
+  `getVgap()`
+
+  Gets the vertical gap between components and
+  between the components and the borders of the
+  `Container`.
+
+  `void`
+
+  `layoutContainer(Container target)`
+
+  Lays out the container.
+
+  `Dimension`
+
+  `minimumLayoutSize(Container target)`
+
+  Returns the minimum dimensions needed to layout the *visible*
+  components contained in the specified target container.
+
+  `Dimension`
+
+  `preferredLayoutSize(Container target)`
+
+  Returns the preferred dimensions for this layout given the
+  *visible* components in the specified target container.
+
+  `void`
+
+  `removeLayoutComponent(Component comp)`
+
+  Removes the specified component from the layout.
+
+  `void`
+
+  `setAlignment(int align)`
+
+  Sets the alignment for this layout.
+
+  `void`
+
+  `setAlignOnBaseline(boolean alignOnBaseline)`
+
+  Sets whether or not components should be vertically aligned along their
+  baseline.
+
+  `void`
+
+  `setHgap(int hgap)`
+
+  Sets the horizontal gap between components and
+  between the components and the borders of the
+  `Container`.
+
+  `void`
+
+  `setVgap(int vgap)`
+
+  Sets the vertical gap between components and between
+  the components and the borders of the `Container`.
+
+  `String`
+
+  `toString()`
+
+  Returns a string representation of this `FlowLayout`
+  object and its values.
+
+  ### Methods inherited from class java.lang.[Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Field Details
+
+  + ### LEFT
+
+    public static final int LEFT
+
+    This value indicates that each row of components
+    should be left-justified.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#java.awt.FlowLayout.LEFT)
+  + ### CENTER
+
+    public static final int CENTER
+
+    This value indicates that each row of components
+    should be centered.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#java.awt.FlowLayout.CENTER)
+  + ### RIGHT
+
+    public static final int RIGHT
+
+    This value indicates that each row of components
+    should be right-justified.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#java.awt.FlowLayout.RIGHT)
+  + ### LEADING
+
+    public static final int LEADING
+
+    This value indicates that each row of components
+    should be justified to the leading edge of the container's
+    orientation, for example, to the left in left-to-right orientations.
+
+    Since:
+    :   1.2
+
+    See Also:
+    :   - [`Component.getComponentOrientation()`](Component.md#getComponentOrientation())
+        - [`ComponentOrientation`](ComponentOrientation.md "class in java.awt")
+        - [Constant Field Values](../../../constant-values.md#java.awt.FlowLayout.LEADING)
+  + ### TRAILING
+
+    public static final int TRAILING
+
+    This value indicates that each row of components
+    should be justified to the trailing edge of the container's
+    orientation, for example, to the right in left-to-right orientations.
+
+    Since:
+    :   1.2
+
+    See Also:
+    :   - [`Component.getComponentOrientation()`](Component.md#getComponentOrientation())
+        - [`ComponentOrientation`](ComponentOrientation.md "class in java.awt")
+        - [Constant Field Values](../../../constant-values.md#java.awt.FlowLayout.TRAILING)
+* ## Constructor Details
+
+  + ### FlowLayout
+
+    public FlowLayout()
+
+    Constructs a new `FlowLayout` with a centered alignment and a
+    default 5-unit horizontal and vertical gap.
+  + ### FlowLayout
+
+    public FlowLayout(int align)
+
+    Constructs a new `FlowLayout` with the specified
+    alignment and a default 5-unit horizontal and vertical gap.
+    The value of the alignment argument must be one of
+    `FlowLayout.LEFT`, `FlowLayout.RIGHT`,
+    `FlowLayout.CENTER`, `FlowLayout.LEADING`,
+    or `FlowLayout.TRAILING`.
+
+    Parameters:
+    :   `align` - the alignment value
+  + ### FlowLayout
+
+    public FlowLayout(int align,
+    int hgap,
+    int vgap)
+
+    Creates a new flow layout manager with the indicated alignment
+    and the indicated horizontal and vertical gaps.
+
+    The value of the alignment argument must be one of
+    `FlowLayout.LEFT`, `FlowLayout.RIGHT`,
+    `FlowLayout.CENTER`, `FlowLayout.LEADING`,
+    or `FlowLayout.TRAILING`.
+
+    Parameters:
+    :   `align` - the alignment value
+    :   `hgap` - the horizontal gap between components
+        and between the components and the
+        borders of the `Container`
+    :   `vgap` - the vertical gap between components
+        and between the components and the
+        borders of the `Container`
+* ## Method Details
+
+  + ### getAlignment
+
+    public int getAlignment()
+
+    Gets the alignment for this layout.
+    Possible values are `FlowLayout.LEFT`,
+    `FlowLayout.RIGHT`, `FlowLayout.CENTER`,
+    `FlowLayout.LEADING`,
+    or `FlowLayout.TRAILING`.
+
+    Returns:
+    :   the alignment value for this layout
+
+    Since:
+    :   1.1
+
+    See Also:
+    :   - [`setAlignment(int)`](#setAlignment(int))
+  + ### setAlignment
+
+    public void setAlignment(int align)
+
+    Sets the alignment for this layout.
+    Possible values are
+    - `FlowLayout.LEFT`- `FlowLayout.RIGHT`- `FlowLayout.CENTER`- `FlowLayout.LEADING`- `FlowLayout.TRAILING`
+
+    Parameters:
+    :   `align` - one of the alignment values shown above
+
+    Since:
+    :   1.1
+
+    See Also:
+    :   - [`getAlignment()`](#getAlignment())
+  + ### getHgap
+
+    public int getHgap()
+
+    Gets the horizontal gap between components
+    and between the components and the borders
+    of the `Container`
+
+    Returns:
+    :   the horizontal gap between components
+        and between the components and the borders
+        of the `Container`
+
+    Since:
+    :   1.1
+
+    See Also:
+    :   - [`setHgap(int)`](#setHgap(int))
+  + ### setHgap
+
+    public void setHgap(int hgap)
+
+    Sets the horizontal gap between components and
+    between the components and the borders of the
+    `Container`.
+
+    Parameters:
+    :   `hgap` - the horizontal gap between components
+        and between the components and the borders
+        of the `Container`
+
+    Since:
+    :   1.1
+
+    See Also:
+    :   - [`getHgap()`](#getHgap())
+  + ### getVgap
+
+    public int getVgap()
+
+    Gets the vertical gap between components and
+    between the components and the borders of the
+    `Container`.
+
+    Returns:
+    :   the vertical gap between components
+        and between the components and the borders
+        of the `Container`
+
+    Since:
+    :   1.1
+
+    See Also:
+    :   - [`setVgap(int)`](#setVgap(int))
+  + ### setVgap
+
+    public void setVgap(int vgap)
+
+    Sets the vertical gap between components and between
+    the components and the borders of the `Container`.
+
+    Parameters:
+    :   `vgap` - the vertical gap between components
+        and between the components and the borders
+        of the `Container`
+
+    Since:
+    :   1.1
+
+    See Also:
+    :   - [`getVgap()`](#getVgap())
+  + ### setAlignOnBaseline
+
+    public void setAlignOnBaseline(boolean alignOnBaseline)
+
+    Sets whether or not components should be vertically aligned along their
+    baseline. Components that do not have a baseline will be centered.
+    The default is false.
+
+    Parameters:
+    :   `alignOnBaseline` - whether or not components should be
+        vertically aligned on their baseline
+
+    Since:
+    :   1.6
+  + ### getAlignOnBaseline
+
+    public boolean getAlignOnBaseline()
+
+    Returns true if components are to be vertically aligned along
+    their baseline. The default is false.
+
+    Returns:
+    :   true if components are to be vertically aligned along
+        their baseline
+
+    Since:
+    :   1.6
+  + ### addLayoutComponent
+
+    public void addLayoutComponent([String](../../../java.base/java/lang/String.md "class in java.lang") name,
+    [Component](Component.md "class in java.awt") comp)
+
+    Adds the specified component to the layout.
+    Not used by this class.
+
+    Specified by:
+    :   `addLayoutComponent` in interface `LayoutManager`
+
+    Parameters:
+    :   `name` - the name of the component
+    :   `comp` - the component to be added
+  + ### removeLayoutComponent
+
+    public void removeLayoutComponent([Component](Component.md "class in java.awt") comp)
+
+    Removes the specified component from the layout.
+    Not used by this class.
+
+    Specified by:
+    :   `removeLayoutComponent` in interface `LayoutManager`
+
+    Parameters:
+    :   `comp` - the component to remove
+
+    See Also:
+    :   - [`Container.removeAll()`](Container.md#removeAll())
+  + ### preferredLayoutSize
+
+    public [Dimension](Dimension.md "class in java.awt") preferredLayoutSize([Container](Container.md "class in java.awt") target)
+
+    Returns the preferred dimensions for this layout given the
+    *visible* components in the specified target container.
+
+    Specified by:
+    :   `preferredLayoutSize` in interface `LayoutManager`
+
+    Parameters:
+    :   `target` - the container that needs to be laid out
+
+    Returns:
+    :   the preferred dimensions to lay out the
+        subcomponents of the specified container
+
+    See Also:
+    :   - [`Container`](Container.md "class in java.awt")
+        - [`minimumLayoutSize(java.awt.Container)`](#minimumLayoutSize(java.awt.Container))
+        - [`Container.getPreferredSize()`](Container.md#getPreferredSize())
+  + ### minimumLayoutSize
+
+    public [Dimension](Dimension.md "class in java.awt") minimumLayoutSize([Container](Container.md "class in java.awt") target)
+
+    Returns the minimum dimensions needed to layout the *visible*
+    components contained in the specified target container.
+
+    Specified by:
+    :   `minimumLayoutSize` in interface `LayoutManager`
+
+    Parameters:
+    :   `target` - the container that needs to be laid out
+
+    Returns:
+    :   the minimum dimensions to lay out the
+        subcomponents of the specified container
+
+    See Also:
+    :   - [`preferredLayoutSize(java.awt.Container)`](#preferredLayoutSize(java.awt.Container))
+        - [`Container`](Container.md "class in java.awt")
+        - [`Container.doLayout()`](Container.md#doLayout())
+  + ### layoutContainer
+
+    public void layoutContainer([Container](Container.md "class in java.awt") target)
+
+    Lays out the container. This method lets each
+    *visible* component take
+    its preferred size by reshaping the components in the
+    target container in order to satisfy the alignment of
+    this `FlowLayout` object.
+
+    Specified by:
+    :   `layoutContainer` in interface `LayoutManager`
+
+    Parameters:
+    :   `target` - the specified component being laid out
+
+    See Also:
+    :   - [`Container`](Container.md "class in java.awt")
+        - [`Container.doLayout()`](Container.md#doLayout())
+  + ### toString
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") toString()
+
+    Returns a string representation of this `FlowLayout`
+    object and its values.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   a string representation of this layout

@@ -1,0 +1,345 @@
+Module [java.xml](../../../../module-summary.md)
+
+Package [javax.xml.stream.events](package-summary.md)
+
+# Interface XMLEvent
+
+All Superinterfaces:
+:   `XMLStreamConstants`
+
+All Known Subinterfaces:
+:   `Attribute`, `Characters`, `Comment`, `DTD`, `EndDocument`, `EndElement`, `EntityDeclaration`, `EntityReference`, `Namespace`, `NotationDeclaration`, `ProcessingInstruction`, `StartDocument`, `StartElement`
+
+---
+
+public interface XMLEvent
+extends [XMLStreamConstants](../XMLStreamConstants.md "interface in javax.xml.stream")
+
+This is the base event interface for handling markup events.
+Events are value objects that are used to communicate the
+XML 1.0 InfoSet to the Application. Events may be cached
+and referenced after the parse has completed.
+
+Since:
+:   1.6
+
+See Also:
+:   * [`XMLEventReader`](../XMLEventReader.md "interface in javax.xml.stream")
+    * [`Characters`](Characters.md "interface in javax.xml.stream.events")
+    * [`ProcessingInstruction`](ProcessingInstruction.md "interface in javax.xml.stream.events")
+    * [`StartElement`](StartElement.md "interface in javax.xml.stream.events")
+    * [`EndElement`](EndElement.md "interface in javax.xml.stream.events")
+    * [`StartDocument`](StartDocument.md "interface in javax.xml.stream.events")
+    * [`EndDocument`](EndDocument.md "interface in javax.xml.stream.events")
+    * [`EntityReference`](EntityReference.md "interface in javax.xml.stream.events")
+    * [`EntityDeclaration`](EntityDeclaration.md "interface in javax.xml.stream.events")
+    * [`NotationDeclaration`](NotationDeclaration.md "interface in javax.xml.stream.events")
+
+* ## Field Summary
+
+  ### Fields inherited from interface javax.xml.stream.[XMLStreamConstants](../XMLStreamConstants.md "interface in javax.xml.stream")
+
+  `ATTRIBUTE, CDATA, CHARACTERS, COMMENT, DTD, END_DOCUMENT, END_ELEMENT, ENTITY_DECLARATION, ENTITY_REFERENCE, NAMESPACE, NOTATION_DECLARATION, PROCESSING_INSTRUCTION, SPACE, START_DOCUMENT, START_ELEMENT`
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `Characters`
+
+  `asCharacters()`
+
+  Returns this event as Characters, may result in
+  a class cast exception if this event is not Characters.
+
+  `EndElement`
+
+  `asEndElement()`
+
+  Returns this event as an end element event, may result in
+  a class cast exception if this event is not a end element.
+
+  `StartElement`
+
+  `asStartElement()`
+
+  Returns this event as a start element event, may result in
+  a class cast exception if this event is not a start element.
+
+  `int`
+
+  `getEventType()`
+
+  Returns an integer code for this event.
+
+  `Location`
+
+  `getLocation()`
+
+  Return the location of this event.
+
+  `QName`
+
+  `getSchemaType()`
+
+  This method is provided for implementations to provide
+  optional type information about the associated event.
+
+  `boolean`
+
+  `isAttribute()`
+
+  A utility function to check if this event is an Attribute.
+
+  `boolean`
+
+  `isCharacters()`
+
+  A utility function to check if this event is Characters.
+
+  `boolean`
+
+  `isEndDocument()`
+
+  A utility function to check if this event is an EndDocument.
+
+  `boolean`
+
+  `isEndElement()`
+
+  A utility function to check if this event is a EndElement.
+
+  `boolean`
+
+  `isEntityReference()`
+
+  A utility function to check if this event is an EntityReference.
+
+  `boolean`
+
+  `isNamespace()`
+
+  A utility function to check if this event is a Namespace.
+
+  `boolean`
+
+  `isProcessingInstruction()`
+
+  A utility function to check if this event is a ProcessingInstruction.
+
+  `boolean`
+
+  `isStartDocument()`
+
+  A utility function to check if this event is a StartDocument.
+
+  `boolean`
+
+  `isStartElement()`
+
+  A utility function to check if this event is a StartElement.
+
+  `void`
+
+  `writeAsEncodedUnicode(Writer writer)`
+
+  This method will write the XMLEvent as per the XML 1.0 specification as Unicode characters.
+
+* ## Method Details
+
+  + ### getEventType
+
+    int getEventType()
+
+    Returns an integer code for this event.
+
+    Returns:
+    :   the event type
+
+    See Also:
+    :   - [`XMLStreamConstants.START_ELEMENT`](../XMLStreamConstants.md#START_ELEMENT)
+        - [`XMLStreamConstants.END_ELEMENT`](../XMLStreamConstants.md#END_ELEMENT)
+        - [`XMLStreamConstants.CHARACTERS`](../XMLStreamConstants.md#CHARACTERS)
+        - [`XMLStreamConstants.ATTRIBUTE`](../XMLStreamConstants.md#ATTRIBUTE)
+        - [`XMLStreamConstants.NAMESPACE`](../XMLStreamConstants.md#NAMESPACE)
+        - [`XMLStreamConstants.PROCESSING_INSTRUCTION`](../XMLStreamConstants.md#PROCESSING_INSTRUCTION)
+        - [`XMLStreamConstants.COMMENT`](../XMLStreamConstants.md#COMMENT)
+        - [`XMLStreamConstants.START_DOCUMENT`](../XMLStreamConstants.md#START_DOCUMENT)
+        - [`XMLStreamConstants.END_DOCUMENT`](../XMLStreamConstants.md#END_DOCUMENT)
+        - [`XMLStreamConstants.DTD`](../XMLStreamConstants.md#DTD)
+  + ### getLocation
+
+    [Location](../Location.md "interface in javax.xml.stream") getLocation()
+
+    Return the location of this event. The Location
+    returned from this method is non-volatile and
+    will retain its information.
+
+    Returns:
+    :   the location of the event
+
+    See Also:
+    :   - [`Location`](../Location.md "interface in javax.xml.stream")
+  + ### isStartElement
+
+    boolean isStartElement()
+
+    A utility function to check if this event is a StartElement.
+
+    Returns:
+    :   true if the event is `StartElement`, false otherwise
+
+    See Also:
+    :   - [`StartElement`](StartElement.md "interface in javax.xml.stream.events")
+  + ### isAttribute
+
+    boolean isAttribute()
+
+    A utility function to check if this event is an Attribute.
+
+    Returns:
+    :   true if the event is `Attribute`, false otherwise
+
+    See Also:
+    :   - [`Attribute`](Attribute.md "interface in javax.xml.stream.events")
+  + ### isNamespace
+
+    boolean isNamespace()
+
+    A utility function to check if this event is a Namespace.
+
+    Returns:
+    :   true if the event is `Namespace`, false otherwise
+
+    See Also:
+    :   - [`Namespace`](Namespace.md "interface in javax.xml.stream.events")
+  + ### isEndElement
+
+    boolean isEndElement()
+
+    A utility function to check if this event is a EndElement.
+
+    Returns:
+    :   true if the event is `EndElement`, false otherwise
+
+    See Also:
+    :   - [`EndElement`](EndElement.md "interface in javax.xml.stream.events")
+  + ### isEntityReference
+
+    boolean isEntityReference()
+
+    A utility function to check if this event is an EntityReference.
+
+    Returns:
+    :   true if the event is `EntityReference`, false otherwise
+
+    See Also:
+    :   - [`EntityReference`](EntityReference.md "interface in javax.xml.stream.events")
+  + ### isProcessingInstruction
+
+    boolean isProcessingInstruction()
+
+    A utility function to check if this event is a ProcessingInstruction.
+
+    Returns:
+    :   true if the event is `ProcessingInstruction`, false otherwise
+
+    See Also:
+    :   - [`ProcessingInstruction`](ProcessingInstruction.md "interface in javax.xml.stream.events")
+  + ### isCharacters
+
+    boolean isCharacters()
+
+    A utility function to check if this event is Characters.
+
+    Returns:
+    :   true if the event is `Characters`, false otherwise
+
+    See Also:
+    :   - [`Characters`](Characters.md "interface in javax.xml.stream.events")
+  + ### isStartDocument
+
+    boolean isStartDocument()
+
+    A utility function to check if this event is a StartDocument.
+
+    Returns:
+    :   true if the event is `StartDocument`, false otherwise
+
+    See Also:
+    :   - [`StartDocument`](StartDocument.md "interface in javax.xml.stream.events")
+  + ### isEndDocument
+
+    boolean isEndDocument()
+
+    A utility function to check if this event is an EndDocument.
+
+    Returns:
+    :   true if the event is `EndDocument`, false otherwise
+
+    See Also:
+    :   - [`EndDocument`](EndDocument.md "interface in javax.xml.stream.events")
+  + ### asStartElement
+
+    [StartElement](StartElement.md "interface in javax.xml.stream.events") asStartElement()
+
+    Returns this event as a start element event, may result in
+    a class cast exception if this event is not a start element.
+
+    Returns:
+    :   a `StartElement` event
+  + ### asEndElement
+
+    [EndElement](EndElement.md "interface in javax.xml.stream.events") asEndElement()
+
+    Returns this event as an end element event, may result in
+    a class cast exception if this event is not a end element.
+
+    Returns:
+    :   a `EndElement` event
+  + ### asCharacters
+
+    [Characters](Characters.md "interface in javax.xml.stream.events") asCharacters()
+
+    Returns this event as Characters, may result in
+    a class cast exception if this event is not Characters.
+
+    Returns:
+    :   a `Characters` event
+  + ### getSchemaType
+
+    [QName](../../namespace/QName.md "class in javax.xml.namespace") getSchemaType()
+
+    This method is provided for implementations to provide
+    optional type information about the associated event.
+    It is optional and will return null if no information
+    is available.
+
+    Returns:
+    :   the type of the event, null if not available
+  + ### writeAsEncodedUnicode
+
+    void writeAsEncodedUnicode([Writer](../../../../../java.base/java/io/Writer.md "class in java.io") writer)
+    throws [XMLStreamException](../XMLStreamException.md "class in javax.xml.stream")
+
+    This method will write the XMLEvent as per the XML 1.0 specification as Unicode characters.
+    No indentation or whitespace should be outputted.
+    Any user defined event type SHALL have this method
+    called when being written to on an output stream.
+    Built in Event types MUST implement this method,
+    but implementations MAY choose not call these methods
+    for optimizations reasons when writing out built in
+    Events to an output stream.
+    The output generated MUST be equivalent in terms of the
+    infoset expressed.
+
+    Parameters:
+    :   `writer` - The writer that will output the data
+
+    Throws:
+    :   `XMLStreamException` - if there is a fatal error writing the event

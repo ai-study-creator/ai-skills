@@ -1,0 +1,11 @@
+id: java-core
+title: Java Core
+source_paths:
+  - knowledge/java/java-reference-md
+adherence_target: 80
+adherence_type: practical
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on: []

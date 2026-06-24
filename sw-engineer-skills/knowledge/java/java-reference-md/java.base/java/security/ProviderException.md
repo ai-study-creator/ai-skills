@@ -1,0 +1,126 @@
+Module [java.base](../../module-summary.md)
+
+Package [java.security](package-summary.md)
+
+# Class ProviderException
+
+[java.lang.Object](../lang/Object.md "class in java.lang")
+
+[java.lang.Throwable](../lang/Throwable.md "class in java.lang")
+
+[java.lang.Exception](../lang/Exception.md "class in java.lang")
+
+[java.lang.RuntimeException](../lang/RuntimeException.md "class in java.lang")
+
+java.security.ProviderException
+
+All Implemented Interfaces:
+:   `Serializable`
+
+---
+
+public class ProviderException
+extends [RuntimeException](../lang/RuntimeException.md "class in java.lang")
+
+A runtime exception for `Provider` exceptions (such as
+misconfiguration errors or unrecoverable internal errors),
+which may be subclassed by Providers to
+throw specialized, provider-specific runtime errors.
+
+Since:
+:   1.1
+
+See Also:
+:   * [Serialized Form](../../../serialized-form.md#java.security.ProviderException)
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `ProviderException()`
+
+  Constructs a `ProviderException` with no detail message.
+
+  `ProviderException(String s)`
+
+  Constructs a `ProviderException` with the specified detail
+  message.
+
+  `ProviderException(String message,
+  Throwable cause)`
+
+  Creates a `ProviderException` with the specified
+  detail message and cause.
+
+  `ProviderException(Throwable cause)`
+
+  Creates a `ProviderException` with the specified cause
+  and a detail message of `(cause==null ? null : cause.toString())`
+  (which typically contains the class and detail message of
+  `cause`).
+* ## Method Summary
+
+  ### Methods inherited from class java.lang.[Throwable](../lang/Throwable.md "class in java.lang")
+
+  `addSuppressed, fillInStackTrace, getCause, getLocalizedMessage, getMessage, getStackTrace, getSuppressed, initCause, printStackTrace, printStackTrace, printStackTrace, setStackTrace, toString`
+
+  ### Methods inherited from class java.lang.[Object](../lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### ProviderException
+
+    public ProviderException()
+
+    Constructs a `ProviderException` with no detail message. A
+    detail message is a `String` that describes this particular
+    exception.
+  + ### ProviderException
+
+    public ProviderException([String](../lang/String.md "class in java.lang") s)
+
+    Constructs a `ProviderException` with the specified detail
+    message. A detail message is a `String` that describes this
+    particular exception.
+
+    Parameters:
+    :   `s` - the detail message.
+  + ### ProviderException
+
+    public ProviderException([String](../lang/String.md "class in java.lang") message,
+    [Throwable](../lang/Throwable.md "class in java.lang") cause)
+
+    Creates a `ProviderException` with the specified
+    detail message and cause.
+
+    Parameters:
+    :   `message` - the detail message (which is saved for later retrieval
+        by the [`Throwable.getMessage()`](../lang/Throwable.md#getMessage()) method).
+    :   `cause` - the cause (which is saved for later retrieval by the
+        [`Throwable.getCause()`](../lang/Throwable.md#getCause()) method). (A `null` value is permitted,
+        and indicates that the cause is nonexistent or unknown.)
+
+    Since:
+    :   1.5
+  + ### ProviderException
+
+    public ProviderException([Throwable](../lang/Throwable.md "class in java.lang") cause)
+
+    Creates a `ProviderException` with the specified cause
+    and a detail message of `(cause==null ? null : cause.toString())`
+    (which typically contains the class and detail message of
+    `cause`).
+
+    Parameters:
+    :   `cause` - the cause (which is saved for later retrieval by the
+        [`Throwable.getCause()`](../lang/Throwable.md#getCause()) method). (A `null` value is permitted,
+        and indicates that the cause is nonexistent or unknown.)
+
+    Since:
+    :   1.5

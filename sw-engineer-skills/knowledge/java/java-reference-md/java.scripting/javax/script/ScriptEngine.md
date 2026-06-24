@@ -1,0 +1,535 @@
+Module [java.scripting](../../module-summary.md)
+
+Package [javax.script](package-summary.md)
+
+# Interface ScriptEngine
+
+All Known Implementing Classes:
+:   `AbstractScriptEngine`
+
+---
+
+public interface ScriptEngine
+
+`ScriptEngine` is the fundamental interface whose methods must be
+fully functional in every implementation of this specification.
+  
+  
+These methods provide basic scripting functionality. Applications written to this
+simple interface are expected to work with minimal modifications in every implementation.
+It includes methods that execute scripts, and ones that set and get values.
+  
+  
+The values are key/value pairs of two types. The first type of pairs consists of
+those whose keys are reserved and defined in this specification or by individual
+implementations. The values in the pairs with reserved keys have specified meanings.
+  
+  
+The other type of pairs consists of those that create Java language Bindings, the values are
+usually represented in scripts by the corresponding keys or by decorated forms of them.
+
+Since:
+:   1.6
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final String`
+
+  `ARGV`
+
+  Reserved key for a named value that passes
+  an array of positional arguments to a script.
+
+  `static final String`
+
+  `ENGINE`
+
+  Reserved key for a named value that is
+  the name of the `ScriptEngine` implementation.
+
+  `static final String`
+
+  `ENGINE_VERSION`
+
+  Reserved key for a named value that identifies
+  the version of the `ScriptEngine` implementation.
+
+  `static final String`
+
+  `FILENAME`
+
+  Reserved key for a named value that is
+  the name of the file being executed.
+
+  `static final String`
+
+  `LANGUAGE`
+
+  Reserved key for a named value that is
+  the full name of Scripting Language supported by the implementation.
+
+  `static final String`
+
+  `LANGUAGE_VERSION`
+
+  Reserved key for the named value that identifies
+  the version of the scripting language supported by the implementation.
+
+  `static final String`
+
+  `NAME`
+
+  Reserved key for a named value that identifies
+  the short name of the scripting language.
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `Bindings`
+
+  `createBindings()`
+
+  Returns an uninitialized `Bindings`.
+
+  `Object`
+
+  `eval(Reader reader)`
+
+  Same as `eval(String)` except that the source of the script is
+  provided as a `Reader`
+
+  `Object`
+
+  `eval(Reader reader,
+  Bindings n)`
+
+  Same as `eval(String, Bindings)` except that the source of the script
+  is provided as a `Reader`.
+
+  `Object`
+
+  `eval(Reader reader,
+  ScriptContext context)`
+
+  Same as `eval(String, ScriptContext)` where the source of the script
+  is read from a `Reader`.
+
+  `Object`
+
+  `eval(String script)`
+
+  Executes the specified script.
+
+  `Object`
+
+  `eval(String script,
+  Bindings n)`
+
+  Executes the script using the `Bindings` argument as the `ENGINE_SCOPE`
+  `Bindings` of the `ScriptEngine` during the script execution.
+
+  `Object`
+
+  `eval(String script,
+  ScriptContext context)`
+
+  Causes the immediate execution of the script whose source is the String
+  passed as the first argument.
+
+  `Object`
+
+  `get(String key)`
+
+  Retrieves a value set in the state of this engine.
+
+  `Bindings`
+
+  `getBindings(int scope)`
+
+  Returns a scope of named values.
+
+  `ScriptContext`
+
+  `getContext()`
+
+  Returns the default `ScriptContext` of the `ScriptEngine` whose Bindings, Reader
+  and Writers are used for script executions when no `ScriptContext` is specified.
+
+  `ScriptEngineFactory`
+
+  `getFactory()`
+
+  Returns a `ScriptEngineFactory` for the class to which this `ScriptEngine` belongs.
+
+  `void`
+
+  `put(String key,
+  Object value)`
+
+  Sets a key/value pair in the state of the ScriptEngine that may either create
+  a Java Language Binding to be used in the execution of scripts or be used in some
+  other way, depending on whether the key is reserved.
+
+  `void`
+
+  `setBindings(Bindings bindings,
+  int scope)`
+
+  Sets a scope of named values to be used by scripts.
+
+  `void`
+
+  `setContext(ScriptContext context)`
+
+  Sets the default `ScriptContext` of the `ScriptEngine` whose Bindings, Reader
+  and Writers are used for script executions when no `ScriptContext` is specified.
+
+* ## Field Details
+
+  + ### ARGV
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") ARGV
+
+    Reserved key for a named value that passes
+    an array of positional arguments to a script.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.script.ScriptEngine.ARGV)
+  + ### FILENAME
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") FILENAME
+
+    Reserved key for a named value that is
+    the name of the file being executed.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.script.ScriptEngine.FILENAME)
+  + ### ENGINE
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") ENGINE
+
+    Reserved key for a named value that is
+    the name of the `ScriptEngine` implementation.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.script.ScriptEngine.ENGINE)
+  + ### ENGINE\_VERSION
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") ENGINE\_VERSION
+
+    Reserved key for a named value that identifies
+    the version of the `ScriptEngine` implementation.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.script.ScriptEngine.ENGINE_VERSION)
+  + ### NAME
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") NAME
+
+    Reserved key for a named value that identifies
+    the short name of the scripting language. The name is used by the
+    `ScriptEngineManager` to locate a `ScriptEngine`
+    with a given name in the `getEngineByName` method.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.script.ScriptEngine.NAME)
+  + ### LANGUAGE
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") LANGUAGE
+
+    Reserved key for a named value that is
+    the full name of Scripting Language supported by the implementation.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.script.ScriptEngine.LANGUAGE)
+  + ### LANGUAGE\_VERSION
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") LANGUAGE\_VERSION
+
+    Reserved key for the named value that identifies
+    the version of the scripting language supported by the implementation.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.script.ScriptEngine.LANGUAGE_VERSION)
+* ## Method Details
+
+  + ### eval
+
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") eval([String](../../../java.base/java/lang/String.md "class in java.lang") script,
+    [ScriptContext](ScriptContext.md "interface in javax.script") context)
+    throws [ScriptException](ScriptException.md "class in javax.script")
+
+    Causes the immediate execution of the script whose source is the String
+    passed as the first argument. The script may be reparsed or recompiled before
+    execution. State left in the engine from previous executions, including
+    variable values and compiled procedures may be visible during this execution.
+
+    Parameters:
+    :   `script` - The script to be executed by the script engine.
+    :   `context` - A `ScriptContext` exposing sets of attributes in
+        different scopes. The meanings of the scopes `ScriptContext.GLOBAL_SCOPE`,
+        and `ScriptContext.ENGINE_SCOPE` are defined in the specification.
+          
+          
+        The `ENGINE_SCOPE` `Bindings` of the `ScriptContext` contains the
+        bindings of scripting variables to application objects to be used during this
+        script execution.
+
+    Returns:
+    :   The value returned from the execution of the script.
+
+    Throws:
+    :   `ScriptException` - if an error occurs in script. ScriptEngines should create and throw
+        `ScriptException` wrappers for checked Exceptions thrown by underlying scripting
+        implementations.
+    :   `NullPointerException` - if either argument is null.
+  + ### eval
+
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") eval([Reader](../../../java.base/java/io/Reader.md "class in java.io") reader,
+    [ScriptContext](ScriptContext.md "interface in javax.script") context)
+    throws [ScriptException](ScriptException.md "class in javax.script")
+
+    Same as `eval(String, ScriptContext)` where the source of the script
+    is read from a `Reader`.
+
+    Parameters:
+    :   `reader` - The source of the script to be executed by the script engine.
+    :   `context` - The `ScriptContext` passed to the script engine.
+
+    Returns:
+    :   The value returned from the execution of the script.
+
+    Throws:
+    :   `ScriptException` - if an error occurs in script. ScriptEngines should create and throw
+        `ScriptException` wrappers for checked Exceptions thrown by underlying scripting
+        implementations.
+    :   `NullPointerException` - if either argument is null.
+  + ### eval
+
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") eval([String](../../../java.base/java/lang/String.md "class in java.lang") script)
+    throws [ScriptException](ScriptException.md "class in javax.script")
+
+    Executes the specified script. The default `ScriptContext` for the `ScriptEngine`
+    is used.
+
+    Parameters:
+    :   `script` - The script language source to be executed.
+
+    Returns:
+    :   The value returned from the execution of the script.
+
+    Throws:
+    :   `ScriptException` - if an error occurs in script. ScriptEngines should create and throw
+        `ScriptException` wrappers for checked Exceptions thrown by underlying scripting
+        implementations.
+    :   `NullPointerException` - if the argument is null.
+  + ### eval
+
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") eval([Reader](../../../java.base/java/io/Reader.md "class in java.io") reader)
+    throws [ScriptException](ScriptException.md "class in javax.script")
+
+    Same as `eval(String)` except that the source of the script is
+    provided as a `Reader`
+
+    Parameters:
+    :   `reader` - The source of the script.
+
+    Returns:
+    :   The value returned by the script.
+
+    Throws:
+    :   `ScriptException` - if an error occurs in script. ScriptEngines should create and throw
+        `ScriptException` wrappers for checked Exceptions thrown by underlying scripting
+        implementations.
+    :   `NullPointerException` - if the argument is null.
+  + ### eval
+
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") eval([String](../../../java.base/java/lang/String.md "class in java.lang") script,
+    [Bindings](Bindings.md "interface in javax.script") n)
+    throws [ScriptException](ScriptException.md "class in javax.script")
+
+    Executes the script using the `Bindings` argument as the `ENGINE_SCOPE`
+    `Bindings` of the `ScriptEngine` during the script execution. The
+    `Reader`, `Writer` and non-`ENGINE_SCOPE` `Bindings` of the
+    default `ScriptContext` are used. The `ENGINE_SCOPE`
+    `Bindings` of the `ScriptEngine` is not changed, and its
+    mappings are unaltered by the script execution.
+
+    Parameters:
+    :   `script` - The source for the script.
+    :   `n` - The `Bindings` of attributes to be used for script execution.
+
+    Returns:
+    :   The value returned by the script.
+
+    Throws:
+    :   `ScriptException` - if an error occurs in script. ScriptEngines should create and throw
+        `ScriptException` wrappers for checked Exceptions thrown by underlying scripting
+        implementations.
+    :   `NullPointerException` - if either argument is null.
+  + ### eval
+
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") eval([Reader](../../../java.base/java/io/Reader.md "class in java.io") reader,
+    [Bindings](Bindings.md "interface in javax.script") n)
+    throws [ScriptException](ScriptException.md "class in javax.script")
+
+    Same as `eval(String, Bindings)` except that the source of the script
+    is provided as a `Reader`.
+
+    Parameters:
+    :   `reader` - The source of the script.
+    :   `n` - The `Bindings` of attributes.
+
+    Returns:
+    :   The value returned by the script.
+
+    Throws:
+    :   `ScriptException` - if an error occurs in script. ScriptEngines should create and throw
+        `ScriptException` wrappers for checked Exceptions thrown by underlying scripting
+        implementations.
+    :   `NullPointerException` - if either argument is null.
+  + ### put
+
+    void put([String](../../../java.base/java/lang/String.md "class in java.lang") key,
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") value)
+
+    Sets a key/value pair in the state of the ScriptEngine that may either create
+    a Java Language Binding to be used in the execution of scripts or be used in some
+    other way, depending on whether the key is reserved. Must have the same effect as
+    `getBindings(ScriptContext.ENGINE_SCOPE).put`.
+
+    Parameters:
+    :   `key` - The name of named value to add
+    :   `value` - The value of named value to add.
+
+    Throws:
+    :   `NullPointerException` - if key is null.
+    :   `IllegalArgumentException` - if key is empty.
+  + ### get
+
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") get([String](../../../java.base/java/lang/String.md "class in java.lang") key)
+
+    Retrieves a value set in the state of this engine. The value might be one
+    which was set using `setValue` or some other value in the state
+    of the `ScriptEngine`, depending on the implementation. Must have the same effect
+    as `getBindings(ScriptContext.ENGINE_SCOPE).get`
+
+    Parameters:
+    :   `key` - The key whose value is to be returned
+
+    Returns:
+    :   the value for the given key
+
+    Throws:
+    :   `NullPointerException` - if key is null.
+    :   `IllegalArgumentException` - if key is empty.
+  + ### getBindings
+
+    [Bindings](Bindings.md "interface in javax.script") getBindings(int scope)
+
+    Returns a scope of named values. The possible scopes are:
+      
+      
+    - `ScriptContext.GLOBAL_SCOPE` - The set of named values representing global
+      scope. If this `ScriptEngine` is created by a `ScriptEngineManager`,
+      then the manager sets global scope bindings. This may be `null` if no global
+      scope is associated with this `ScriptEngine`
+    - `ScriptContext.ENGINE_SCOPE` - The set of named values representing the state of
+      this `ScriptEngine`. The values are generally visible in scripts using
+      the associated keys as variable names.
+    - Any other value of scope defined in the default `ScriptContext` of the `ScriptEngine`.  
+      
+    The `Bindings` instances that are returned must be identical to those returned by the
+    `getBindings` method of `ScriptContext` called with corresponding arguments on
+    the default `ScriptContext` of the `ScriptEngine`.
+
+    Parameters:
+    :   `scope` - Either `ScriptContext.ENGINE_SCOPE` or `ScriptContext.GLOBAL_SCOPE`
+        which specifies the `Bindings` to return. Implementations of `ScriptContext`
+        may define additional scopes. If the default `ScriptContext` of the `ScriptEngine`
+        defines additional scopes, any of them can be passed to get the corresponding `Bindings`.
+
+    Returns:
+    :   The `Bindings` with the specified scope.
+
+    Throws:
+    :   `IllegalArgumentException` - if specified scope is invalid
+  + ### setBindings
+
+    void setBindings([Bindings](Bindings.md "interface in javax.script") bindings,
+    int scope)
+
+    Sets a scope of named values to be used by scripts. The possible scopes are:
+      
+      
+    - `ScriptContext.ENGINE_SCOPE` - The specified `Bindings` replaces the
+      engine scope of the `ScriptEngine`.
+    - `ScriptContext.GLOBAL_SCOPE` - The specified `Bindings` must be visible
+      as the `GLOBAL_SCOPE`.
+    - Any other value of scope defined in the default `ScriptContext` of the `ScriptEngine`.  
+      
+    The method must have the same effect as calling the `setBindings` method of
+    `ScriptContext` with the corresponding value of `scope` on the default
+    `ScriptContext` of the `ScriptEngine`.
+
+    Parameters:
+    :   `bindings` - The `Bindings` for the specified scope.
+    :   `scope` - The specified scope. Either `ScriptContext.ENGINE_SCOPE`,
+        `ScriptContext.GLOBAL_SCOPE`, or any other valid value of scope.
+
+    Throws:
+    :   `IllegalArgumentException` - if the scope is invalid
+    :   `NullPointerException` - if the bindings is null and the scope is
+        `ScriptContext.ENGINE_SCOPE`
+  + ### createBindings
+
+    [Bindings](Bindings.md "interface in javax.script") createBindings()
+
+    Returns an uninitialized `Bindings`.
+
+    Returns:
+    :   A `Bindings` that can be used to replace the state of this `ScriptEngine`.
+  + ### getContext
+
+    [ScriptContext](ScriptContext.md "interface in javax.script") getContext()
+
+    Returns the default `ScriptContext` of the `ScriptEngine` whose Bindings, Reader
+    and Writers are used for script executions when no `ScriptContext` is specified.
+
+    Returns:
+    :   The default `ScriptContext` of the `ScriptEngine`.
+  + ### setContext
+
+    void setContext([ScriptContext](ScriptContext.md "interface in javax.script") context)
+
+    Sets the default `ScriptContext` of the `ScriptEngine` whose Bindings, Reader
+    and Writers are used for script executions when no `ScriptContext` is specified.
+
+    Parameters:
+    :   `context` - A `ScriptContext` that will replace the default `ScriptContext` in
+        the `ScriptEngine`.
+
+    Throws:
+    :   `NullPointerException` - if context is null.
+  + ### getFactory
+
+    [ScriptEngineFactory](ScriptEngineFactory.md "interface in javax.script") getFactory()
+
+    Returns a `ScriptEngineFactory` for the class to which this `ScriptEngine` belongs.
+
+    Returns:
+    :   The `ScriptEngineFactory`

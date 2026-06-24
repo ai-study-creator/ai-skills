@@ -1,0 +1,13 @@
+id: ktor-core
+title: Ktor Core
+source_paths:
+  - knowledge/ktor/ktor-referece-md
+adherence_target: 95
+adherence_type: practical
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on:
+  - kotlin-core
+  - kotlin-coroutines

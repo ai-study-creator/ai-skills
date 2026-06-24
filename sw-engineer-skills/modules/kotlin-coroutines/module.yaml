@@ -1,0 +1,12 @@
+id: kotlin-coroutines
+title: Kotlin Coroutines
+source_paths:
+  - knowledge/kotlin/kotlin-reference-md
+adherence_target: 100
+adherence_type: deep-operational
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on:
+  - kotlin-core

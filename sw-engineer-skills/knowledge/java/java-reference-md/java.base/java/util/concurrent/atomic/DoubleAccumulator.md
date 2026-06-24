@@ -1,0 +1,268 @@
+Module [java.base](../../../../module-summary.md)
+
+Package [java.util.concurrent.atomic](package-summary.md)
+
+# Class DoubleAccumulator
+
+[java.lang.Object](../../../lang/Object.md "class in java.lang")
+
+[java.lang.Number](../../../lang/Number.md "class in java.lang")
+
+java.util.concurrent.atomic.DoubleAccumulator
+
+All Implemented Interfaces:
+:   `Serializable`
+
+---
+
+public class DoubleAccumulator
+extends [Number](../../../lang/Number.md "class in java.lang")
+implements [Serializable](../../../io/Serializable.md "interface in java.io")
+
+One or more variables that together maintain a running `double`
+value updated using a supplied function. When updates (method
+[`accumulate(double)`](#accumulate(double))) are contended across threads, the set of variables
+may grow dynamically to reduce contention. Method [`get()`](#get())
+(or, equivalently, [`doubleValue()`](#doubleValue())) returns the current value
+across the variables maintaining updates.
+
+This class is usually preferable to alternatives when multiple
+threads update a common value that is used for purposes such as
+summary statistics that are frequently updated but less frequently
+read.
+
+The supplied accumulator function should be side-effect-free,
+since it may be re-applied when attempted updates fail due to
+contention among threads. For predictable results, the accumulator
+function should be commutative and associative within the floating
+point tolerance required in usage contexts. The function is applied
+with an existing value (or identity) as one argument, and a given
+update as the other argument. For example, to maintain a running
+maximum value, you could supply `Double::max` along with
+`Double.NEGATIVE_INFINITY` as the identity. The order of
+accumulation within or across threads is not guaranteed. Thus, this
+class may not be applicable if numerical stability is required,
+especially when combining values of substantially different orders
+of magnitude.
+
+Class [`DoubleAdder`](DoubleAdder.md "class in java.util.concurrent.atomic") provides analogs of the functionality
+of this class for the common special case of maintaining sums. The
+call `new DoubleAdder()` is equivalent to `new
+DoubleAccumulator((x, y) -> x + y, 0.0)`.
+
+This class extends [`Number`](../../../lang/Number.md "class in java.lang"), but does *not* define
+methods such as `equals`, `hashCode` and `compareTo` because instances are expected to be mutated, and so are
+not useful as collection keys.
+
+Since:
+:   1.8
+
+See Also:
+:   * [Serialized Form](../../../../../serialized-form.md#java.util.concurrent.atomic.DoubleAccumulator)
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `DoubleAccumulator(DoubleBinaryOperator accumulatorFunction,
+  double identity)`
+
+  Creates a new instance using the given accumulator function
+  and identity element.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `accumulate(double x)`
+
+  Updates with the given value.
+
+  `double`
+
+  `doubleValue()`
+
+  Equivalent to [`get()`](#get()).
+
+  `float`
+
+  `floatValue()`
+
+  Returns the [current value](#get()) as a `float`
+  after a narrowing primitive conversion.
+
+  `double`
+
+  `get()`
+
+  Returns the current value.
+
+  `double`
+
+  `getThenReset()`
+
+  Equivalent in effect to [`get()`](#get()) followed by [`reset()`](#reset()).
+
+  `int`
+
+  `intValue()`
+
+  Returns the [current value](#get()) as an `int`
+  after a narrowing primitive conversion.
+
+  `long`
+
+  `longValue()`
+
+  Returns the [current value](#get()) as a `long`
+  after a narrowing primitive conversion.
+
+  `void`
+
+  `reset()`
+
+  Resets variables maintaining updates to the identity value.
+
+  `String`
+
+  `toString()`
+
+  Returns the String representation of the current value.
+
+  ### Methods inherited from class java.lang.[Number](../../../lang/Number.md "class in java.lang")
+
+  `byteValue, shortValue`
+
+  ### Methods inherited from class java.lang.[Object](../../../lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### DoubleAccumulator
+
+    public DoubleAccumulator([DoubleBinaryOperator](../../function/DoubleBinaryOperator.md "interface in java.util.function") accumulatorFunction,
+    double identity)
+
+    Creates a new instance using the given accumulator function
+    and identity element.
+
+    Parameters:
+    :   `accumulatorFunction` - a side-effect-free function of two arguments
+    :   `identity` - identity (initial value) for the accumulator function
+* ## Method Details
+
+  + ### accumulate
+
+    public void accumulate(double x)
+
+    Updates with the given value.
+
+    Parameters:
+    :   `x` - the value
+  + ### get
+
+    public double get()
+
+    Returns the current value. The returned value is *NOT*
+    an atomic snapshot; invocation in the absence of concurrent
+    updates returns an accurate result, but concurrent updates that
+    occur while the value is being calculated might not be
+    incorporated.
+
+    Returns:
+    :   the current value
+  + ### reset
+
+    public void reset()
+
+    Resets variables maintaining updates to the identity value.
+    This method may be a useful alternative to creating a new
+    updater, but is only effective if there are no concurrent
+    updates. Because this method is intrinsically racy, it should
+    only be used when it is known that no threads are concurrently
+    updating.
+  + ### getThenReset
+
+    public double getThenReset()
+
+    Equivalent in effect to [`get()`](#get()) followed by [`reset()`](#reset()). This method may apply for example during quiescent
+    points between multithreaded computations. If there are
+    updates concurrent with this method, the returned value is
+    *not* guaranteed to be the final value occurring before
+    the reset.
+
+    Returns:
+    :   the value before reset
+  + ### toString
+
+    public [String](../../../lang/String.md "class in java.lang") toString()
+
+    Returns the String representation of the current value.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   the String representation of the current value
+  + ### doubleValue
+
+    public double doubleValue()
+
+    Equivalent to [`get()`](#get()).
+
+    Specified by:
+    :   `doubleValue` in class `Number`
+
+    Returns:
+    :   the current value
+  + ### longValue
+
+    public long longValue()
+
+    Returns the [current value](#get()) as a `long`
+    after a narrowing primitive conversion.
+
+    Specified by:
+    :   `longValue` in class `Number`
+
+    Returns:
+    :   the numeric value represented by this object after conversion
+        to type `long`.
+  + ### intValue
+
+    public int intValue()
+
+    Returns the [current value](#get()) as an `int`
+    after a narrowing primitive conversion.
+
+    Specified by:
+    :   `intValue` in class `Number`
+
+    Returns:
+    :   the numeric value represented by this object after conversion
+        to type `int`.
+  + ### floatValue
+
+    public float floatValue()
+
+    Returns the [current value](#get()) as a `float`
+    after a narrowing primitive conversion.
+
+    Specified by:
+    :   `floatValue` in class `Number`
+
+    Returns:
+    :   the numeric value represented by this object after conversion
+        to type `float`.

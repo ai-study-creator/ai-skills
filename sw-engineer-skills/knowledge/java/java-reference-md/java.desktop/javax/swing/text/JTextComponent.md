@@ -1,0 +1,2434 @@
+Module [java.desktop](../../../module-summary.md)
+
+Package [javax.swing.text](package-summary.md)
+
+# Class JTextComponent
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.awt.Component](../../../java/awt/Component.md "class in java.awt")
+
+[java.awt.Container](../../../java/awt/Container.md "class in java.awt")
+
+[javax.swing.JComponent](../JComponent.md "class in javax.swing")
+
+javax.swing.text.JTextComponent
+
+All Implemented Interfaces:
+:   `ImageObserver`, `MenuContainer`, `Serializable`, `Accessible`, `Scrollable`
+
+Direct Known Subclasses:
+:   `JEditorPane`, `JTextArea`, `JTextField`
+
+---
+
+[@JavaBean](../../../java/beans/JavaBean.md "annotation interface in java.beans")([defaultProperty](../../../java/beans/JavaBean.md#defaultProperty())="UI")
+public abstract class JTextComponent
+extends [JComponent](../JComponent.md "class in javax.swing")
+implements [Scrollable](../Scrollable.md "interface in javax.swing"), [Accessible](../../accessibility/Accessible.md "interface in javax.accessibility")
+
+`JTextComponent` is the base class for swing text
+components. It tries to be compatible with the
+`java.awt.TextComponent` class
+where it can reasonably do so. Also provided are other services
+for additional flexibility (beyond the pluggable UI and bean
+support).
+You can find information on how to use the functionality
+this class provides in
+[General Rules for Using Text Components](https://docs.oracle.com/javase/tutorial/uiswing/components/generaltext.html),
+a section in *The Java Tutorial.*
+
+**Caret Changes**: The caret is a pluggable object in swing text components. Notification of changes to the caret position and the selection are sent to implementations of the `CaretListener` interface that have been registered with the text component. The UI will install a default caret unless a customized caret has been set. By default the caret tracks all the document changes performed on the Event Dispatching Thread and updates it's position accordingly if an insertion occurs before or at the caret position or a removal occurs before the caret position. `DefaultCaret` tries to make itself visible which may lead to scrolling of a text component within `JScrollPane`. The default caret behavior can be changed by the [`DefaultCaret.setUpdatePolicy(int)`](DefaultCaret.md#setUpdatePolicy(int)) method. **Note**: Non-editable text components also have a caret though it may not be painted. **Commands**: Text components provide a number of commands that can be used to manipulate the component. This is essentially the way that the component expresses its capabilities. These are expressed in terms of the swing `Action` interface, using the `TextAction` implementation. The set of commands supported by the text component can be found with the [`getActions()`](#getActions()) method. These actions can be bound to key events, fired from buttons, etc. **Text Input**: The text components support flexible and internationalized text input, using keymaps and the input method framework, while maintaining compatibility with the AWT listener model. A [`Keymap`](Keymap.md "interface in javax.swing.text") lets an application bind key strokes to actions. In order to allow keymaps to be shared across multiple text components, they can use actions that extend `TextAction`. `TextAction` can determine which `JTextComponent` most recently has or had focus and therefore is the subject of the action (In the case that the `ActionEvent` sent to the action doesn't contain the target text component as its source). The lets text components interact with input methods, separate software components that preprocess events to let users enter thousands of different characters using keyboards with far fewer keys. `JTextComponent` is an *active client* of the framework, so it implements the preferred user interface for interacting with input methods. As a consequence, some key events do not reach the text component because they are handled by an input method, and some text input reaches the text component as committed text within an [`InputMethodEvent`](../../../java/awt/event/InputMethodEvent.md "class in java.awt.event") instead of as a key event. The complete text input is the combination of the characters in `keyTyped` key events and committed text in input method events. The AWT listener model lets applications attach event listeners to components in order to bind events to actions. Swing encourages the use of keymaps instead of listeners, but maintains compatibility with listeners by giving the listeners a chance to steal an event by consuming it. Keyboard event and input method events are handled in the following stages, with each stage capable of consuming the event: Stages of keyboard and input method event handling | Stage KeyEvent InputMethodEvent | | | | --- | --- | --- | | 1. input methods (generated here)| | | | | --- | --- | --- | | 2. focus manager | | | | 3. registered key listeners registered input method listeners| | | | | | | | | | | --- | --- | --- | --- | --- | --- | --- | --- | --- | | 4. input method handling in JTextComponent| | | | | | | | --- | --- | --- | --- | --- | --- | | 5. keymap handling using the current keymap| | | | | --- | --- | --- | | 6. keyboard handling in JComponent (e.g. accelerators, component navigation, etc.) | | | | | | | | | | | | | | | To maintain compatibility with applications that listen to key events but are not aware of input method events, the input method handling in stage 4 provides a compatibility mode for components that do not process input method events. For these components, the committed text is converted to keyTyped key events and processed in the key event pipeline starting at stage 3 instead of in the input method event pipeline. By default the component will create a keymap (named **DEFAULT\_KEYMAP**) that is shared by all JTextComponent instances as the default keymap. Typically a look-and-feel implementation will install a different keymap that resolves to the default keymap for those bindings not found in the different keymap. The minimal bindings include: * inserting content into the editor for the printable keys.* removing content with the backspace and del keys.* caret movement forward and backward **Model/View Split**: The text components have a model-view split. A text component pulls together the objects used to represent the model, view, and controller. The text document model may be shared by other views which act as observers of the model (e.g. a document may be shared by multiple components). ![Diagram showing interaction between Controller, Document, events, and ViewFactory](doc-files/editor.gif) The model is defined by the [`Document`](Document.md "interface in javax.swing.text") interface. This is intended to provide a flexible text storage mechanism that tracks change during edits and can be extended to more sophisticated models. The model interfaces are meant to capture the capabilities of expression given by SGML, a system used to express a wide variety of content. Each modification to the document causes notification of the details of the change to be sent to all observers in the form of a [`DocumentEvent`](../event/DocumentEvent.md "interface in javax.swing.event") which allows the views to stay up to date with the model. This event is sent to observers that have implemented the [`DocumentListener`](../event/DocumentListener.md "interface in javax.swing.event") interface and registered interest with the model being observed. **Location Information**: The capability of determining the location of text in the view is provided. There are two methods, [`modelToView(int)`](#modelToView(int)) and [`viewToModel(java.awt.Point)`](#viewToModel(java.awt.Point)) for determining this information. **Undo/Redo support**: Support for an edit history mechanism is provided to allow undo/redo operations. The text component does not itself provide the history buffer by default, but does provide the `UndoableEdit` records that can be used in conjunction with a history buffer to provide the undo/redo support. The support is provided by the Document model, which allows one to attach UndoableEditListener implementations. **Thread Safety**: The swing text components provide some support of thread safe operations. Because of the high level of configurability of the text components, it is possible to circumvent the protection provided. The protection primarily comes from the model, so the documentation of `AbstractDocument` describes the assumptions of the protection provided. The methods that are safe to call asynchronously are marked with comments. **Newlines**: For a discussion on how newlines are handled, see [DefaultEditorKit](DefaultEditorKit.md). **Printing support**: Several [`print`](#print()) methods are provided for basic document printing. If more advanced printing is needed, use the [`getPrintable(java.text.MessageFormat, java.text.MessageFormat)`](#getPrintable(java.text.MessageFormat,java.text.MessageFormat)) method.
+
+**Warning:**
+Serialized objects of this class will not be compatible with
+future Swing releases. The current serialization support is
+appropriate for short term storage or RMI between applications running
+the same version of Swing. As of 1.4, support for long term storage
+of all JavaBeans
+has been added to the `java.beans` package.
+Please see [`XMLEncoder`](../../../java/beans/XMLEncoder.md "class in java.beans").
+
+See Also:
+:   * [`Document`](Document.md "interface in javax.swing.text")
+    * [`DocumentEvent`](../event/DocumentEvent.md "interface in javax.swing.event")
+    * [`DocumentListener`](../event/DocumentListener.md "interface in javax.swing.event")
+    * [`Caret`](Caret.md "interface in javax.swing.text")
+    * [`CaretEvent`](../event/CaretEvent.md "class in javax.swing.event")
+    * [`CaretListener`](../event/CaretListener.md "interface in javax.swing.event")
+    * [`TextUI`](../plaf/TextUI.md "class in javax.swing.plaf")
+    * [`View`](View.md "class in javax.swing.text")
+    * [`ViewFactory`](ViewFactory.md "interface in javax.swing.text")
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `class`
+
+  `JTextComponent.AccessibleJTextComponent`
+
+  This class implements accessibility support for the
+  `JTextComponent` class.
+
+  `static final class`
+
+  `JTextComponent.DropLocation`
+
+  Represents a drop location for `JTextComponent`s.
+
+  `static class`
+
+  `JTextComponent.KeyBinding`
+
+  Binding record for creating key bindings.
+
+  ## Nested classes/interfaces inherited from class javax.swing.[JComponent](../JComponent.md "class in javax.swing")
+
+  `JComponent.AccessibleJComponent`
+
+  ## Nested classes/interfaces inherited from class java.awt.[Container](../../../java/awt/Container.md "class in java.awt")
+
+  `Container.AccessibleAWTContainer`
+
+  ## Nested classes/interfaces inherited from class java.awt.[Component](../../../java/awt/Component.md "class in java.awt")
+
+  `Component.AccessibleAWTComponent, Component.BaselineResizeBehavior, Component.BltBufferStrategy, Component.FlipBufferStrategy`
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final String`
+
+  `DEFAULT_KEYMAP`
+
+  The default keymap that will be shared by all
+  `JTextComponent` instances unless they
+  have had a different keymap set.
+
+  `static final String`
+
+  `FOCUS_ACCELERATOR_KEY`
+
+  The bound property name for the focus accelerator.
+
+  ### Fields inherited from class javax.swing.[JComponent](../JComponent.md "class in javax.swing")
+
+  `listenerList, TOOL_TIP_TEXT_KEY, ui, UNDEFINED_CONDITION, WHEN_ANCESTOR_OF_FOCUSED_COMPONENT, WHEN_FOCUSED, WHEN_IN_FOCUSED_WINDOW`
+
+  ### Fields inherited from class java.awt.[Component](../../../java/awt/Component.md "class in java.awt")
+
+  `accessibleContext, BOTTOM_ALIGNMENT, CENTER_ALIGNMENT, LEFT_ALIGNMENT, RIGHT_ALIGNMENT, TOP_ALIGNMENT`
+
+  ### Fields inherited from interface java.awt.image.[ImageObserver](../../../java/awt/image/ImageObserver.md "interface in java.awt.image")
+
+  `ABORT, ALLBITS, ERROR, FRAMEBITS, HEIGHT, PROPERTIES, SOMEBITS, WIDTH`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `JTextComponent()`
+
+  Creates a new `JTextComponent`.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete MethodsDeprecated Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `addCaretListener(CaretListener listener)`
+
+  Adds a caret listener for notification of any changes
+  to the caret.
+
+  `void`
+
+  `addInputMethodListener(InputMethodListener l)`
+
+  Adds the specified input method listener to receive
+  input method events from this component.
+
+  `static Keymap`
+
+  `addKeymap(String nm,
+  Keymap parent)`
+
+  Adds a new keymap into the keymap hierarchy.
+
+  `void`
+
+  `copy()`
+
+  Transfers the currently selected range in the associated
+  text model to the system clipboard, leaving the contents
+  in the text model.
+
+  `void`
+
+  `cut()`
+
+  Transfers the currently selected range in the associated
+  text model to the system clipboard, removing the contents
+  from the model.
+
+  `protected void`
+
+  `fireCaretUpdate(CaretEvent e)`
+
+  Notifies all listeners that have registered interest for
+  notification on this event type.
+
+  `AccessibleContext`
+
+  `getAccessibleContext()`
+
+  Gets the `AccessibleContext` associated with this
+  `JTextComponent`.
+
+  `Action[]`
+
+  `getActions()`
+
+  Fetches the command list for the editor.
+
+  `Caret`
+
+  `getCaret()`
+
+  Fetches the caret that allows text-oriented navigation over
+  the view.
+
+  `Color`
+
+  `getCaretColor()`
+
+  Fetches the current color used to render the
+  caret.
+
+  `CaretListener[]`
+
+  `getCaretListeners()`
+
+  Returns an array of all the caret listeners
+  registered on this text component.
+
+  `int`
+
+  `getCaretPosition()`
+
+  Returns the position of the text insertion caret for the
+  text component.
+
+  `Color`
+
+  `getDisabledTextColor()`
+
+  Fetches the current color used to render the
+  disabled text.
+
+  `Document`
+
+  `getDocument()`
+
+  Fetches the model associated with the editor.
+
+  `boolean`
+
+  `getDragEnabled()`
+
+  Returns whether or not automatic drag handling is enabled.
+
+  `final JTextComponent.DropLocation`
+
+  `getDropLocation()`
+
+  Returns the location that this component should visually indicate
+  as the drop location during a DnD operation over the component,
+  or `null` if no location is to currently be shown.
+
+  `final DropMode`
+
+  `getDropMode()`
+
+  Returns the drop mode for this component.
+
+  `char`
+
+  `getFocusAccelerator()`
+
+  Returns the key accelerator that will cause the receiving
+  text component to get the focus.
+
+  `Highlighter`
+
+  `getHighlighter()`
+
+  Fetches the object responsible for making highlights.
+
+  `InputMethodRequests`
+
+  `getInputMethodRequests()`
+
+  Gets the input method request handler which supports
+  requests from input methods for this component.
+
+  `Keymap`
+
+  `getKeymap()`
+
+  Fetches the keymap currently active in this text
+  component.
+
+  `static Keymap`
+
+  `getKeymap(String nm)`
+
+  Fetches a named keymap previously added to the document.
+
+  `Insets`
+
+  `getMargin()`
+
+  Returns the margin between the text component's border and
+  its text.
+
+  `NavigationFilter`
+
+  `getNavigationFilter()`
+
+  Returns the `NavigationFilter`.
+
+  `Dimension`
+
+  `getPreferredScrollableViewportSize()`
+
+  Returns the preferred size of the viewport for a view component.
+
+  `Printable`
+
+  `getPrintable(MessageFormat headerFormat,
+  MessageFormat footerFormat)`
+
+  Returns a `Printable` to use for printing the content of this
+  `JTextComponent`.
+
+  `int`
+
+  `getScrollableBlockIncrement(Rectangle visibleRect,
+  int orientation,
+  int direction)`
+
+  Components that display logical rows or columns should compute
+  the scroll increment that will completely expose one block
+  of rows or columns, depending on the value of orientation.
+
+  `boolean`
+
+  `getScrollableTracksViewportHeight()`
+
+  Returns true if a viewport should always force the height of this
+  `Scrollable` to match the height of the viewport.
+
+  `boolean`
+
+  `getScrollableTracksViewportWidth()`
+
+  Returns true if a viewport should always force the width of this
+  `Scrollable` to match the width of the viewport.
+
+  `int`
+
+  `getScrollableUnitIncrement(Rectangle visibleRect,
+  int orientation,
+  int direction)`
+
+  Components that display logical rows or columns should compute
+  the scroll increment that will completely expose one new row
+  or column, depending on the value of orientation.
+
+  `String`
+
+  `getSelectedText()`
+
+  Returns the selected text contained in this
+  `TextComponent`.
+
+  `Color`
+
+  `getSelectedTextColor()`
+
+  Fetches the current color used to render the
+  selected text.
+
+  `Color`
+
+  `getSelectionColor()`
+
+  Fetches the current color used to render the
+  selection.
+
+  `int`
+
+  `getSelectionEnd()`
+
+  Returns the selected text's end position.
+
+  `int`
+
+  `getSelectionStart()`
+
+  Returns the selected text's start position.
+
+  `String`
+
+  `getText()`
+
+  Returns the text contained in this `TextComponent`.
+
+  `String`
+
+  `getText(int offs,
+  int len)`
+
+  Fetches a portion of the text represented by the
+  component.
+
+  `String`
+
+  `getToolTipText(MouseEvent event)`
+
+  Returns the string to be used as the tooltip for `event`.
+
+  `TextUI`
+
+  `getUI()`
+
+  Fetches the user-interface factory for this text-oriented editor.
+
+  `boolean`
+
+  `isEditable()`
+
+  Returns the boolean indicating whether this
+  `TextComponent` is editable or not.
+
+  `static void`
+
+  `loadKeymap(Keymap map,
+  JTextComponent.KeyBinding[] bindings,
+  Action[] actions)`
+
+  Loads a keymap with a bunch of
+  bindings.
+
+  `Rectangle`
+
+  `modelToView(int pos)`
+
+  Deprecated.
+
+  replaced by
+  [`modelToView2D(int)`](#modelToView2D(int))
+
+  `Rectangle2D`
+
+  `modelToView2D(int pos)`
+
+  Converts the given location in the model to a place in
+  the view coordinate system.
+
+  `void`
+
+  `moveCaretPosition(int pos)`
+
+  Moves the caret to a new position, leaving behind a mark
+  defined by the last time `setCaretPosition` was
+  called.
+
+  `protected String`
+
+  `paramString()`
+
+  Returns a string representation of this `JTextComponent`.
+
+  `void`
+
+  `paste()`
+
+  Transfers the contents of the system clipboard into the
+  associated text model.
+
+  `boolean`
+
+  `print()`
+
+  A convenience print method that displays a print dialog, and then
+  prints this `JTextComponent` in *interactive* mode with no
+  header or footer text.
+
+  `boolean`
+
+  `print(MessageFormat headerFormat,
+  MessageFormat footerFormat)`
+
+  A convenience print method that displays a print dialog, and then
+  prints this `JTextComponent` in *interactive* mode with
+  the specified header and footer text.
+
+  `boolean`
+
+  `print(MessageFormat headerFormat,
+  MessageFormat footerFormat,
+  boolean showPrintDialog,
+  PrintService service,
+  PrintRequestAttributeSet attributes,
+  boolean interactive)`
+
+  Prints the content of this `JTextComponent`.
+
+  `protected void`
+
+  `processInputMethodEvent(InputMethodEvent e)`
+
+  Processes input method events occurring on this component by
+  dispatching them to any registered
+  `InputMethodListener` objects.
+
+  `void`
+
+  `read(Reader in,
+  Object desc)`
+
+  Initializes from a stream.
+
+  `void`
+
+  `removeCaretListener(CaretListener listener)`
+
+  Removes a caret listener.
+
+  `static Keymap`
+
+  `removeKeymap(String nm)`
+
+  Removes a named keymap previously added to the document.
+
+  `void`
+
+  `removeNotify()`
+
+  Notifies this component that it no longer has a parent component.
+
+  `void`
+
+  `replaceSelection(String content)`
+
+  Replaces the currently selected content with new content
+  represented by the given string.
+
+  `protected void`
+
+  `restoreComposedText()`
+
+  Restores composed text previously saved by `saveComposedText`.
+
+  `protected boolean`
+
+  `saveComposedText(int pos)`
+
+  Saves composed text around the specified position.
+
+  `void`
+
+  `select(int selectionStart,
+  int selectionEnd)`
+
+  Selects the text between the specified start and end positions.
+
+  `void`
+
+  `selectAll()`
+
+  Selects all the text in the `TextComponent`.
+
+  `void`
+
+  `setCaret(Caret c)`
+
+  Sets the caret to be used.
+
+  `void`
+
+  `setCaretColor(Color c)`
+
+  Sets the current color used to render the caret.
+
+  `void`
+
+  `setCaretPosition(int position)`
+
+  Sets the position of the text insertion caret for the
+  `TextComponent`.
+
+  `void`
+
+  `setComponentOrientation(ComponentOrientation o)`
+
+  Sets the language-sensitive orientation that is to be used to order
+  the elements or text within this component.
+
+  `void`
+
+  `setDisabledTextColor(Color c)`
+
+  Sets the current color used to render the
+  disabled text.
+
+  `void`
+
+  `setDocument(Document doc)`
+
+  Associates the editor with a text document.
+
+  `void`
+
+  `setDragEnabled(boolean b)`
+
+  Turns on or off automatic drag handling.
+
+  `final void`
+
+  `setDropMode(DropMode dropMode)`
+
+  Sets the drop mode for this component.
+
+  `void`
+
+  `setEditable(boolean b)`
+
+  Sets the specified boolean to indicate whether or not this
+  `TextComponent` should be editable.
+
+  `void`
+
+  `setFocusAccelerator(char aKey)`
+
+  Sets the key accelerator that will cause the receiving text
+  component to get the focus.
+
+  `void`
+
+  `setHighlighter(Highlighter h)`
+
+  Sets the highlighter to be used.
+
+  `void`
+
+  `setKeymap(Keymap map)`
+
+  Sets the keymap to use for binding events to
+  actions.
+
+  `void`
+
+  `setMargin(Insets m)`
+
+  Sets margin space between the text component's border
+  and its text.
+
+  `void`
+
+  `setNavigationFilter(NavigationFilter filter)`
+
+  Sets the `NavigationFilter`.
+
+  `void`
+
+  `setSelectedTextColor(Color c)`
+
+  Sets the current color used to render the selected text.
+
+  `void`
+
+  `setSelectionColor(Color c)`
+
+  Sets the current color used to render the selection.
+
+  `void`
+
+  `setSelectionEnd(int selectionEnd)`
+
+  Sets the selection end to the specified position.
+
+  `void`
+
+  `setSelectionStart(int selectionStart)`
+
+  Sets the selection start to the specified position.
+
+  `void`
+
+  `setText(String t)`
+
+  Sets the text of this `TextComponent`
+  to the specified text.
+
+  `void`
+
+  `setUI(TextUI ui)`
+
+  Sets the user-interface factory for this text-oriented editor.
+
+  `void`
+
+  `updateUI()`
+
+  Reloads the pluggable UI.
+
+  `int`
+
+  `viewToModel(Point pt)`
+
+  Deprecated.
+
+  replaced by
+  [`viewToModel2D(Point2D)`](#viewToModel2D(java.awt.geom.Point2D))
+
+  `int`
+
+  `viewToModel2D(Point2D pt)`
+
+  Converts the given place in the view coordinate system
+  to the nearest representative location in the model.
+
+  `void`
+
+  `write(Writer out)`
+
+  Stores the contents of the model into the given
+  stream.
+
+  ### Methods inherited from class javax.swing.[JComponent](../JComponent.md "class in javax.swing")
+
+  `addAncestorListener, addNotify, addVetoableChangeListener, computeVisibleRect, contains, createToolTip, disable, enable, firePropertyChange, firePropertyChange, firePropertyChange, fireVetoableChange, getActionForKeyStroke, getActionMap, getAlignmentX, getAlignmentY, getAncestorListeners, getAutoscrolls, getBaseline, getBaselineResizeBehavior, getBorder, getBounds, getClientProperty, getComponentGraphics, getComponentPopupMenu, getConditionForKeyStroke, getDebugGraphicsOptions, getDefaultLocale, getFontMetrics, getGraphics, getHeight, getInheritsPopupMenu, getInputMap, getInputMap, getInputVerifier, getInsets, getInsets, getListeners, getLocation, getMaximumSize, getMinimumSize, getNextFocusableComponent, getPopupLocation, getPreferredSize, getRegisteredKeyStrokes, getRootPane, getSize, getToolTipLocation, getToolTipText, getTopLevelAncestor, getTransferHandler, getUIClassID, getVerifyInputWhenFocusTarget, getVetoableChangeListeners, getVisibleRect, getWidth, getX, getY, grabFocus, hide, isDoubleBuffered, isLightweightComponent, isManagingFocus, isOpaque, isOptimizedDrawingEnabled, isPaintingForPrint, isPaintingOrigin, isPaintingTile, isRequestFocusEnabled, isValidateRoot, paint, paintBorder, paintChildren, paintComponent, paintImmediately, paintImmediately, print, printAll, printBorder, printChildren, printComponent, processComponentKeyEvent, processKeyBinding, processKeyEvent, processMouseEvent, processMouseMotionEvent, putClientProperty, registerKeyboardAction, registerKeyboardAction, removeAncestorListener, removeVetoableChangeListener, repaint, repaint, requestDefaultFocus, requestFocus, requestFocus, requestFocusInWindow, requestFocusInWindow, resetKeyboardActions, reshape, revalidate, scrollRectToVisible, setActionMap, setAlignmentX, setAlignmentY, setAutoscrolls, setBackground, setBorder, setComponentPopupMenu, setDebugGraphicsOptions, setDefaultLocale, setDoubleBuffered, setEnabled, setFocusTraversalKeys, setFont, setForeground, setInheritsPopupMenu, setInputMap, setInputVerifier, setMaximumSize, setMinimumSize, setNextFocusableComponent, setOpaque, setPreferredSize, setRequestFocusEnabled, setToolTipText, setTransferHandler, setUI, setVerifyInputWhenFocusTarget, setVisible, unregisterKeyboardAction, update`
+
+  ### Methods inherited from class java.awt.[Container](../../../java/awt/Container.md "class in java.awt")
+
+  `add, add, add, add, add, addContainerListener, addImpl, addPropertyChangeListener, addPropertyChangeListener, applyComponentOrientation, areFocusTraversalKeysSet, countComponents, deliverEvent, doLayout, findComponentAt, findComponentAt, getComponent, getComponentAt, getComponentAt, getComponentCount, getComponents, getComponentZOrder, getContainerListeners, getFocusTraversalKeys, getFocusTraversalPolicy, getLayout, getMousePosition, insets, invalidate, isAncestorOf, isFocusCycleRoot, isFocusCycleRoot, isFocusTraversalPolicyProvider, isFocusTraversalPolicySet, layout, list, list, locate, minimumSize, paintComponents, preferredSize, printComponents, processContainerEvent, processEvent, remove, remove, removeAll, removeContainerListener, setComponentZOrder, setFocusCycleRoot, setFocusTraversalPolicy, setFocusTraversalPolicyProvider, setLayout, transferFocusDownCycle, validate, validateTree`
+
+  ### Methods inherited from class java.awt.[Component](../../../java/awt/Component.md "class in java.awt")
+
+  `action, add, addComponentListener, addFocusListener, addHierarchyBoundsListener, addHierarchyListener, addKeyListener, addMouseListener, addMouseMotionListener, addMouseWheelListener, bounds, checkImage, checkImage, coalesceEvents, contains, createImage, createImage, createVolatileImage, createVolatileImage, disableEvents, dispatchEvent, enable, enableEvents, enableInputMethods, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, getBackground, getBounds, getColorModel, getComponentListeners, getComponentOrientation, getCursor, getDropTarget, getFocusCycleRootAncestor, getFocusListeners, getFocusTraversalKeysEnabled, getFont, getForeground, getGraphicsConfiguration, getHierarchyBoundsListeners, getHierarchyListeners, getIgnoreRepaint, getInputContext, getInputMethodListeners, getKeyListeners, getLocale, getLocation, getLocationOnScreen, getMouseListeners, getMouseMotionListeners, getMousePosition, getMouseWheelListeners, getName, getParent, getPropertyChangeListeners, getPropertyChangeListeners, getSize, getToolkit, getTreeLock, gotFocus, handleEvent, hasFocus, imageUpdate, inside, isBackgroundSet, isCursorSet, isDisplayable, isEnabled, isFocusable, isFocusOwner, isFocusTraversable, isFontSet, isForegroundSet, isLightweight, isMaximumSizeSet, isMinimumSizeSet, isPreferredSizeSet, isShowing, isValid, isVisible, keyDown, keyUp, list, list, list, location, lostFocus, mouseDown, mouseDrag, mouseEnter, mouseExit, mouseMove, mouseUp, move, nextFocus, paintAll, postEvent, prepareImage, prepareImage, processComponentEvent, processFocusEvent, processHierarchyBoundsEvent, processHierarchyEvent, processMouseWheelEvent, remove, removeComponentListener, removeFocusListener, removeHierarchyBoundsListener, removeHierarchyListener, removeInputMethodListener, removeKeyListener, removeMouseListener, removeMouseMotionListener, removeMouseWheelListener, removePropertyChangeListener, removePropertyChangeListener, repaint, repaint, repaint, requestFocus, requestFocus, requestFocusInWindow, resize, resize, setBounds, setBounds, setCursor, setDropTarget, setFocusable, setFocusTraversalKeysEnabled, setIgnoreRepaint, setLocale, setLocation, setLocation, setMixingCutoutShape, setName, setSize, setSize, show, show, size, toString, transferFocus, transferFocusBackward, transferFocusUpCycle`
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Field Details
+
+  + ### FOCUS\_ACCELERATOR\_KEY
+
+    public static final [String](../../../../java.base/java/lang/String.md "class in java.lang") FOCUS\_ACCELERATOR\_KEY
+
+    The bound property name for the focus accelerator.
+
+    See Also:
+    :   - [Constant Field Values](../../../../constant-values.md#javax.swing.text.JTextComponent.FOCUS_ACCELERATOR_KEY)
+  + ### DEFAULT\_KEYMAP
+
+    public static final [String](../../../../java.base/java/lang/String.md "class in java.lang") DEFAULT\_KEYMAP
+
+    The default keymap that will be shared by all
+    `JTextComponent` instances unless they
+    have had a different keymap set.
+
+    See Also:
+    :   - [Constant Field Values](../../../../constant-values.md#javax.swing.text.JTextComponent.DEFAULT_KEYMAP)
+* ## Constructor Details
+
+  + ### JTextComponent
+
+    public JTextComponent()
+
+    Creates a new `JTextComponent`.
+    Listeners for caret events are established, and the pluggable
+    UI installed. The component is marked as editable. No layout manager
+    is used, because layout is managed by the view subsystem of text.
+    The document model is set to `null`.
+* ## Method Details
+
+  + ### getUI
+
+    public [TextUI](../plaf/TextUI.md "class in javax.swing.plaf") getUI()
+
+    Fetches the user-interface factory for this text-oriented editor.
+
+    Overrides:
+    :   `getUI` in class `JComponent`
+
+    Returns:
+    :   the factory
+  + ### setUI
+
+    public void setUI([TextUI](../plaf/TextUI.md "class in javax.swing.plaf") ui)
+
+    Sets the user-interface factory for this text-oriented editor.
+
+    Parameters:
+    :   `ui` - the factory
+  + ### updateUI
+
+    public void updateUI()
+
+    Reloads the pluggable UI. The key used to fetch the
+    new interface is `getUIClassID()`. The type of
+    the UI is `TextUI`. `invalidate`
+    is called after setting the UI.
+
+    Overrides:
+    :   `updateUI` in class `JComponent`
+
+    See Also:
+    :   - [`JComponent.setUI(javax.swing.plaf.ComponentUI)`](../JComponent.md#setUI(javax.swing.plaf.ComponentUI))
+        - [`UIManager.getLookAndFeel()`](../UIManager.md#getLookAndFeel())
+        - [`UIManager.getUI(javax.swing.JComponent)`](../UIManager.md#getUI(javax.swing.JComponent))
+  + ### addCaretListener
+
+    public void addCaretListener([CaretListener](../event/CaretListener.md "interface in javax.swing.event") listener)
+
+    Adds a caret listener for notification of any changes
+    to the caret.
+
+    Parameters:
+    :   `listener` - the listener to be added
+
+    See Also:
+    :   - [`CaretEvent`](../event/CaretEvent.md "class in javax.swing.event")
+  + ### removeCaretListener
+
+    public void removeCaretListener([CaretListener](../event/CaretListener.md "interface in javax.swing.event") listener)
+
+    Removes a caret listener.
+
+    Parameters:
+    :   `listener` - the listener to be removed
+
+    See Also:
+    :   - [`CaretEvent`](../event/CaretEvent.md "class in javax.swing.event")
+  + ### getCaretListeners
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public [CaretListener](../event/CaretListener.md "interface in javax.swing.event")[] getCaretListeners()
+
+    Returns an array of all the caret listeners
+    registered on this text component.
+
+    Returns:
+    :   all of this component's `CaretListener`s
+        or an empty
+        array if no caret listeners are currently registered
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`addCaretListener(javax.swing.event.CaretListener)`](#addCaretListener(javax.swing.event.CaretListener))
+        - [`removeCaretListener(javax.swing.event.CaretListener)`](#removeCaretListener(javax.swing.event.CaretListener))
+  + ### fireCaretUpdate
+
+    protected void fireCaretUpdate([CaretEvent](../event/CaretEvent.md "class in javax.swing.event") e)
+
+    Notifies all listeners that have registered interest for
+    notification on this event type. The event instance
+    is lazily created using the parameters passed into
+    the fire method. The listener list is processed in a
+    last-to-first manner.
+
+    Parameters:
+    :   `e` - the event
+
+    See Also:
+    :   - [`EventListenerList`](../event/EventListenerList.md "class in javax.swing.event")
+  + ### setDocument
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([expert](../../../java/beans/BeanProperty.md#expert())=true,
+    [description](../../../java/beans/BeanProperty.md#description())="the text document model")
+    public void setDocument([Document](Document.md "interface in javax.swing.text") doc)
+
+    Associates the editor with a text document.
+    The currently registered factory is used to build a view for
+    the document, which gets displayed by the editor after revalidation.
+    A PropertyChange event ("document") is propagated to each listener.
+
+    Parameters:
+    :   `doc` - the document to display/edit
+
+    See Also:
+    :   - [`getDocument()`](#getDocument())
+  + ### getDocument
+
+    public [Document](Document.md "interface in javax.swing.text") getDocument()
+
+    Fetches the model associated with the editor. This is
+    primarily for the UI to get at the minimal amount of
+    state required to be a text editor. Subclasses will
+    return the actual type of the model which will typically
+    be something that extends Document.
+
+    Returns:
+    :   the model
+  + ### setComponentOrientation
+
+    public void setComponentOrientation([ComponentOrientation](../../../java/awt/ComponentOrientation.md "class in java.awt") o)
+
+    Description copied from class: `Component`
+
+    Sets the language-sensitive orientation that is to be used to order
+    the elements or text within this component. Language-sensitive
+    `LayoutManager` and `Component`
+    subclasses will use this property to
+    determine how to lay out and draw components.
+
+    At construction time, a component's orientation is set to
+    `ComponentOrientation.UNKNOWN`,
+    indicating that it has not been specified
+    explicitly. The UNKNOWN orientation behaves the same as
+    `ComponentOrientation.LEFT_TO_RIGHT`.
+
+    To set the orientation of a single component, use this method.
+    To set the orientation of an entire component
+    hierarchy, use
+    [`applyComponentOrientation`](../../../java/awt/Component.md#applyComponentOrientation(java.awt.ComponentOrientation)).
+
+    This method changes layout-related information, and therefore,
+    invalidates the component hierarchy.
+
+    Overrides:
+    :   `setComponentOrientation` in class `Component`
+
+    Parameters:
+    :   `o` - the orientation to be set
+
+    See Also:
+    :   - [`ComponentOrientation`](../../../java/awt/ComponentOrientation.md "class in java.awt")
+        - [`Component.invalidate()`](../../../java/awt/Component.md#invalidate())
+  + ### getActions
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public [Action](../Action.md "interface in javax.swing")[] getActions()
+
+    Fetches the command list for the editor. This is
+    the list of commands supported by the plugged-in UI
+    augmented by the collection of commands that the
+    editor itself supports. These are useful for binding
+    to events, such as in a keymap.
+
+    Returns:
+    :   the command list
+  + ### setMargin
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../../java/beans/BeanProperty.md#description())="desired space between the border and text area")
+    public void setMargin([Insets](../../../java/awt/Insets.md "class in java.awt") m)
+
+    Sets margin space between the text component's border
+    and its text. The text component's default `Border`
+    object will use this value to create the proper margin.
+    However, if a non-default border is set on the text component,
+    it is that `Border` object's responsibility to create the
+    appropriate margin space (else this property will effectively
+    be ignored). This causes a redraw of the component.
+    A PropertyChange event ("margin") is sent to all listeners.
+
+    Parameters:
+    :   `m` - the space between the border and the text
+  + ### getMargin
+
+    public [Insets](../../../java/awt/Insets.md "class in java.awt") getMargin()
+
+    Returns the margin between the text component's border and
+    its text.
+
+    Returns:
+    :   the margin
+  + ### setNavigationFilter
+
+    public void setNavigationFilter([NavigationFilter](NavigationFilter.md "class in javax.swing.text") filter)
+
+    Sets the `NavigationFilter`. `NavigationFilter`
+    is used by `DefaultCaret` and the default cursor movement
+    actions as a way to restrict the cursor movement.
+
+    Parameters:
+    :   `filter` - the filter
+
+    Since:
+    :   1.4
+  + ### getNavigationFilter
+
+    public [NavigationFilter](NavigationFilter.md "class in javax.swing.text") getNavigationFilter()
+
+    Returns the `NavigationFilter`. `NavigationFilter`
+    is used by `DefaultCaret` and the default cursor movement
+    actions as a way to restrict the cursor movement. A null return value
+    implies the cursor movement and selection should not be restricted.
+
+    Returns:
+    :   the NavigationFilter
+
+    Since:
+    :   1.4
+  + ### getCaret
+
+    public [Caret](Caret.md "interface in javax.swing.text") getCaret()
+
+    Fetches the caret that allows text-oriented navigation over
+    the view.
+
+    Returns:
+    :   the caret
+  + ### setCaret
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([expert](../../../java/beans/BeanProperty.md#expert())=true,
+    [description](../../../java/beans/BeanProperty.md#description())="the caret used to select/navigate")
+    public void setCaret([Caret](Caret.md "interface in javax.swing.text") c)
+
+    Sets the caret to be used. By default this will be set
+    by the UI that gets installed. This can be changed to
+    a custom caret if desired. Setting the caret results in a
+    PropertyChange event ("caret") being fired.
+
+    Parameters:
+    :   `c` - the caret
+
+    See Also:
+    :   - [`getCaret()`](#getCaret())
+  + ### getHighlighter
+
+    public [Highlighter](Highlighter.md "interface in javax.swing.text") getHighlighter()
+
+    Fetches the object responsible for making highlights.
+
+    Returns:
+    :   the highlighter
+  + ### setHighlighter
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([expert](../../../java/beans/BeanProperty.md#expert())=true,
+    [description](../../../java/beans/BeanProperty.md#description())="object responsible for background highlights")
+    public void setHighlighter([Highlighter](Highlighter.md "interface in javax.swing.text") h)
+
+    Sets the highlighter to be used. By default this will be set
+    by the UI that gets installed. This can be changed to
+    a custom highlighter if desired. The highlighter can be set to
+    `null` to disable it.
+    A PropertyChange event ("highlighter") is fired
+    when a new highlighter is installed.
+
+    Parameters:
+    :   `h` - the highlighter
+
+    See Also:
+    :   - [`getHighlighter()`](#getHighlighter())
+  + ### setKeymap
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../../java/beans/BeanProperty.md#description())="set of key event to action bindings to use")
+    public void setKeymap([Keymap](Keymap.md "interface in javax.swing.text") map)
+
+    Sets the keymap to use for binding events to
+    actions. Setting to `null` effectively disables
+    keyboard input.
+    A PropertyChange event ("keymap") is fired when a new keymap
+    is installed.
+
+    Parameters:
+    :   `map` - the keymap
+
+    See Also:
+    :   - [`getKeymap()`](#getKeymap())
+  + ### setDragEnabled
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false,
+    [description](../../../java/beans/BeanProperty.md#description())="determines whether automatic drag handling is enabled")
+    public void setDragEnabled(boolean b)
+
+    Turns on or off automatic drag handling. In order to enable automatic
+    drag handling, this property should be set to `true`, and the
+    component's `TransferHandler` needs to be `non-null`.
+    The default value of the `dragEnabled` property is `false`.
+
+    The job of honoring this property, and recognizing a user drag gesture,
+    lies with the look and feel implementation, and in particular, the component's
+    `TextUI`. When automatic drag handling is enabled, most look and
+    feels (including those that subclass `BasicLookAndFeel`) begin a
+    drag and drop operation whenever the user presses the mouse button over
+    a selection and then moves the mouse a few pixels. Setting this property to
+    `true` can therefore have a subtle effect on how selections behave.
+
+    If a look and feel is used that ignores this property, you can still
+    begin a drag and drop operation by calling `exportAsDrag` on the
+    component's `TransferHandler`.
+
+    Parameters:
+    :   `b` - whether or not to enable automatic drag handling
+
+    Throws:
+    :   `HeadlessException` - if
+        `b` is `true` and
+        `GraphicsEnvironment.isHeadless()`
+        returns `true`
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`GraphicsEnvironment.isHeadless()`](../../../java/awt/GraphicsEnvironment.md#isHeadless())
+        - [`getDragEnabled()`](#getDragEnabled())
+        - [`JComponent.setTransferHandler(javax.swing.TransferHandler)`](../JComponent.md#setTransferHandler(javax.swing.TransferHandler))
+        - [`TransferHandler`](../TransferHandler.md "class in javax.swing")
+  + ### getDragEnabled
+
+    public boolean getDragEnabled()
+
+    Returns whether or not automatic drag handling is enabled.
+
+    Returns:
+    :   the value of the `dragEnabled` property
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`setDragEnabled(boolean)`](#setDragEnabled(boolean))
+  + ### setDropMode
+
+    public final void setDropMode([DropMode](../DropMode.md "enum class in javax.swing") dropMode)
+
+    Sets the drop mode for this component. For backward compatibility,
+    the default for this property is `DropMode.USE_SELECTION`.
+    Usage of `DropMode.INSERT` is recommended, however,
+    for an improved user experience. It offers similar behavior of dropping
+    between text locations, but does so without affecting the actual text
+    selection and caret location.
+
+    `JTextComponents` support the following drop modes:
+    - `DropMode.USE_SELECTION`
+    - `DropMode.INSERT`
+
+    The drop mode is only meaningful if this component has a
+    `TransferHandler` that accepts drops.
+
+    Parameters:
+    :   `dropMode` - the drop mode to use
+
+    Throws:
+    :   `IllegalArgumentException` - if the drop mode is unsupported
+        or `null`
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`getDropMode()`](#getDropMode())
+        - [`getDropLocation()`](#getDropLocation())
+        - [`JComponent.setTransferHandler(javax.swing.TransferHandler)`](../JComponent.md#setTransferHandler(javax.swing.TransferHandler))
+        - [`TransferHandler`](../TransferHandler.md "class in javax.swing")
+  + ### getDropMode
+
+    public final [DropMode](../DropMode.md "enum class in javax.swing") getDropMode()
+
+    Returns the drop mode for this component.
+
+    Returns:
+    :   the drop mode for this component
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`setDropMode(javax.swing.DropMode)`](#setDropMode(javax.swing.DropMode))
+  + ### getDropLocation
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public final [JTextComponent.DropLocation](JTextComponent.DropLocation.md "class in javax.swing.text") getDropLocation()
+
+    Returns the location that this component should visually indicate
+    as the drop location during a DnD operation over the component,
+    or `null` if no location is to currently be shown.
+
+    This method is not meant for querying the drop location
+    from a `TransferHandler`, as the drop location is only
+    set after the `TransferHandler`'s `canImport`
+    has returned and has allowed for the location to be shown.
+
+    When this property changes, a property change event with
+    name "dropLocation" is fired by the component.
+
+    Returns:
+    :   the drop location
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`setDropMode(javax.swing.DropMode)`](#setDropMode(javax.swing.DropMode))
+        - [`TransferHandler.canImport(TransferHandler.TransferSupport)`](../TransferHandler.md#canImport(javax.swing.TransferHandler.TransferSupport))
+  + ### getKeymap
+
+    public [Keymap](Keymap.md "interface in javax.swing.text") getKeymap()
+
+    Fetches the keymap currently active in this text
+    component.
+
+    Returns:
+    :   the keymap
+  + ### addKeymap
+
+    public static [Keymap](Keymap.md "interface in javax.swing.text") addKeymap([String](../../../../java.base/java/lang/String.md "class in java.lang") nm,
+    [Keymap](Keymap.md "interface in javax.swing.text") parent)
+
+    Adds a new keymap into the keymap hierarchy. Keymap bindings
+    resolve from bottom up so an attribute specified in a child
+    will override an attribute specified in the parent.
+
+    Parameters:
+    :   `nm` - the name of the keymap (must be unique within the
+        collection of named keymaps in the document); the name may
+        be `null` if the keymap is unnamed,
+        but the caller is responsible for managing the reference
+        returned as an unnamed keymap can't
+        be fetched by name
+    :   `parent` - the parent keymap; this may be `null` if
+        unspecified bindings need not be resolved in some other keymap
+
+    Returns:
+    :   the keymap
+  + ### removeKeymap
+
+    public static [Keymap](Keymap.md "interface in javax.swing.text") removeKeymap([String](../../../../java.base/java/lang/String.md "class in java.lang") nm)
+
+    Removes a named keymap previously added to the document. Keymaps
+    with `null` names may not be removed in this way.
+
+    Parameters:
+    :   `nm` - the name of the keymap to remove
+
+    Returns:
+    :   the keymap that was removed
+  + ### getKeymap
+
+    public static [Keymap](Keymap.md "interface in javax.swing.text") getKeymap([String](../../../../java.base/java/lang/String.md "class in java.lang") nm)
+
+    Fetches a named keymap previously added to the document.
+    This does not work with `null`-named keymaps.
+
+    Parameters:
+    :   `nm` - the name of the keymap
+
+    Returns:
+    :   the keymap
+  + ### loadKeymap
+
+    public static void loadKeymap([Keymap](Keymap.md "interface in javax.swing.text") map,
+    [JTextComponent.KeyBinding](JTextComponent.KeyBinding.md "class in javax.swing.text")[] bindings,
+    [Action](../Action.md "interface in javax.swing")[] actions)
+
+    Loads a keymap with a bunch of
+    bindings. This can be used to take a static table of
+    definitions and load them into some keymap. The following
+    example illustrates an example of binding some keys to
+    the cut, copy, and paste actions associated with a
+    JTextComponent. A code fragment to accomplish
+    this might look as follows:
+
+    ```
+       static final JTextComponent.KeyBinding[] defaultBindings = {
+         new JTextComponent.KeyBinding(
+           KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK),
+           DefaultEditorKit.copyAction),
+         new JTextComponent.KeyBinding(
+           KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK),
+           DefaultEditorKit.pasteAction),
+         new JTextComponent.KeyBinding(
+           KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK),
+           DefaultEditorKit.cutAction),
+       };
+
+       JTextComponent c = new JTextPane();
+       Keymap k = c.getKeymap();
+       JTextComponent.loadKeymap(k, defaultBindings, c.getActions());
+    ```
+
+    The sets of bindings and actions may be empty but must be
+    non-`null`.
+
+    Parameters:
+    :   `map` - the keymap
+    :   `bindings` - the bindings
+    :   `actions` - the set of actions
+  + ### getCaretColor
+
+    public [Color](../../../java/awt/Color.md "class in java.awt") getCaretColor()
+
+    Fetches the current color used to render the
+    caret.
+
+    Returns:
+    :   the color
+  + ### setCaretColor
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../../java/beans/BeanProperty.md#description())="the color used to render the caret")
+    public void setCaretColor([Color](../../../java/awt/Color.md "class in java.awt") c)
+
+    Sets the current color used to render the caret.
+    Setting to `null` effectively restores the default color.
+    Setting the color results in a PropertyChange event ("caretColor")
+    being fired.
+
+    Parameters:
+    :   `c` - the color
+
+    See Also:
+    :   - [`getCaretColor()`](#getCaretColor())
+  + ### getSelectionColor
+
+    public [Color](../../../java/awt/Color.md "class in java.awt") getSelectionColor()
+
+    Fetches the current color used to render the
+    selection.
+
+    Returns:
+    :   the color
+  + ### setSelectionColor
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../../java/beans/BeanProperty.md#description())="color used to render selection background")
+    public void setSelectionColor([Color](../../../java/awt/Color.md "class in java.awt") c)
+
+    Sets the current color used to render the selection.
+    Setting the color to `null` is the same as setting
+    `Color.white`. Setting the color results in a
+    PropertyChange event ("selectionColor").
+
+    Parameters:
+    :   `c` - the color
+
+    See Also:
+    :   - [`getSelectionColor()`](#getSelectionColor())
+  + ### getSelectedTextColor
+
+    public [Color](../../../java/awt/Color.md "class in java.awt") getSelectedTextColor()
+
+    Fetches the current color used to render the
+    selected text.
+
+    Returns:
+    :   the color
+  + ### setSelectedTextColor
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../../java/beans/BeanProperty.md#description())="color used to render selected text")
+    public void setSelectedTextColor([Color](../../../java/awt/Color.md "class in java.awt") c)
+
+    Sets the current color used to render the selected text.
+    Setting the color to `null` is the same as
+    `Color.black`. Setting the color results in a
+    PropertyChange event ("selectedTextColor") being fired.
+
+    Parameters:
+    :   `c` - the color
+
+    See Also:
+    :   - [`getSelectedTextColor()`](#getSelectedTextColor())
+  + ### getDisabledTextColor
+
+    public [Color](../../../java/awt/Color.md "class in java.awt") getDisabledTextColor()
+
+    Fetches the current color used to render the
+    disabled text.
+
+    Returns:
+    :   the color
+  + ### setDisabledTextColor
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../../java/beans/BeanProperty.md#description())="color used to render disabled text")
+    public void setDisabledTextColor([Color](../../../java/awt/Color.md "class in java.awt") c)
+
+    Sets the current color used to render the
+    disabled text. Setting the color fires off a
+    PropertyChange event ("disabledTextColor").
+
+    Parameters:
+    :   `c` - the color
+
+    See Also:
+    :   - [`getDisabledTextColor()`](#getDisabledTextColor())
+  + ### replaceSelection
+
+    public void replaceSelection([String](../../../../java.base/java/lang/String.md "class in java.lang") content)
+
+    Replaces the currently selected content with new content
+    represented by the given string. If there is no selection
+    this amounts to an insert of the given text. If there
+    is no replacement text this amounts to a removal of the
+    current selection.
+
+    This is the method that is used by the default implementation
+    of the action for inserting content that gets bound to the
+    keymap actions.
+
+    Parameters:
+    :   `content` - the content to replace the selection with
+  + ### getText
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getText(int offs,
+    int len)
+    throws [BadLocationException](BadLocationException.md "class in javax.swing.text")
+
+    Fetches a portion of the text represented by the
+    component. Returns an empty string if length is 0.
+
+    Parameters:
+    :   `offs` - the offset ≥ 0
+    :   `len` - the length ≥ 0
+
+    Returns:
+    :   the text
+
+    Throws:
+    :   `BadLocationException` - if the offset or length are invalid
+  + ### modelToView
+
+    [@Deprecated](../../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../../java.base/java/lang/Deprecated.md#since())="9")
+    public [Rectangle](../../../java/awt/Rectangle.md "class in java.awt") modelToView(int pos)
+    throws [BadLocationException](BadLocationException.md "class in javax.swing.text")
+
+    Deprecated.
+
+    replaced by
+    [`modelToView2D(int)`](#modelToView2D(int))
+
+    Converts the given location in the model to a place in
+    the view coordinate system.
+    The component must have a positive size for
+    this translation to be computed (i.e. layout cannot
+    be computed until the component has been sized). The
+    component does not have to be visible or painted.
+
+    Parameters:
+    :   `pos` - the position ≥ 0
+
+    Returns:
+    :   the coordinates as a rectangle, with (r.x, r.y) as the location
+        in the coordinate system, or null if the component does
+        not yet have a positive size.
+
+    Throws:
+    :   `BadLocationException` - if the given position does not
+        represent a valid location in the associated document
+
+    See Also:
+    :   - [`TextUI.modelToView(javax.swing.text.JTextComponent, int)`](../plaf/TextUI.md#modelToView(javax.swing.text.JTextComponent,int))
+  + ### modelToView2D
+
+    public [Rectangle2D](../../../java/awt/geom/Rectangle2D.md "class in java.awt.geom") modelToView2D(int pos)
+    throws [BadLocationException](BadLocationException.md "class in javax.swing.text")
+
+    Converts the given location in the model to a place in
+    the view coordinate system.
+    The component must have a positive size for
+    this translation to be computed (i.e. layout cannot
+    be computed until the component has been sized). The
+    component does not have to be visible or painted.
+
+    Parameters:
+    :   `pos` - the position `>= 0`
+
+    Returns:
+    :   the coordinates as a rectangle, with (r.x, r.y) as the location
+        in the coordinate system, or null if the component does
+        not yet have a positive size.
+
+    Throws:
+    :   `BadLocationException` - if the given position does not
+        represent a valid location in the associated document
+
+    Since:
+    :   9
+
+    See Also:
+    :   - [`TextUI.modelToView2D(javax.swing.text.JTextComponent, int, javax.swing.text.Position.Bias)`](../plaf/TextUI.md#modelToView2D(javax.swing.text.JTextComponent,int,javax.swing.text.Position.Bias))
+  + ### viewToModel
+
+    [@Deprecated](../../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../../java.base/java/lang/Deprecated.md#since())="9")
+    public int viewToModel([Point](../../../java/awt/Point.md "class in java.awt") pt)
+
+    Deprecated.
+
+    replaced by
+    [`viewToModel2D(Point2D)`](#viewToModel2D(java.awt.geom.Point2D))
+
+    Converts the given place in the view coordinate system
+    to the nearest representative location in the model.
+    The component must have a positive size for
+    this translation to be computed (i.e. layout cannot
+    be computed until the component has been sized). The
+    component does not have to be visible or painted.
+
+    Parameters:
+    :   `pt` - the location in the view to translate
+
+    Returns:
+    :   the offset ≥ 0 from the start of the document,
+        or -1 if the component does not yet have a positive
+        size.
+
+    See Also:
+    :   - [`TextUI.viewToModel(javax.swing.text.JTextComponent, java.awt.Point)`](../plaf/TextUI.md#viewToModel(javax.swing.text.JTextComponent,java.awt.Point))
+  + ### viewToModel2D
+
+    public int viewToModel2D([Point2D](../../../java/awt/geom/Point2D.md "class in java.awt.geom") pt)
+
+    Converts the given place in the view coordinate system
+    to the nearest representative location in the model.
+    The component must have a positive size for
+    this translation to be computed (i.e. layout cannot
+    be computed until the component has been sized). The
+    component does not have to be visible or painted.
+
+    Parameters:
+    :   `pt` - the location in the view to translate
+
+    Returns:
+    :   the offset `>= 0` from the start of the document,
+        or `-1` if the component does not yet have a positive
+        size.
+
+    Since:
+    :   9
+
+    See Also:
+    :   - [`TextUI.viewToModel2D(javax.swing.text.JTextComponent, java.awt.geom.Point2D, javax.swing.text.Position.Bias[])`](../plaf/TextUI.md#viewToModel2D(javax.swing.text.JTextComponent,java.awt.geom.Point2D,javax.swing.text.Position.Bias%5B%5D))
+  + ### cut
+
+    public void cut()
+
+    Transfers the currently selected range in the associated
+    text model to the system clipboard, removing the contents
+    from the model. The current selection is reset. Does nothing
+    for `null` selections.
+
+    See Also:
+    :   - [`Toolkit.getSystemClipboard()`](../../../java/awt/Toolkit.md#getSystemClipboard())
+        - [`Clipboard`](../../../../java.datatransfer/java/awt/datatransfer/Clipboard.md "class in java.awt.datatransfer")
+  + ### copy
+
+    public void copy()
+
+    Transfers the currently selected range in the associated
+    text model to the system clipboard, leaving the contents
+    in the text model. The current selection remains intact.
+    Does nothing for `null` selections.
+
+    See Also:
+    :   - [`Toolkit.getSystemClipboard()`](../../../java/awt/Toolkit.md#getSystemClipboard())
+        - [`Clipboard`](../../../../java.datatransfer/java/awt/datatransfer/Clipboard.md "class in java.awt.datatransfer")
+  + ### paste
+
+    public void paste()
+
+    Transfers the contents of the system clipboard into the
+    associated text model. If there is a selection in the
+    associated view, it is replaced with the contents of the
+    clipboard. If there is no selection, the clipboard contents
+    are inserted in front of the current insert position in
+    the associated view. If the clipboard is empty, does nothing.
+
+    See Also:
+    :   - [`replaceSelection(java.lang.String)`](#replaceSelection(java.lang.String))
+        - [`Toolkit.getSystemClipboard()`](../../../java/awt/Toolkit.md#getSystemClipboard())
+        - [`Clipboard`](../../../../java.datatransfer/java/awt/datatransfer/Clipboard.md "class in java.awt.datatransfer")
+  + ### moveCaretPosition
+
+    public void moveCaretPosition(int pos)
+
+    Moves the caret to a new position, leaving behind a mark
+    defined by the last time `setCaretPosition` was
+    called. This forms a selection.
+    If the document is `null`, does nothing. The position
+    must be between 0 and the length of the component's text or else
+    an exception is thrown.
+
+    Parameters:
+    :   `pos` - the position
+
+    Throws:
+    :   `IllegalArgumentException` - if the value supplied
+        for `position` is less than zero or greater
+        than the component's text length
+
+    See Also:
+    :   - [`setCaretPosition(int)`](#setCaretPosition(int))
+  + ### setFocusAccelerator
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../../java/beans/BeanProperty.md#description())="accelerator character used to grab focus")
+    public void setFocusAccelerator(char aKey)
+
+    Sets the key accelerator that will cause the receiving text
+    component to get the focus. The accelerator will be the
+    key combination of the platform-specific modifier key and
+    the character given (converted to upper case). For example,
+    the ALT key is used as a modifier on Windows and the CTRL+ALT
+    combination is used on Mac. By default, there is no focus
+    accelerator key. Any previous key accelerator setting will be
+    superseded. A '\0' key setting will be registered, and has the
+    effect of turning off the focus accelerator. When the new key
+    is set, a PropertyChange event (FOCUS\_ACCELERATOR\_KEY) will be fired.
+
+    Parameters:
+    :   `aKey` - the key
+
+    See Also:
+    :   - [`getFocusAccelerator()`](#getFocusAccelerator())
+  + ### getFocusAccelerator
+
+    public char getFocusAccelerator()
+
+    Returns the key accelerator that will cause the receiving
+    text component to get the focus. Return '\0' if no focus
+    accelerator has been set.
+
+    Returns:
+    :   the key
+  + ### read
+
+    public void read([Reader](../../../../java.base/java/io/Reader.md "class in java.io") in,
+    [Object](../../../../java.base/java/lang/Object.md "class in java.lang") desc)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io")
+
+    Initializes from a stream. This creates a
+    model of the type appropriate for the component
+    and initializes the model from the stream.
+    By default this will load the model as plain
+    text. Previous contents of the model are discarded.
+
+    Parameters:
+    :   `in` - the stream to read from
+    :   `desc` - an object describing the stream; this
+        might be a string, a File, a URL, etc. Some kinds
+        of documents (such as html for example) might be
+        able to make use of this information; if non-`null`,
+        it is added as a property of the document
+
+    Throws:
+    :   `IOException` - as thrown by the stream being
+        used to initialize
+
+    See Also:
+    :   - [`EditorKit.createDefaultDocument()`](EditorKit.md#createDefaultDocument())
+        - [`setDocument(javax.swing.text.Document)`](#setDocument(javax.swing.text.Document))
+        - [`PlainDocument`](PlainDocument.md "class in javax.swing.text")
+  + ### write
+
+    public void write([Writer](../../../../java.base/java/io/Writer.md "class in java.io") out)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io")
+
+    Stores the contents of the model into the given
+    stream. By default this will store the model as plain
+    text.
+
+    Parameters:
+    :   `out` - the output stream
+
+    Throws:
+    :   `IOException` - on any I/O error
+  + ### removeNotify
+
+    public void removeNotify()
+
+    Description copied from class: `JComponent`
+
+    Notifies this component that it no longer has a parent component.
+    When this method is invoked, any `KeyboardAction`s
+    set up in the chain of parent components are removed.
+    This method is called by the toolkit internally and should
+    not be called directly by programs.
+
+    Overrides:
+    :   `removeNotify` in class `JComponent`
+
+    See Also:
+    :   - [`JComponent.registerKeyboardAction(java.awt.event.ActionListener, java.lang.String, javax.swing.KeyStroke, int)`](../JComponent.md#registerKeyboardAction(java.awt.event.ActionListener,java.lang.String,javax.swing.KeyStroke,int))
+  + ### setCaretPosition
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false,
+    [description](../../../java/beans/BeanProperty.md#description())="the caret position")
+    public void setCaretPosition(int position)
+
+    Sets the position of the text insertion caret for the
+    `TextComponent`. Note that the caret tracks change,
+    so this may move if the underlying text of the component is changed.
+    If the document is `null`, does nothing. The position
+    must be between 0 and the length of the component's text or else
+    an exception is thrown.
+
+    Parameters:
+    :   `position` - the position
+
+    Throws:
+    :   `IllegalArgumentException` - if the value supplied
+        for `position` is less than zero or greater
+        than the component's text length
+  + ### getCaretPosition
+
+    public int getCaretPosition()
+
+    Returns the position of the text insertion caret for the
+    text component.
+
+    Returns:
+    :   the position of the text insertion caret for the
+        text component ≥ 0
+  + ### setText
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false,
+    [description](../../../java/beans/BeanProperty.md#description())="the text of this component")
+    public void setText([String](../../../../java.base/java/lang/String.md "class in java.lang") t)
+
+    Sets the text of this `TextComponent`
+    to the specified text. If the text is `null`
+    or empty, has the effect of simply deleting the old text.
+    When text has been inserted, the resulting caret location
+    is determined by the implementation of the caret class.
+
+    Note that text is not a bound property, so no `PropertyChangeEvent` is fired when it changes. To listen for changes to the text,
+    use `DocumentListener`.
+
+    Parameters:
+    :   `t` - the new text to be set
+
+    See Also:
+    :   - [`getText(int, int)`](#getText(int,int))
+        - [`DefaultCaret`](DefaultCaret.md "class in javax.swing.text")
+  + ### getText
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getText()
+
+    Returns the text contained in this `TextComponent`.
+    If the underlying document is `null`,
+    will give a `NullPointerException`.
+    Note that text is not a bound property, so no `PropertyChangeEvent` is fired when it changes. To listen for changes to the text,
+    use `DocumentListener`.
+
+    Returns:
+    :   the text
+
+    Throws:
+    :   `NullPointerException` - if the document is `null`
+
+    See Also:
+    :   - [`setText(java.lang.String)`](#setText(java.lang.String))
+  + ### getSelectedText
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getSelectedText()
+
+    Returns the selected text contained in this
+    `TextComponent`. If the selection is
+    `null` or the document empty, returns `null`.
+
+    Returns:
+    :   the text
+
+    Throws:
+    :   `IllegalArgumentException` - if the selection doesn't
+        have a valid mapping into the document for some reason
+
+    See Also:
+    :   - [`setText(java.lang.String)`](#setText(java.lang.String))
+  + ### isEditable
+
+    public boolean isEditable()
+
+    Returns the boolean indicating whether this
+    `TextComponent` is editable or not.
+
+    Returns:
+    :   the boolean value
+
+    See Also:
+    :   - [`setEditable(boolean)`](#setEditable(boolean))
+  + ### setEditable
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../../java/beans/BeanProperty.md#description())="specifies if the text can be edited")
+    public void setEditable(boolean b)
+
+    Sets the specified boolean to indicate whether or not this
+    `TextComponent` should be editable.
+    A PropertyChange event ("editable") is fired when the
+    state is changed.
+
+    Parameters:
+    :   `b` - the boolean to be set
+
+    See Also:
+    :   - [`isEditable()`](#isEditable())
+  + ### getSelectionStart
+
+    public int getSelectionStart()
+
+    Returns the selected text's start position. Return 0 for an
+    empty document, or the value of dot if no selection.
+
+    Returns:
+    :   the start position ≥ 0
+  + ### setSelectionStart
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false,
+    [description](../../../java/beans/BeanProperty.md#description())="starting location of the selection.")
+    public void setSelectionStart(int selectionStart)
+
+    Sets the selection start to the specified position. The new
+    starting point is constrained to be before or at the current
+    selection end.
+
+    This is available for backward compatibility to code
+    that called this method on `java.awt.TextComponent`.
+    This is implemented to forward to the `Caret`
+    implementation which is where the actual selection is maintained.
+
+    Parameters:
+    :   `selectionStart` - the start position of the text ≥ 0
+  + ### getSelectionEnd
+
+    public int getSelectionEnd()
+
+    Returns the selected text's end position. Return 0 if the document
+    is empty, or the value of dot if there is no selection.
+
+    Returns:
+    :   the end position ≥ 0
+  + ### setSelectionEnd
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false,
+    [description](../../../java/beans/BeanProperty.md#description())="ending location of the selection.")
+    public void setSelectionEnd(int selectionEnd)
+
+    Sets the selection end to the specified position. The new
+    end point is constrained to be at or after the current
+    selection start.
+
+    This is available for backward compatibility to code
+    that called this method on `java.awt.TextComponent`.
+    This is implemented to forward to the `Caret`
+    implementation which is where the actual selection is maintained.
+
+    Parameters:
+    :   `selectionEnd` - the end position of the text ≥ 0
+  + ### select
+
+    public void select(int selectionStart,
+    int selectionEnd)
+
+    Selects the text between the specified start and end positions.
+
+    This method sets the start and end positions of the
+    selected text, enforcing the restriction that the start position
+    must be greater than or equal to zero. The end position must be
+    greater than or equal to the start position, and less than or
+    equal to the length of the text component's text.
+
+    If the caller supplies values that are inconsistent or out of
+    bounds, the method enforces these constraints silently, and
+    without failure. Specifically, if the start position or end
+    position is greater than the length of the text, it is reset to
+    equal the text length. If the start position is less than zero,
+    it is reset to zero, and if the end position is less than the
+    start position, it is reset to the start position.
+
+    This call is provided for backward compatibility.
+    It is routed to a call to `setCaretPosition`
+    followed by a call to `moveCaretPosition`.
+    The preferred way to manage selection is by calling
+    those methods directly.
+
+    Parameters:
+    :   `selectionStart` - the start position of the text
+    :   `selectionEnd` - the end position of the text
+
+    See Also:
+    :   - [`setCaretPosition(int)`](#setCaretPosition(int))
+        - [`moveCaretPosition(int)`](#moveCaretPosition(int))
+  + ### selectAll
+
+    public void selectAll()
+
+    Selects all the text in the `TextComponent`.
+    Does nothing on a `null` or empty document.
+  + ### getToolTipText
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getToolTipText([MouseEvent](../../../java/awt/event/MouseEvent.md "class in java.awt.event") event)
+
+    Returns the string to be used as the tooltip for `event`.
+    This will return one of:
+    1. If `setToolTipText` has been invoked with a
+       non-`null`
+       value, it will be returned, otherwise+ The value from invoking `getToolTipText` on
+         the UI will be returned.By default `JTextComponent` does not register
+    itself with the `ToolTipManager`.
+    This means that tooltips will NOT be shown from the
+    `TextUI` unless `registerComponent` has
+    been invoked on the `ToolTipManager`.
+
+    Overrides:
+    :   `getToolTipText` in class `JComponent`
+
+    Parameters:
+    :   `event` - the event in question
+
+    Returns:
+    :   the string to be used as the tooltip for `event`
+
+    See Also:
+    :   - [`JComponent.setToolTipText(java.lang.String)`](../JComponent.md#setToolTipText(java.lang.String))
+        - [`TextUI.getToolTipText(javax.swing.text.JTextComponent, java.awt.Point)`](../plaf/TextUI.md#getToolTipText(javax.swing.text.JTextComponent,java.awt.Point))
+        - [`ToolTipManager.registerComponent(javax.swing.JComponent)`](../ToolTipManager.md#registerComponent(javax.swing.JComponent))
+  + ### getPreferredScrollableViewportSize
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public [Dimension](../../../java/awt/Dimension.md "class in java.awt") getPreferredScrollableViewportSize()
+
+    Returns the preferred size of the viewport for a view component.
+    This is implemented to do the default behavior of returning
+    the preferred size of the component.
+
+    Specified by:
+    :   `getPreferredScrollableViewportSize` in interface `Scrollable`
+
+    Returns:
+    :   the `preferredSize` of a `JViewport`
+        whose view is this `Scrollable`
+
+    See Also:
+    :   - [`JComponent.getPreferredSize()`](../JComponent.md#getPreferredSize())
+  + ### getScrollableUnitIncrement
+
+    public int getScrollableUnitIncrement([Rectangle](../../../java/awt/Rectangle.md "class in java.awt") visibleRect,
+    int orientation,
+    int direction)
+
+    Components that display logical rows or columns should compute
+    the scroll increment that will completely expose one new row
+    or column, depending on the value of orientation. Ideally,
+    components should handle a partially exposed row or column by
+    returning the distance required to completely expose the item.
+
+    The default implementation of this is to simply return 10% of
+    the visible area. Subclasses are likely to be able to provide
+    a much more reasonable value.
+
+    Specified by:
+    :   `getScrollableUnitIncrement` in interface `Scrollable`
+
+    Parameters:
+    :   `visibleRect` - the view area visible within the viewport
+    :   `orientation` - either `SwingConstants.VERTICAL` or
+        `SwingConstants.HORIZONTAL`
+    :   `direction` - less than zero to scroll up/left, greater than
+        zero for down/right
+
+    Returns:
+    :   the "unit" increment for scrolling in the specified direction
+
+    Throws:
+    :   `IllegalArgumentException` - for an invalid orientation
+
+    See Also:
+    :   - [`JScrollBar.setUnitIncrement(int)`](../JScrollBar.md#setUnitIncrement(int))
+  + ### getScrollableBlockIncrement
+
+    public int getScrollableBlockIncrement([Rectangle](../../../java/awt/Rectangle.md "class in java.awt") visibleRect,
+    int orientation,
+    int direction)
+
+    Components that display logical rows or columns should compute
+    the scroll increment that will completely expose one block
+    of rows or columns, depending on the value of orientation.
+
+    The default implementation of this is to simply return the visible
+    area. Subclasses will likely be able to provide a much more
+    reasonable value.
+
+    Specified by:
+    :   `getScrollableBlockIncrement` in interface `Scrollable`
+
+    Parameters:
+    :   `visibleRect` - the view area visible within the viewport
+    :   `orientation` - either `SwingConstants.VERTICAL` or
+        `SwingConstants.HORIZONTAL`
+    :   `direction` - less than zero to scroll up/left, greater than zero
+        for down/right
+
+    Returns:
+    :   the "block" increment for scrolling in the specified direction
+
+    Throws:
+    :   `IllegalArgumentException` - for an invalid orientation
+
+    See Also:
+    :   - [`JScrollBar.setBlockIncrement(int)`](../JScrollBar.md#setBlockIncrement(int))
+  + ### getScrollableTracksViewportWidth
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public boolean getScrollableTracksViewportWidth()
+
+    Returns true if a viewport should always force the width of this
+    `Scrollable` to match the width of the viewport.
+    For example a normal text view that supported line wrapping
+    would return true here, since it would be undesirable for
+    wrapped lines to disappear beyond the right
+    edge of the viewport. Note that returning true for a
+    `Scrollable` whose ancestor is a `JScrollPane`
+    effectively disables horizontal scrolling.
+
+    Scrolling containers, like `JViewport`,
+    will use this method each time they are validated.
+
+    Specified by:
+    :   `getScrollableTracksViewportWidth` in interface `Scrollable`
+
+    Returns:
+    :   true if a viewport should force the `Scrollable`s
+        width to match its own
+  + ### getScrollableTracksViewportHeight
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public boolean getScrollableTracksViewportHeight()
+
+    Returns true if a viewport should always force the height of this
+    `Scrollable` to match the height of the viewport.
+    For example a columnar text view that flowed text in left to
+    right columns could effectively disable vertical scrolling by
+    returning true here.
+
+    Scrolling containers, like `JViewport`,
+    will use this method each time they are validated.
+
+    Specified by:
+    :   `getScrollableTracksViewportHeight` in interface `Scrollable`
+
+    Returns:
+    :   true if a viewport should force the Scrollables height
+        to match its own
+  + ### print
+
+    public boolean print()
+    throws [PrinterException](../../../java/awt/print/PrinterException.md "class in java.awt.print")
+
+    A convenience print method that displays a print dialog, and then
+    prints this `JTextComponent` in *interactive* mode with no
+    header or footer text. Note: this method
+    blocks until printing is done.
+
+    Note: In *headless* mode, no dialogs will be shown.
+
+    This method calls the full featured
+    [`print`](#print(java.text.MessageFormat,java.text.MessageFormat,boolean,javax.print.PrintService,javax.print.attribute.PrintRequestAttributeSet,boolean)) method to perform printing.
+
+    Returns:
+    :   `true`, unless printing is canceled by the user
+
+    Throws:
+    :   `PrinterException` - if an error in the print system causes the job
+        to be aborted
+    :   `SecurityException` - if this thread is not allowed to
+        initiate a print job request
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`print(MessageFormat, MessageFormat, boolean, PrintService, PrintRequestAttributeSet, boolean)`](#print(java.text.MessageFormat,java.text.MessageFormat,boolean,javax.print.PrintService,javax.print.attribute.PrintRequestAttributeSet,boolean))
+  + ### print
+
+    public boolean print([MessageFormat](../../../../java.base/java/text/MessageFormat.md "class in java.text") headerFormat,
+    [MessageFormat](../../../../java.base/java/text/MessageFormat.md "class in java.text") footerFormat)
+    throws [PrinterException](../../../java/awt/print/PrinterException.md "class in java.awt.print")
+
+    A convenience print method that displays a print dialog, and then
+    prints this `JTextComponent` in *interactive* mode with
+    the specified header and footer text. Note: this method
+    blocks until printing is done.
+
+    Note: In *headless* mode, no dialogs will be shown.
+
+    This method calls the full featured
+    [`print`](#print(java.text.MessageFormat,java.text.MessageFormat,boolean,javax.print.PrintService,javax.print.attribute.PrintRequestAttributeSet,boolean)) method to perform printing.
+
+    Parameters:
+    :   `headerFormat` - the text, in `MessageFormat`, to be
+        used as the header, or `null` for no header
+    :   `footerFormat` - the text, in `MessageFormat`, to be
+        used as the footer, or `null` for no footer
+
+    Returns:
+    :   `true`, unless printing is canceled by the user
+
+    Throws:
+    :   `PrinterException` - if an error in the print system causes the job
+        to be aborted
+    :   `SecurityException` - if this thread is not allowed to
+        initiate a print job request
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`print(MessageFormat, MessageFormat, boolean, PrintService, PrintRequestAttributeSet, boolean)`](#print(java.text.MessageFormat,java.text.MessageFormat,boolean,javax.print.PrintService,javax.print.attribute.PrintRequestAttributeSet,boolean))
+        - [`MessageFormat`](../../../../java.base/java/text/MessageFormat.md "class in java.text")
+  + ### print
+
+    public boolean print([MessageFormat](../../../../java.base/java/text/MessageFormat.md "class in java.text") headerFormat,
+    [MessageFormat](../../../../java.base/java/text/MessageFormat.md "class in java.text") footerFormat,
+    boolean showPrintDialog,
+    [PrintService](../../print/PrintService.md "interface in javax.print") service,
+    [PrintRequestAttributeSet](../../print/attribute/PrintRequestAttributeSet.md "interface in javax.print.attribute") attributes,
+    boolean interactive)
+    throws [PrinterException](../../../java/awt/print/PrinterException.md "class in java.awt.print")
+
+    Prints the content of this `JTextComponent`. Note: this method
+    blocks until printing is done.
+
+    Page header and footer text can be added to the output by providing
+    `MessageFormat` arguments. The printing code requests
+    `Strings` from the formats, providing a single item which may be
+    included in the formatted string: an `Integer` representing the
+    current page number.
+
+    `showPrintDialog boolean` parameter allows you to specify whether
+    a print dialog is displayed to the user. When it is, the user
+    may use the dialog to change printing attributes or even cancel the
+    print.
+
+    `service` allows you to provide the initial
+    `PrintService` for the print dialog, or to specify
+    `PrintService` to print to when the dialog is not shown.
+
+    `attributes` can be used to provide the
+    initial values for the print dialog, or to supply any needed
+    attributes when the dialog is not shown. `attributes` can
+    be used to control how the job will print, for example
+    *duplex* or *single-sided*.
+
+    `interactive boolean` parameter allows you to specify
+    whether to perform printing in *interactive*
+    mode. If `true`, a progress dialog, with an abort option,
+    is displayed for the duration of printing. This dialog is
+    *modal* when `print` is invoked on the *Event Dispatch
+    Thread* and *non-modal* otherwise. **Warning**:
+    calling this method on the *Event Dispatch Thread* with `interactive false` blocks *all* events, including repaints, from
+    being processed until printing is complete. It is only
+    recommended when printing from an application with no
+    visible GUI.
+
+    Note: In *headless* mode, `showPrintDialog` and
+    `interactive` parameters are ignored and no dialogs are
+    shown.
+
+    This method ensures the `document` is not mutated during printing.
+    To indicate it visually, `setEnabled(false)` is set for the
+    duration of printing.
+
+    This method uses [`getPrintable(java.text.MessageFormat, java.text.MessageFormat)`](#getPrintable(java.text.MessageFormat,java.text.MessageFormat)) to render document content.
+
+    This method is thread-safe, although most Swing methods are not. Please
+    see [Concurrency in Swing](https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html) for more information.
+
+    **Sample Usage**. This code snippet shows a cross-platform print
+    dialog and then prints the `JTextComponent` in *interactive* mode
+    unless the user cancels the dialog:
+
+    ```
+     textComponent.print(new MessageFormat("My text component header"),
+         new MessageFormat("Footer. Page - {0}"), true, null, null, true);
+    ```
+
+    Executing this code off the *Event Dispatch Thread*
+    performs printing on the *background*.
+    The following pattern might be used for *background*
+    printing:
+
+    ```
+         FutureTask<Boolean> future =
+             new FutureTask<Boolean>(
+                 new Callable<Boolean>() {
+                     public Boolean call() {
+                         return textComponent.print(.....);
+                     }
+                 });
+         executor.execute(future);
+    ```
+
+    Parameters:
+    :   `headerFormat` - the text, in `MessageFormat`, to be
+        used as the header, or `null` for no header
+    :   `footerFormat` - the text, in `MessageFormat`, to be
+        used as the footer, or `null` for no footer
+    :   `showPrintDialog` - `true` to display a print dialog,
+        `false` otherwise
+    :   `service` - initial `PrintService`, or `null` for the
+        default
+    :   `attributes` - the job attributes to be applied to the print job, or
+        `null` for none
+    :   `interactive` - whether to print in an interactive mode
+
+    Returns:
+    :   `true`, unless printing is canceled by the user
+
+    Throws:
+    :   `PrinterException` - if an error in the print system causes the job
+        to be aborted
+    :   `SecurityException` - if this thread is not allowed to
+        initiate a print job request
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`getPrintable(java.text.MessageFormat, java.text.MessageFormat)`](#getPrintable(java.text.MessageFormat,java.text.MessageFormat))
+        - [`MessageFormat`](../../../../java.base/java/text/MessageFormat.md "class in java.text")
+        - [`GraphicsEnvironment.isHeadless()`](../../../java/awt/GraphicsEnvironment.md#isHeadless())
+        - [`FutureTask`](../../../../java.base/java/util/concurrent/FutureTask.md "class in java.util.concurrent")
+  + ### getPrintable
+
+    public [Printable](../../../java/awt/print/Printable.md "interface in java.awt.print") getPrintable([MessageFormat](../../../../java.base/java/text/MessageFormat.md "class in java.text") headerFormat,
+    [MessageFormat](../../../../java.base/java/text/MessageFormat.md "class in java.text") footerFormat)
+
+    Returns a `Printable` to use for printing the content of this
+    `JTextComponent`. The returned `Printable` prints
+    the document as it looks on the screen except being reformatted
+    to fit the paper.
+    The returned `Printable` can be wrapped inside another
+    `Printable` in order to create complex reports and
+    documents.
+
+    The returned `Printable` shares the `document` with this
+    `JTextComponent`. It is the responsibility of the developer to
+    ensure that the `document` is not mutated while this `Printable`
+    is used. Printing behavior is undefined when the `document` is
+    mutated during printing.
+
+    Page header and footer text can be added to the output by providing
+    `MessageFormat` arguments. The printing code requests
+    `Strings` from the formats, providing a single item which may be
+    included in the formatted string: an `Integer` representing the
+    current page number.
+
+    The returned `Printable` when printed, formats the
+    document content appropriately for the page size. For correct
+    line wrapping the `imageable width` of all pages must be the
+    same. See [`PageFormat.getImageableWidth()`](../../../java/awt/print/PageFormat.md#getImageableWidth()).
+
+    This method is thread-safe, although most Swing methods are not. Please
+    see [Concurrency in Swing](https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html) for more information.
+
+    The returned `Printable` can be printed on any thread.
+
+    This implementation returned `Printable` performs all painting on
+    the *Event Dispatch Thread*, regardless of what thread it is
+    used on.
+
+    Parameters:
+    :   `headerFormat` - the text, in `MessageFormat`, to be
+        used as the header, or `null` for no header
+    :   `footerFormat` - the text, in `MessageFormat`, to be
+        used as the footer, or `null` for no footer
+
+    Returns:
+    :   a `Printable` for use in printing content of this
+        `JTextComponent`
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`Printable`](../../../java/awt/print/Printable.md "interface in java.awt.print")
+        - [`PageFormat`](../../../java/awt/print/PageFormat.md "class in java.awt.print")
+        - [`Document.render(java.lang.Runnable)`](Document.md#render(java.lang.Runnable))
+  + ### getAccessibleContext
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public [AccessibleContext](../../accessibility/AccessibleContext.md "class in javax.accessibility") getAccessibleContext()
+
+    Gets the `AccessibleContext` associated with this
+    `JTextComponent`. For text components,
+    the `AccessibleContext` takes the form of an
+    `AccessibleJTextComponent`.
+    A new `AccessibleJTextComponent` instance
+    is created if necessary.
+
+    Specified by:
+    :   `getAccessibleContext` in interface `Accessible`
+
+    Overrides:
+    :   `getAccessibleContext` in class `Component`
+
+    Returns:
+    :   an `AccessibleJTextComponent` that serves as the
+        `AccessibleContext` of this
+        `JTextComponent`
+  + ### paramString
+
+    protected [String](../../../../java.base/java/lang/String.md "class in java.lang") paramString()
+
+    Returns a string representation of this `JTextComponent`.
+    This method is intended to be used only for debugging purposes, and the
+    content and format of the returned string may vary between
+    implementations. The returned string may be empty but may not
+    be `null`.
+
+    Overriding `paramString` to provide information about the
+    specific new aspects of the JFC components.
+
+    Overrides:
+    :   `paramString` in class `JComponent`
+
+    Returns:
+    :   a string representation of this `JTextComponent`
+  + ### processInputMethodEvent
+
+    protected void processInputMethodEvent([InputMethodEvent](../../../java/awt/event/InputMethodEvent.md "class in java.awt.event") e)
+
+    Description copied from class: `Component`
+
+    Processes input method events occurring on this component by
+    dispatching them to any registered
+    `InputMethodListener` objects.
+
+    This method is not called unless input method events
+    are enabled for this component. Input method events are enabled
+    when one of the following occurs:
+    - An `InputMethodListener` object is registered
+      via `addInputMethodListener`.- Input method events are enabled via `enableEvents`.
+
+    Note that if the event parameter is `null`
+    the behavior is unspecified and may result in an
+    exception.
+
+    Overrides:
+    :   `processInputMethodEvent` in class `Component`
+
+    Parameters:
+    :   `e` - the input method event
+
+    See Also:
+    :   - [`InputMethodEvent`](../../../java/awt/event/InputMethodEvent.md "class in java.awt.event")
+        - [`InputMethodListener`](../../../java/awt/event/InputMethodListener.md "interface in java.awt.event")
+        - [`Component.addInputMethodListener(java.awt.event.InputMethodListener)`](../../../java/awt/Component.md#addInputMethodListener(java.awt.event.InputMethodListener))
+        - [`Component.enableEvents(long)`](../../../java/awt/Component.md#enableEvents(long))
+  + ### getInputMethodRequests
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../../java/beans/BeanProperty.md#bound())=false)
+    public [InputMethodRequests](../../../java/awt/im/InputMethodRequests.md "interface in java.awt.im") getInputMethodRequests()
+
+    Description copied from class: `Component`
+
+    Gets the input method request handler which supports
+    requests from input methods for this component. A component
+    that supports on-the-spot text input must override this
+    method to return an `InputMethodRequests` instance.
+    At the same time, it also has to handle input method events.
+
+    Overrides:
+    :   `getInputMethodRequests` in class `Component`
+
+    Returns:
+    :   the input method request handler for this component,
+        `null` by default
+
+    See Also:
+    :   - [`Component.addInputMethodListener(java.awt.event.InputMethodListener)`](../../../java/awt/Component.md#addInputMethodListener(java.awt.event.InputMethodListener))
+  + ### addInputMethodListener
+
+    public void addInputMethodListener([InputMethodListener](../../../java/awt/event/InputMethodListener.md "interface in java.awt.event") l)
+
+    Description copied from class: `Component`
+
+    Adds the specified input method listener to receive
+    input method events from this component. A component will
+    only receive input method events from input methods
+    if it also overrides `getInputMethodRequests` to return an
+    `InputMethodRequests` instance.
+    If listener `l` is `null`,
+    no exception is thrown and no action is performed.
+
+    Refer to
+    [AWT Threading Issues](../../../../java.desktop/java/awt/doc-files/AWTThreadIssues.md#ListenersThreads) for details on AWT's threading model.
+
+    Overrides:
+    :   `addInputMethodListener` in class `Component`
+
+    Parameters:
+    :   `l` - the input method listener
+
+    See Also:
+    :   - [`InputMethodEvent`](../../../java/awt/event/InputMethodEvent.md "class in java.awt.event")
+        - [`InputMethodListener`](../../../java/awt/event/InputMethodListener.md "interface in java.awt.event")
+        - [`Component.removeInputMethodListener(java.awt.event.InputMethodListener)`](../../../java/awt/Component.md#removeInputMethodListener(java.awt.event.InputMethodListener))
+        - [`Component.getInputMethodListeners()`](../../../java/awt/Component.md#getInputMethodListeners())
+        - [`Component.getInputMethodRequests()`](../../../java/awt/Component.md#getInputMethodRequests())
+  + ### saveComposedText
+
+    protected boolean saveComposedText(int pos)
+
+    Saves composed text around the specified position.
+    The composed text (if any) around the specified position is saved
+    in a backing store and removed from the document.
+
+    Parameters:
+    :   `pos` - document position to identify the composed text location
+
+    Returns:
+    :   `true` if the composed text exists and is saved,
+        `false` otherwise
+
+    Since:
+    :   1.7
+
+    See Also:
+    :   - [`restoreComposedText()`](#restoreComposedText())
+  + ### restoreComposedText
+
+    protected void restoreComposedText()
+
+    Restores composed text previously saved by `saveComposedText`.
+    The saved composed text is inserted back into the document. This method
+    should be invoked only if `saveComposedText` returns `true`.
+
+    Since:
+    :   1.7
+
+    See Also:
+    :   - [`saveComposedText(int)`](#saveComposedText(int))

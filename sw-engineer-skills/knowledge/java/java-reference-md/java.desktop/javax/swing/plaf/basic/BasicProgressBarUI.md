@@ -1,0 +1,971 @@
+Module [java.desktop](../../../../module-summary.md)
+
+Package [javax.swing.plaf.basic](package-summary.md)
+
+# Class BasicProgressBarUI
+
+[java.lang.Object](../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+[javax.swing.plaf.ComponentUI](../ComponentUI.md "class in javax.swing.plaf")
+
+[javax.swing.plaf.ProgressBarUI](../ProgressBarUI.md "class in javax.swing.plaf")
+
+javax.swing.plaf.basic.BasicProgressBarUI
+
+Direct Known Subclasses:
+:   `MetalProgressBarUI`, `SynthProgressBarUI`
+
+---
+
+public class BasicProgressBarUI
+extends [ProgressBarUI](../ProgressBarUI.md "class in javax.swing.plaf")
+
+A Basic L&F implementation of ProgressBarUI.
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `class`
+
+  `BasicProgressBarUI.ChangeHandler`
+
+  This class should be treated as a "protected" inner class.
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected Rectangle`
+
+  `boxRect`
+
+  Used to hold the location and size of the bouncing box (returned
+  by getBox) to be painted.
+
+  `protected ChangeListener`
+
+  `changeListener`
+
+  The instance of `ChangeListener`.
+
+  `protected JProgressBar`
+
+  `progressBar`
+
+  The instance of `JProgressBar`.
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `BasicProgressBarUI()`
+
+  Constructs a `BasicProgressBarUI`.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `static ComponentUI`
+
+  `createUI(JComponent x)`
+
+  Returns a new instance of `BasicProgressBarUI`.
+
+  `protected int`
+
+  `getAmountFull(Insets b,
+  int width,
+  int height)`
+
+  This determines the amount of the progress bar that should be filled
+  based on the percent done gathered from the model.
+
+  `protected int`
+
+  `getAnimationIndex()`
+
+  Gets the index of the current animation frame.
+
+  `int`
+
+  `getBaseline(JComponent c,
+  int width,
+  int height)`
+
+  Returns the baseline.
+
+  `Component.BaselineResizeBehavior`
+
+  `getBaselineResizeBehavior(JComponent c)`
+
+  Returns an enum indicating how the baseline of the component
+  changes as the size changes.
+
+  `protected Rectangle`
+
+  `getBox(Rectangle r)`
+
+  Stores the position and size of
+  the bouncing box that would be painted for the current animation index
+  in `r` and returns `r`.
+
+  `protected int`
+
+  `getBoxLength(int availableLength,
+  int otherDimension)`
+
+  Returns the length
+  of the "bouncing box" to be painted.
+
+  `protected int`
+
+  `getCellLength()`
+
+  Returns the width (if HORIZONTAL) or height (if VERTICAL)
+  of each of the individual cells/units to be rendered in the
+  progress bar.
+
+  `protected int`
+
+  `getCellSpacing()`
+
+  Returns the spacing between each of the cells/units in the
+  progress bar.
+
+  `protected final int`
+
+  `getFrameCount()`
+
+  Returns the number of frames for the complete animation loop
+  used by an indeterminate JProgessBar.
+
+  `Dimension`
+
+  `getMaximumSize(JComponent c)`
+
+  Returns the specified component's maximum size appropriate for
+  the look and feel.
+
+  `Dimension`
+
+  `getMinimumSize(JComponent c)`
+
+  The Minimum size for this component is 10.
+
+  `protected Dimension`
+
+  `getPreferredInnerHorizontal()`
+
+  Returns preferred size of the horizontal `JProgressBar`.
+
+  `protected Dimension`
+
+  `getPreferredInnerVertical()`
+
+  Returns preferred size of the vertical `JProgressBar`.
+
+  `Dimension`
+
+  `getPreferredSize(JComponent c)`
+
+  Returns the specified component's preferred size appropriate for
+  the look and feel.
+
+  `protected Color`
+
+  `getSelectionBackground()`
+
+  The "selectionBackground" is the color of the text when it is painted
+  over an unfilled area of the progress bar.
+
+  `protected Color`
+
+  `getSelectionForeground()`
+
+  The "selectionForeground" is the color of the text when it is painted
+  over a filled area of the progress bar.
+
+  `protected Point`
+
+  `getStringPlacement(Graphics g,
+  String progressString,
+  int x,
+  int y,
+  int width,
+  int height)`
+
+  Designate the place where the progress string will be painted.
+
+  `protected void`
+
+  `incrementAnimationIndex()`
+
+  Sets the index of the current animation frame,
+  to the next valid value,
+  which results in the progress bar being repainted.
+
+  `protected void`
+
+  `installDefaults()`
+
+  Installs default properties.
+
+  `protected void`
+
+  `installListeners()`
+
+  Registers listeners.
+
+  `void`
+
+  `installUI(JComponent c)`
+
+  Configures the specified component appropriately for the look and feel.
+
+  `void`
+
+  `paint(Graphics g,
+  JComponent c)`
+
+  Delegates painting to one of two methods:
+  paintDeterminate or paintIndeterminate.
+
+  `protected void`
+
+  `paintDeterminate(Graphics g,
+  JComponent c)`
+
+  All purpose paint method that should do the right thing for almost
+  all linear, determinate progress bars.
+
+  `protected void`
+
+  `paintIndeterminate(Graphics g,
+  JComponent c)`
+
+  All purpose paint method that should do the right thing for all
+  linear bouncing-box progress bars.
+
+  `protected void`
+
+  `paintString(Graphics g,
+  int x,
+  int y,
+  int width,
+  int height,
+  int amountFull,
+  Insets b)`
+
+  Paints the progress string.
+
+  `protected void`
+
+  `setAnimationIndex(int newValue)`
+
+  Sets the index of the current animation frame
+  to the specified value and requests that the
+  progress bar be repainted.
+
+  `protected void`
+
+  `setCellLength(int cellLen)`
+
+  Sets the cell length.
+
+  `protected void`
+
+  `setCellSpacing(int cellSpace)`
+
+  Sets the cell spacing.
+
+  `protected void`
+
+  `startAnimationTimer()`
+
+  Starts the animation thread, creating and initializing
+  it if necessary.
+
+  `protected void`
+
+  `stopAnimationTimer()`
+
+  Stops the animation thread.
+
+  `protected void`
+
+  `uninstallDefaults()`
+
+  Unintalls default properties.
+
+  `protected void`
+
+  `uninstallListeners()`
+
+  Removes all listeners installed by this object.
+
+  `void`
+
+  `uninstallUI(JComponent c)`
+
+  Reverses configuration which was done on the specified component during
+  `installUI`.
+
+  ### Methods inherited from class javax.swing.plaf.[ComponentUI](../ComponentUI.md "class in javax.swing.plaf")
+
+  `contains, getAccessibleChild, getAccessibleChildrenCount, update`
+
+  ### Methods inherited from class java.lang.[Object](../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Field Details
+
+  + ### progressBar
+
+    protected [JProgressBar](../../JProgressBar.md "class in javax.swing") progressBar
+
+    The instance of `JProgressBar`.
+  + ### changeListener
+
+    protected [ChangeListener](../../event/ChangeListener.md "interface in javax.swing.event") changeListener
+
+    The instance of `ChangeListener`.
+  + ### boxRect
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") boxRect
+
+    Used to hold the location and size of the bouncing box (returned
+    by getBox) to be painted.
+
+    Since:
+    :   1.5
+* ## Constructor Details
+
+  + ### BasicProgressBarUI
+
+    public BasicProgressBarUI()
+
+    Constructs a `BasicProgressBarUI`.
+* ## Method Details
+
+  + ### createUI
+
+    public static [ComponentUI](../ComponentUI.md "class in javax.swing.plaf") createUI([JComponent](../../JComponent.md "class in javax.swing") x)
+
+    Returns a new instance of `BasicProgressBarUI`.
+
+    Parameters:
+    :   `x` - a component
+
+    Returns:
+    :   a new instance of `BasicProgressBarUI`
+  + ### installUI
+
+    public void installUI([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Description copied from class: `ComponentUI`
+
+    Configures the specified component appropriately for the look and feel.
+    This method is invoked when the `ComponentUI` instance is being installed
+    as the UI delegate on the specified component. This method should
+    completely configure the component for the look and feel,
+    including the following:
+    1. Install default property values for color, fonts, borders,
+       icons, opacity, etc. on the component. Whenever possible,
+       property values initialized by the client program should *not*
+       be overridden.+ Install a `LayoutManager` on the component if necessary.+ Create/add any required sub-components to the component.+ Create/install event listeners on the component.+ Create/install a `PropertyChangeListener` on the component in order
+               to detect and respond to component property changes appropriately.+ Install keyboard UI (mnemonics, traversal, etc.) on the component.+ Initialize any appropriate instance data.
+
+    Overrides:
+    :   `installUI` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - the component where this UI delegate is being installed
+
+    See Also:
+    :   - [`ComponentUI.uninstallUI(javax.swing.JComponent)`](../ComponentUI.md#uninstallUI(javax.swing.JComponent))
+        - [`JComponent.setUI(javax.swing.plaf.ComponentUI)`](../../JComponent.md#setUI(javax.swing.plaf.ComponentUI))
+        - [`JComponent.updateUI()`](../../JComponent.md#updateUI())
+  + ### uninstallUI
+
+    public void uninstallUI([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Description copied from class: `ComponentUI`
+
+    Reverses configuration which was done on the specified component during
+    `installUI`. This method is invoked when this
+    `UIComponent` instance is being removed as the UI delegate
+    for the specified component. This method should undo the
+    configuration performed in `installUI`, being careful to
+    leave the `JComponent` instance in a clean state (no
+    extraneous listeners, look-and-feel-specific property objects, etc.).
+    This should include the following:
+    1. Remove any UI-set borders from the component.+ Remove any UI-set layout managers on the component.+ Remove any UI-added sub-components from the component.+ Remove any UI-added event/property listeners from the component.+ Remove any UI-installed keyboard UI from the component.+ Nullify any allocated instance data objects to allow for GC.
+
+    Overrides:
+    :   `uninstallUI` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - the component from which this UI delegate is being removed;
+        this argument is often ignored,
+        but might be used if the UI object is stateless
+        and shared by multiple components
+
+    See Also:
+    :   - [`ComponentUI.installUI(javax.swing.JComponent)`](../ComponentUI.md#installUI(javax.swing.JComponent))
+        - [`JComponent.updateUI()`](../../JComponent.md#updateUI())
+  + ### installDefaults
+
+    protected void installDefaults()
+
+    Installs default properties.
+  + ### uninstallDefaults
+
+    protected void uninstallDefaults()
+
+    Unintalls default properties.
+  + ### installListeners
+
+    protected void installListeners()
+
+    Registers listeners.
+  + ### startAnimationTimer
+
+    protected void startAnimationTimer()
+
+    Starts the animation thread, creating and initializing
+    it if necessary. This method is invoked when an
+    indeterminate progress bar should start animating.
+    Reasons for this may include:
+    - The progress bar is determinate and becomes displayable- The progress bar is displayable and becomes determinate- The progress bar is displayable and determinate and this
+          UI is installedIf you implement your own animation thread,
+    you must override this method.
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`stopAnimationTimer()`](#stopAnimationTimer())
+  + ### stopAnimationTimer
+
+    protected void stopAnimationTimer()
+
+    Stops the animation thread.
+    This method is invoked when the indeterminate
+    animation should be stopped. Reasons for this may include:
+    - The progress bar changes to determinate- The progress bar is no longer part of a displayable hierarchy- This UI in uninstalledIf you implement your own animation thread,
+    you must override this method.
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`startAnimationTimer()`](#startAnimationTimer())
+  + ### uninstallListeners
+
+    protected void uninstallListeners()
+
+    Removes all listeners installed by this object.
+  + ### getBaseline
+
+    public int getBaseline([JComponent](../../JComponent.md "class in javax.swing") c,
+    int width,
+    int height)
+
+    Returns the baseline.
+
+    Overrides:
+    :   `getBaseline` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - `JComponent` baseline is being requested for
+    :   `width` - the width to get the baseline for
+    :   `height` - the height to get the baseline for
+
+    Returns:
+    :   baseline or a value < 0 indicating there is no reasonable
+        baseline
+
+    Throws:
+    :   `NullPointerException` - if `c` is `null`
+    :   `IllegalArgumentException` - if width or height is < 0
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`JComponent.getBaseline(int, int)`](../../JComponent.md#getBaseline(int,int))
+  + ### getBaselineResizeBehavior
+
+    public [Component.BaselineResizeBehavior](../../../../java/awt/Component.BaselineResizeBehavior.md "enum class in java.awt") getBaselineResizeBehavior([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Returns an enum indicating how the baseline of the component
+    changes as the size changes.
+
+    Overrides:
+    :   `getBaselineResizeBehavior` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - `JComponent` to return baseline resize behavior for
+
+    Returns:
+    :   an enum indicating how the baseline changes as the component
+        size changes
+
+    Throws:
+    :   `NullPointerException` - if `c` is `null`
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`JComponent.getBaseline(int, int)`](../../JComponent.md#getBaseline(int,int))
+  + ### getPreferredInnerHorizontal
+
+    protected [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getPreferredInnerHorizontal()
+
+    Returns preferred size of the horizontal `JProgressBar`.
+
+    Returns:
+    :   preferred size of the horizontal `JProgressBar`
+  + ### getPreferredInnerVertical
+
+    protected [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getPreferredInnerVertical()
+
+    Returns preferred size of the vertical `JProgressBar`.
+
+    Returns:
+    :   preferred size of the vertical `JProgressBar`
+  + ### getSelectionForeground
+
+    protected [Color](../../../../java/awt/Color.md "class in java.awt") getSelectionForeground()
+
+    The "selectionForeground" is the color of the text when it is painted
+    over a filled area of the progress bar.
+
+    Returns:
+    :   the color of the selected foreground
+  + ### getSelectionBackground
+
+    protected [Color](../../../../java/awt/Color.md "class in java.awt") getSelectionBackground()
+
+    The "selectionBackground" is the color of the text when it is painted
+    over an unfilled area of the progress bar.
+
+    Returns:
+    :   the color of the selected background
+  + ### getCellLength
+
+    protected int getCellLength()
+
+    Returns the width (if HORIZONTAL) or height (if VERTICAL)
+    of each of the individual cells/units to be rendered in the
+    progress bar. However, for text rendering simplification and
+    aesthetic considerations, this function will return 1 when
+    the progress string is being rendered.
+
+    Returns:
+    :   the value representing the spacing between cells
+
+    See Also:
+    :   - [`setCellLength(int)`](#setCellLength(int))
+        - [`JProgressBar.isStringPainted()`](../../JProgressBar.md#isStringPainted())
+  + ### setCellLength
+
+    protected void setCellLength(int cellLen)
+
+    Sets the cell length.
+
+    Parameters:
+    :   `cellLen` - a new cell length
+  + ### getCellSpacing
+
+    protected int getCellSpacing()
+
+    Returns the spacing between each of the cells/units in the
+    progress bar. However, for text rendering simplification and
+    aesthetic considerations, this function will return 0 when
+    the progress string is being rendered.
+
+    Returns:
+    :   the value representing the spacing between cells
+
+    See Also:
+    :   - [`setCellSpacing(int)`](#setCellSpacing(int))
+        - [`JProgressBar.isStringPainted()`](../../JProgressBar.md#isStringPainted())
+  + ### setCellSpacing
+
+    protected void setCellSpacing(int cellSpace)
+
+    Sets the cell spacing.
+
+    Parameters:
+    :   `cellSpace` - a new cell spacing
+  + ### getAmountFull
+
+    protected int getAmountFull([Insets](../../../../java/awt/Insets.md "class in java.awt") b,
+    int width,
+    int height)
+
+    This determines the amount of the progress bar that should be filled
+    based on the percent done gathered from the model. This is a common
+    operation so it was abstracted out. It assumes that your progress bar
+    is linear. That is, if you are making a circular progress indicator,
+    you will want to override this method.
+
+    Parameters:
+    :   `b` - insets
+    :   `width` - a width
+    :   `height` - a height
+
+    Returns:
+    :   the amount of the progress bar that should be filled
+  + ### paint
+
+    public void paint([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Delegates painting to one of two methods:
+    paintDeterminate or paintIndeterminate.
+
+    Overrides:
+    :   `paint` in class `ComponentUI`
+
+    Parameters:
+    :   `g` - the `Graphics` context in which to paint
+    :   `c` - the component being painted;
+        this argument is often ignored,
+        but might be used if the UI object is stateless
+        and shared by multiple components
+
+    See Also:
+    :   - [`ComponentUI.update(java.awt.Graphics, javax.swing.JComponent)`](../ComponentUI.md#update(java.awt.Graphics,javax.swing.JComponent))
+  + ### getBox
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") getBox([Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") r)
+
+    Stores the position and size of
+    the bouncing box that would be painted for the current animation index
+    in `r` and returns `r`.
+    Subclasses that add to the painting performed
+    in this class's implementation of `paintIndeterminate` --
+    to draw an outline around the bouncing box, for example --
+    can use this method to get the location of the bouncing
+    box that was just painted.
+    By overriding this method,
+    you have complete control over the size and position
+    of the bouncing box,
+    without having to reimplement `paintIndeterminate`.
+
+    Parameters:
+    :   `r` - the Rectangle instance to be modified;
+        may be `null`
+
+    Returns:
+    :   `null` if no box should be drawn;
+        otherwise, returns the passed-in rectangle
+        (if non-null)
+        or a new rectangle
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`setAnimationIndex(int)`](#setAnimationIndex(int))
+  + ### getBoxLength
+
+    protected int getBoxLength(int availableLength,
+    int otherDimension)
+
+    Returns the length
+    of the "bouncing box" to be painted.
+    This method is invoked by the
+    default implementation of `paintIndeterminate`
+    to get the width (if the progress bar is horizontal)
+    or height (if vertical) of the box.
+    For example:
+    > ```
+    > boxRect.width = getBoxLength(componentInnards.width,
+    >                              componentInnards.height);
+    > ```
+
+    Parameters:
+    :   `availableLength` - the amount of space available
+        for the bouncing box to move in;
+        for a horizontal progress bar,
+        for example,
+        this should be
+        the inside width of the progress bar
+        (the component width minus borders)
+    :   `otherDimension` - for a horizontal progress bar, this should be
+        the inside height of the progress bar; this
+        value might be used to constrain or determine
+        the return value
+
+    Returns:
+    :   the size of the box dimension being determined;
+        must be no larger than `availableLength`
+
+    Since:
+    :   1.5
+
+    See Also:
+    :   - [`SwingUtilities.calculateInnerArea(javax.swing.JComponent, java.awt.Rectangle)`](../../SwingUtilities.md#calculateInnerArea(javax.swing.JComponent,java.awt.Rectangle))
+  + ### paintIndeterminate
+
+    protected void paintIndeterminate([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [JComponent](../../JComponent.md "class in javax.swing") c)
+
+    All purpose paint method that should do the right thing for all
+    linear bouncing-box progress bars.
+    Override this if you are making another kind of
+    progress bar.
+
+    Parameters:
+    :   `g` - an instance of `Graphics`
+    :   `c` - a component
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`paintDeterminate(java.awt.Graphics, javax.swing.JComponent)`](#paintDeterminate(java.awt.Graphics,javax.swing.JComponent))
+  + ### paintDeterminate
+
+    protected void paintDeterminate([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [JComponent](../../JComponent.md "class in javax.swing") c)
+
+    All purpose paint method that should do the right thing for almost
+    all linear, determinate progress bars. By setting a few values in
+    the defaults
+    table, things should work just fine to paint your progress bar.
+    Naturally, override this if you are making a circular or
+    semi-circular progress bar.
+
+    Parameters:
+    :   `g` - an instance of `Graphics`
+    :   `c` - a component
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`paintIndeterminate(java.awt.Graphics, javax.swing.JComponent)`](#paintIndeterminate(java.awt.Graphics,javax.swing.JComponent))
+  + ### paintString
+
+    protected void paintString([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    int x,
+    int y,
+    int width,
+    int height,
+    int amountFull,
+    [Insets](../../../../java/awt/Insets.md "class in java.awt") b)
+
+    Paints the progress string.
+
+    Parameters:
+    :   `g` - an instance of `Graphics`
+    :   `x` - X location of bounding box
+    :   `y` - Y location of bounding box
+    :   `width` - width of bounding box
+    :   `height` - height of bounding box
+    :   `amountFull` - size of the fill region, either width or height
+        depending upon orientation.
+    :   `b` - Insets of the progress bar.
+  + ### getStringPlacement
+
+    protected [Point](../../../../java/awt/Point.md "class in java.awt") getStringPlacement([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [String](../../../../../java.base/java/lang/String.md "class in java.lang") progressString,
+    int x,
+    int y,
+    int width,
+    int height)
+
+    Designate the place where the progress string will be painted.
+    This implementation places it at the center of the progress
+    bar (in both x and y). Override this if you want to right,
+    left, top, or bottom align the progress string or if you need
+    to nudge it around for any reason.
+
+    Parameters:
+    :   `g` - an instance of `Graphics`
+    :   `progressString` - a text
+    :   `x` - an X coordinate
+    :   `y` - an Y coordinate
+    :   `width` - a width
+    :   `height` - a height
+
+    Returns:
+    :   the place where the progress string will be painted
+  + ### getPreferredSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getPreferredSize([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Description copied from class: `ComponentUI`
+
+    Returns the specified component's preferred size appropriate for
+    the look and feel. If `null` is returned, the preferred
+    size will be calculated by the component's layout manager instead
+    (this is the preferred approach for any component with a specific
+    layout manager installed). The default implementation of this
+    method returns `null`.
+
+    Overrides:
+    :   `getPreferredSize` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - the component whose preferred size is being queried;
+        this argument is often ignored,
+        but might be used if the UI object is stateless
+        and shared by multiple components
+
+    Returns:
+    :   a `Dimension` object containing given component's preferred
+        size appropriate for the look and feel
+
+    See Also:
+    :   - [`JComponent.getPreferredSize()`](../../JComponent.md#getPreferredSize())
+        - [`LayoutManager.preferredLayoutSize(java.awt.Container)`](../../../../java/awt/LayoutManager.md#preferredLayoutSize(java.awt.Container))
+  + ### getMinimumSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getMinimumSize([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    The Minimum size for this component is 10. The rationale here
+    is that there should be at least one pixel per 10 percent.
+
+    Overrides:
+    :   `getMinimumSize` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - the component whose minimum size is being queried;
+        this argument is often ignored,
+        but might be used if the UI object is stateless
+        and shared by multiple components
+
+    Returns:
+    :   a `Dimension` object or `null`
+
+    See Also:
+    :   - [`JComponent.getMinimumSize()`](../../JComponent.md#getMinimumSize())
+        - [`LayoutManager.minimumLayoutSize(java.awt.Container)`](../../../../java/awt/LayoutManager.md#minimumLayoutSize(java.awt.Container))
+        - [`ComponentUI.getPreferredSize(javax.swing.JComponent)`](../ComponentUI.md#getPreferredSize(javax.swing.JComponent))
+  + ### getMaximumSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getMaximumSize([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Description copied from class: `ComponentUI`
+
+    Returns the specified component's maximum size appropriate for
+    the look and feel. If `null` is returned, the maximum
+    size will be calculated by the component's layout manager instead
+    (this is the preferred approach for any component with a specific
+    layout manager installed). The default implementation of this
+    method invokes `getPreferredSize` and returns that value.
+
+    Overrides:
+    :   `getMaximumSize` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - the component whose maximum size is being queried;
+        this argument is often ignored,
+        but might be used if the UI object is stateless
+        and shared by multiple components
+
+    Returns:
+    :   a `Dimension` object or `null`
+
+    See Also:
+    :   - [`JComponent.getMaximumSize()`](../../JComponent.md#getMaximumSize())
+        - [`LayoutManager2.maximumLayoutSize(java.awt.Container)`](../../../../java/awt/LayoutManager2.md#maximumLayoutSize(java.awt.Container))
+  + ### getAnimationIndex
+
+    protected int getAnimationIndex()
+
+    Gets the index of the current animation frame.
+
+    Returns:
+    :   the index of the current animation frame
+
+    Since:
+    :   1.4
+  + ### getFrameCount
+
+    protected final int getFrameCount()
+
+    Returns the number of frames for the complete animation loop
+    used by an indeterminate JProgessBar. The progress chunk will go
+    from one end to the other and back during the entire loop. This
+    visual behavior may be changed by subclasses in other Look and Feels.
+
+    Returns:
+    :   the number of frames
+
+    Since:
+    :   1.6
+  + ### setAnimationIndex
+
+    protected void setAnimationIndex(int newValue)
+
+    Sets the index of the current animation frame
+    to the specified value and requests that the
+    progress bar be repainted.
+    Subclasses that don't use the default painting code
+    might need to override this method
+    to change the way that the `repaint` method
+    is invoked.
+
+    Parameters:
+    :   `newValue` - the new animation index; no checking
+        is performed on its value
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`incrementAnimationIndex()`](#incrementAnimationIndex())
+  + ### incrementAnimationIndex
+
+    protected void incrementAnimationIndex()
+
+    Sets the index of the current animation frame,
+    to the next valid value,
+    which results in the progress bar being repainted.
+    The next valid value is, by default,
+    the current animation index plus one.
+    If the new value would be too large,
+    this method sets the index to 0.
+    Subclasses might need to override this method
+    to ensure that the index does not go over
+    the number of frames needed for the particular
+    progress bar instance.
+    This method is invoked by the default animation thread
+    every *X* milliseconds,
+    where *X* is specified by the "ProgressBar.repaintInterval"
+    UI default.
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`setAnimationIndex(int)`](#setAnimationIndex(int))

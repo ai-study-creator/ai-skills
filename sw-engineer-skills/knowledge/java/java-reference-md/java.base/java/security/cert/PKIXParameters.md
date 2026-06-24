@@ -1,0 +1,799 @@
+Module [java.base](../../../module-summary.md)
+
+Package [java.security.cert](package-summary.md)
+
+# Class PKIXParameters
+
+[java.lang.Object](../../lang/Object.md "class in java.lang")
+
+java.security.cert.PKIXParameters
+
+All Implemented Interfaces:
+:   `Cloneable`, `CertPathParameters`
+
+Direct Known Subclasses:
+:   `PKIXBuilderParameters`
+
+---
+
+public class PKIXParameters
+extends [Object](../../lang/Object.md "class in java.lang")
+implements [CertPathParameters](CertPathParameters.md "interface in java.security.cert")
+
+Parameters used as input for the PKIX `CertPathValidator`
+algorithm.
+
+A PKIX `CertPathValidator` uses these parameters to
+validate a `CertPath` according to the PKIX certification path
+validation algorithm.
+
+To instantiate a `PKIXParameters` object, an
+application must specify one or more *most-trusted CAs* as defined by
+the PKIX certification path validation algorithm. The most-trusted CAs
+can be specified using one of two constructors. An application
+can call [`PKIXParameters(Set)`](#%3Cinit%3E(java.util.Set)),
+specifying a `Set` of `TrustAnchor` objects, each
+of which identify a most-trusted CA. Alternatively, an application can call
+[`PKIXParameters(KeyStore)`](#%3Cinit%3E(java.security.KeyStore)), specifying a
+`KeyStore` instance containing trusted certificate entries, each
+of which will be considered as a most-trusted CA.
+
+Once a `PKIXParameters` object has been created, other parameters
+can be specified (by calling [`setInitialPolicies`](#setInitialPolicies(java.util.Set))
+or [`setDate`](#setDate(java.util.Date)), for instance) and then the
+`PKIXParameters` is passed along with the `CertPath`
+to be validated to [`CertPathValidator.validate`](CertPathValidator.md#validate(java.security.cert.CertPath,java.security.cert.CertPathParameters)).
+
+Any parameter that is not set (or is set to `null`) will
+be set to the default value for that parameter. The default value for the
+`date` parameter is `null`, which indicates
+the current time when the path is validated. The default for the
+remaining parameters is the least constrained.
+
+**Concurrent Access**
+
+Unless otherwise specified, the methods defined in this class are not
+thread-safe. Multiple threads that need to access a single
+object concurrently should synchronize amongst themselves and
+provide the necessary locking. Multiple threads each manipulating
+separate objects need not synchronize.
+
+Since:
+:   1.4
+
+See Also:
+:   * [`CertPathValidator`](CertPathValidator.md "class in java.security.cert")
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `PKIXParameters(KeyStore keystore)`
+
+  Creates an instance of `PKIXParameters` that
+  populates the set of most-trusted CAs from the trusted
+  certificate entries contained in the specified `KeyStore`.
+
+  `PKIXParameters(Set<TrustAnchor> trustAnchors)`
+
+  Creates an instance of `PKIXParameters` with the specified
+  `Set` of most-trusted CAs.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `addCertPathChecker(PKIXCertPathChecker checker)`
+
+  Adds a `PKIXCertPathChecker` to the list of certification
+  path checkers.
+
+  `void`
+
+  `addCertStore(CertStore store)`
+
+  Adds a `CertStore` to the end of the list of
+  `CertStore`s used in finding certificates and CRLs.
+
+  `Object`
+
+  `clone()`
+
+  Makes a copy of this `PKIXParameters` object.
+
+  `List<PKIXCertPathChecker>`
+
+  `getCertPathCheckers()`
+
+  Returns the `List` of certification path checkers.
+
+  `List<CertStore>`
+
+  `getCertStores()`
+
+  Returns an immutable `List` of `CertStore`s that
+  are used to find certificates and CRLs.
+
+  `Date`
+
+  `getDate()`
+
+  Returns the time for which the validity of the certification path
+  should be determined.
+
+  `Set<String>`
+
+  `getInitialPolicies()`
+
+  Returns an immutable `Set` of initial
+  policy identifiers (OID strings), indicating that any one of these
+  policies would be acceptable to the certificate user for the purposes of
+  certification path processing.
+
+  `boolean`
+
+  `getPolicyQualifiersRejected()`
+
+  Gets the PolicyQualifiersRejected flag.
+
+  `String`
+
+  `getSigProvider()`
+
+  Returns the signature provider's name, or `null`
+  if not set.
+
+  `CertSelector`
+
+  `getTargetCertConstraints()`
+
+  Returns the required constraints on the target certificate.
+
+  `Set<TrustAnchor>`
+
+  `getTrustAnchors()`
+
+  Returns an immutable `Set` of the most-trusted
+  CAs.
+
+  `boolean`
+
+  `isAnyPolicyInhibited()`
+
+  Checks whether the any policy OID should be processed if it
+  is included in a certificate.
+
+  `boolean`
+
+  `isExplicitPolicyRequired()`
+
+  Checks if explicit policy is required.
+
+  `boolean`
+
+  `isPolicyMappingInhibited()`
+
+  Checks if policy mapping is inhibited.
+
+  `boolean`
+
+  `isRevocationEnabled()`
+
+  Checks the RevocationEnabled flag.
+
+  `void`
+
+  `setAnyPolicyInhibited(boolean val)`
+
+  Sets state to determine if the any policy OID should be processed
+  if it is included in a certificate.
+
+  `void`
+
+  `setCertPathCheckers(List<PKIXCertPathChecker> checkers)`
+
+  Sets a `List` of additional certification path checkers.
+
+  `void`
+
+  `setCertStores(List<CertStore> stores)`
+
+  Sets the list of `CertStore`s to be used in finding
+  certificates and CRLs.
+
+  `void`
+
+  `setDate(Date date)`
+
+  Sets the time for which the validity of the certification path
+  should be determined.
+
+  `void`
+
+  `setExplicitPolicyRequired(boolean val)`
+
+  Sets the ExplicitPolicyRequired flag.
+
+  `void`
+
+  `setInitialPolicies(Set<String> initialPolicies)`
+
+  Sets the `Set` of initial policy identifiers
+  (OID strings), indicating that any one of these
+  policies would be acceptable to the certificate user for the purposes of
+  certification path processing.
+
+  `void`
+
+  `setPolicyMappingInhibited(boolean val)`
+
+  Sets the PolicyMappingInhibited flag.
+
+  `void`
+
+  `setPolicyQualifiersRejected(boolean qualifiersRejected)`
+
+  Sets the PolicyQualifiersRejected flag.
+
+  `void`
+
+  `setRevocationEnabled(boolean val)`
+
+  Sets the RevocationEnabled flag.
+
+  `void`
+
+  `setSigProvider(String sigProvider)`
+
+  Sets the signature provider's name.
+
+  `void`
+
+  `setTargetCertConstraints(CertSelector selector)`
+
+  Sets the required constraints on the target certificate.
+
+  `void`
+
+  `setTrustAnchors(Set<TrustAnchor> trustAnchors)`
+
+  Sets the `Set` of most-trusted CAs.
+
+  `String`
+
+  `toString()`
+
+  Returns a formatted string describing the parameters.
+
+  ### Methods inherited from class java.lang.[Object](../../lang/Object.md "class in java.lang")
+
+  `equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### PKIXParameters
+
+    public PKIXParameters([Set](../../util/Set.md "interface in java.util")<[TrustAnchor](TrustAnchor.md "class in java.security.cert")> trustAnchors)
+    throws [InvalidAlgorithmParameterException](../InvalidAlgorithmParameterException.md "class in java.security")
+
+    Creates an instance of `PKIXParameters` with the specified
+    `Set` of most-trusted CAs. Each element of the
+    set is a [`TrustAnchor`](TrustAnchor.md "class in java.security.cert").
+
+    Note that the `Set` is copied to protect against
+    subsequent modifications.
+
+    Parameters:
+    :   `trustAnchors` - a `Set` of `TrustAnchor`s
+
+    Throws:
+    :   `InvalidAlgorithmParameterException` - if the specified
+        `Set` is empty `(trustAnchors.isEmpty() == true)`
+    :   `NullPointerException` - if the specified `Set` is
+        `null`
+    :   `ClassCastException` - if any of the elements in the `Set`
+        are not of type `java.security.cert.TrustAnchor`
+  + ### PKIXParameters
+
+    public PKIXParameters([KeyStore](../KeyStore.md "class in java.security") keystore)
+    throws [KeyStoreException](../KeyStoreException.md "class in java.security"),
+    [InvalidAlgorithmParameterException](../InvalidAlgorithmParameterException.md "class in java.security")
+
+    Creates an instance of `PKIXParameters` that
+    populates the set of most-trusted CAs from the trusted
+    certificate entries contained in the specified `KeyStore`.
+    Only keystore entries that contain trusted `X509Certificates`
+    are considered; all other certificate types are ignored.
+
+    Parameters:
+    :   `keystore` - a `KeyStore` from which the set of
+        most-trusted CAs will be populated
+
+    Throws:
+    :   `KeyStoreException` - if the keystore has not been initialized
+    :   `InvalidAlgorithmParameterException` - if the keystore does
+        not contain at least one trusted certificate entry
+    :   `NullPointerException` - if the keystore is `null`
+* ## Method Details
+
+  + ### getTrustAnchors
+
+    public [Set](../../util/Set.md "interface in java.util")<[TrustAnchor](TrustAnchor.md "class in java.security.cert")> getTrustAnchors()
+
+    Returns an immutable `Set` of the most-trusted
+    CAs.
+
+    Returns:
+    :   an immutable `Set` of `TrustAnchor`s
+        (never `null`)
+
+    See Also:
+    :   - [`setTrustAnchors(java.util.Set<java.security.cert.TrustAnchor>)`](#setTrustAnchors(java.util.Set))
+  + ### setTrustAnchors
+
+    public void setTrustAnchors([Set](../../util/Set.md "interface in java.util")<[TrustAnchor](TrustAnchor.md "class in java.security.cert")> trustAnchors)
+    throws [InvalidAlgorithmParameterException](../InvalidAlgorithmParameterException.md "class in java.security")
+
+    Sets the `Set` of most-trusted CAs.
+
+    Note that the `Set` is copied to protect against
+    subsequent modifications.
+
+    Parameters:
+    :   `trustAnchors` - a `Set` of `TrustAnchor`s
+
+    Throws:
+    :   `InvalidAlgorithmParameterException` - if the specified
+        `Set` is empty `(trustAnchors.isEmpty() == true)`
+    :   `NullPointerException` - if the specified `Set` is
+        `null`
+    :   `ClassCastException` - if any of the elements in the set
+        are not of type `java.security.cert.TrustAnchor`
+
+    See Also:
+    :   - [`getTrustAnchors()`](#getTrustAnchors())
+  + ### getInitialPolicies
+
+    public [Set](../../util/Set.md "interface in java.util")<[String](../../lang/String.md "class in java.lang")> getInitialPolicies()
+
+    Returns an immutable `Set` of initial
+    policy identifiers (OID strings), indicating that any one of these
+    policies would be acceptable to the certificate user for the purposes of
+    certification path processing. The default return value is an empty
+    `Set`, which is interpreted as meaning that any policy would
+    be acceptable.
+
+    Returns:
+    :   an immutable `Set` of initial policy OIDs in
+        `String` format, or an empty `Set` (implying any
+        policy is acceptable). Never returns `null`.
+
+    See Also:
+    :   - [`setInitialPolicies(java.util.Set<java.lang.String>)`](#setInitialPolicies(java.util.Set))
+  + ### setInitialPolicies
+
+    public void setInitialPolicies([Set](../../util/Set.md "interface in java.util")<[String](../../lang/String.md "class in java.lang")> initialPolicies)
+
+    Sets the `Set` of initial policy identifiers
+    (OID strings), indicating that any one of these
+    policies would be acceptable to the certificate user for the purposes of
+    certification path processing. By default, any policy is acceptable
+    (i.e. all policies), so a user that wants to allow any policy as
+    acceptable does not need to call this method, or can call it
+    with an empty `Set` (or `null`).
+
+    Note that the `Set` is copied to protect against
+    subsequent modifications.
+
+    Parameters:
+    :   `initialPolicies` - a `Set` of initial policy
+        OIDs in `String` format (or `null`)
+
+    Throws:
+    :   `ClassCastException` - if any of the elements in the set are
+        not of type `String`
+
+    See Also:
+    :   - [`getInitialPolicies()`](#getInitialPolicies())
+  + ### setCertStores
+
+    public void setCertStores([List](../../util/List.md "interface in java.util")<[CertStore](CertStore.md "class in java.security.cert")> stores)
+
+    Sets the list of `CertStore`s to be used in finding
+    certificates and CRLs. May be `null`, in which case
+    no `CertStore`s will be used. The first
+    `CertStore`s in the list may be preferred to those that
+    appear later.
+
+    Note that the `List` is copied to protect against
+    subsequent modifications.
+
+    Parameters:
+    :   `stores` - a `List` of `CertStore`s (or
+        `null`)
+
+    Throws:
+    :   `ClassCastException` - if any of the elements in the list are
+        not of type `java.security.cert.CertStore`
+
+    See Also:
+    :   - [`getCertStores()`](#getCertStores())
+  + ### addCertStore
+
+    public void addCertStore([CertStore](CertStore.md "class in java.security.cert") store)
+
+    Adds a `CertStore` to the end of the list of
+    `CertStore`s used in finding certificates and CRLs.
+
+    Parameters:
+    :   `store` - the `CertStore` to add. If `null`,
+        the store is ignored (not added to list).
+  + ### getCertStores
+
+    public [List](../../util/List.md "interface in java.util")<[CertStore](CertStore.md "class in java.security.cert")> getCertStores()
+
+    Returns an immutable `List` of `CertStore`s that
+    are used to find certificates and CRLs.
+
+    Returns:
+    :   an immutable `List` of `CertStore`s
+        (may be empty, but never `null`)
+
+    See Also:
+    :   - [`setCertStores(java.util.List<java.security.cert.CertStore>)`](#setCertStores(java.util.List))
+  + ### setRevocationEnabled
+
+    public void setRevocationEnabled(boolean val)
+
+    Sets the RevocationEnabled flag. If this flag is true, the default
+    revocation checking mechanism of the underlying PKIX service provider
+    will be used, unless a [`PKIXRevocationChecker`](PKIXRevocationChecker.md "class in java.security.cert") is passed in
+    as a `CertPathChecker` (see below for further explanation). If
+    this flag is false, the default revocation checking mechanism will be
+    disabled (not used).
+
+    When a `PKIXParameters` object is created, this flag is set
+    to true. This setting reflects the most common strategy for checking
+    revocation, since each service provider must support revocation
+    checking to be PKIX compliant. Sophisticated applications should set
+    this flag to false when it is not practical to use a PKIX service
+    provider's default revocation checking mechanism or when an alternative
+    revocation checking mechanism is to be substituted (by also calling the
+    [`addCertPathChecker`](#addCertPathChecker(java.security.cert.PKIXCertPathChecker)) or [`setCertPathCheckers`](#setCertPathCheckers(java.util.List)) methods).
+
+    Note that when a `PKIXRevocationChecker` is passed in as a
+    parameter via the `addCertPathChecker` or
+    `setCertPathCheckers` methods, it will be used to check
+    revocation irrespective of the setting of the RevocationEnabled flag.
+
+    Parameters:
+    :   `val` - the new value of the RevocationEnabled flag
+  + ### isRevocationEnabled
+
+    public boolean isRevocationEnabled()
+
+    Checks the RevocationEnabled flag. If this flag is true, the default
+    revocation checking mechanism of the underlying PKIX service provider
+    will be used, unless a [`PKIXRevocationChecker`](PKIXRevocationChecker.md "class in java.security.cert") is passed in as
+    a `CertPathChecker`. If this flag is false, the default revocation
+    checking mechanism will be disabled (not used). See the [`setRevocationEnabled`](#setRevocationEnabled(boolean)) method for more details on
+    setting the value of this flag.
+
+    Returns:
+    :   the current value of the RevocationEnabled flag
+  + ### setExplicitPolicyRequired
+
+    public void setExplicitPolicyRequired(boolean val)
+
+    Sets the ExplicitPolicyRequired flag. If this flag is true, an
+    acceptable policy needs to be explicitly identified in every certificate.
+    By default, the ExplicitPolicyRequired flag is false.
+
+    Parameters:
+    :   `val` - `true` if explicit policy is to be required,
+        `false` otherwise
+  + ### isExplicitPolicyRequired
+
+    public boolean isExplicitPolicyRequired()
+
+    Checks if explicit policy is required. If this flag is true, an
+    acceptable policy needs to be explicitly identified in every certificate.
+    By default, the ExplicitPolicyRequired flag is false.
+
+    Returns:
+    :   `true` if explicit policy is required,
+        `false` otherwise
+  + ### setPolicyMappingInhibited
+
+    public void setPolicyMappingInhibited(boolean val)
+
+    Sets the PolicyMappingInhibited flag. If this flag is true, policy
+    mapping is inhibited. By default, policy mapping is not inhibited (the
+    flag is false).
+
+    Parameters:
+    :   `val` - `true` if policy mapping is to be inhibited,
+        `false` otherwise
+  + ### isPolicyMappingInhibited
+
+    public boolean isPolicyMappingInhibited()
+
+    Checks if policy mapping is inhibited. If this flag is true, policy
+    mapping is inhibited. By default, policy mapping is not inhibited (the
+    flag is false).
+
+    Returns:
+    :   true if policy mapping is inhibited, false otherwise
+  + ### setAnyPolicyInhibited
+
+    public void setAnyPolicyInhibited(boolean val)
+
+    Sets state to determine if the any policy OID should be processed
+    if it is included in a certificate. By default, the any policy OID
+    is not inhibited ([`isAnyPolicyInhibited()`](#isAnyPolicyInhibited())
+    returns `false`).
+
+    Parameters:
+    :   `val` - `true` if the any policy OID is to be
+        inhibited, `false` otherwise
+  + ### isAnyPolicyInhibited
+
+    public boolean isAnyPolicyInhibited()
+
+    Checks whether the any policy OID should be processed if it
+    is included in a certificate.
+
+    Returns:
+    :   `true` if the any policy OID is inhibited,
+        `false` otherwise
+  + ### setPolicyQualifiersRejected
+
+    public void setPolicyQualifiersRejected(boolean qualifiersRejected)
+
+    Sets the PolicyQualifiersRejected flag. If this flag is true,
+    certificates that include policy qualifiers in a certificate
+    policies extension that is marked critical are rejected.
+    If the flag is false, certificates are not rejected on this basis.
+
+    When a `PKIXParameters` object is created, this flag is
+    set to true. This setting reflects the most common (and simplest)
+    strategy for processing policy qualifiers. Applications that want to use
+    a more sophisticated policy must set this flag to false.
+
+    Note that the PKIX certification path validation algorithm specifies
+    that any policy qualifier in a certificate policies extension that is
+    marked critical must be processed and validated. Otherwise the
+    certification path must be rejected. If the policyQualifiersRejected flag
+    is set to false, it is up to the application to validate all policy
+    qualifiers in this manner in order to be PKIX compliant.
+
+    Parameters:
+    :   `qualifiersRejected` - the new value of the PolicyQualifiersRejected
+        flag
+
+    See Also:
+    :   - [`getPolicyQualifiersRejected()`](#getPolicyQualifiersRejected())
+        - [`PolicyQualifierInfo`](PolicyQualifierInfo.md "class in java.security.cert")
+  + ### getPolicyQualifiersRejected
+
+    public boolean getPolicyQualifiersRejected()
+
+    Gets the PolicyQualifiersRejected flag. If this flag is true,
+    certificates that include policy qualifiers in a certificate policies
+    extension that is marked critical are rejected.
+    If the flag is false, certificates are not rejected on this basis.
+
+    When a `PKIXParameters` object is created, this flag is
+    set to true. This setting reflects the most common (and simplest)
+    strategy for processing policy qualifiers. Applications that want to use
+    a more sophisticated policy must set this flag to false.
+
+    Returns:
+    :   the current value of the PolicyQualifiersRejected flag
+
+    See Also:
+    :   - [`setPolicyQualifiersRejected(boolean)`](#setPolicyQualifiersRejected(boolean))
+  + ### getDate
+
+    public [Date](../../util/Date.md "class in java.util") getDate()
+
+    Returns the time for which the validity of the certification path
+    should be determined. If `null`, the current time is used.
+
+    Note that the `Date` returned is copied to protect against
+    subsequent modifications.
+
+    Returns:
+    :   the `Date`, or `null` if not set
+
+    See Also:
+    :   - [`setDate(java.util.Date)`](#setDate(java.util.Date))
+  + ### setDate
+
+    public void setDate([Date](../../util/Date.md "class in java.util") date)
+
+    Sets the time for which the validity of the certification path
+    should be determined. If `null`, the current time is used.
+
+    Note that the `Date` supplied here is copied to protect
+    against subsequent modifications.
+
+    Parameters:
+    :   `date` - the `Date`, or `null` for the
+        current time
+
+    See Also:
+    :   - [`getDate()`](#getDate())
+  + ### setCertPathCheckers
+
+    public void setCertPathCheckers([List](../../util/List.md "interface in java.util")<[PKIXCertPathChecker](PKIXCertPathChecker.md "class in java.security.cert")> checkers)
+
+    Sets a `List` of additional certification path checkers. If
+    the specified `List` contains an object that is not a
+    `PKIXCertPathChecker`, it is ignored.
+
+    Each `PKIXCertPathChecker` specified implements
+    additional checks on a certificate. Typically, these are checks to
+    process and verify private extensions contained in certificates.
+    Each `PKIXCertPathChecker` should be instantiated with any
+    initialization parameters needed to execute the check.
+
+    This method allows sophisticated applications to extend a PKIX
+    `CertPathValidator` or `CertPathBuilder`.
+    Each of the specified `PKIXCertPathChecker`s will be called,
+    in turn, by a PKIX `CertPathValidator` or
+    `CertPathBuilder` for each certificate processed or
+    validated.
+
+    Regardless of whether these additional `PKIXCertPathChecker`s
+    are set, a PKIX `CertPathValidator` or
+    `CertPathBuilder` must perform all of the required PKIX
+    checks on each certificate. The one exception to this rule is if the
+    RevocationEnabled flag is set to false (see the [`setRevocationEnabled`](#setRevocationEnabled(boolean)) method).
+
+    Note that the `List` supplied here is copied and each
+    `PKIXCertPathChecker` in the list is cloned to protect
+    against subsequent modifications.
+
+    Parameters:
+    :   `checkers` - a `List` of `PKIXCertPathChecker`s.
+        May be `null`, in which case no additional checkers will be
+        used.
+
+    Throws:
+    :   `ClassCastException` - if any of the elements in the list
+        are not of type `java.security.cert.PKIXCertPathChecker`
+
+    See Also:
+    :   - [`getCertPathCheckers()`](#getCertPathCheckers())
+  + ### getCertPathCheckers
+
+    public [List](../../util/List.md "interface in java.util")<[PKIXCertPathChecker](PKIXCertPathChecker.md "class in java.security.cert")> getCertPathCheckers()
+
+    Returns the `List` of certification path checkers.
+    The returned `List` is immutable, and each
+    `PKIXCertPathChecker` in the `List` is cloned
+    to protect against subsequent modifications.
+
+    Returns:
+    :   an immutable `List` of
+        `PKIXCertPathChecker`s (may be empty, but not
+        `null`)
+
+    See Also:
+    :   - [`setCertPathCheckers(java.util.List<java.security.cert.PKIXCertPathChecker>)`](#setCertPathCheckers(java.util.List))
+  + ### addCertPathChecker
+
+    public void addCertPathChecker([PKIXCertPathChecker](PKIXCertPathChecker.md "class in java.security.cert") checker)
+
+    Adds a `PKIXCertPathChecker` to the list of certification
+    path checkers. See the [`setCertPathCheckers`](#setCertPathCheckers(java.util.List))
+    method for more details.
+
+    Note that the `PKIXCertPathChecker` is cloned to protect
+    against subsequent modifications.
+
+    Parameters:
+    :   `checker` - a `PKIXCertPathChecker` to add to the list of
+        checks. If `null`, the checker is ignored (not added to list).
+  + ### getSigProvider
+
+    public [String](../../lang/String.md "class in java.lang") getSigProvider()
+
+    Returns the signature provider's name, or `null`
+    if not set.
+
+    Returns:
+    :   the signature provider's name (or `null`)
+
+    See Also:
+    :   - [`setSigProvider(java.lang.String)`](#setSigProvider(java.lang.String))
+  + ### setSigProvider
+
+    public void setSigProvider([String](../../lang/String.md "class in java.lang") sigProvider)
+
+    Sets the signature provider's name. The specified provider will be
+    preferred when creating [`Signature`](../Signature.md "class in java.security")
+    objects. If `null` or not set, the first provider found
+    supporting the algorithm will be used.
+
+    Parameters:
+    :   `sigProvider` - the signature provider's name (or `null`)
+
+    See Also:
+    :   - [`getSigProvider()`](#getSigProvider())
+  + ### getTargetCertConstraints
+
+    public [CertSelector](CertSelector.md "interface in java.security.cert") getTargetCertConstraints()
+
+    Returns the required constraints on the target certificate.
+    The constraints are returned as an instance of `CertSelector`.
+    If `null`, no constraints are defined.
+
+    Note that the `CertSelector` returned is cloned
+    to protect against subsequent modifications.
+
+    Returns:
+    :   a `CertSelector` specifying the constraints
+        on the target certificate (or `null`)
+
+    See Also:
+    :   - [`setTargetCertConstraints(java.security.cert.CertSelector)`](#setTargetCertConstraints(java.security.cert.CertSelector))
+  + ### setTargetCertConstraints
+
+    public void setTargetCertConstraints([CertSelector](CertSelector.md "interface in java.security.cert") selector)
+
+    Sets the required constraints on the target certificate.
+    The constraints are specified as an instance of
+    `CertSelector`. If `null`, no constraints are
+    defined.
+
+    Note that the `CertSelector` specified is cloned
+    to protect against subsequent modifications.
+
+    Parameters:
+    :   `selector` - a `CertSelector` specifying the constraints
+        on the target certificate (or `null`)
+
+    See Also:
+    :   - [`getTargetCertConstraints()`](#getTargetCertConstraints())
+  + ### clone
+
+    public [Object](../../lang/Object.md "class in java.lang") clone()
+
+    Makes a copy of this `PKIXParameters` object. Changes
+    to the copy will not affect the original and vice versa.
+
+    Specified by:
+    :   `clone` in interface `CertPathParameters`
+
+    Overrides:
+    :   `clone` in class `Object`
+
+    Returns:
+    :   a copy of this `PKIXParameters` object
+
+    See Also:
+    :   - [`Cloneable`](../../lang/Cloneable.md "interface in java.lang")
+  + ### toString
+
+    public [String](../../lang/String.md "class in java.lang") toString()
+
+    Returns a formatted string describing the parameters.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   a formatted string describing the parameters.

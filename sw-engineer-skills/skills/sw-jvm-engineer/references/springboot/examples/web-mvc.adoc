@@ -1,0 +1,18 @@
+= MVC Example
+
+[source,kotlin]
+----
+@RestController
+@RequestMapping("/api/orders")
+class OrderController(
+    private val service: OrderService
+) {
+    @GetMapping("/{id}")
+    fun get(@PathVariable id: UUID): ResponseEntity<OrderDto> =
+        service.find(id)?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.notFound().build()
+}
+----
+
+Keep controllers thin and delegate business logic to a service.
+Add validation and error handling at the boundary.

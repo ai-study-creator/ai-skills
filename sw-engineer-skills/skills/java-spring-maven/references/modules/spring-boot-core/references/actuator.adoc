@@ -1,0 +1,23 @@
+= Spring Boot Actuator
+
+Spring Boot Actuator provides operational endpoints and production signals.
+
+== Topics
+- health
+- monitoring
+- metrics
+- tracing
+- loggers
+- JMX
+- HTTP exchanges
+- cloud foundry integration
+- process monitoring
+
+== Working rules
+- Expose only what operations actually needs.
+- Distinguish health, readiness, and liveness where appropriate.
+- Keep metrics low-cardinality and actionable.
+- Make logging and tracing useful together.
+
+== Practical note
+If the task is observability-heavy, combine this file with the monitoring bundle.

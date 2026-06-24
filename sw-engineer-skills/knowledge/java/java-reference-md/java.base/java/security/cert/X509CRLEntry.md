@@ -1,0 +1,271 @@
+Module [java.base](../../../module-summary.md)
+
+Package [java.security.cert](package-summary.md)
+
+# Class X509CRLEntry
+
+[java.lang.Object](../../lang/Object.md "class in java.lang")
+
+java.security.cert.X509CRLEntry
+
+All Implemented Interfaces:
+:   `X509Extension`
+
+---
+
+public abstract class X509CRLEntry
+extends [Object](../../lang/Object.md "class in java.lang")
+implements [X509Extension](X509Extension.md "interface in java.security.cert")
+
+Abstract class for a revoked certificate in a CRL (Certificate
+Revocation List).
+The ASN.1 definition for *revokedCertificates* is:
+
+```
+ revokedCertificates    SEQUENCE OF SEQUENCE  {
+     userCertificate    CertificateSerialNumber,
+     revocationDate     ChoiceOfTime,
+     crlEntryExtensions Extensions OPTIONAL
+                        -- if present, must be v2
+ }  OPTIONAL
+
+ CertificateSerialNumber  ::=  INTEGER
+
+ Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
+
+ Extension  ::=  SEQUENCE  {
+     extnId        OBJECT IDENTIFIER,
+     critical      BOOLEAN DEFAULT FALSE,
+     extnValue     OCTET STRING
+                   -- contains a DER encoding of a value
+                   -- of the type registered for use with
+                   -- the extnId object identifier value
+ }
+```
+
+Since:
+:   1.2
+
+See Also:
+:   * [`X509CRL`](X509CRL.md "class in java.security.cert")
+    * [`X509Extension`](X509Extension.md "interface in java.security.cert")
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `X509CRLEntry()`
+
+  Constructor for subclasses to call.
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `boolean`
+
+  `equals(Object other)`
+
+  Compares this CRL entry for equality with the given
+  object.
+
+  `X500Principal`
+
+  `getCertificateIssuer()`
+
+  Get the issuer of the X509Certificate described by this entry.
+
+  `abstract byte[]`
+
+  `getEncoded()`
+
+  Returns the ASN.1 DER-encoded form of this CRL Entry,
+  that is the inner SEQUENCE.
+
+  `abstract Date`
+
+  `getRevocationDate()`
+
+  Gets the revocation date from this X509CRLEntry,
+  the *revocationDate*.
+
+  `CRLReason`
+
+  `getRevocationReason()`
+
+  Returns the reason the certificate has been revoked, as specified
+  in the Reason Code extension of this CRL entry.
+
+  `abstract BigInteger`
+
+  `getSerialNumber()`
+
+  Gets the serial number from this X509CRLEntry,
+  the *userCertificate*.
+
+  `abstract boolean`
+
+  `hasExtensions()`
+
+  Returns true if this CRL entry has extensions.
+
+  `int`
+
+  `hashCode()`
+
+  Returns a hashcode value for this CRL entry from its
+  encoded form.
+
+  `abstract String`
+
+  `toString()`
+
+  Returns a string representation of this CRL entry.
+
+  ### Methods inherited from class java.lang.[Object](../../lang/Object.md "class in java.lang")
+
+  `clone, finalize, getClass, notify, notifyAll, wait, wait, wait`
+
+  ### Methods inherited from interface java.security.cert.[X509Extension](X509Extension.md "interface in java.security.cert")
+
+  `getCriticalExtensionOIDs, getExtensionValue, getNonCriticalExtensionOIDs, hasUnsupportedCriticalExtension`
+
+* ## Constructor Details
+
+  + ### X509CRLEntry
+
+    public X509CRLEntry()
+
+    Constructor for subclasses to call.
+* ## Method Details
+
+  + ### equals
+
+    public boolean equals([Object](../../lang/Object.md "class in java.lang") other)
+
+    Compares this CRL entry for equality with the given
+    object. If the `other` object is an
+    `instanceof` `X509CRLEntry`, then
+    its encoded form (the inner SEQUENCE) is retrieved and compared
+    with the encoded form of this CRL entry.
+
+    Overrides:
+    :   `equals` in class `Object`
+
+    Parameters:
+    :   `other` - the object to test for equality with this CRL entry.
+
+    Returns:
+    :   true iff the encoded forms of the two CRL entries
+        match, false otherwise.
+
+    See Also:
+    :   - [`Object.hashCode()`](../../lang/Object.md#hashCode())
+        - [`HashMap`](../../util/HashMap.md "class in java.util")
+  + ### hashCode
+
+    public int hashCode()
+
+    Returns a hashcode value for this CRL entry from its
+    encoded form.
+
+    Overrides:
+    :   `hashCode` in class `Object`
+
+    Returns:
+    :   the hashcode value.
+
+    See Also:
+    :   - [`Object.equals(java.lang.Object)`](../../lang/Object.md#equals(java.lang.Object))
+        - [`System.identityHashCode(java.lang.Object)`](../../lang/System.md#identityHashCode(java.lang.Object))
+  + ### getEncoded
+
+    public abstract byte[] getEncoded()
+    throws [CRLException](CRLException.md "class in java.security.cert")
+
+    Returns the ASN.1 DER-encoded form of this CRL Entry,
+    that is the inner SEQUENCE.
+
+    Returns:
+    :   the encoded form of this certificate
+
+    Throws:
+    :   `CRLException` - if an encoding error occurs.
+  + ### getSerialNumber
+
+    public abstract [BigInteger](../../math/BigInteger.md "class in java.math") getSerialNumber()
+
+    Gets the serial number from this X509CRLEntry,
+    the *userCertificate*.
+
+    Returns:
+    :   the serial number.
+  + ### getCertificateIssuer
+
+    public [X500Principal](../../../javax/security/auth/x500/X500Principal.md "class in javax.security.auth.x500") getCertificateIssuer()
+
+    Get the issuer of the X509Certificate described by this entry. If
+    the certificate issuer is also the CRL issuer, this method returns
+    null.
+
+    This method is used with indirect CRLs. The default implementation
+    always returns null. Subclasses that wish to support indirect CRLs
+    should override it.
+
+    Returns:
+    :   the issuer of the X509Certificate described by this entry
+        or null if it is issued by the CRL issuer.
+
+    Since:
+    :   1.5
+  + ### getRevocationDate
+
+    public abstract [Date](../../util/Date.md "class in java.util") getRevocationDate()
+
+    Gets the revocation date from this X509CRLEntry,
+    the *revocationDate*.
+
+    Returns:
+    :   the revocation date.
+  + ### hasExtensions
+
+    public abstract boolean hasExtensions()
+
+    Returns true if this CRL entry has extensions.
+
+    Returns:
+    :   true if this entry has extensions, false otherwise.
+  + ### toString
+
+    public abstract [String](../../lang/String.md "class in java.lang") toString()
+
+    Returns a string representation of this CRL entry.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   a string representation of this CRL entry.
+  + ### getRevocationReason
+
+    public [CRLReason](CRLReason.md "enum class in java.security.cert") getRevocationReason()
+
+    Returns the reason the certificate has been revoked, as specified
+    in the Reason Code extension of this CRL entry.
+
+    Returns:
+    :   the reason the certificate has been revoked, or
+        `null` if this CRL entry does not have
+        a Reason Code extension
+
+    Since:
+    :   1.7

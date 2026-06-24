@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/writerside/1.0/html-entities.dtd">
+
+<topic xmlns="" xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="server-development-mode" title="Development mode"
+       help-id="development_mode;development-mode">
+
+    <show-structure for="chapter" depth="2"/>
+
+    <p>
+        Ktor provides a special mode targeted for development. This mode enables the following capabilities:
+    </p>
+    <list>
+        <li><a href="server-auto-reload.topic">Auto-reload</a> for reloading application classes
+            without restarting the server.
+        </li>
+        <li>Extended information for debugging <a href="server-custom-plugins-base-api.md" anchor="pipelines">pipelines</a> (with stack
+            traces).
+        </li>
+        <li>Extended debugging information on a <a href="server-status-pages.md">response page</a> in
+            a case of a <emphasis>5**</emphasis> server error.
+        </li>
+    </list>
+    <note>
+        <p>
+            Note that development mode affects performance and shouldn't be used in production.
+        </p>
+    </note>
+
+    <chapter title="Enable development mode" id="enable">
+        <p>
+            You can enable development mode in different ways: in the application configuration file,
+            using a dedicated system property, or environment variable.
+        </p>
+
+
+        <chapter title="Configuration file" id="application-conf">
+            <p>
+                To enable development mode in a
+                <a href="server-configuration-file.topic">configuration file</a>,
+                set the <code>development</code> option to <code>true</code>:
+            </p>
+            <tabs group="config">
+                <tab title="application.conf" group-key="hocon">
+                    <code-block>
+                        ktor {
+                            development = true
+                        }
+                    </code-block>
+                </tab>
+                <tab title="application.yaml" group-key="yaml">
+                    <code-block lang="yaml">
+                        ktor:
+                            development: true
+                    </code-block>
+                </tab>
+            </tabs>
+
+        </chapter>
+
+
+        <chapter title="The 'io.ktor.development' system property" id="system-property">
+            <p>
+                The <control>io.ktor.development</control>
+                <a href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html">system property</a>
+                allows you to enable development mode when running your application.
+            </p>
+            <p>
+                To run an application in development mode using IntelliJ IDEA,
+                pass <code>io.ktor.development</code> with the <code>-D</code> flag to
+                <a href="https://www.jetbrains.com/help/idea/run-debug-configuration-kotlin.html#1">VM options</a>:
+            </p>
+            <code-block>
+                -Dio.ktor.development=true
+            </code-block>
+            <p>
+                If you run your application using a <a href="server-dependencies.topic">Gradle</a> task,
+                you can enable development mode in one of two ways:
+            </p>
+            <list>
+                <li>
+                    <p>
+                        Configure the <code>ktor</code> block in your <path>build.gradle.kts</path> file:
+                    </p>
+                    <code-block lang="Kotlin">
+                        ktor {
+                            development = true
+                        }
+                    </code-block>
+                </li>
+                <li>
+                    <p>
+                        Enable development mode for a single run by passing a Gradle CLI flag:
+                    </p>
+                    <code-block lang="bash">
+                          ./gradlew run -Pio.ktor.development=true
+                    </code-block>
+                </li>
+            </list>
+
+            <tip>
+                <p>
+                    You can also use the <code>-ea</code> flag to enable development mode.
+                    Note that the <code>io.ktor.development</code> system property passed with the <code>-D</code> flag
+                    takes precedence over <code>-ea</code>.
+                </p>
+            </tip>
+        </chapter>
+
+
+        <chapter title="The 'io.ktor.development' environment variable" id="environment-variable">
+            <p>
+                To enable development mode for a <a href="client-engines.md" anchor="native">Native client</a>,
+                use the <code>io.ktor.development</code> environment variable.
+            </p>
+        </chapter>
+    </chapter>
+
+</topic>

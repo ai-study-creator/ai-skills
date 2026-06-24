@@ -1,0 +1,170 @@
+Module [java.sql](../../module-summary.md)
+
+Package [java.sql](package-summary.md)
+
+# Interface SQLData
+
+---
+
+public interface SQLData
+
+The interface used for the custom mapping of an SQL user-defined type (UDT) to
+a class in the Java programming language. The class object for a class
+implementing the `SQLData` interface will be entered in the
+appropriate `Connection` object's type map along with the SQL
+name of the UDT for which it is a custom mapping.
+
+Typically, a `SQLData` implementation
+will define a field for each attribute of an SQL structured type or a
+single field for an SQL `DISTINCT` type. When the UDT is
+retrieved from a data source with the `ResultSet.getObject`
+method, it will be mapped as an instance of this class. A programmer
+can operate on this class instance just as on any other object in the
+Java programming language and then store any changes made to it by
+calling the `PreparedStatement.setObject` method,
+which will map it back to the SQL type.
+
+It is expected that the implementation of the class for a custom
+mapping will be done by a tool. In a typical implementation, the
+programmer would simply supply the name of the SQL UDT, the name of
+the class to which it is being mapped, and the names of the fields to
+which each of the attributes of the UDT is to be mapped. The tool will use
+this information to implement the `SQLData.readSQL` and
+`SQLData.writeSQL` methods. The `readSQL` method
+calls the appropriate `SQLInput` methods to read
+each attribute from an `SQLInput` object, and the
+`writeSQL` method calls `SQLOutput` methods
+to write each attribute back to the data source via an
+`SQLOutput` object.
+
+An application programmer will not normally call `SQLData` methods
+directly, and the `SQLInput` and `SQLOutput` methods
+are called internally by `SQLData` methods, not by application code.
+
+Since:
+:   1.2
+
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `String`
+
+  `getSQLTypeName()`
+
+  Returns the fully-qualified
+  name of the SQL user-defined type that this object represents.
+
+  `void`
+
+  `readSQL(SQLInput stream,
+  String typeName)`
+
+  Populates this object with data read from the database.
+
+  `void`
+
+  `writeSQL(SQLOutput stream)`
+
+  Writes this object to the given SQL data stream, converting it back to
+  its SQL value in the data source.
+
+* ## Method Details
+
+  + ### getSQLTypeName
+
+    [String](../../../java.base/java/lang/String.md "class in java.lang") getSQLTypeName()
+    throws [SQLException](SQLException.md "class in java.sql")
+
+    Returns the fully-qualified
+    name of the SQL user-defined type that this object represents.
+    This method is called by the JDBC driver to get the name of the
+    UDT instance that is being mapped to this instance of
+    `SQLData`.
+
+    Returns:
+    :   the type name that was passed to the method `readSQL`
+        when this object was constructed and populated
+
+    Throws:
+    :   `SQLException` - if there is a database access error
+    :   `SQLFeatureNotSupportedException` - if the JDBC driver does not support
+        this method
+
+    Since:
+    :   1.2
+  + ### readSQL
+
+    void readSQL([SQLInput](SQLInput.md "interface in java.sql") stream,
+    [String](../../../java.base/java/lang/String.md "class in java.lang") typeName)
+    throws [SQLException](SQLException.md "class in java.sql")
+
+    Populates this object with data read from the database.
+    The implementation of the method must follow this protocol:
+    - It must read each of the attributes or elements of the SQL
+      type from the given input stream. This is done
+      by calling a method of the input stream to read each
+      item, in the order that they appear in the SQL definition
+      of the type.- The method `readSQL` then
+        assigns the data to appropriate fields or
+        elements (of this or other objects).
+        Specifically, it must call the appropriate *reader* method
+        (`SQLInput.readString`, `SQLInput.readBigDecimal`,
+        and so on) method(s) to do the following:
+        for a distinct type, read its single data element;
+        for a structured type, read a value for each attribute of the SQL type.The JDBC driver initializes the input stream with a type map
+    before calling this method, which is used by the appropriate
+    `SQLInput` reader method on the stream.
+
+    Parameters:
+    :   `stream` - the `SQLInput` object from which to read the data for
+        the value that is being custom mapped
+    :   `typeName` - the SQL type name of the value on the data stream
+
+    Throws:
+    :   `SQLException` - if there is a database access error
+    :   `SQLFeatureNotSupportedException` - if the JDBC driver does not support
+        this method
+
+    Since:
+    :   1.2
+
+    See Also:
+    :   - [`SQLInput`](SQLInput.md "interface in java.sql")
+  + ### writeSQL
+
+    void writeSQL([SQLOutput](SQLOutput.md "interface in java.sql") stream)
+    throws [SQLException](SQLException.md "class in java.sql")
+
+    Writes this object to the given SQL data stream, converting it back to
+    its SQL value in the data source.
+    The implementation of the method must follow this protocol:  
+    It must write each of the attributes of the SQL type
+    to the given output stream. This is done by calling a
+    method of the output stream to write each item, in the order that
+    they appear in the SQL definition of the type.
+    Specifically, it must call the appropriate `SQLOutput` writer
+    method(s) (`writeInt`, `writeString`, and so on)
+    to do the following: for a Distinct Type, write its single data element;
+    for a Structured Type, write a value for each attribute of the SQL type.
+
+    Parameters:
+    :   `stream` - the `SQLOutput` object to which to write the data for
+        the value that was custom mapped
+
+    Throws:
+    :   `SQLException` - if there is a database access error
+    :   `SQLFeatureNotSupportedException` - if the JDBC driver does not support
+        this method
+
+    Since:
+    :   1.2
+
+    See Also:
+    :   - [`SQLOutput`](SQLOutput.md "interface in java.sql")

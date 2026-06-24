@@ -1,0 +1,635 @@
+Module [java.desktop](../../../../module-summary.md)
+
+Package [javax.imageio.plugins.tiff](package-summary.md)
+
+# Class TIFFTag
+
+[java.lang.Object](../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+javax.imageio.plugins.tiff.TIFFTag
+
+---
+
+public class TIFFTag
+extends [Object](../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+A class defining the notion of a TIFF tag. A TIFF tag is a key
+that may appear in an Image File Directory (IFD). In the IFD
+each tag has some data associated with it, which may consist of zero
+or more values of a given data type. The combination of a tag and a
+value is known as an IFD Entry or TIFF Field.
+
+The actual tag values used in the root IFD of a standard ("baseline")
+tiff stream are defined in the [`BaselineTIFFTagSet`](BaselineTIFFTagSet.md "class in javax.imageio.plugins.tiff") class.
+
+Since:
+:   9
+
+See Also:
+:   * [`BaselineTIFFTagSet`](BaselineTIFFTagSet.md "class in javax.imageio.plugins.tiff")
+    * [`TIFFField`](TIFFField.md "class in javax.imageio.plugins.tiff")
+    * [`TIFFTagSet`](TIFFTagSet.md "class in javax.imageio.plugins.tiff")
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final int`
+
+  `MAX_DATATYPE`
+
+  The numerically largest constant representing a TIFF data type.
+
+  `static final int`
+
+  `MIN_DATATYPE`
+
+  The numerically smallest constant representing a TIFF data type.
+
+  `static final int`
+
+  `TIFF_ASCII`
+
+  Flag for null-terminated ASCII strings.
+
+  `static final int`
+
+  `TIFF_BYTE`
+
+  Flag for 8 bit unsigned integers.
+
+  `static final int`
+
+  `TIFF_DOUBLE`
+
+  Flag for 64 bit IEEE doubles.
+
+  `static final int`
+
+  `TIFF_FLOAT`
+
+  Flag for 32 bit IEEE floats.
+
+  `static final int`
+
+  `TIFF_IFD_POINTER`
+
+  Flag for IFD pointer defined in TIFF Tech Note 1 in
+  TIFF Specification Supplement 1.
+
+  `static final int`
+
+  `TIFF_LONG`
+
+  Flag for 32 bit unsigned integers.
+
+  `static final int`
+
+  `TIFF_RATIONAL`
+
+  Flag for pairs of 32 bit unsigned integers.
+
+  `static final int`
+
+  `TIFF_SBYTE`
+
+  Flag for 8 bit signed integers.
+
+  `static final int`
+
+  `TIFF_SHORT`
+
+  Flag for 16 bit unsigned integers.
+
+  `static final int`
+
+  `TIFF_SLONG`
+
+  Flag for 32 bit signed integers.
+
+  `static final int`
+
+  `TIFF_SRATIONAL`
+
+  Flag for pairs of 32 bit signed integers.
+
+  `static final int`
+
+  `TIFF_SSHORT`
+
+  Flag for 16 bit signed integers.
+
+  `static final int`
+
+  `TIFF_UNDEFINED`
+
+  Flag for 8 bit uninterpreted bytes.
+
+  `static final String`
+
+  `UNKNOWN_TAG_NAME`
+
+  The name assigned to a tag with an unknown tag number.
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `TIFFTag(String name,
+  int number,
+  int dataTypes)`
+
+  Constructs a `TIFFTag` with a given name, tag number,
+  and set of legal data types.
+
+  `TIFFTag(String name,
+  int number,
+  int dataTypes,
+  int count)`
+
+  Constructs a `TIFFTag` with a given name, tag number, set
+  of legal data types, and value count.
+
+  `TIFFTag(String name,
+  int number,
+  TIFFTagSet tagSet)`
+
+  Constructs a `TIFFTag` with a given name, tag number and
+  `TIFFTagSet` to which it refers.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `protected void`
+
+  `addValueName(int value,
+  String name)`
+
+  Adds a mnemonic name for a particular value that this tag's data may take
+  on.
+
+  `int`
+
+  `getCount()`
+
+  Returns the value count of this tag.
+
+  `int`
+
+  `getDataTypes()`
+
+  Returns a bit mask indicating the set of data types that may
+  be used to store the data associated with the tag.
+
+  `String`
+
+  `getName()`
+
+  Returns the name of the tag, as it will appear in image metadata.
+
+  `int[]`
+
+  `getNamedValues()`
+
+  Returns an array of values for which mnemonic names are defined.
+
+  `int`
+
+  `getNumber()`
+
+  Returns the integer used to represent the tag.
+
+  `static int`
+
+  `getSizeOfType(int dataType)`
+
+  Returns the number of bytes used to store a value of the given
+  data type.
+
+  `TIFFTagSet`
+
+  `getTagSet()`
+
+  Returns the `TIFFTagSet` of which this tag is a part.
+
+  `String`
+
+  `getValueName(int value)`
+
+  Returns the mnemonic name associated with a particular value
+  that this tag's data may take on, or `null` if
+  no name is present.
+
+  `boolean`
+
+  `hasValueNames()`
+
+  Returns `true` if there are mnemonic names associated with
+  the set of legal values for the data associated with this tag.
+
+  `boolean`
+
+  `isDataTypeOK(int dataType)`
+
+  Returns `true` if the given data type
+  may be used for the data associated with this tag.
+
+  `boolean`
+
+  `isIFDPointer()`
+
+  Returns `true` if this tag is used to point to an IFD
+  structure containing additional tags.
+
+  ### Methods inherited from class java.lang.[Object](../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Field Details
+
+  + ### TIFF\_BYTE
+
+    public static final int TIFF\_BYTE
+
+    Flag for 8 bit unsigned integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_BYTE)
+  + ### TIFF\_ASCII
+
+    public static final int TIFF\_ASCII
+
+    Flag for null-terminated ASCII strings.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_ASCII)
+  + ### TIFF\_SHORT
+
+    public static final int TIFF\_SHORT
+
+    Flag for 16 bit unsigned integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_SHORT)
+  + ### TIFF\_LONG
+
+    public static final int TIFF\_LONG
+
+    Flag for 32 bit unsigned integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_LONG)
+  + ### TIFF\_RATIONAL
+
+    public static final int TIFF\_RATIONAL
+
+    Flag for pairs of 32 bit unsigned integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_RATIONAL)
+  + ### TIFF\_SBYTE
+
+    public static final int TIFF\_SBYTE
+
+    Flag for 8 bit signed integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_SBYTE)
+  + ### TIFF\_UNDEFINED
+
+    public static final int TIFF\_UNDEFINED
+
+    Flag for 8 bit uninterpreted bytes.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_UNDEFINED)
+  + ### TIFF\_SSHORT
+
+    public static final int TIFF\_SSHORT
+
+    Flag for 16 bit signed integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_SSHORT)
+  + ### TIFF\_SLONG
+
+    public static final int TIFF\_SLONG
+
+    Flag for 32 bit signed integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_SLONG)
+  + ### TIFF\_SRATIONAL
+
+    public static final int TIFF\_SRATIONAL
+
+    Flag for pairs of 32 bit signed integers.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_SRATIONAL)
+  + ### TIFF\_FLOAT
+
+    public static final int TIFF\_FLOAT
+
+    Flag for 32 bit IEEE floats.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_FLOAT)
+  + ### TIFF\_DOUBLE
+
+    public static final int TIFF\_DOUBLE
+
+    Flag for 64 bit IEEE doubles.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_DOUBLE)
+  + ### TIFF\_IFD\_POINTER
+
+    public static final int TIFF\_IFD\_POINTER
+
+    Flag for IFD pointer defined in TIFF Tech Note 1 in
+    TIFF Specification Supplement 1.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.TIFF_IFD_POINTER)
+  + ### MIN\_DATATYPE
+
+    public static final int MIN\_DATATYPE
+
+    The numerically smallest constant representing a TIFF data type.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.MIN_DATATYPE)
+  + ### MAX\_DATATYPE
+
+    public static final int MAX\_DATATYPE
+
+    The numerically largest constant representing a TIFF data type.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.MAX_DATATYPE)
+  + ### UNKNOWN\_TAG\_NAME
+
+    public static final [String](../../../../../java.base/java/lang/String.md "class in java.lang") UNKNOWN\_TAG\_NAME
+
+    The name assigned to a tag with an unknown tag number. Such
+    a tag may be created for example when reading an IFD and a
+    tag number is encountered which is not in any of the
+    `TIFFTagSet`s known to the reader.
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.imageio.plugins.tiff.TIFFTag.UNKNOWN_TAG_NAME)
+* ## Constructor Details
+
+  + ### TIFFTag
+
+    public TIFFTag([String](../../../../../java.base/java/lang/String.md "class in java.lang") name,
+    int number,
+    int dataTypes,
+    int count)
+
+    Constructs a `TIFFTag` with a given name, tag number, set
+    of legal data types, and value count. A negative value count signifies
+    that either an arbitrary number of values is legal or the required count
+    is determined by the values of other fields in the IFD. A non-negative
+    count specifies the number of values which an associated field must
+    contain. The tag will have no associated `TIFFTagSet`.
+
+    If there are mnemonic names to be associated with the legal
+    data values for the tag, [`addValueName()`](#addValueName(int,java.lang.String)) should be called on the new instance for each name.
+    Mnemonic names apply only to tags which have integral data type.
+
+    See the documentation for [`getDataTypes()`](#getDataTypes()) for an explanation of how the set
+    of data types is to be converted into a bit mask.
+
+    Parameters:
+    :   `name` - the name of the tag.
+    :   `number` - the number used to represent the tag.
+    :   `dataTypes` - a bit mask indicating the set of legal data
+        types for this tag.
+    :   `count` - the value count for this tag.
+
+    Throws:
+    :   `NullPointerException` - if name is null.
+    :   `IllegalArgumentException` - if number is negative or dataTypes
+        is negative or specifies an out of range type.
+  + ### TIFFTag
+
+    public TIFFTag([String](../../../../../java.base/java/lang/String.md "class in java.lang") name,
+    int number,
+    [TIFFTagSet](TIFFTagSet.md "class in javax.imageio.plugins.tiff") tagSet)
+
+    Constructs a `TIFFTag` with a given name, tag number and
+    `TIFFTagSet` to which it refers. The legal data types are
+    set to include [`TIFF_LONG`](#TIFF_LONG) and [`TIFF_IFD_POINTER`](#TIFF_IFD_POINTER) and the
+    value count is unity. The `TIFFTagSet` will
+    represent the set of `TIFFTag`s which appear in the IFD
+    pointed to. A `TIFFTag` represents an IFD pointer if and
+    only if `tagSet` is non-`null` or the data
+    type `TIFF_IFD_POINTER` is legal.
+
+    Parameters:
+    :   `name` - the name of the tag.
+    :   `number` - the number used to represent the tag.
+    :   `tagSet` - the `TIFFTagSet` to which this tag belongs.
+
+    Throws:
+    :   `NullPointerException` - if name or tagSet is null.
+    :   `IllegalArgumentException` - if number is negative.
+
+    See Also:
+    :   - [`TIFFTag(String, int, int, int)`](#%3Cinit%3E(java.lang.String,int,int,int))
+  + ### TIFFTag
+
+    public TIFFTag([String](../../../../../java.base/java/lang/String.md "class in java.lang") name,
+    int number,
+    int dataTypes)
+
+    Constructs a `TIFFTag` with a given name, tag number,
+    and set of legal data types. The value count of the tag will be
+    undefined and it will have no associated `TIFFTagSet`.
+
+    Parameters:
+    :   `name` - the name of the tag.
+    :   `number` - the number used to represent the tag.
+    :   `dataTypes` - a bit mask indicating the set of legal data
+        types for this tag.
+
+    Throws:
+    :   `NullPointerException` - if name is null.
+    :   `IllegalArgumentException` - if number is negative or dataTypes
+        is negative or specifies an out of range type.
+
+    See Also:
+    :   - [`TIFFTag(String, int, int, int)`](#%3Cinit%3E(java.lang.String,int,int,int))
+* ## Method Details
+
+  + ### getSizeOfType
+
+    public static int getSizeOfType(int dataType)
+
+    Returns the number of bytes used to store a value of the given
+    data type.
+
+    Parameters:
+    :   `dataType` - the data type to be queried.
+
+    Returns:
+    :   the number of bytes used to store the given data type.
+
+    Throws:
+    :   `IllegalArgumentException` - if `datatype` is
+        less than `MIN_DATATYPE` or greater than
+        `MAX_DATATYPE`.
+  + ### getName
+
+    public [String](../../../../../java.base/java/lang/String.md "class in java.lang") getName()
+
+    Returns the name of the tag, as it will appear in image metadata.
+
+    Returns:
+    :   the tag name, as a `String`.
+  + ### getNumber
+
+    public int getNumber()
+
+    Returns the integer used to represent the tag.
+
+    Returns:
+    :   the tag number, as an `int`.
+  + ### getDataTypes
+
+    public int getDataTypes()
+
+    Returns a bit mask indicating the set of data types that may
+    be used to store the data associated with the tag.
+    For example, a tag that can store both SHORT and LONG values
+    would return a value of:
+
+    ```
+     (1 << TIFFTag.TIFF_SHORT) | (1 << TIFFTag.TIFF_LONG)
+    ```
+
+    Returns:
+    :   an `int` containing a bitmask encoding the
+        set of valid data types.
+  + ### getCount
+
+    public int getCount()
+
+    Returns the value count of this tag. If this value is positive, it
+    represents the required number of values for a `TIFFField`
+    which has this tag. If the value is negative, the count is undefined.
+    In the latter case the count may be derived, e.g., the number of values
+    of the `BitsPerSample` field is `SamplesPerPixel`,
+    or it may be variable as in the case of most `US-ASCII`
+    fields.
+
+    Returns:
+    :   the value count of this tag.
+  + ### isDataTypeOK
+
+    public boolean isDataTypeOK(int dataType)
+
+    Returns `true` if the given data type
+    may be used for the data associated with this tag.
+
+    Parameters:
+    :   `dataType` - the data type to be queried, one of
+        `TIFF_BYTE`, `TIFF_SHORT`, etc.
+
+    Returns:
+    :   a `boolean` indicating whether the given
+        data type may be used with this tag.
+
+    Throws:
+    :   `IllegalArgumentException` - if `datatype` is
+        less than `MIN_DATATYPE` or greater than
+        `MAX_DATATYPE`.
+  + ### getTagSet
+
+    public [TIFFTagSet](TIFFTagSet.md "class in javax.imageio.plugins.tiff") getTagSet()
+
+    Returns the `TIFFTagSet` of which this tag is a part.
+
+    Returns:
+    :   the containing `TIFFTagSet`.
+  + ### isIFDPointer
+
+    public boolean isIFDPointer()
+
+    Returns `true` if this tag is used to point to an IFD
+    structure containing additional tags. A `TIFFTag` represents
+    an IFD pointer if and only if its `TIFFTagSet` is
+    non-`null` or the data type `TIFF_IFD_POINTER` is
+    legal. This condition will be satisfied if and only if either
+    `getTagSet() != null` or
+    `isDataTypeOK(TIFF_IFD_POINTER) == true`.
+
+    Many TIFF extensions use the IFD mechanism in order to limit the
+    number of new tags that may appear in the root IFD.
+
+    Returns:
+    :   `true` if this tag points to an IFD.
+  + ### hasValueNames
+
+    public boolean hasValueNames()
+
+    Returns `true` if there are mnemonic names associated with
+    the set of legal values for the data associated with this tag. Mnemonic
+    names apply only to tags which have integral data type.
+
+    Returns:
+    :   `true` if mnemonic value names are available.
+  + ### addValueName
+
+    protected void addValueName(int value,
+    [String](../../../../../java.base/java/lang/String.md "class in java.lang") name)
+
+    Adds a mnemonic name for a particular value that this tag's data may take
+    on. Mnemonic names apply only to tags which have integral data type.
+
+    Parameters:
+    :   `value` - the data value.
+    :   `name` - the name to associate with the value.
+  + ### getValueName
+
+    public [String](../../../../../java.base/java/lang/String.md "class in java.lang") getValueName(int value)
+
+    Returns the mnemonic name associated with a particular value
+    that this tag's data may take on, or `null` if
+    no name is present. Mnemonic names apply only to tags which have
+    integral data type.
+
+    Parameters:
+    :   `value` - the data value.
+
+    Returns:
+    :   the mnemonic name associated with the value, as a
+        `String`.
+  + ### getNamedValues
+
+    public int[] getNamedValues()
+
+    Returns an array of values for which mnemonic names are defined. The
+    method [`getValueName()`](#getValueName(int)) will return
+    non-`null` only for values contained in the returned array.
+    Mnemonic names apply only to tags which have integral data type.
+
+    Returns:
+    :   the values for which there is a mnemonic name.

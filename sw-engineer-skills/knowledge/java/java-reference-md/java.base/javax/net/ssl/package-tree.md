@@ -1,0 +1,73 @@
+# Hierarchy For Package javax.net.ssl
+
+Package Hierarchies:
+
+* [All Packages](../../../../overview-tree.md)
+
+## Class Hierarchy
+
+* java.lang.[Object](../../../java/lang/Object.md "class in java.lang")
+  + javax.net.ssl.[CertPathTrustManagerParameters](CertPathTrustManagerParameters.md "class in javax.net.ssl") (implements javax.net.ssl.[ManagerFactoryParameters](ManagerFactoryParameters.md "interface in javax.net.ssl"))
+  + java.util.[EventObject](../../../java/util/EventObject.md "class in java.util") (implements java.io.[Serializable](../../../java/io/Serializable.md "interface in java.io"))
+    - javax.net.ssl.[HandshakeCompletedEvent](HandshakeCompletedEvent.md "class in javax.net.ssl")
+    - javax.net.ssl.[SSLSessionBindingEvent](SSLSessionBindingEvent.md "class in javax.net.ssl")
+  + javax.net.ssl.[ExtendedSSLSession](ExtendedSSLSession.md "class in javax.net.ssl") (implements javax.net.ssl.[SSLSession](SSLSession.md "interface in javax.net.ssl"))
+  + javax.net.ssl.[KeyManagerFactory](KeyManagerFactory.md "class in javax.net.ssl")
+  + javax.net.ssl.[KeyManagerFactorySpi](KeyManagerFactorySpi.md "class in javax.net.ssl")
+  + javax.net.ssl.[KeyStoreBuilderParameters](KeyStoreBuilderParameters.md "class in javax.net.ssl") (implements javax.net.ssl.[ManagerFactoryParameters](ManagerFactoryParameters.md "interface in javax.net.ssl"))
+  + java.security.[Permission](../../../java/security/Permission.md "class in java.security") (implements java.security.[Guard](../../../java/security/Guard.md "interface in java.security"), java.io.[Serializable](../../../java/io/Serializable.md "interface in java.io"))
+    - java.security.[BasicPermission](../../../java/security/BasicPermission.md "class in java.security") (implements java.io.[Serializable](../../../java/io/Serializable.md "interface in java.io"))
+      * javax.net.ssl.[SSLPermission](SSLPermission.md "class in javax.net.ssl")
+  + java.net.[ServerSocket](../../../java/net/ServerSocket.md "class in java.net") (implements java.io.[Closeable](../../../java/io/Closeable.md "interface in java.io"))
+    - javax.net.ssl.[SSLServerSocket](SSLServerSocket.md "class in javax.net.ssl")
+  + javax.net.[ServerSocketFactory](../ServerSocketFactory.md "class in javax.net")
+    - javax.net.ssl.[SSLServerSocketFactory](SSLServerSocketFactory.md "class in javax.net.ssl")
+  + javax.net.ssl.[SNIMatcher](SNIMatcher.md "class in javax.net.ssl")
+  + javax.net.ssl.[SNIServerName](SNIServerName.md "class in javax.net.ssl")
+    - javax.net.ssl.[SNIHostName](SNIHostName.md "class in javax.net.ssl")
+  + java.net.[Socket](../../../java/net/Socket.md "class in java.net") (implements java.io.[Closeable](../../../java/io/Closeable.md "interface in java.io"))
+    - javax.net.ssl.[SSLSocket](SSLSocket.md "class in javax.net.ssl")
+  + javax.net.[SocketFactory](../SocketFactory.md "class in javax.net")
+    - javax.net.ssl.[SSLSocketFactory](SSLSocketFactory.md "class in javax.net.ssl")
+  + javax.net.ssl.[SSLContext](SSLContext.md "class in javax.net.ssl")
+  + javax.net.ssl.[SSLContextSpi](SSLContextSpi.md "class in javax.net.ssl")
+  + javax.net.ssl.[SSLEngine](SSLEngine.md "class in javax.net.ssl")
+  + javax.net.ssl.[SSLEngineResult](SSLEngineResult.md "class in javax.net.ssl")
+  + javax.net.ssl.[SSLParameters](SSLParameters.md "class in javax.net.ssl")
+  + javax.net.ssl.[StandardConstants](StandardConstants.md "class in javax.net.ssl")
+  + java.lang.[Throwable](../../../java/lang/Throwable.md "class in java.lang") (implements java.io.[Serializable](../../../java/io/Serializable.md "interface in java.io"))
+    - java.lang.[Exception](../../../java/lang/Exception.md "class in java.lang")
+      * java.io.[IOException](../../../java/io/IOException.md "class in java.io")
+        + javax.net.ssl.[SSLException](SSLException.md "class in javax.net.ssl")
+          - javax.net.ssl.[SSLHandshakeException](SSLHandshakeException.md "class in javax.net.ssl")
+          - javax.net.ssl.[SSLKeyException](SSLKeyException.md "class in javax.net.ssl")
+          - javax.net.ssl.[SSLPeerUnverifiedException](SSLPeerUnverifiedException.md "class in javax.net.ssl")
+          - javax.net.ssl.[SSLProtocolException](SSLProtocolException.md "class in javax.net.ssl")
+  + javax.net.ssl.[TrustManagerFactory](TrustManagerFactory.md "class in javax.net.ssl")
+  + javax.net.ssl.[TrustManagerFactorySpi](TrustManagerFactorySpi.md "class in javax.net.ssl")
+  + java.net.[URLConnection](../../../java/net/URLConnection.md "class in java.net")
+    - java.net.[HttpURLConnection](../../../java/net/HttpURLConnection.md "class in java.net")
+      * javax.net.ssl.[HttpsURLConnection](HttpsURLConnection.md "class in javax.net.ssl")
+  + javax.net.ssl.[X509ExtendedKeyManager](X509ExtendedKeyManager.md "class in javax.net.ssl") (implements javax.net.ssl.[X509KeyManager](X509KeyManager.md "interface in javax.net.ssl"))
+  + javax.net.ssl.[X509ExtendedTrustManager](X509ExtendedTrustManager.md "class in javax.net.ssl") (implements javax.net.ssl.[X509TrustManager](X509TrustManager.md "interface in javax.net.ssl"))
+
+## Interface Hierarchy
+
+* java.util.[EventListener](../../../java/util/EventListener.md "interface in java.util")
+  + javax.net.ssl.[HandshakeCompletedListener](HandshakeCompletedListener.md "interface in javax.net.ssl")
+  + javax.net.ssl.[SSLSessionBindingListener](SSLSessionBindingListener.md "interface in javax.net.ssl")
+* javax.net.ssl.[HostnameVerifier](HostnameVerifier.md "interface in javax.net.ssl")
+* javax.net.ssl.[KeyManager](KeyManager.md "interface in javax.net.ssl")
+  + javax.net.ssl.[X509KeyManager](X509KeyManager.md "interface in javax.net.ssl")
+* javax.net.ssl.[ManagerFactoryParameters](ManagerFactoryParameters.md "interface in javax.net.ssl")
+* javax.net.ssl.[SSLSession](SSLSession.md "interface in javax.net.ssl")
+* javax.net.ssl.[SSLSessionContext](SSLSessionContext.md "interface in javax.net.ssl")
+* javax.net.ssl.[TrustManager](TrustManager.md "interface in javax.net.ssl")
+  + javax.net.ssl.[X509TrustManager](X509TrustManager.md "interface in javax.net.ssl")
+
+## Enum Class Hierarchy
+
+* java.lang.[Object](../../../java/lang/Object.md "class in java.lang")
+  + java.lang.[Enum](../../../java/lang/Enum.md "class in java.lang")<E> (implements java.lang.[Comparable](../../../java/lang/Comparable.md "interface in java.lang")<T>, java.lang.constant.[Constable](../../../java/lang/constant/Constable.md "interface in java.lang.constant"), java.io.[Serializable](../../../java/io/Serializable.md "interface in java.io"))
+    - javax.net.ssl.[SSLEngineResult.HandshakeStatus](SSLEngineResult.HandshakeStatus.md "enum class in javax.net.ssl")
+    - javax.net.ssl.[SSLEngineResult.Status](SSLEngineResult.Status.md "enum class in javax.net.ssl")

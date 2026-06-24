@@ -1,0 +1,26 @@
+= Developing with Spring Boot
+
+Spring Boot is designed to reduce boilerplate while keeping the application shape understandable.
+
+== Read this for
+- application structure
+- build system integration
+- auto-configuration
+- running and packaging
+- code organization
+
+== Working rules
+- Keep the `@SpringBootApplication` class thin.
+- Place configuration in configuration classes.
+- Use Spring Boot conventions unless you have a clear reason to diverge.
+- Prefer clear package boundaries and bean wiring that a new reader can trace.
+
+== Source notes
+This area maps to the `using/` chapter in the source corpus, including:
+- build systems
+- configuration classes
+- auto-configuration
+- running your application
+- structuring your code
+- Spring Boot application annotation usage
+- devtools

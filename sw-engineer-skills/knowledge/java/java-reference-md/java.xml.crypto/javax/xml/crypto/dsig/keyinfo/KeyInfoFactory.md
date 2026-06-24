@@ -1,0 +1,693 @@
+Module [java.xml.crypto](../../../../../module-summary.md)
+
+Package [javax.xml.crypto.dsig.keyinfo](package-summary.md)
+
+# Class KeyInfoFactory
+
+[java.lang.Object](../../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+javax.xml.crypto.dsig.keyinfo.KeyInfoFactory
+
+---
+
+public abstract class KeyInfoFactory
+extends [Object](../../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+A factory for creating [`KeyInfo`](KeyInfo.md "interface in javax.xml.crypto.dsig.keyinfo") objects from scratch or for
+unmarshalling a `KeyInfo` object from a corresponding XML
+representation.
+
+Each instance of `KeyInfoFactory` supports a specific
+XML mechanism type. To create a `KeyInfoFactory`, call one of the
+static [`getInstance`](#getInstance(java.lang.String)) methods, passing in the XML
+mechanism type desired, for example:
+> `KeyInfoFactory factory = KeyInfoFactory.getInstance("DOM");`
+
+The objects that this factory produces will be based
+on DOM and abide by the DOM interoperability requirements as defined in the
+[DOM Mechanism Requirements](../package-summary.md#dom_req).
+See the `KeyInfoFactory` section in the [Java Security Standard Algorithm Names Specification](../../../../../../../specs/security/standard-names.md#xml-signature-xmlsignaturefactorykeyinfofactorytransformservice-mechanisms) for a list of
+standard mechanism types.
+
+`KeyInfoFactory` implementations are registered and loaded
+using the [`Provider`](../../../../../../java.base/java/security/Provider.md "class in java.security") mechanism.
+For example, a service provider that supports the
+DOM mechanism would be specified in the `Provider` subclass as:
+
+```
+     put("KeyInfoFactory.DOM", "org.example.DOMKeyInfoFactory");
+```
+
+Also, the `XMLStructure`s that are created by this factory
+may contain state specific to the `KeyInfo` and are not
+intended to be reusable.
+
+An implementation MUST minimally support the default mechanism type: DOM.
+
+Note that a caller must use the same `KeyInfoFactory`
+instance to create the `XMLStructure`s of a particular
+`KeyInfo` object. The behavior is undefined if
+`XMLStructure`s from different providers or different mechanism
+types are used together.
+
+**Concurrent Access**
+
+The static methods of this class are guaranteed to be thread-safe.
+Multiple threads may concurrently invoke the static methods defined in this
+class with no ill effects.
+
+However, this is not true for the non-static methods defined by this
+class. Unless otherwise documented by a specific provider, threads that
+need to access a single `KeyInfoFactory` instance concurrently
+should synchronize amongst themselves and provide the necessary locking.
+Multiple threads each manipulating a different `KeyInfoFactory`
+instance need not synchronize.
+
+Since:
+:   1.6
+
+* ## Constructor Summary
+
+  Constructors
+
+  Modifier
+
+  Constructor
+
+  Description
+
+  `protected`
+
+  `KeyInfoFactory()`
+
+  Default constructor, for invocation by subclasses.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsAbstract MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `static KeyInfoFactory`
+
+  `getInstance()`
+
+  Returns a `KeyInfoFactory` that supports the
+  default XML processing mechanism and representation type ("DOM").
+
+  `static KeyInfoFactory`
+
+  `getInstance(String mechanismType)`
+
+  Returns a `KeyInfoFactory` that supports the
+  specified XML processing mechanism and representation type (ex: "DOM").
+
+  `static KeyInfoFactory`
+
+  `getInstance(String mechanismType,
+  String provider)`
+
+  Returns a `KeyInfoFactory` that supports the
+  requested XML processing mechanism and representation type (ex: "DOM"),
+  as supplied by the specified provider.
+
+  `static KeyInfoFactory`
+
+  `getInstance(String mechanismType,
+  Provider provider)`
+
+  Returns a `KeyInfoFactory` that supports the
+  requested XML processing mechanism and representation type (ex: "DOM"),
+  as supplied by the specified provider.
+
+  `final String`
+
+  `getMechanismType()`
+
+  Returns the type of the XML processing mechanism and representation
+  supported by this `KeyInfoFactory` (ex: "DOM")
+
+  `final Provider`
+
+  `getProvider()`
+
+  Returns the provider of this `KeyInfoFactory`.
+
+  `abstract URIDereferencer`
+
+  `getURIDereferencer()`
+
+  Returns a reference to the `URIDereferencer` that is used by
+  default to dereference URIs in [`RetrievalMethod`](RetrievalMethod.md "interface in javax.xml.crypto.dsig.keyinfo") objects.
+
+  `abstract boolean`
+
+  `isFeatureSupported(String feature)`
+
+  Indicates whether a specified feature is supported.
+
+  `abstract KeyInfo`
+
+  `newKeyInfo(List<? extends XMLStructure> content)`
+
+  Creates a `KeyInfo` containing the specified list of
+  key information types.
+
+  `abstract KeyInfo`
+
+  `newKeyInfo(List<? extends XMLStructure> content,
+  String id)`
+
+  Creates a `KeyInfo` containing the specified list of key
+  information types and optional id.
+
+  `abstract KeyName`
+
+  `newKeyName(String name)`
+
+  Creates a `KeyName` from the specified name.
+
+  `abstract KeyValue`
+
+  `newKeyValue(PublicKey key)`
+
+  Creates a `KeyValue` from the specified public key.
+
+  `abstract PGPData`
+
+  `newPGPData(byte[] keyId)`
+
+  Creates a `PGPData` from the specified PGP public key
+  identifier.
+
+  `abstract PGPData`
+
+  `newPGPData(byte[] keyId,
+  byte[] keyPacket,
+  List<? extends XMLStructure> other)`
+
+  Creates a `PGPData` from the specified PGP public key
+  identifier, and optional key material packet and list of external
+  elements.
+
+  `abstract PGPData`
+
+  `newPGPData(byte[] keyPacket,
+  List<? extends XMLStructure> other)`
+
+  Creates a `PGPData` from the specified PGP key material
+  packet and optional list of external elements.
+
+  `abstract RetrievalMethod`
+
+  `newRetrievalMethod(String uri)`
+
+  Creates a `RetrievalMethod` from the specified URI.
+
+  `abstract RetrievalMethod`
+
+  `newRetrievalMethod(String uri,
+  String type,
+  List<? extends Transform> transforms)`
+
+  Creates a `RetrievalMethod` from the specified parameters.
+
+  `abstract X509Data`
+
+  `newX509Data(List<?> content)`
+
+  Creates a `X509Data` containing the specified list of
+  X.509 content.
+
+  `abstract X509IssuerSerial`
+
+  `newX509IssuerSerial(String issuerName,
+  BigInteger serialNumber)`
+
+  Creates an `X509IssuerSerial` from the specified X.500 issuer
+  distinguished name and serial number.
+
+  `abstract KeyInfo`
+
+  `unmarshalKeyInfo(XMLStructure xmlStructure)`
+
+  Unmarshals a new `KeyInfo` instance from a
+  mechanism-specific `XMLStructure` (ex: [`DOMStructure`](../../dom/DOMStructure.md "class in javax.xml.crypto.dom"))
+  instance.
+
+  ### Methods inherited from class java.lang.[Object](../../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### KeyInfoFactory
+
+    protected KeyInfoFactory()
+
+    Default constructor, for invocation by subclasses.
+* ## Method Details
+
+  + ### getInstance
+
+    public static [KeyInfoFactory](KeyInfoFactory.md "class in javax.xml.crypto.dsig.keyinfo") getInstance([String](../../../../../../java.base/java/lang/String.md "class in java.lang") mechanismType)
+
+    Returns a `KeyInfoFactory` that supports the
+    specified XML processing mechanism and representation type (ex: "DOM").
+
+    This method uses the standard JCA provider lookup mechanism to
+    locate and instantiate a `KeyInfoFactory` implementation of
+    the desired mechanism type. It traverses the list of registered security
+    `Provider`s, starting with the most preferred
+    `Provider`. A new `KeyInfoFactory` object
+    from the first `Provider` that supports the specified
+    mechanism is returned.
+
+    Note that the list of registered providers may be retrieved via
+    the [`Security.getProviders()`](../../../../../../java.base/java/security/Security.md#getProviders()) method.
+
+    Parameters:
+    :   `mechanismType` - the type of the XML processing mechanism and
+        representation. See the `KeyInfoFactory` section in the
+        [Java Security Standard Algorithm Names Specification](../../../../../../../specs/security/standard-names.md#xml-signature-xmlsignaturefactorykeyinfofactorytransformservice-mechanisms) for a list
+        of standard mechanism types.
+
+    Returns:
+    :   a new `KeyInfoFactory`
+
+    Throws:
+    :   `NullPointerException` - if `mechanismType` is
+        `null`
+    :   `NoSuchMechanismException` - if no `Provider` supports a
+        `KeyInfoFactory` implementation for the specified mechanism
+
+    See Also:
+    :   - [`Provider`](../../../../../../java.base/java/security/Provider.md "class in java.security")
+  + ### getInstance
+
+    public static [KeyInfoFactory](KeyInfoFactory.md "class in javax.xml.crypto.dsig.keyinfo") getInstance([String](../../../../../../java.base/java/lang/String.md "class in java.lang") mechanismType,
+    [Provider](../../../../../../java.base/java/security/Provider.md "class in java.security") provider)
+
+    Returns a `KeyInfoFactory` that supports the
+    requested XML processing mechanism and representation type (ex: "DOM"),
+    as supplied by the specified provider. Note that the specified
+    `Provider` object does not have to be registered in the
+    provider list.
+
+    Parameters:
+    :   `mechanismType` - the type of the XML processing mechanism and
+        representation. See the `KeyInfoFactory` section in the
+        [Java Security Standard Algorithm Names Specification](../../../../../../../specs/security/standard-names.md#xml-signature-xmlsignaturefactorykeyinfofactorytransformservice-mechanisms) for a list
+        of standard mechanism types.
+    :   `provider` - the `Provider` object
+
+    Returns:
+    :   a new `KeyInfoFactory`
+
+    Throws:
+    :   `NullPointerException` - if `mechanismType` or
+        `provider` are `null`
+    :   `NoSuchMechanismException` - if a `KeyInfoFactory`
+        implementation for the specified mechanism is not available from the
+        specified `Provider` object
+
+    See Also:
+    :   - [`Provider`](../../../../../../java.base/java/security/Provider.md "class in java.security")
+  + ### getInstance
+
+    public static [KeyInfoFactory](KeyInfoFactory.md "class in javax.xml.crypto.dsig.keyinfo") getInstance([String](../../../../../../java.base/java/lang/String.md "class in java.lang") mechanismType,
+    [String](../../../../../../java.base/java/lang/String.md "class in java.lang") provider)
+    throws [NoSuchProviderException](../../../../../../java.base/java/security/NoSuchProviderException.md "class in java.security")
+
+    Returns a `KeyInfoFactory` that supports the
+    requested XML processing mechanism and representation type (ex: "DOM"),
+    as supplied by the specified provider. The specified provider must be
+    registered in the security provider list.
+
+    Note that the list of registered providers may be retrieved via
+    the [`Security.getProviders()`](../../../../../../java.base/java/security/Security.md#getProviders()) method.
+
+    Parameters:
+    :   `mechanismType` - the type of the XML processing mechanism and
+        representation. See the `KeyInfoFactory` section in the
+        [Java Security Standard Algorithm Names Specification](../../../../../../../specs/security/standard-names.md#xml-signature-xmlsignaturefactorykeyinfofactorytransformservice-mechanisms) for a list
+        of standard mechanism types.
+    :   `provider` - the string name of the provider
+
+    Returns:
+    :   a new `KeyInfoFactory`
+
+    Throws:
+    :   `NoSuchProviderException` - if the specified provider is not
+        registered in the security provider list
+    :   `NullPointerException` - if `mechanismType` or
+        `provider` are `null`
+    :   `NoSuchMechanismException` - if a `KeyInfoFactory`
+        implementation for the specified mechanism is not available from the
+        specified provider
+
+    See Also:
+    :   - [`Provider`](../../../../../../java.base/java/security/Provider.md "class in java.security")
+  + ### getInstance
+
+    public static [KeyInfoFactory](KeyInfoFactory.md "class in javax.xml.crypto.dsig.keyinfo") getInstance()
+
+    Returns a `KeyInfoFactory` that supports the
+    default XML processing mechanism and representation type ("DOM").
+
+    This method uses the standard JCA provider lookup mechanism to
+    locate and instantiate a `KeyInfoFactory` implementation of
+    the default mechanism type. It traverses the list of registered security
+    `Provider`s, starting with the most preferred
+    `Provider`. A new `KeyInfoFactory` object
+    from the first `Provider` that supports the DOM mechanism is
+    returned.
+
+    Note that the list of registered providers may be retrieved via
+    the [`Security.getProviders()`](../../../../../../java.base/java/security/Security.md#getProviders()) method.
+
+    Returns:
+    :   a new `KeyInfoFactory`
+
+    Throws:
+    :   `NoSuchMechanismException` - if no `Provider` supports a
+        `KeyInfoFactory` implementation for the DOM mechanism
+
+    See Also:
+    :   - [`Provider`](../../../../../../java.base/java/security/Provider.md "class in java.security")
+  + ### getMechanismType
+
+    public final [String](../../../../../../java.base/java/lang/String.md "class in java.lang") getMechanismType()
+
+    Returns the type of the XML processing mechanism and representation
+    supported by this `KeyInfoFactory` (ex: "DOM")
+
+    Returns:
+    :   the XML processing mechanism type supported by this
+        `KeyInfoFactory`
+  + ### getProvider
+
+    public final [Provider](../../../../../../java.base/java/security/Provider.md "class in java.security") getProvider()
+
+    Returns the provider of this `KeyInfoFactory`.
+
+    Returns:
+    :   the provider of this `KeyInfoFactory`
+  + ### newKeyInfo
+
+    public abstract [KeyInfo](KeyInfo.md "interface in javax.xml.crypto.dsig.keyinfo") newKeyInfo([List](../../../../../../java.base/java/util/List.md "interface in java.util")<? extends [XMLStructure](../../XMLStructure.md "interface in javax.xml.crypto")> content)
+
+    Creates a `KeyInfo` containing the specified list of
+    key information types.
+
+    Parameters:
+    :   `content` - a list of one or more [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")s representing
+        key information types. The list is defensively copied to protect
+        against subsequent modification.
+
+    Returns:
+    :   a `KeyInfo`
+
+    Throws:
+    :   `NullPointerException` - if `content` is `null`
+    :   `IllegalArgumentException` - if `content` is empty
+    :   `ClassCastException` - if `content` contains any entries
+        that are not of type [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")
+  + ### newKeyInfo
+
+    public abstract [KeyInfo](KeyInfo.md "interface in javax.xml.crypto.dsig.keyinfo") newKeyInfo([List](../../../../../../java.base/java/util/List.md "interface in java.util")<? extends [XMLStructure](../../XMLStructure.md "interface in javax.xml.crypto")> content,
+    [String](../../../../../../java.base/java/lang/String.md "class in java.lang") id)
+
+    Creates a `KeyInfo` containing the specified list of key
+    information types and optional id. The
+    `id` parameter represents the value of an XML
+    `ID` attribute and is useful for referencing
+    the `KeyInfo` from other XML structures.
+
+    Parameters:
+    :   `content` - a list of one or more [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")s representing
+        key information types. The list is defensively copied to protect
+        against subsequent modification.
+    :   `id` - the value of an XML `ID` (may be `null`)
+
+    Returns:
+    :   a `KeyInfo`
+
+    Throws:
+    :   `NullPointerException` - if `content` is `null`
+    :   `IllegalArgumentException` - if `content` is empty
+    :   `ClassCastException` - if `content` contains any entries
+        that are not of type [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")
+  + ### newKeyName
+
+    public abstract [KeyName](KeyName.md "interface in javax.xml.crypto.dsig.keyinfo") newKeyName([String](../../../../../../java.base/java/lang/String.md "class in java.lang") name)
+
+    Creates a `KeyName` from the specified name.
+
+    Parameters:
+    :   `name` - the name that identifies the key
+
+    Returns:
+    :   a `KeyName`
+
+    Throws:
+    :   `NullPointerException` - if `name` is `null`
+  + ### newKeyValue
+
+    public abstract [KeyValue](KeyValue.md "interface in javax.xml.crypto.dsig.keyinfo") newKeyValue([PublicKey](../../../../../../java.base/java/security/PublicKey.md "interface in java.security") key)
+    throws [KeyException](../../../../../../java.base/java/security/KeyException.md "class in java.security")
+
+    Creates a `KeyValue` from the specified public key.
+
+    Parameters:
+    :   `key` - the public key
+
+    Returns:
+    :   a `KeyValue`
+
+    Throws:
+    :   `KeyException` - if the `key`'s algorithm is not
+        recognized or supported by this `KeyInfoFactory`
+    :   `NullPointerException` - if `key` is `null`
+  + ### newPGPData
+
+    public abstract [PGPData](PGPData.md "interface in javax.xml.crypto.dsig.keyinfo") newPGPData(byte[] keyId)
+
+    Creates a `PGPData` from the specified PGP public key
+    identifier.
+
+    Parameters:
+    :   `keyId` - a PGP public key identifier as defined in [RFC 2440](http://www.ietf.org/rfc/rfc2440.txt), section 11.2.
+        The array is cloned to protect against subsequent modification.
+
+    Returns:
+    :   a `PGPData`
+
+    Throws:
+    :   `NullPointerException` - if `keyId` is `null`
+    :   `IllegalArgumentException` - if the key id is not in the correct
+        format
+  + ### newPGPData
+
+    public abstract [PGPData](PGPData.md "interface in javax.xml.crypto.dsig.keyinfo") newPGPData(byte[] keyId,
+    byte[] keyPacket,
+    [List](../../../../../../java.base/java/util/List.md "interface in java.util")<? extends [XMLStructure](../../XMLStructure.md "interface in javax.xml.crypto")> other)
+
+    Creates a `PGPData` from the specified PGP public key
+    identifier, and optional key material packet and list of external
+    elements.
+
+    Parameters:
+    :   `keyId` - a PGP public key identifier as defined in [RFC 2440](http://www.ietf.org/rfc/rfc2440.txt), section 11.2.
+        The array is cloned to protect against subsequent modification.
+    :   `keyPacket` - a PGP key material packet as defined in [RFC 2440](http://www.ietf.org/rfc/rfc2440.txt), section 5.5.
+        The array is cloned to protect against subsequent modification. May
+        be `null`.
+    :   `other` - a list of [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")s representing elements from
+        an external namespace. The list is defensively copied to protect
+        against subsequent modification. May be `null` or empty.
+
+    Returns:
+    :   a `PGPData`
+
+    Throws:
+    :   `NullPointerException` - if `keyId` is `null`
+    :   `IllegalArgumentException` - if the `keyId` or
+        `keyPacket` is not in the correct format. For
+        `keyPacket`, the format of the packet header is
+        checked and the tag is verified that it is of type key material. The
+        contents and format of the packet body are not checked.
+    :   `ClassCastException` - if `other` contains any
+        entries that are not of type [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")
+  + ### newPGPData
+
+    public abstract [PGPData](PGPData.md "interface in javax.xml.crypto.dsig.keyinfo") newPGPData(byte[] keyPacket,
+    [List](../../../../../../java.base/java/util/List.md "interface in java.util")<? extends [XMLStructure](../../XMLStructure.md "interface in javax.xml.crypto")> other)
+
+    Creates a `PGPData` from the specified PGP key material
+    packet and optional list of external elements.
+
+    Parameters:
+    :   `keyPacket` - a PGP key material packet as defined in [RFC 2440](http://www.ietf.org/rfc/rfc2440.txt), section 5.5.
+        The array is cloned to protect against subsequent modification.
+    :   `other` - a list of [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")s representing elements from
+        an external namespace. The list is defensively copied to protect
+        against subsequent modification. May be `null` or empty.
+
+    Returns:
+    :   a `PGPData`
+
+    Throws:
+    :   `NullPointerException` - if `keyPacket` is
+        `null`
+    :   `IllegalArgumentException` - if `keyPacket` is not in the
+        correct format. For `keyPacket`, the format of the packet
+        header is checked and the tag is verified that it is of type key
+        material. The contents and format of the packet body are not checked.
+    :   `ClassCastException` - if `other` contains any
+        entries that are not of type [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto")
+  + ### newRetrievalMethod
+
+    public abstract [RetrievalMethod](RetrievalMethod.md "interface in javax.xml.crypto.dsig.keyinfo") newRetrievalMethod([String](../../../../../../java.base/java/lang/String.md "class in java.lang") uri)
+
+    Creates a `RetrievalMethod` from the specified URI.
+
+    Parameters:
+    :   `uri` - the URI that identifies the `KeyInfo` information
+        to be retrieved
+
+    Returns:
+    :   a `RetrievalMethod`
+
+    Throws:
+    :   `NullPointerException` - if `uri` is `null`
+    :   `IllegalArgumentException` - if `uri` is not RFC 2396
+        compliant
+  + ### newRetrievalMethod
+
+    public abstract [RetrievalMethod](RetrievalMethod.md "interface in javax.xml.crypto.dsig.keyinfo") newRetrievalMethod([String](../../../../../../java.base/java/lang/String.md "class in java.lang") uri,
+    [String](../../../../../../java.base/java/lang/String.md "class in java.lang") type,
+    [List](../../../../../../java.base/java/util/List.md "interface in java.util")<? extends [Transform](../Transform.md "interface in javax.xml.crypto.dsig")> transforms)
+
+    Creates a `RetrievalMethod` from the specified parameters.
+
+    Parameters:
+    :   `uri` - the URI that identifies the `KeyInfo` information
+        to be retrieved
+    :   `type` - a URI that identifies the type of `KeyInfo`
+        information to be retrieved (may be `null`)
+    :   `transforms` - a list of [`Transform`](../Transform.md "interface in javax.xml.crypto.dsig")s. The list is defensively
+        copied to protect against subsequent modification. May be
+        `null` or empty.
+
+    Returns:
+    :   a `RetrievalMethod`
+
+    Throws:
+    :   `NullPointerException` - if `uri` is `null`
+    :   `IllegalArgumentException` - if `uri` is not RFC 2396
+        compliant
+    :   `ClassCastException` - if `transforms` contains any
+        entries that are not of type [`Transform`](../Transform.md "interface in javax.xml.crypto.dsig")
+  + ### newX509Data
+
+    public abstract [X509Data](X509Data.md "interface in javax.xml.crypto.dsig.keyinfo") newX509Data([List](../../../../../../java.base/java/util/List.md "interface in java.util")<?> content)
+
+    Creates a `X509Data` containing the specified list of
+    X.509 content.
+
+    Parameters:
+    :   `content` - a list of one or more X.509 content types. Valid types are
+        [`String`](../../../../../../java.base/java/lang/String.md "class in java.lang") (subject names), `byte[]` (subject key ids),
+        [`X509Certificate`](../../../../../../java.base/java/security/cert/X509Certificate.md "class in java.security.cert"), [`X509CRL`](../../../../../../java.base/java/security/cert/X509CRL.md "class in java.security.cert"),
+        or [`XMLStructure`](../../XMLStructure.md "interface in javax.xml.crypto") ([`X509IssuerSerial`](X509IssuerSerial.md "interface in javax.xml.crypto.dsig.keyinfo")
+        objects or elements from an external namespace). Subject names are
+        distinguished names in RFC 2253 String format. Implementations MUST
+        support the attribute type keywords defined in RFC 2253 (CN, L, ST,
+        O, OU, C, STREET, DC and UID). Implementations MAY support additional
+        keywords. The list is defensively copied to protect against
+        subsequent modification.
+
+    Returns:
+    :   a `X509Data`
+
+    Throws:
+    :   `NullPointerException` - if `content` is `null`
+    :   `IllegalArgumentException` - if `content` is empty, or
+        if a subject name is not RFC 2253 compliant or one of the attribute
+        type keywords is not recognized.
+    :   `ClassCastException` - if `content` contains any entries
+        that are not of one of the valid types mentioned above
+  + ### newX509IssuerSerial
+
+    public abstract [X509IssuerSerial](X509IssuerSerial.md "interface in javax.xml.crypto.dsig.keyinfo") newX509IssuerSerial([String](../../../../../../java.base/java/lang/String.md "class in java.lang") issuerName,
+    [BigInteger](../../../../../../java.base/java/math/BigInteger.md "class in java.math") serialNumber)
+
+    Creates an `X509IssuerSerial` from the specified X.500 issuer
+    distinguished name and serial number.
+
+    Parameters:
+    :   `issuerName` - the issuer's distinguished name in RFC 2253 String
+        format. Implementations MUST support the attribute type keywords
+        defined in RFC 2253 (CN, L, ST, O, OU, C, STREET, DC and UID).
+        Implementations MAY support additional keywords.
+    :   `serialNumber` - the serial number
+
+    Returns:
+    :   an `X509IssuerSerial`
+
+    Throws:
+    :   `NullPointerException` - if `issuerName` or
+        `serialNumber` are `null`
+    :   `IllegalArgumentException` - if the issuer name is not RFC 2253
+        compliant or one of the attribute type keywords is not recognized.
+  + ### isFeatureSupported
+
+    public abstract boolean isFeatureSupported([String](../../../../../../java.base/java/lang/String.md "class in java.lang") feature)
+
+    Indicates whether a specified feature is supported.
+
+    Parameters:
+    :   `feature` - the feature name (as an absolute URI)
+
+    Returns:
+    :   `true` if the specified feature is supported,
+        `false` otherwise
+
+    Throws:
+    :   `NullPointerException` - if `feature` is `null`
+  + ### getURIDereferencer
+
+    public abstract [URIDereferencer](../../URIDereferencer.md "interface in javax.xml.crypto") getURIDereferencer()
+
+    Returns a reference to the `URIDereferencer` that is used by
+    default to dereference URIs in [`RetrievalMethod`](RetrievalMethod.md "interface in javax.xml.crypto.dsig.keyinfo") objects.
+
+    Returns:
+    :   a reference to the default `URIDereferencer`
+  + ### unmarshalKeyInfo
+
+    public abstract [KeyInfo](KeyInfo.md "interface in javax.xml.crypto.dsig.keyinfo") unmarshalKeyInfo([XMLStructure](../../XMLStructure.md "interface in javax.xml.crypto") xmlStructure)
+    throws [MarshalException](../../MarshalException.md "class in javax.xml.crypto")
+
+    Unmarshals a new `KeyInfo` instance from a
+    mechanism-specific `XMLStructure` (ex: [`DOMStructure`](../../dom/DOMStructure.md "class in javax.xml.crypto.dom"))
+    instance.
+
+    Parameters:
+    :   `xmlStructure` - a mechanism-specific XML structure from which to
+        unmarshal the keyinfo from
+
+    Returns:
+    :   the `KeyInfo`
+
+    Throws:
+    :   `NullPointerException` - if `xmlStructure` is
+        `null`
+    :   `ClassCastException` - if the type of `xmlStructure` is
+        inappropriate for this factory
+    :   `MarshalException` - if an unrecoverable exception occurs during
+        unmarshalling

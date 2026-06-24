@@ -1,0 +1,1496 @@
+Module [java.desktop](../../../module-summary.md)
+
+Package [java.beans.beancontext](package-summary.md)
+
+# Class BeanContextSupport
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.beans.beancontext.BeanContextChildSupport](BeanContextChildSupport.md "class in java.beans.beancontext")
+
+java.beans.beancontext.BeanContextSupport
+
+All Implemented Interfaces:
+:   `BeanContext`, `BeanContextChild`, `BeanContextServiceRevokedListener`, `BeanContextServicesListener`, `DesignMode`, `PropertyChangeListener`, `VetoableChangeListener`, `Visibility`, `Serializable`, `Iterable`, `Collection`, `EventListener`
+
+Direct Known Subclasses:
+:   `BeanContextServicesSupport`
+
+---
+
+public class BeanContextSupport
+extends [BeanContextChildSupport](BeanContextChildSupport.md "class in java.beans.beancontext")
+implements [BeanContext](BeanContext.md "interface in java.beans.beancontext"), [Serializable](../../../../java.base/java/io/Serializable.md "interface in java.io"), [PropertyChangeListener](../PropertyChangeListener.md "interface in java.beans"), [VetoableChangeListener](../VetoableChangeListener.md "interface in java.beans")
+
+This helper class provides a utility implementation of the
+java.beans.beancontext.BeanContext interface.
+
+Since this class directly implements the BeanContext interface, the class
+can, and is intended to be used either by subclassing this implementation,
+or via ad-hoc delegation of an instance of this class from another.
+
+Since:
+:   1.2
+
+See Also:
+:   * [Serialized Form](../../../../serialized-form.md#java.beans.beancontext.BeanContextSupport)
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `protected class`
+
+  `BeanContextSupport.BCSChild`
+
+  A protected nested class containing per-child information
+  in the `children` hashtable.
+
+  `protected static final class`
+
+  `BeanContextSupport.BCSIterator`
+
+  protected final subclass that encapsulates an iterator but implements
+  a noop remove() method.
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected ArrayList<BeanContextMembershipListener>`
+
+  `bcmListeners`
+
+  all accesses to the `protected ArrayList bcmListeners` field
+  shall be synchronized on that object.
+
+  `protected HashMap<Object,BeanContextSupport.BCSChild>`
+
+  `children`
+
+  all accesses to the `protected HashMap children` field
+  shall be synchronized on that object.
+
+  `protected boolean`
+
+  `designTime`
+
+  A `boolean` indicating whether or not
+  this object is currently in design time mode.
+
+  `protected Locale`
+
+  `locale`
+
+  The current locale of this BeanContext.
+
+  `protected boolean`
+
+  `okToUseGui`
+
+  A `boolean` indicating if this
+  instance may now render a GUI.
+
+  ### Fields inherited from class java.beans.beancontext.[BeanContextChildSupport](BeanContextChildSupport.md "class in java.beans.beancontext")
+
+  `beanContext, beanContextChildPeer, pcSupport, rejectedSetBCOnce, vcSupport`
+
+  ### Fields inherited from interface java.beans.beancontext.[BeanContext](BeanContext.md "interface in java.beans.beancontext")
+
+  `globalHierarchyLock`
+
+  ### Fields inherited from interface java.beans.[DesignMode](../DesignMode.md "interface in java.beans")
+
+  `PROPERTYNAME`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `BeanContextSupport()`
+
+  Create an instance that is not a delegate of another object
+
+  `BeanContextSupport(BeanContext peer)`
+
+  Create an instance using with a default locale
+
+  `BeanContextSupport(BeanContext peer,
+  Locale lcle)`
+
+  Create an instance using the specified locale
+
+  `BeanContextSupport(BeanContext peer,
+  Locale lcle,
+  boolean dtime)`
+
+  Create an instance using the specified Locale and design mode.
+
+  `BeanContextSupport(BeanContext peer,
+  Locale lcle,
+  boolean dTime,
+  boolean visible)`
+
+  Construct a BeanContextSupport instance
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `boolean`
+
+  `add(Object targetChild)`
+
+  Adds/nests a child within this `BeanContext`.
+
+  `boolean`
+
+  `addAll(Collection c)`
+
+  add Collection to set of Children (Unsupported)
+  implementations must synchronized on the hierarchy lock and "children" protected field
+
+  `void`
+
+  `addBeanContextMembershipListener(BeanContextMembershipListener bcml)`
+
+  Adds a BeanContextMembershipListener
+
+  `boolean`
+
+  `avoidingGui()`
+
+  Used to determine if the `BeanContext`
+  child is avoiding using its GUI.
+
+  `protected Iterator<BeanContextSupport.BCSChild>`
+
+  `bcsChildren()`
+
+  Returns an iterator of all children
+  of this `BeanContext`.
+
+  `protected void`
+
+  `bcsPreDeserializationHook(ObjectInputStream ois)`
+
+  called by readObject after defaultReadObject() but prior to
+  deserialization of any children.
+
+  `protected void`
+
+  `bcsPreSerializationHook(ObjectOutputStream oos)`
+
+  called by writeObject after defaultWriteObject() but prior to
+  serialization of currently serializable children.
+
+  `protected void`
+
+  `childDeserializedHook(Object child,
+  BeanContextSupport.BCSChild bcsc)`
+
+  Called by readObject with the newly deserialized child and BCSChild.
+
+  `protected void`
+
+  `childJustAddedHook(Object child,
+  BeanContextSupport.BCSChild bcsc)`
+
+  subclasses may override this method to simply extend add() semantics
+  after the child has been added and before the event notification has
+  occurred.
+
+  `protected void`
+
+  `childJustRemovedHook(Object child,
+  BeanContextSupport.BCSChild bcsc)`
+
+  subclasses may override this method to simply extend remove() semantics
+  after the child has been removed and before the event notification has
+  occurred.
+
+  `protected static final boolean`
+
+  `classEquals(Class<?> first,
+  Class<?> second)`
+
+  Tests to see if two class objects,
+  or their names are equal.
+
+  `void`
+
+  `clear()`
+
+  clear the children (Unsupported)
+  implementations must synchronized on the hierarchy lock and "children" protected field
+
+  `boolean`
+
+  `contains(Object o)`
+
+  Determines whether or not the specified object
+  is currently a child of this `BeanContext`.
+
+  `boolean`
+
+  `containsAll(Collection c)`
+
+  Tests to see if all objects in the
+  specified `Collection` are children of
+  this `BeanContext`.
+
+  `boolean`
+
+  `containsKey(Object o)`
+
+  Determines whether or not the specified object
+  is currently a child of this `BeanContext`.
+
+  `protected final Object[]`
+
+  `copyChildren()`
+
+  Gets a copy of the this BeanContext's children.
+
+  `protected BeanContextSupport.BCSChild`
+
+  `createBCSChild(Object targetChild,
+  Object peer)`
+
+  Subclasses can override this method to insert their own subclass
+  of Child without having to override add() or the other Collection
+  methods that add children to the set.
+
+  `protected final void`
+
+  `deserialize(ObjectInputStream ois,
+  Collection coll)`
+
+  used by readObject to deserialize a collection.
+
+  `void`
+
+  `dontUseGui()`
+
+  notify this instance that it may no longer render a GUI.
+
+  `protected final void`
+
+  `fireChildrenAdded(BeanContextMembershipEvent bcme)`
+
+  Fire a BeanContextshipEvent on the BeanContextMembershipListener interface
+
+  `protected final void`
+
+  `fireChildrenRemoved(BeanContextMembershipEvent bcme)`
+
+  Fire a BeanContextshipEvent on the BeanContextMembershipListener interface
+
+  `BeanContext`
+
+  `getBeanContextPeer()`
+
+  Gets the instance of `BeanContext` that
+  this object is providing the implementation for.
+
+  `protected static final BeanContextChild`
+
+  `getChildBeanContextChild(Object child)`
+
+  Gets the BeanContextChild (if any) of the specified child
+
+  `protected static final BeanContextMembershipListener`
+
+  `getChildBeanContextMembershipListener(Object child)`
+
+  Gets the BeanContextMembershipListener
+  (if any) of the specified child
+
+  `protected static final PropertyChangeListener`
+
+  `getChildPropertyChangeListener(Object child)`
+
+  Gets the PropertyChangeListener
+  (if any) of the specified child
+
+  `protected static final Serializable`
+
+  `getChildSerializable(Object child)`
+
+  Gets the Serializable (if any) associated with the specified Child
+
+  `protected static final VetoableChangeListener`
+
+  `getChildVetoableChangeListener(Object child)`
+
+  Gets the VetoableChangeListener
+  (if any) of the specified child
+
+  `protected static final Visibility`
+
+  `getChildVisibility(Object child)`
+
+  Gets the Component (if any) associated with the specified child.
+
+  `Locale`
+
+  `getLocale()`
+
+  Gets the locale for this `BeanContext`.
+
+  `URL`
+
+  `getResource(String name,
+  BeanContextChild bcc)`
+
+  Analogous to `java.lang.ClassLoader.getResource()`, this
+  method allows a `BeanContext` implementation to interpose
+  behavior between the child `Component`
+  and underlying `ClassLoader`.
+
+  `InputStream`
+
+  `getResourceAsStream(String name,
+  BeanContextChild bcc)`
+
+  Analogous to `java.lang.ClassLoader.getResourceAsStream()`,
+  this method allows a `BeanContext` implementation
+  to interpose behavior between the child `Component`
+  and underlying `ClassLoader`.
+
+  `protected void`
+
+  `initialize()`
+
+  protected method called from constructor and readObject to initialize
+  transient state of BeanContextSupport instance.
+
+  `Object`
+
+  `instantiateChild(String beanName)`
+
+  The instantiateChild method is a convenience hook
+  in BeanContext to simplify
+  the task of instantiating a Bean, nested,
+  into a `BeanContext`.
+
+  `boolean`
+
+  `isDesignTime()`
+
+  Reports whether or not this object is in
+  currently in design time mode.
+
+  `boolean`
+
+  `isEmpty()`
+
+  Reports whether or not this
+  `BeanContext` is empty.
+
+  `boolean`
+
+  `isSerializing()`
+
+  Is this `BeanContext` in the
+  process of being serialized?
+
+  `Iterator<Object>`
+
+  `iterator()`
+
+  Gets all JavaBean or `BeanContext` instances
+  currently nested in this `BeanContext`.
+
+  `boolean`
+
+  `needsGui()`
+
+  This method is typically called from the environment in order to determine
+  if the implementor "needs" a GUI.
+
+  `void`
+
+  `okToUseGui()`
+
+  Notify this instance that it may now render a GUI
+
+  `void`
+
+  `propertyChange(PropertyChangeEvent pce)`
+
+  subclasses may envelope to monitor child property changes.
+
+  `final void`
+
+  `readChildren(ObjectInputStream ois)`
+
+  When an instance of this class is used as a delegate for the
+  implementation of the BeanContext protocols (and its subprotocols)
+  there exists a 'chicken and egg' problem during deserialization
+
+  `boolean`
+
+  `remove(Object targetChild)`
+
+  Removes a child from this BeanContext.
+
+  `protected boolean`
+
+  `remove(Object targetChild,
+  boolean callChildSetBC)`
+
+  internal remove used when removal caused by
+  unexpected `setBeanContext` or
+  by `remove()` invocation.
+
+  `boolean`
+
+  `removeAll(Collection c)`
+
+  remove all specified children (Unsupported)
+  implementations must synchronized on the hierarchy lock and "children" protected field
+
+  `void`
+
+  `removeBeanContextMembershipListener(BeanContextMembershipListener bcml)`
+
+  Removes a BeanContextMembershipListener
+
+  `boolean`
+
+  `retainAll(Collection c)`
+
+  retain only specified children (Unsupported)
+  implementations must synchronized on the hierarchy lock and "children" protected field
+
+  `protected final void`
+
+  `serialize(ObjectOutputStream oos,
+  Collection<?> coll)`
+
+  Used by writeObject to serialize a Collection.
+
+  `void`
+
+  `setDesignTime(boolean dTime)`
+
+  Sets the new design time value for this `BeanContext`.
+
+  `void`
+
+  `setLocale(Locale newLocale)`
+
+  Sets the locale of this BeanContext.
+
+  `int`
+
+  `size()`
+
+  Gets the number of children currently nested in
+  this BeanContext.
+
+  `Object[]`
+
+  `toArray()`
+
+  Gets all JavaBean or `BeanContext`
+  instances currently nested in this BeanContext.
+
+  `Object[]`
+
+  `toArray(Object[] arry)`
+
+  Gets an array containing all children of
+  this `BeanContext` that match
+  the types contained in arry.
+
+  `protected boolean`
+
+  `validatePendingAdd(Object targetChild)`
+
+  Subclasses of this class may override, or envelope, this method to
+  add validation behavior for the BeanContext to examine child objects
+  immediately prior to their being added to the BeanContext.
+
+  `protected boolean`
+
+  `validatePendingRemove(Object targetChild)`
+
+  Subclasses of this class may override, or envelope, this method to
+  add validation behavior for the BeanContext to examine child objects
+  immediately prior to their being removed from the BeanContext.
+
+  `void`
+
+  `vetoableChange(PropertyChangeEvent pce)`
+
+  subclasses may envelope to monitor veto child property changes.
+
+  `final void`
+
+  `writeChildren(ObjectOutputStream oos)`
+
+  Used to serialize all children of
+  this `BeanContext`.
+
+  ### Methods inherited from class java.beans.beancontext.[BeanContextChildSupport](BeanContextChildSupport.md "class in java.beans.beancontext")
+
+  `addPropertyChangeListener, addVetoableChangeListener, firePropertyChange, fireVetoableChange, getBeanContext, getBeanContextChildPeer, initializeBeanContextResources, isDelegated, releaseBeanContextResources, removePropertyChangeListener, removeVetoableChangeListener, serviceAvailable, serviceRevoked, setBeanContext, validatePendingSetBeanContext`
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+  ### Methods inherited from interface java.beans.beancontext.[BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext")
+
+  `addPropertyChangeListener, addVetoableChangeListener, getBeanContext, removePropertyChangeListener, removeVetoableChangeListener, setBeanContext`
+
+  ### Methods inherited from interface java.util.[Collection](../../../../java.base/java/util/Collection.md "interface in java.util")
+
+  `equals, hashCode, parallelStream, removeIf, spliterator, stream, toArray`
+
+  ### Methods inherited from interface java.lang.[Iterable](../../../../java.base/java/lang/Iterable.md "interface in java.lang")
+
+  `forEach`
+
+* ## Field Details
+
+  + ### children
+
+    protected transient [HashMap](../../../../java.base/java/util/HashMap.md "class in java.util")<[Object](../../../../java.base/java/lang/Object.md "class in java.lang"),[BeanContextSupport.BCSChild](BeanContextSupport.BCSChild.md "class in java.beans.beancontext")> children
+
+    all accesses to the `protected HashMap children` field
+    shall be synchronized on that object.
+  + ### bcmListeners
+
+    protected transient [ArrayList](../../../../java.base/java/util/ArrayList.md "class in java.util")<[BeanContextMembershipListener](BeanContextMembershipListener.md "interface in java.beans.beancontext")> bcmListeners
+
+    all accesses to the `protected ArrayList bcmListeners` field
+    shall be synchronized on that object.
+  + ### locale
+
+    protected [Locale](../../../../java.base/java/util/Locale.md "class in java.util") locale
+
+    The current locale of this BeanContext.
+  + ### okToUseGui
+
+    protected boolean okToUseGui
+
+    A `boolean` indicating if this
+    instance may now render a GUI.
+  + ### designTime
+
+    protected boolean designTime
+
+    A `boolean` indicating whether or not
+    this object is currently in design time mode.
+* ## Constructor Details
+
+  + ### BeanContextSupport
+
+    public BeanContextSupport([BeanContext](BeanContext.md "interface in java.beans.beancontext") peer,
+    [Locale](../../../../java.base/java/util/Locale.md "class in java.util") lcle,
+    boolean dTime,
+    boolean visible)
+
+    Construct a BeanContextSupport instance
+
+    Parameters:
+    :   `peer` - The peer `BeanContext` we are
+        supplying an implementation for,
+        or `null`
+        if this object is its own peer
+    :   `lcle` - The current Locale for this BeanContext. If
+        `lcle` is `null`, the default locale
+        is assigned to the `BeanContext` instance.
+    :   `dTime` - The initial state,
+        `true` if in design mode,
+        `false` if runtime.
+    :   `visible` - The initial visibility.
+
+    See Also:
+    :   - [`Locale.getDefault()`](../../../../java.base/java/util/Locale.md#getDefault())
+        - [`Locale.setDefault(java.util.Locale)`](../../../../java.base/java/util/Locale.md#setDefault(java.util.Locale))
+  + ### BeanContextSupport
+
+    public BeanContextSupport([BeanContext](BeanContext.md "interface in java.beans.beancontext") peer,
+    [Locale](../../../../java.base/java/util/Locale.md "class in java.util") lcle,
+    boolean dtime)
+
+    Create an instance using the specified Locale and design mode.
+
+    Parameters:
+    :   `peer` - The peer `BeanContext` we
+        are supplying an implementation for,
+        or `null` if this object is its own peer
+    :   `lcle` - The current Locale for this `BeanContext`. If
+        `lcle` is `null`, the default locale
+        is assigned to the `BeanContext` instance.
+    :   `dtime` - The initial state, `true`
+        if in design mode,
+        `false` if runtime.
+
+    See Also:
+    :   - [`Locale.getDefault()`](../../../../java.base/java/util/Locale.md#getDefault())
+        - [`Locale.setDefault(java.util.Locale)`](../../../../java.base/java/util/Locale.md#setDefault(java.util.Locale))
+  + ### BeanContextSupport
+
+    public BeanContextSupport([BeanContext](BeanContext.md "interface in java.beans.beancontext") peer,
+    [Locale](../../../../java.base/java/util/Locale.md "class in java.util") lcle)
+
+    Create an instance using the specified locale
+
+    Parameters:
+    :   `peer` - The peer BeanContext we are
+        supplying an implementation for,
+        or `null` if this object
+        is its own peer
+    :   `lcle` - The current Locale for this
+        `BeanContext`. If
+        `lcle` is `null`,
+        the default locale
+        is assigned to the `BeanContext`
+        instance.
+
+    See Also:
+    :   - [`Locale.getDefault()`](../../../../java.base/java/util/Locale.md#getDefault())
+        - [`Locale.setDefault(java.util.Locale)`](../../../../java.base/java/util/Locale.md#setDefault(java.util.Locale))
+  + ### BeanContextSupport
+
+    public BeanContextSupport([BeanContext](BeanContext.md "interface in java.beans.beancontext") peer)
+
+    Create an instance using with a default locale
+
+    Parameters:
+    :   `peer` - The peer `BeanContext` we are
+        supplying an implementation for,
+        or `null` if this object
+        is its own peer
+  + ### BeanContextSupport
+
+    public BeanContextSupport()
+
+    Create an instance that is not a delegate of another object
+* ## Method Details
+
+  + ### getBeanContextPeer
+
+    public [BeanContext](BeanContext.md "interface in java.beans.beancontext") getBeanContextPeer()
+
+    Gets the instance of `BeanContext` that
+    this object is providing the implementation for.
+
+    Returns:
+    :   the BeanContext instance
+  + ### instantiateChild
+
+    public [Object](../../../../java.base/java/lang/Object.md "class in java.lang") instantiateChild([String](../../../../java.base/java/lang/String.md "class in java.lang") beanName)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io"),
+    [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    The instantiateChild method is a convenience hook
+    in BeanContext to simplify
+    the task of instantiating a Bean, nested,
+    into a `BeanContext`.
+
+    The semantics of the beanName parameter are defined by java.beans.Beans.instantiate.
+
+    Specified by:
+    :   `instantiateChild` in interface `BeanContext`
+
+    Parameters:
+    :   `beanName` - the name of the Bean to instantiate within this BeanContext
+
+    Returns:
+    :   the new object
+
+    Throws:
+    :   `IOException` - if there is an I/O error when the bean is being deserialized
+    :   `ClassNotFoundException` - if the class
+        identified by the beanName parameter is not found
+  + ### size
+
+    public int size()
+
+    Gets the number of children currently nested in
+    this BeanContext.
+
+    Specified by:
+    :   `size` in interface `Collection`
+
+    Returns:
+    :   number of children
+  + ### isEmpty
+
+    public boolean isEmpty()
+
+    Reports whether or not this
+    `BeanContext` is empty.
+    A `BeanContext` is considered
+    empty when it contains zero
+    nested children.
+
+    Specified by:
+    :   `isEmpty` in interface `Collection`
+
+    Returns:
+    :   if there are not children
+  + ### contains
+
+    public boolean contains([Object](../../../../java.base/java/lang/Object.md "class in java.lang") o)
+
+    Determines whether or not the specified object
+    is currently a child of this `BeanContext`.
+
+    Specified by:
+    :   `contains` in interface `Collection`
+
+    Parameters:
+    :   `o` - the Object in question
+
+    Returns:
+    :   if this object is a child
+  + ### containsKey
+
+    public boolean containsKey([Object](../../../../java.base/java/lang/Object.md "class in java.lang") o)
+
+    Determines whether or not the specified object
+    is currently a child of this `BeanContext`.
+
+    Parameters:
+    :   `o` - the Object in question
+
+    Returns:
+    :   if this object is a child
+  + ### iterator
+
+    public [Iterator](../../../../java.base/java/util/Iterator.md "interface in java.util")<[Object](../../../../java.base/java/lang/Object.md "class in java.lang")> iterator()
+
+    Gets all JavaBean or `BeanContext` instances
+    currently nested in this `BeanContext`.
+
+    Specified by:
+    :   `iterator` in interface `Collection`
+
+    Specified by:
+    :   `iterator` in interface `Iterable`
+
+    Returns:
+    :   an `Iterator` of the nested children
+  + ### toArray
+
+    public [Object](../../../../java.base/java/lang/Object.md "class in java.lang")[] toArray()
+
+    Gets all JavaBean or `BeanContext`
+    instances currently nested in this BeanContext.
+
+    Specified by:
+    :   `toArray` in interface `Collection`
+
+    Returns:
+    :   an array, whose [runtime component
+        type](../../../../java.base/java/lang/Class.md#getComponentType()) is `Object`, containing all of the elements in this collection
+  + ### toArray
+
+    public [Object](../../../../java.base/java/lang/Object.md "class in java.lang")[] toArray([Object](../../../../java.base/java/lang/Object.md "class in java.lang")[] arry)
+
+    Gets an array containing all children of
+    this `BeanContext` that match
+    the types contained in arry.
+
+    Specified by:
+    :   `toArray` in interface `Collection`
+
+    Parameters:
+    :   `arry` - The array of object
+        types that are of interest.
+
+    Returns:
+    :   an array of children
+  + ### createBCSChild
+
+    protected [BeanContextSupport.BCSChild](BeanContextSupport.BCSChild.md "class in java.beans.beancontext") createBCSChild([Object](../../../../java.base/java/lang/Object.md "class in java.lang") targetChild,
+    [Object](../../../../java.base/java/lang/Object.md "class in java.lang") peer)
+
+    Subclasses can override this method to insert their own subclass
+    of Child without having to override add() or the other Collection
+    methods that add children to the set.
+
+    Parameters:
+    :   `targetChild` - the child to create the Child on behalf of
+    :   `peer` - the peer if the tragetChild and the peer are related by an implementation of BeanContextProxy
+
+    Returns:
+    :   Subtype-specific subclass of Child without overriding collection methods
+  + ### add
+
+    public boolean add([Object](../../../../java.base/java/lang/Object.md "class in java.lang") targetChild)
+
+    Adds/nests a child within this `BeanContext`.
+
+    Invoked as a side effect of java.beans.Beans.instantiate().
+    If the child object is not valid for adding then this method
+    throws an IllegalStateException.
+
+    Specified by:
+    :   `add` in interface `Collection`
+
+    Parameters:
+    :   `targetChild` - The child objects to nest
+        within this `BeanContext`
+
+    Returns:
+    :   true if the child was added successfully.
+
+    See Also:
+    :   - [`validatePendingAdd(java.lang.Object)`](#validatePendingAdd(java.lang.Object))
+  + ### remove
+
+    public boolean remove([Object](../../../../java.base/java/lang/Object.md "class in java.lang") targetChild)
+
+    Removes a child from this BeanContext. If the child object is not
+    for adding then this method throws an IllegalStateException.
+
+    Specified by:
+    :   `remove` in interface `Collection`
+
+    Parameters:
+    :   `targetChild` - The child objects to remove
+
+    Returns:
+    :   `true` if an element was removed as a result of this call
+
+    See Also:
+    :   - [`validatePendingRemove(java.lang.Object)`](#validatePendingRemove(java.lang.Object))
+  + ### remove
+
+    protected boolean remove([Object](../../../../java.base/java/lang/Object.md "class in java.lang") targetChild,
+    boolean callChildSetBC)
+
+    internal remove used when removal caused by
+    unexpected `setBeanContext` or
+    by `remove()` invocation.
+
+    Parameters:
+    :   `targetChild` - the JavaBean, BeanContext, or Object to be removed
+    :   `callChildSetBC` - used to indicate that
+        the child should be notified that it is no
+        longer nested in this `BeanContext`.
+
+    Returns:
+    :   whether or not was present before being removed
+  + ### containsAll
+
+    public boolean containsAll([Collection](../../../../java.base/java/util/Collection.md "interface in java.util") c)
+
+    Tests to see if all objects in the
+    specified `Collection` are children of
+    this `BeanContext`.
+
+    Specified by:
+    :   `containsAll` in interface `Collection`
+
+    Parameters:
+    :   `c` - the specified `Collection`
+
+    Returns:
+    :   `true` if all objects
+        in the collection are children of
+        this `BeanContext`, false if not.
+
+    See Also:
+    :   - [`Collection.contains(Object)`](../../../../java.base/java/util/Collection.md#contains(java.lang.Object))
+  + ### addAll
+
+    public boolean addAll([Collection](../../../../java.base/java/util/Collection.md "interface in java.util") c)
+
+    add Collection to set of Children (Unsupported)
+    implementations must synchronized on the hierarchy lock and "children" protected field
+
+    Specified by:
+    :   `addAll` in interface `Collection`
+
+    Parameters:
+    :   `c` - collection containing elements to be added to this collection
+
+    Returns:
+    :   this implementation unconditionally throws `UnsupportedOperationException`
+
+    Throws:
+    :   `UnsupportedOperationException` - thrown unconditionally by this implementation
+
+    See Also:
+    :   - [`Collection.add(Object)`](../../../../java.base/java/util/Collection.md#add(E))
+  + ### removeAll
+
+    public boolean removeAll([Collection](../../../../java.base/java/util/Collection.md "interface in java.util") c)
+
+    remove all specified children (Unsupported)
+    implementations must synchronized on the hierarchy lock and "children" protected field
+
+    Specified by:
+    :   `removeAll` in interface `Collection`
+
+    Parameters:
+    :   `c` - collection containing elements to be removed from this collection
+
+    Returns:
+    :   this implementation unconditionally throws `UnsupportedOperationException`
+
+    Throws:
+    :   `UnsupportedOperationException` - thrown unconditionally by this implementation
+
+    See Also:
+    :   - [`Collection.remove(Object)`](../../../../java.base/java/util/Collection.md#remove(java.lang.Object))
+        - [`Collection.contains(Object)`](../../../../java.base/java/util/Collection.md#contains(java.lang.Object))
+  + ### retainAll
+
+    public boolean retainAll([Collection](../../../../java.base/java/util/Collection.md "interface in java.util") c)
+
+    retain only specified children (Unsupported)
+    implementations must synchronized on the hierarchy lock and "children" protected field
+
+    Specified by:
+    :   `retainAll` in interface `Collection`
+
+    Parameters:
+    :   `c` - collection containing elements to be retained in this collection
+
+    Returns:
+    :   this implementation unconditionally throws `UnsupportedOperationException`
+
+    Throws:
+    :   `UnsupportedOperationException` - thrown unconditionally by this implementation
+
+    See Also:
+    :   - [`Collection.remove(Object)`](../../../../java.base/java/util/Collection.md#remove(java.lang.Object))
+        - [`Collection.contains(Object)`](../../../../java.base/java/util/Collection.md#contains(java.lang.Object))
+  + ### clear
+
+    public void clear()
+
+    clear the children (Unsupported)
+    implementations must synchronized on the hierarchy lock and "children" protected field
+
+    Specified by:
+    :   `clear` in interface `Collection`
+
+    Throws:
+    :   `UnsupportedOperationException` - thrown unconditionally by this implementation
+  + ### addBeanContextMembershipListener
+
+    public void addBeanContextMembershipListener([BeanContextMembershipListener](BeanContextMembershipListener.md "interface in java.beans.beancontext") bcml)
+
+    Adds a BeanContextMembershipListener
+
+    Specified by:
+    :   `addBeanContextMembershipListener` in interface `BeanContext`
+
+    Parameters:
+    :   `bcml` - the BeanContextMembershipListener to add
+
+    Throws:
+    :   `NullPointerException` - if the argument is null
+  + ### removeBeanContextMembershipListener
+
+    public void removeBeanContextMembershipListener([BeanContextMembershipListener](BeanContextMembershipListener.md "interface in java.beans.beancontext") bcml)
+
+    Removes a BeanContextMembershipListener
+
+    Specified by:
+    :   `removeBeanContextMembershipListener` in interface `BeanContext`
+
+    Parameters:
+    :   `bcml` - the BeanContextMembershipListener to remove
+
+    Throws:
+    :   `NullPointerException` - if the argument is null
+  + ### getResourceAsStream
+
+    public [InputStream](../../../../java.base/java/io/InputStream.md "class in java.io") getResourceAsStream([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext") bcc)
+
+    Description copied from interface: `BeanContext`
+
+    Analogous to `java.lang.ClassLoader.getResourceAsStream()`,
+    this method allows a `BeanContext` implementation
+    to interpose behavior between the child `Component`
+    and underlying `ClassLoader`.
+
+    Specified by:
+    :   `getResourceAsStream` in interface `BeanContext`
+
+    Parameters:
+    :   `name` - the name of the resource requested.
+    :   `bcc` - the child object making the request.
+
+    Returns:
+    :   the requested resource as an InputStream
+
+    Throws:
+    :   `NullPointerException` - if the argument is null
+  + ### getResource
+
+    public [URL](../../../../java.base/java/net/URL.md "class in java.net") getResource([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext") bcc)
+
+    Description copied from interface: `BeanContext`
+
+    Analogous to `java.lang.ClassLoader.getResource()`, this
+    method allows a `BeanContext` implementation to interpose
+    behavior between the child `Component`
+    and underlying `ClassLoader`.
+
+    Specified by:
+    :   `getResource` in interface `BeanContext`
+
+    Parameters:
+    :   `name` - the name of the resource requested.
+    :   `bcc` - the child object making the request.
+
+    Returns:
+    :   the requested resource as an InputStream
+  + ### setDesignTime
+
+    public void setDesignTime(boolean dTime)
+
+    Sets the new design time value for this `BeanContext`.
+
+    Specified by:
+    :   `setDesignTime` in interface `DesignMode`
+
+    Parameters:
+    :   `dTime` - the new designTime value
+
+    See Also:
+    :   - [`BeanContext`](BeanContext.md "interface in java.beans.beancontext")
+        - [`BeanContextMembershipListener`](BeanContextMembershipListener.md "interface in java.beans.beancontext")
+        - [`PropertyChangeEvent`](../PropertyChangeEvent.md "class in java.beans")
+  + ### isDesignTime
+
+    public boolean isDesignTime()
+
+    Reports whether or not this object is in
+    currently in design time mode.
+
+    Specified by:
+    :   `isDesignTime` in interface `DesignMode`
+
+    Returns:
+    :   `true` if in design time mode,
+        `false` if not
+  + ### setLocale
+
+    public void setLocale([Locale](../../../../java.base/java/util/Locale.md "class in java.util") newLocale)
+    throws [PropertyVetoException](../PropertyVetoException.md "class in java.beans")
+
+    Sets the locale of this BeanContext.
+
+    Parameters:
+    :   `newLocale` - the new locale. This method call will have
+        no effect if newLocale is `null`.
+
+    Throws:
+    :   `PropertyVetoException` - if the new value is rejected
+  + ### getLocale
+
+    public [Locale](../../../../java.base/java/util/Locale.md "class in java.util") getLocale()
+
+    Gets the locale for this `BeanContext`.
+
+    Returns:
+    :   the current Locale of the `BeanContext`
+  + ### needsGui
+
+    public boolean needsGui()
+
+    This method is typically called from the environment in order to determine
+    if the implementor "needs" a GUI.
+
+    The algorithm used herein tests the BeanContextPeer, and its current children
+    to determine if they are either Containers, Components, or if they implement
+    Visibility and return needsGui() == true.
+
+    Specified by:
+    :   `needsGui` in interface `Visibility`
+
+    Returns:
+    :   `true` if the implementor needs a GUI
+  + ### dontUseGui
+
+    public void dontUseGui()
+
+    notify this instance that it may no longer render a GUI.
+
+    Specified by:
+    :   `dontUseGui` in interface `Visibility`
+  + ### okToUseGui
+
+    public void okToUseGui()
+
+    Notify this instance that it may now render a GUI
+
+    Specified by:
+    :   `okToUseGui` in interface `Visibility`
+  + ### avoidingGui
+
+    public boolean avoidingGui()
+
+    Used to determine if the `BeanContext`
+    child is avoiding using its GUI.
+
+    Specified by:
+    :   `avoidingGui` in interface `Visibility`
+
+    Returns:
+    :   is this instance avoiding using its GUI?
+
+    See Also:
+    :   - [`Visibility`](../Visibility.md "interface in java.beans")
+  + ### isSerializing
+
+    public boolean isSerializing()
+
+    Is this `BeanContext` in the
+    process of being serialized?
+
+    Returns:
+    :   if this `BeanContext` is
+        currently being serialized
+  + ### bcsChildren
+
+    protected [Iterator](../../../../java.base/java/util/Iterator.md "interface in java.util")<[BeanContextSupport.BCSChild](BeanContextSupport.BCSChild.md "class in java.beans.beancontext")> bcsChildren()
+
+    Returns an iterator of all children
+    of this `BeanContext`.
+
+    Returns:
+    :   an iterator for all the current BCSChild values
+  + ### bcsPreSerializationHook
+
+    protected void bcsPreSerializationHook([ObjectOutputStream](../../../../java.base/java/io/ObjectOutputStream.md "class in java.io") oos)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io")
+
+    called by writeObject after defaultWriteObject() but prior to
+    serialization of currently serializable children.
+    This method may be overridden by subclasses to perform custom
+    serialization of their state prior to this superclass serializing
+    the children.
+    This method should not however be used by subclasses to replace their
+    own implementation (if any) of writeObject().
+
+    Parameters:
+    :   `oos` - the `ObjectOutputStream` to use during serialization
+
+    Throws:
+    :   `IOException` - if serialization failed
+  + ### bcsPreDeserializationHook
+
+    protected void bcsPreDeserializationHook([ObjectInputStream](../../../../java.base/java/io/ObjectInputStream.md "class in java.io") ois)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io"),
+    [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    called by readObject after defaultReadObject() but prior to
+    deserialization of any children.
+    This method may be overridden by subclasses to perform custom
+    deserialization of their state prior to this superclass deserializing
+    the children.
+    This method should not however be used by subclasses to replace their
+    own implementation (if any) of readObject().
+
+    Parameters:
+    :   `ois` - the `ObjectInputStream` to use during deserialization
+
+    Throws:
+    :   `IOException` - if deserialization failed
+    :   `ClassNotFoundException` - if needed classes are not found
+  + ### childDeserializedHook
+
+    protected void childDeserializedHook([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child,
+    [BeanContextSupport.BCSChild](BeanContextSupport.BCSChild.md "class in java.beans.beancontext") bcsc)
+
+    Called by readObject with the newly deserialized child and BCSChild.
+
+    Parameters:
+    :   `child` - the newly deserialized child
+    :   `bcsc` - the newly deserialized BCSChild
+  + ### serialize
+
+    protected final void serialize([ObjectOutputStream](../../../../java.base/java/io/ObjectOutputStream.md "class in java.io") oos,
+    [Collection](../../../../java.base/java/util/Collection.md "interface in java.util")<?> coll)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io")
+
+    Used by writeObject to serialize a Collection.
+
+    Parameters:
+    :   `oos` - the `ObjectOutputStream`
+        to use during serialization
+    :   `coll` - the `Collection` to serialize
+
+    Throws:
+    :   `IOException` - if serialization failed
+  + ### deserialize
+
+    protected final void deserialize([ObjectInputStream](../../../../java.base/java/io/ObjectInputStream.md "class in java.io") ois,
+    [Collection](../../../../java.base/java/util/Collection.md "interface in java.util") coll)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io"),
+    [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    used by readObject to deserialize a collection.
+
+    Parameters:
+    :   `ois` - the ObjectInputStream to use
+    :   `coll` - the Collection
+
+    Throws:
+    :   `IOException` - if deserialization failed
+    :   `ClassNotFoundException` - if needed classes are not found
+  + ### writeChildren
+
+    public final void writeChildren([ObjectOutputStream](../../../../java.base/java/io/ObjectOutputStream.md "class in java.io") oos)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io")
+
+    Used to serialize all children of
+    this `BeanContext`.
+
+    Parameters:
+    :   `oos` - the `ObjectOutputStream`
+        to use during serialization
+
+    Throws:
+    :   `IOException` - if serialization failed
+  + ### readChildren
+
+    public final void readChildren([ObjectInputStream](../../../../java.base/java/io/ObjectInputStream.md "class in java.io") ois)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io"),
+    [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    When an instance of this class is used as a delegate for the
+    implementation of the BeanContext protocols (and its subprotocols)
+    there exists a 'chicken and egg' problem during deserialization
+
+    Parameters:
+    :   `ois` - the ObjectInputStream to use
+
+    Throws:
+    :   `IOException` - if deserialization failed
+    :   `ClassNotFoundException` - if needed classes are not found
+  + ### vetoableChange
+
+    public void vetoableChange([PropertyChangeEvent](../PropertyChangeEvent.md "class in java.beans") pce)
+    throws [PropertyVetoException](../PropertyVetoException.md "class in java.beans")
+
+    subclasses may envelope to monitor veto child property changes.
+
+    Specified by:
+    :   `vetoableChange` in interface `VetoableChangeListener`
+
+    Parameters:
+    :   `pce` - a `PropertyChangeEvent` object describing the
+        event source and the property that has changed.
+
+    Throws:
+    :   `PropertyVetoException` - if the recipient wishes the property
+        change to be rolled back.
+  + ### propertyChange
+
+    public void propertyChange([PropertyChangeEvent](../PropertyChangeEvent.md "class in java.beans") pce)
+
+    subclasses may envelope to monitor child property changes.
+
+    Specified by:
+    :   `propertyChange` in interface `PropertyChangeListener`
+
+    Parameters:
+    :   `pce` - A PropertyChangeEvent object describing the event source
+        and the property that has changed.
+  + ### validatePendingAdd
+
+    protected boolean validatePendingAdd([Object](../../../../java.base/java/lang/Object.md "class in java.lang") targetChild)
+
+    Subclasses of this class may override, or envelope, this method to
+    add validation behavior for the BeanContext to examine child objects
+    immediately prior to their being added to the BeanContext.
+
+    Parameters:
+    :   `targetChild` - the child to create the Child on behalf of
+
+    Returns:
+    :   true iff the child may be added to this BeanContext, otherwise false.
+  + ### validatePendingRemove
+
+    protected boolean validatePendingRemove([Object](../../../../java.base/java/lang/Object.md "class in java.lang") targetChild)
+
+    Subclasses of this class may override, or envelope, this method to
+    add validation behavior for the BeanContext to examine child objects
+    immediately prior to their being removed from the BeanContext.
+
+    Parameters:
+    :   `targetChild` - the child to create the Child on behalf of
+
+    Returns:
+    :   true iff the child may be removed from this BeanContext, otherwise false.
+  + ### childJustAddedHook
+
+    protected void childJustAddedHook([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child,
+    [BeanContextSupport.BCSChild](BeanContextSupport.BCSChild.md "class in java.beans.beancontext") bcsc)
+
+    subclasses may override this method to simply extend add() semantics
+    after the child has been added and before the event notification has
+    occurred. The method is called with the child synchronized.
+
+    Parameters:
+    :   `child` - the child
+    :   `bcsc` - the BCSChild
+  + ### childJustRemovedHook
+
+    protected void childJustRemovedHook([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child,
+    [BeanContextSupport.BCSChild](BeanContextSupport.BCSChild.md "class in java.beans.beancontext") bcsc)
+
+    subclasses may override this method to simply extend remove() semantics
+    after the child has been removed and before the event notification has
+    occurred. The method is called with the child synchronized.
+
+    Parameters:
+    :   `child` - the child
+    :   `bcsc` - the BCSChild
+  + ### getChildVisibility
+
+    protected static final [Visibility](../Visibility.md "interface in java.beans") getChildVisibility([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child)
+
+    Gets the Component (if any) associated with the specified child.
+
+    Parameters:
+    :   `child` - the specified child
+
+    Returns:
+    :   the Component (if any) associated with the specified child.
+  + ### getChildSerializable
+
+    protected static final [Serializable](../../../../java.base/java/io/Serializable.md "interface in java.io") getChildSerializable([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child)
+
+    Gets the Serializable (if any) associated with the specified Child
+
+    Parameters:
+    :   `child` - the specified child
+
+    Returns:
+    :   the Serializable (if any) associated with the specified Child
+  + ### getChildPropertyChangeListener
+
+    protected static final [PropertyChangeListener](../PropertyChangeListener.md "interface in java.beans") getChildPropertyChangeListener([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child)
+
+    Gets the PropertyChangeListener
+    (if any) of the specified child
+
+    Parameters:
+    :   `child` - the specified child
+
+    Returns:
+    :   the PropertyChangeListener (if any) of the specified child
+  + ### getChildVetoableChangeListener
+
+    protected static final [VetoableChangeListener](../VetoableChangeListener.md "interface in java.beans") getChildVetoableChangeListener([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child)
+
+    Gets the VetoableChangeListener
+    (if any) of the specified child
+
+    Parameters:
+    :   `child` - the specified child
+
+    Returns:
+    :   the VetoableChangeListener (if any) of the specified child
+  + ### getChildBeanContextMembershipListener
+
+    protected static final [BeanContextMembershipListener](BeanContextMembershipListener.md "interface in java.beans.beancontext") getChildBeanContextMembershipListener([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child)
+
+    Gets the BeanContextMembershipListener
+    (if any) of the specified child
+
+    Parameters:
+    :   `child` - the specified child
+
+    Returns:
+    :   the BeanContextMembershipListener (if any) of the specified child
+  + ### getChildBeanContextChild
+
+    protected static final [BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext") getChildBeanContextChild([Object](../../../../java.base/java/lang/Object.md "class in java.lang") child)
+
+    Gets the BeanContextChild (if any) of the specified child
+
+    Parameters:
+    :   `child` - the specified child
+
+    Returns:
+    :   the BeanContextChild (if any) of the specified child
+
+    Throws:
+    :   `IllegalArgumentException` - if child implements both BeanContextChild and BeanContextProxy
+  + ### fireChildrenAdded
+
+    protected final void fireChildrenAdded([BeanContextMembershipEvent](BeanContextMembershipEvent.md "class in java.beans.beancontext") bcme)
+
+    Fire a BeanContextshipEvent on the BeanContextMembershipListener interface
+
+    Parameters:
+    :   `bcme` - the event to fire
+  + ### fireChildrenRemoved
+
+    protected final void fireChildrenRemoved([BeanContextMembershipEvent](BeanContextMembershipEvent.md "class in java.beans.beancontext") bcme)
+
+    Fire a BeanContextshipEvent on the BeanContextMembershipListener interface
+
+    Parameters:
+    :   `bcme` - the event to fire
+  + ### initialize
+
+    protected void initialize()
+
+    protected method called from constructor and readObject to initialize
+    transient state of BeanContextSupport instance.
+    This class uses this method to instantiate inner class listeners used
+    to monitor PropertyChange and VetoableChange events on children.
+    subclasses may envelope this method to add their own initialization
+    behavior
+  + ### copyChildren
+
+    protected final [Object](../../../../java.base/java/lang/Object.md "class in java.lang")[] copyChildren()
+
+    Gets a copy of the this BeanContext's children.
+
+    Returns:
+    :   a copy of the current nested children
+  + ### classEquals
+
+    protected static final boolean classEquals([Class](../../../../java.base/java/lang/Class.md "class in java.lang")<?> first,
+    [Class](../../../../java.base/java/lang/Class.md "class in java.lang")<?> second)
+
+    Tests to see if two class objects,
+    or their names are equal.
+
+    Parameters:
+    :   `first` - the first object
+    :   `second` - the second object
+
+    Returns:
+    :   true if equal, false if not

@@ -1,0 +1,11 @@
+id: monitoring-observability
+title: Monitoring And Observability
+source_paths:
+  - external:Jeffallan/claude-skills/skills/monitoring-expert
+adherence_target: 80
+adherence_type: practical
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on: []

@@ -1,0 +1,201 @@
+Module [java.base](../../module-summary.md)
+
+Package [java.security](package-summary.md)
+
+# Class KeyStore.PasswordProtection
+
+[java.lang.Object](../lang/Object.md "class in java.lang")
+
+java.security.KeyStore.PasswordProtection
+
+All Implemented Interfaces:
+:   `KeyStore.ProtectionParameter`, `Destroyable`
+
+Enclosing class:
+:   `KeyStore`
+
+---
+
+public static class KeyStore.PasswordProtection
+extends [Object](../lang/Object.md "class in java.lang")
+implements [KeyStore.ProtectionParameter](KeyStore.ProtectionParameter.md "interface in java.security"), [Destroyable](../../javax/security/auth/Destroyable.md "interface in javax.security.auth")
+
+A password-based implementation of `ProtectionParameter`.
+
+Since:
+:   1.5
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `PasswordProtection(char[] password)`
+
+  Creates a password parameter.
+
+  `PasswordProtection(char[] password,
+  String protectionAlgorithm,
+  AlgorithmParameterSpec protectionParameters)`
+
+  Creates a password parameter and specifies the protection algorithm
+  and associated parameters to use when encrypting a keystore entry.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `destroy()`
+
+  Clears the password.
+
+  `char[]`
+
+  `getPassword()`
+
+  Gets the password.
+
+  `String`
+
+  `getProtectionAlgorithm()`
+
+  Gets the name of the protection algorithm.
+
+  `AlgorithmParameterSpec`
+
+  `getProtectionParameters()`
+
+  Gets the parameters supplied for the protection algorithm.
+
+  `boolean`
+
+  `isDestroyed()`
+
+  Determines if password has been cleared.
+
+  ### Methods inherited from class java.lang.[Object](../lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### PasswordProtection
+
+    public PasswordProtection(char[] password)
+
+    Creates a password parameter.
+
+    The specified `password` is cloned before it is stored
+    in the new `PasswordProtection` object.
+
+    Parameters:
+    :   `password` - the password, which may be `null`
+  + ### PasswordProtection
+
+    public PasswordProtection(char[] password,
+    [String](../lang/String.md "class in java.lang") protectionAlgorithm,
+    [AlgorithmParameterSpec](spec/AlgorithmParameterSpec.md "interface in java.security.spec") protectionParameters)
+
+    Creates a password parameter and specifies the protection algorithm
+    and associated parameters to use when encrypting a keystore entry.
+
+    The specified `password` is cloned before it is stored in the
+    new `PasswordProtection` object.
+
+    Parameters:
+    :   `password` - the password, which may be `null`
+    :   `protectionAlgorithm` - the encryption algorithm name, for
+        example, `PBEWithHmacSHA256AndAES_256`.
+        See the Cipher section in the [Java Security Standard Algorithm Names Specification](../../../../specs/security/standard-names.md#cipher-algorithms)
+        for information about standard encryption algorithm names.
+    :   `protectionParameters` - the encryption algorithm parameter
+        specification, which may be `null`
+
+    Throws:
+    :   `NullPointerException` - if `protectionAlgorithm` is
+        `null`
+
+    Since:
+    :   1.8
+* ## Method Details
+
+  + ### getProtectionAlgorithm
+
+    public [String](../lang/String.md "class in java.lang") getProtectionAlgorithm()
+
+    Gets the name of the protection algorithm.
+    If none was set then the keystore provider will use its default
+    protection algorithm.
+
+    Returns:
+    :   the algorithm name, or `null` if none was set
+
+    Since:
+    :   1.8
+  + ### getProtectionParameters
+
+    public [AlgorithmParameterSpec](spec/AlgorithmParameterSpec.md "interface in java.security.spec") getProtectionParameters()
+
+    Gets the parameters supplied for the protection algorithm.
+
+    Returns:
+    :   the algorithm parameter specification, or  `null`,
+        if none was set
+
+    Since:
+    :   1.8
+  + ### getPassword
+
+    public char[] getPassword()
+
+    Gets the password.
+
+    Note that this method returns a reference to the password.
+    If a clone of the array is created it is the caller's
+    responsibility to zero out the password information
+    after it is no longer needed.
+
+    Returns:
+    :   the password, which may be `null`
+
+    Throws:
+    :   `IllegalStateException` - if the password has
+        been cleared (destroyed)
+
+    See Also:
+    :   - [`destroy()`](#destroy())
+  + ### destroy
+
+    public void destroy()
+    throws [DestroyFailedException](../../javax/security/auth/DestroyFailedException.md "class in javax.security.auth")
+
+    Clears the password.
+
+    Specified by:
+    :   `destroy` in interface `Destroyable`
+
+    Throws:
+    :   `DestroyFailedException` - if this method was unable
+        to clear the password
+  + ### isDestroyed
+
+    public boolean isDestroyed()
+
+    Determines if password has been cleared.
+
+    Specified by:
+    :   `isDestroyed` in interface `Destroyable`
+
+    Returns:
+    :   `true` if the password has been cleared,
+        `false` otherwise

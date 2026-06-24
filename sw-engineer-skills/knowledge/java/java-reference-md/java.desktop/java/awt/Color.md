@@ -1,0 +1,1431 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [java.awt](package-summary.md)
+
+# Class Color
+
+[java.lang.Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+java.awt.Color
+
+All Implemented Interfaces:
+:   `Paint`, `Transparency`, `Serializable`
+
+Direct Known Subclasses:
+:   `ColorUIResource`, `SystemColor`
+
+---
+
+public class Color
+extends [Object](../../../java.base/java/lang/Object.md "class in java.lang")
+implements [Paint](Paint.md "interface in java.awt"), [Serializable](../../../java.base/java/io/Serializable.md "interface in java.io")
+
+The `Color` class is used to encapsulate colors in the default
+sRGB color space or colors in arbitrary color spaces identified by a
+[`ColorSpace`](color/ColorSpace.md "class in java.awt.color"). Every color has an implicit alpha value of 1.0 or
+an explicit one provided in the constructor. The alpha value
+defines the transparency of a color and can be represented by
+a float value in the range 0.0 - 1.0 or 0 - 255.
+An alpha value of 1.0 or 255 means that the color is completely
+opaque and an alpha value of 0 or 0.0 means that the color is
+completely transparent.
+When constructing a `Color` with an explicit alpha or
+getting the color/alpha components of a `Color`, the color
+components are never premultiplied by the alpha component.
+
+The default color space for the Java 2D(tm) API is sRGB, a proposed
+standard RGB color space. For further information on sRGB,
+see <http://www.w3.org/pub/WWW/Graphics/Color/sRGB.html>.
+
+See Also:
+:   * [`ColorSpace`](color/ColorSpace.md "class in java.awt.color")
+    * [`AlphaComposite`](AlphaComposite.md "class in java.awt")
+    * [Serialized Form](../../../serialized-form.md#java.awt.Color)
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final Color`
+
+  `black`
+
+  The color black.
+
+  `static final Color`
+
+  `BLACK`
+
+  The color black.
+
+  `static final Color`
+
+  `blue`
+
+  The color blue.
+
+  `static final Color`
+
+  `BLUE`
+
+  The color blue.
+
+  `static final Color`
+
+  `cyan`
+
+  The color cyan.
+
+  `static final Color`
+
+  `CYAN`
+
+  The color cyan.
+
+  `static final Color`
+
+  `DARK_GRAY`
+
+  The color dark gray.
+
+  `static final Color`
+
+  `darkGray`
+
+  The color dark gray.
+
+  `static final Color`
+
+  `gray`
+
+  The color gray.
+
+  `static final Color`
+
+  `GRAY`
+
+  The color gray.
+
+  `static final Color`
+
+  `green`
+
+  The color green.
+
+  `static final Color`
+
+  `GREEN`
+
+  The color green.
+
+  `static final Color`
+
+  `LIGHT_GRAY`
+
+  The color light gray.
+
+  `static final Color`
+
+  `lightGray`
+
+  The color light gray.
+
+  `static final Color`
+
+  `magenta`
+
+  The color magenta.
+
+  `static final Color`
+
+  `MAGENTA`
+
+  The color magenta.
+
+  `static final Color`
+
+  `orange`
+
+  The color orange.
+
+  `static final Color`
+
+  `ORANGE`
+
+  The color orange.
+
+  `static final Color`
+
+  `pink`
+
+  The color pink.
+
+  `static final Color`
+
+  `PINK`
+
+  The color pink.
+
+  `static final Color`
+
+  `red`
+
+  The color red.
+
+  `static final Color`
+
+  `RED`
+
+  The color red.
+
+  `static final Color`
+
+  `white`
+
+  The color white.
+
+  `static final Color`
+
+  `WHITE`
+
+  The color white.
+
+  `static final Color`
+
+  `yellow`
+
+  The color yellow.
+
+  `static final Color`
+
+  `YELLOW`
+
+  The color yellow.
+
+  ### Fields inherited from interface java.awt.[Transparency](Transparency.md "interface in java.awt")
+
+  `BITMASK, OPAQUE, TRANSLUCENT`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `Color(float r,
+  float g,
+  float b)`
+
+  Creates an opaque sRGB color with the specified red, green, and blue
+  values in the range (0.0 - 1.0).
+
+  `Color(float r,
+  float g,
+  float b,
+  float a)`
+
+  Creates an sRGB color with the specified red, green, blue, and
+  alpha values in the range (0.0 - 1.0).
+
+  `Color(int rgb)`
+
+  Creates an opaque sRGB color with the specified combined RGB value
+  consisting of the red component in bits 16-23, the green component
+  in bits 8-15, and the blue component in bits 0-7.
+
+  `Color(int rgba,
+  boolean hasalpha)`
+
+  Creates an sRGB color with the specified combined RGBA value consisting
+  of the alpha component in bits 24-31, the red component in bits 16-23,
+  the green component in bits 8-15, and the blue component in bits 0-7.
+
+  `Color(int r,
+  int g,
+  int b)`
+
+  Creates an opaque sRGB color with the specified red, green,
+  and blue values in the range (0 - 255).
+
+  `Color(int r,
+  int g,
+  int b,
+  int a)`
+
+  Creates an sRGB color with the specified red, green, blue, and alpha
+  values in the range (0 - 255).
+
+  `Color(ColorSpace cspace,
+  float[] components,
+  float alpha)`
+
+  Creates a color in the specified `ColorSpace`
+  with the color components specified in the `float`
+  array and the specified alpha.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `Color`
+
+  `brighter()`
+
+  Creates a new `Color` that is a brighter version of this
+  `Color`.
+
+  `PaintContext`
+
+  `createContext(ColorModel cm,
+  Rectangle r,
+  Rectangle2D r2d,
+  AffineTransform xform,
+  RenderingHints hints)`
+
+  Creates and returns a [`PaintContext`](PaintContext.md "interface in java.awt") used to
+  generate a solid color field pattern.
+
+  `Color`
+
+  `darker()`
+
+  Creates a new `Color` that is a darker version of this
+  `Color`.
+
+  `static Color`
+
+  `decode(String nm)`
+
+  Converts a `String` to an integer and returns the
+  specified opaque `Color`.
+
+  `boolean`
+
+  `equals(Object obj)`
+
+  Determines whether another object is equal to this
+  `Color`.
+
+  `int`
+
+  `getAlpha()`
+
+  Returns the alpha component in the range 0-255.
+
+  `int`
+
+  `getBlue()`
+
+  Returns the blue component in the range 0-255 in the default sRGB
+  space.
+
+  `static Color`
+
+  `getColor(String nm)`
+
+  Finds a color in the system properties.
+
+  `static Color`
+
+  `getColor(String nm,
+  int v)`
+
+  Finds a color in the system properties.
+
+  `static Color`
+
+  `getColor(String nm,
+  Color v)`
+
+  Finds a color in the system properties.
+
+  `float[]`
+
+  `getColorComponents(float[] compArray)`
+
+  Returns a `float` array containing only the color
+  components of the `Color`, in the
+  `ColorSpace` of the `Color`.
+
+  `float[]`
+
+  `getColorComponents(ColorSpace cspace,
+  float[] compArray)`
+
+  Returns a `float` array containing only the color
+  components of the `Color` in the
+  `ColorSpace` specified by the `cspace`
+  parameter.
+
+  `ColorSpace`
+
+  `getColorSpace()`
+
+  Returns the `ColorSpace` of this `Color`.
+
+  `float[]`
+
+  `getComponents(float[] compArray)`
+
+  Returns a `float` array containing the color and alpha
+  components of the `Color`, in the
+  `ColorSpace` of the `Color`.
+
+  `float[]`
+
+  `getComponents(ColorSpace cspace,
+  float[] compArray)`
+
+  Returns a `float` array containing the color and alpha
+  components of the `Color`, in the
+  `ColorSpace` specified by the `cspace`
+  parameter.
+
+  `int`
+
+  `getGreen()`
+
+  Returns the green component in the range 0-255 in the default sRGB
+  space.
+
+  `static Color`
+
+  `getHSBColor(float h,
+  float s,
+  float b)`
+
+  Creates a `Color` object based on the specified values
+  for the HSB color model.
+
+  `int`
+
+  `getRed()`
+
+  Returns the red component in the range 0-255 in the default sRGB
+  space.
+
+  `int`
+
+  `getRGB()`
+
+  Returns the RGB value representing the color in the default sRGB
+  [`ColorModel`](image/ColorModel.md "class in java.awt.image").
+
+  `float[]`
+
+  `getRGBColorComponents(float[] compArray)`
+
+  Returns a `float` array containing only the color
+  components of the `Color`, in the default sRGB color
+  space.
+
+  `float[]`
+
+  `getRGBComponents(float[] compArray)`
+
+  Returns a `float` array containing the color and alpha
+  components of the `Color`, as represented in the default
+  sRGB color space.
+
+  `int`
+
+  `getTransparency()`
+
+  Returns the transparency mode for this `Color`.
+
+  `int`
+
+  `hashCode()`
+
+  Computes the hash code for this `Color`.
+
+  `static int`
+
+  `HSBtoRGB(float hue,
+  float saturation,
+  float brightness)`
+
+  Converts the components of a color, as specified by the HSB
+  model, to an equivalent set of values for the default RGB model.
+
+  `static float[]`
+
+  `RGBtoHSB(int r,
+  int g,
+  int b,
+  float[] hsbvals)`
+
+  Converts the components of a color, as specified by the default RGB
+  model, to an equivalent set of values for hue, saturation, and
+  brightness that are the three components of the HSB model.
+
+  `String`
+
+  `toString()`
+
+  Returns a string representation of this `Color`.
+
+  ### Methods inherited from class java.lang.[Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, finalize, getClass, notify, notifyAll, wait, wait, wait`
+
+* ## Field Details
+
+  + ### white
+
+    public static final [Color](Color.md "class in java.awt") white
+
+    The color white. In the default sRGB space.
+  + ### WHITE
+
+    public static final [Color](Color.md "class in java.awt") WHITE
+
+    The color white. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### lightGray
+
+    public static final [Color](Color.md "class in java.awt") lightGray
+
+    The color light gray. In the default sRGB space.
+  + ### LIGHT\_GRAY
+
+    public static final [Color](Color.md "class in java.awt") LIGHT\_GRAY
+
+    The color light gray. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### gray
+
+    public static final [Color](Color.md "class in java.awt") gray
+
+    The color gray. In the default sRGB space.
+  + ### GRAY
+
+    public static final [Color](Color.md "class in java.awt") GRAY
+
+    The color gray. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### darkGray
+
+    public static final [Color](Color.md "class in java.awt") darkGray
+
+    The color dark gray. In the default sRGB space.
+  + ### DARK\_GRAY
+
+    public static final [Color](Color.md "class in java.awt") DARK\_GRAY
+
+    The color dark gray. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### black
+
+    public static final [Color](Color.md "class in java.awt") black
+
+    The color black. In the default sRGB space.
+  + ### BLACK
+
+    public static final [Color](Color.md "class in java.awt") BLACK
+
+    The color black. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### red
+
+    public static final [Color](Color.md "class in java.awt") red
+
+    The color red. In the default sRGB space.
+  + ### RED
+
+    public static final [Color](Color.md "class in java.awt") RED
+
+    The color red. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### pink
+
+    public static final [Color](Color.md "class in java.awt") pink
+
+    The color pink. In the default sRGB space.
+  + ### PINK
+
+    public static final [Color](Color.md "class in java.awt") PINK
+
+    The color pink. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### orange
+
+    public static final [Color](Color.md "class in java.awt") orange
+
+    The color orange. In the default sRGB space.
+  + ### ORANGE
+
+    public static final [Color](Color.md "class in java.awt") ORANGE
+
+    The color orange. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### yellow
+
+    public static final [Color](Color.md "class in java.awt") yellow
+
+    The color yellow. In the default sRGB space.
+  + ### YELLOW
+
+    public static final [Color](Color.md "class in java.awt") YELLOW
+
+    The color yellow. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### green
+
+    public static final [Color](Color.md "class in java.awt") green
+
+    The color green. In the default sRGB space.
+  + ### GREEN
+
+    public static final [Color](Color.md "class in java.awt") GREEN
+
+    The color green. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### magenta
+
+    public static final [Color](Color.md "class in java.awt") magenta
+
+    The color magenta. In the default sRGB space.
+  + ### MAGENTA
+
+    public static final [Color](Color.md "class in java.awt") MAGENTA
+
+    The color magenta. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### cyan
+
+    public static final [Color](Color.md "class in java.awt") cyan
+
+    The color cyan. In the default sRGB space.
+  + ### CYAN
+
+    public static final [Color](Color.md "class in java.awt") CYAN
+
+    The color cyan. In the default sRGB space.
+
+    Since:
+    :   1.4
+  + ### blue
+
+    public static final [Color](Color.md "class in java.awt") blue
+
+    The color blue. In the default sRGB space.
+  + ### BLUE
+
+    public static final [Color](Color.md "class in java.awt") BLUE
+
+    The color blue. In the default sRGB space.
+
+    Since:
+    :   1.4
+* ## Constructor Details
+
+  + ### Color
+
+    public Color(int r,
+    int g,
+    int b)
+
+    Creates an opaque sRGB color with the specified red, green,
+    and blue values in the range (0 - 255).
+    The actual color used in rendering depends
+    on finding the best match given the color space
+    available for a given output device.
+    Alpha is defaulted to 255.
+
+    Parameters:
+    :   `r` - the red component
+    :   `g` - the green component
+    :   `b` - the blue component
+
+    Throws:
+    :   `IllegalArgumentException` - if `r`, `g`
+        or `b` are outside of the range
+        0 to 255, inclusive
+
+    See Also:
+    :   - [`getRed()`](#getRed())
+        - [`getGreen()`](#getGreen())
+        - [`getBlue()`](#getBlue())
+        - [`getRGB()`](#getRGB())
+  + ### Color
+
+    [@ConstructorProperties](../beans/ConstructorProperties.md "annotation interface in java.beans")({"red","green","blue","alpha"})
+    public Color(int r,
+    int g,
+    int b,
+    int a)
+
+    Creates an sRGB color with the specified red, green, blue, and alpha
+    values in the range (0 - 255).
+
+    Parameters:
+    :   `r` - the red component
+    :   `g` - the green component
+    :   `b` - the blue component
+    :   `a` - the alpha component
+
+    Throws:
+    :   `IllegalArgumentException` - if `r`, `g`,
+        `b` or `a` are outside of the range
+        0 to 255, inclusive
+
+    See Also:
+    :   - [`getRed()`](#getRed())
+        - [`getGreen()`](#getGreen())
+        - [`getBlue()`](#getBlue())
+        - [`getAlpha()`](#getAlpha())
+        - [`getRGB()`](#getRGB())
+  + ### Color
+
+    public Color(int rgb)
+
+    Creates an opaque sRGB color with the specified combined RGB value
+    consisting of the red component in bits 16-23, the green component
+    in bits 8-15, and the blue component in bits 0-7. The actual color
+    used in rendering depends on finding the best match given the
+    color space available for a particular output device. Alpha is
+    defaulted to 255.
+
+    Parameters:
+    :   `rgb` - the combined RGB components
+
+    See Also:
+    :   - [`ColorModel.getRGBdefault()`](image/ColorModel.md#getRGBdefault())
+        - [`getRed()`](#getRed())
+        - [`getGreen()`](#getGreen())
+        - [`getBlue()`](#getBlue())
+        - [`getRGB()`](#getRGB())
+  + ### Color
+
+    public Color(int rgba,
+    boolean hasalpha)
+
+    Creates an sRGB color with the specified combined RGBA value consisting
+    of the alpha component in bits 24-31, the red component in bits 16-23,
+    the green component in bits 8-15, and the blue component in bits 0-7.
+    If the `hasalpha` argument is `false`, alpha
+    is defaulted to 255.
+
+    Parameters:
+    :   `rgba` - the combined RGBA components
+    :   `hasalpha` - `true` if the alpha bits are valid;
+        `false` otherwise
+
+    See Also:
+    :   - [`ColorModel.getRGBdefault()`](image/ColorModel.md#getRGBdefault())
+        - [`getRed()`](#getRed())
+        - [`getGreen()`](#getGreen())
+        - [`getBlue()`](#getBlue())
+        - [`getAlpha()`](#getAlpha())
+        - [`getRGB()`](#getRGB())
+  + ### Color
+
+    public Color(float r,
+    float g,
+    float b)
+
+    Creates an opaque sRGB color with the specified red, green, and blue
+    values in the range (0.0 - 1.0). Alpha is defaulted to 1.0. The
+    actual color used in rendering depends on finding the best
+    match given the color space available for a particular output
+    device.
+
+    Parameters:
+    :   `r` - the red component
+    :   `g` - the green component
+    :   `b` - the blue component
+
+    Throws:
+    :   `IllegalArgumentException` - if `r`, `g`
+        or `b` are outside of the range
+        0.0 to 1.0, inclusive
+
+    See Also:
+    :   - [`getRed()`](#getRed())
+        - [`getGreen()`](#getGreen())
+        - [`getBlue()`](#getBlue())
+        - [`getRGB()`](#getRGB())
+  + ### Color
+
+    public Color(float r,
+    float g,
+    float b,
+    float a)
+
+    Creates an sRGB color with the specified red, green, blue, and
+    alpha values in the range (0.0 - 1.0). The actual color
+    used in rendering depends on finding the best match given the
+    color space available for a particular output device.
+
+    Parameters:
+    :   `r` - the red component
+    :   `g` - the green component
+    :   `b` - the blue component
+    :   `a` - the alpha component
+
+    Throws:
+    :   `IllegalArgumentException` - if `r`, `g`
+        `b` or `a` are outside of the range
+        0.0 to 1.0, inclusive
+
+    See Also:
+    :   - [`getRed()`](#getRed())
+        - [`getGreen()`](#getGreen())
+        - [`getBlue()`](#getBlue())
+        - [`getAlpha()`](#getAlpha())
+        - [`getRGB()`](#getRGB())
+  + ### Color
+
+    public Color([ColorSpace](color/ColorSpace.md "class in java.awt.color") cspace,
+    float[] components,
+    float alpha)
+
+    Creates a color in the specified `ColorSpace`
+    with the color components specified in the `float`
+    array and the specified alpha. The number of components is
+    determined by the type of the `ColorSpace`. For
+    example, RGB requires 3 components, but CMYK requires 4
+    components.
+
+    Parameters:
+    :   `cspace` - the `ColorSpace` to be used to
+        interpret the components
+    :   `components` - an arbitrary number of color components
+        that is compatible with the `ColorSpace`
+    :   `alpha` - alpha value
+
+    Throws:
+    :   `IllegalArgumentException` - if any of the values in the
+        `components` array or `alpha` is
+        outside of the range 0.0 to 1.0
+
+    See Also:
+    :   - [`getComponents(float[])`](#getComponents(float%5B%5D))
+        - [`getColorComponents(float[])`](#getColorComponents(float%5B%5D))
+* ## Method Details
+
+  + ### getRed
+
+    public int getRed()
+
+    Returns the red component in the range 0-255 in the default sRGB
+    space.
+
+    Returns:
+    :   the red component.
+
+    See Also:
+    :   - [`getRGB()`](#getRGB())
+  + ### getGreen
+
+    public int getGreen()
+
+    Returns the green component in the range 0-255 in the default sRGB
+    space.
+
+    Returns:
+    :   the green component.
+
+    See Also:
+    :   - [`getRGB()`](#getRGB())
+  + ### getBlue
+
+    public int getBlue()
+
+    Returns the blue component in the range 0-255 in the default sRGB
+    space.
+
+    Returns:
+    :   the blue component.
+
+    See Also:
+    :   - [`getRGB()`](#getRGB())
+  + ### getAlpha
+
+    public int getAlpha()
+
+    Returns the alpha component in the range 0-255.
+
+    Returns:
+    :   the alpha component.
+
+    See Also:
+    :   - [`getRGB()`](#getRGB())
+  + ### getRGB
+
+    public int getRGB()
+
+    Returns the RGB value representing the color in the default sRGB
+    [`ColorModel`](image/ColorModel.md "class in java.awt.image").
+    (Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are
+    blue).
+
+    Returns:
+    :   the RGB value of the color in the default sRGB
+        `ColorModel`.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`ColorModel.getRGBdefault()`](image/ColorModel.md#getRGBdefault())
+        - [`getRed()`](#getRed())
+        - [`getGreen()`](#getGreen())
+        - [`getBlue()`](#getBlue())
+  + ### brighter
+
+    public [Color](Color.md "class in java.awt") brighter()
+
+    Creates a new `Color` that is a brighter version of this
+    `Color`.
+
+    This method applies an arbitrary scale factor to each of the three RGB
+    components of this `Color` to create a brighter version
+    of this `Color`.
+    The `alpha` value is preserved.
+    Although `brighter` and
+    `darker` are inverse operations, the results of a
+    series of invocations of these two methods might be inconsistent
+    because of rounding errors.
+
+    Returns:
+    :   a new `Color` object that is
+        a brighter version of this `Color`
+        with the same `alpha` value.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`darker()`](#darker())
+  + ### darker
+
+    public [Color](Color.md "class in java.awt") darker()
+
+    Creates a new `Color` that is a darker version of this
+    `Color`.
+
+    This method applies an arbitrary scale factor to each of the three RGB
+    components of this `Color` to create a darker version of
+    this `Color`.
+    The `alpha` value is preserved.
+    Although `brighter` and
+    `darker` are inverse operations, the results of a series
+    of invocations of these two methods might be inconsistent because
+    of rounding errors.
+
+    Returns:
+    :   a new `Color` object that is
+        a darker version of this `Color`
+        with the same `alpha` value.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`brighter()`](#brighter())
+  + ### hashCode
+
+    public int hashCode()
+
+    Computes the hash code for this `Color`.
+
+    Overrides:
+    :   `hashCode` in class `Object`
+
+    Returns:
+    :   a hash code value for this object.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`Object.equals(java.lang.Object)`](../../../java.base/java/lang/Object.md#equals(java.lang.Object))
+        - [`System.identityHashCode(java.lang.Object)`](../../../java.base/java/lang/System.md#identityHashCode(java.lang.Object))
+  + ### equals
+
+    public boolean equals([Object](../../../java.base/java/lang/Object.md "class in java.lang") obj)
+
+    Determines whether another object is equal to this
+    `Color`.
+
+    The result is `true` if and only if the argument is not
+    `null` and is a `Color` object that has the same
+    red, green, blue, and alpha values as this object.
+
+    Overrides:
+    :   `equals` in class `Object`
+
+    Parameters:
+    :   `obj` - the object to test for equality with this
+        `Color`
+
+    Returns:
+    :   `true` if the objects are the same;
+        `false` otherwise.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`Object.hashCode()`](../../../java.base/java/lang/Object.md#hashCode())
+        - [`HashMap`](../../../java.base/java/util/HashMap.md "class in java.util")
+  + ### toString
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") toString()
+
+    Returns a string representation of this `Color`. This
+    method is intended to be used only for debugging purposes. The
+    content and format of the returned string might vary between
+    implementations. The returned string might be empty but cannot
+    be `null`.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   a string representation of this `Color`.
+  + ### decode
+
+    public static [Color](Color.md "class in java.awt") decode([String](../../../java.base/java/lang/String.md "class in java.lang") nm)
+    throws [NumberFormatException](../../../java.base/java/lang/NumberFormatException.md "class in java.lang")
+
+    Converts a `String` to an integer and returns the
+    specified opaque `Color`. This method handles string
+    formats that are used to represent octal and hexadecimal numbers.
+
+    Parameters:
+    :   `nm` - a `String` that represents
+        an opaque color as a 24-bit integer
+
+    Returns:
+    :   the new `Color` object.
+
+    Throws:
+    :   `NumberFormatException` - if the specified string cannot
+        be interpreted as a decimal,
+        octal, or hexadecimal integer.
+
+    Since:
+    :   1.1
+
+    See Also:
+    :   - [`Integer.decode(java.lang.String)`](../../../java.base/java/lang/Integer.md#decode(java.lang.String))
+  + ### getColor
+
+    public static [Color](Color.md "class in java.awt") getColor([String](../../../java.base/java/lang/String.md "class in java.lang") nm)
+
+    Finds a color in the system properties.
+
+    The argument is treated as the name of a system property to
+    be obtained. The string value of this property is then interpreted
+    as an integer which is then converted to a `Color`
+    object.
+
+    If the specified property is not found or could not be parsed as
+    an integer then `null` is returned.
+
+    Parameters:
+    :   `nm` - the name of the color property
+
+    Returns:
+    :   the `Color` converted from the system
+        property.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`System.getProperty(java.lang.String)`](../../../java.base/java/lang/System.md#getProperty(java.lang.String))
+        - [`Integer.getInteger(java.lang.String)`](../../../java.base/java/lang/Integer.md#getInteger(java.lang.String))
+        - [`Color(int)`](#%3Cinit%3E(int))
+  + ### getColor
+
+    public static [Color](Color.md "class in java.awt") getColor([String](../../../java.base/java/lang/String.md "class in java.lang") nm,
+    [Color](Color.md "class in java.awt") v)
+
+    Finds a color in the system properties.
+
+    The first argument is treated as the name of a system property to
+    be obtained. The string value of this property is then interpreted
+    as an integer which is then converted to a `Color`
+    object.
+
+    If the specified property is not found or cannot be parsed as
+    an integer then the `Color` specified by the second
+    argument is returned instead.
+
+    Parameters:
+    :   `nm` - the name of the color property
+    :   `v` - the default `Color`
+
+    Returns:
+    :   the `Color` converted from the system
+        property, or the specified `Color`.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`System.getProperty(java.lang.String)`](../../../java.base/java/lang/System.md#getProperty(java.lang.String))
+        - [`Integer.getInteger(java.lang.String)`](../../../java.base/java/lang/Integer.md#getInteger(java.lang.String))
+        - [`Color(int)`](#%3Cinit%3E(int))
+  + ### getColor
+
+    public static [Color](Color.md "class in java.awt") getColor([String](../../../java.base/java/lang/String.md "class in java.lang") nm,
+    int v)
+
+    Finds a color in the system properties.
+
+    The first argument is treated as the name of a system property to
+    be obtained. The string value of this property is then interpreted
+    as an integer which is then converted to a `Color`
+    object.
+
+    If the specified property is not found or could not be parsed as
+    an integer then the integer value `v` is used instead,
+    and is converted to a `Color` object.
+
+    Parameters:
+    :   `nm` - the name of the color property
+    :   `v` - the default color value, as an integer
+
+    Returns:
+    :   the `Color` converted from the system
+        property or the `Color` converted from
+        the specified integer.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`System.getProperty(java.lang.String)`](../../../java.base/java/lang/System.md#getProperty(java.lang.String))
+        - [`Integer.getInteger(java.lang.String)`](../../../java.base/java/lang/Integer.md#getInteger(java.lang.String))
+        - [`Color(int)`](#%3Cinit%3E(int))
+  + ### HSBtoRGB
+
+    public static int HSBtoRGB(float hue,
+    float saturation,
+    float brightness)
+
+    Converts the components of a color, as specified by the HSB
+    model, to an equivalent set of values for the default RGB model.
+
+    The `saturation` and `brightness` components
+    should be floating-point values between zero and one
+    (numbers in the range 0.0-1.0). The `hue` component
+    can be any floating-point number. The floor of this number is
+    subtracted from it to create a fraction between 0 and 1. This
+    fractional number is then multiplied by 360 to produce the hue
+    angle in the HSB color model.
+
+    The integer that is returned by `HSBtoRGB` encodes the
+    value of a color in bits 0-23 of an integer value that is the same
+    format used by the method [`getRGB`](#getRGB()).
+    This integer can be supplied as an argument to the
+    `Color` constructor that takes a single integer argument.
+
+    Parameters:
+    :   `hue` - the hue component of the color
+    :   `saturation` - the saturation of the color
+    :   `brightness` - the brightness of the color
+
+    Returns:
+    :   the RGB value of the color with the indicated hue,
+        saturation, and brightness.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`getRGB()`](#getRGB())
+        - [`Color(int)`](#%3Cinit%3E(int))
+        - [`ColorModel.getRGBdefault()`](image/ColorModel.md#getRGBdefault())
+  + ### RGBtoHSB
+
+    public static float[] RGBtoHSB(int r,
+    int g,
+    int b,
+    float[] hsbvals)
+
+    Converts the components of a color, as specified by the default RGB
+    model, to an equivalent set of values for hue, saturation, and
+    brightness that are the three components of the HSB model.
+
+    If the `hsbvals` argument is `null`, then a
+    new array is allocated to return the result. Otherwise, the method
+    returns the array `hsbvals`, with the values put into
+    that array.
+
+    Parameters:
+    :   `r` - the red component of the color
+    :   `g` - the green component of the color
+    :   `b` - the blue component of the color
+    :   `hsbvals` - the array used to return the
+        three HSB values, or `null`
+
+    Returns:
+    :   an array of three elements containing the hue, saturation,
+        and brightness (in that order), of the color with
+        the indicated red, green, and blue components.
+
+    Since:
+    :   1.0
+
+    See Also:
+    :   - [`getRGB()`](#getRGB())
+        - [`Color(int)`](#%3Cinit%3E(int))
+        - [`ColorModel.getRGBdefault()`](image/ColorModel.md#getRGBdefault())
+  + ### getHSBColor
+
+    public static [Color](Color.md "class in java.awt") getHSBColor(float h,
+    float s,
+    float b)
+
+    Creates a `Color` object based on the specified values
+    for the HSB color model.
+
+    The `s` and `b` components should be
+    floating-point values between zero and one
+    (numbers in the range 0.0-1.0). The `h` component
+    can be any floating-point number. The floor of this number is
+    subtracted from it to create a fraction between 0 and 1. This
+    fractional number is then multiplied by 360 to produce the hue
+    angle in the HSB color model.
+
+    Parameters:
+    :   `h` - the hue component
+    :   `s` - the saturation of the color
+    :   `b` - the brightness of the color
+
+    Returns:
+    :   a `Color` object with the specified hue,
+        saturation, and brightness.
+
+    Since:
+    :   1.0
+  + ### getRGBComponents
+
+    public float[] getRGBComponents(float[] compArray)
+
+    Returns a `float` array containing the color and alpha
+    components of the `Color`, as represented in the default
+    sRGB color space.
+    If `compArray` is `null`, an array of length
+    4 is created for the return value. Otherwise,
+    `compArray` must have length 4 or greater,
+    and it is filled in with the components and returned.
+
+    Parameters:
+    :   `compArray` - an array that this method fills with
+        color and alpha components and returns
+
+    Returns:
+    :   the RGBA components in a `float` array.
+  + ### getRGBColorComponents
+
+    public float[] getRGBColorComponents(float[] compArray)
+
+    Returns a `float` array containing only the color
+    components of the `Color`, in the default sRGB color
+    space. If `compArray` is `null`, an array of
+    length 3 is created for the return value. Otherwise,
+    `compArray` must have length 3 or greater, and it is
+    filled in with the components and returned.
+
+    Parameters:
+    :   `compArray` - an array that this method fills with color
+        components and returns
+
+    Returns:
+    :   the RGB components in a `float` array.
+  + ### getComponents
+
+    public float[] getComponents(float[] compArray)
+
+    Returns a `float` array containing the color and alpha
+    components of the `Color`, in the
+    `ColorSpace` of the `Color`.
+    If `compArray` is `null`, an array with
+    length equal to the number of components in the associated
+    `ColorSpace` plus one is created for
+    the return value. Otherwise, `compArray` must have at
+    least this length and it is filled in with the components and
+    returned.
+
+    Parameters:
+    :   `compArray` - an array that this method fills with the color and
+        alpha components of this `Color` in its
+        `ColorSpace` and returns
+
+    Returns:
+    :   the color and alpha components in a `float`
+        array.
+  + ### getColorComponents
+
+    public float[] getColorComponents(float[] compArray)
+
+    Returns a `float` array containing only the color
+    components of the `Color`, in the
+    `ColorSpace` of the `Color`.
+    If `compArray` is `null`, an array with
+    length equal to the number of components in the associated
+    `ColorSpace` is created for
+    the return value. Otherwise, `compArray` must have at
+    least this length and it is filled in with the components and
+    returned.
+
+    Parameters:
+    :   `compArray` - an array that this method fills with the color
+        components of this `Color` in its
+        `ColorSpace` and returns
+
+    Returns:
+    :   the color components in a `float` array.
+  + ### getComponents
+
+    public float[] getComponents([ColorSpace](color/ColorSpace.md "class in java.awt.color") cspace,
+    float[] compArray)
+
+    Returns a `float` array containing the color and alpha
+    components of the `Color`, in the
+    `ColorSpace` specified by the `cspace`
+    parameter. If `compArray` is `null`, an
+    array with length equal to the number of components in
+    `cspace` plus one is created for the return value.
+    Otherwise, `compArray` must have at least this
+    length, and it is filled in with the components and returned.
+
+    Parameters:
+    :   `cspace` - a specified `ColorSpace`
+    :   `compArray` - an array that this method fills with the
+        color and alpha components of this `Color` in
+        the specified `ColorSpace` and returns
+
+    Returns:
+    :   the color and alpha components in a `float`
+        array.
+  + ### getColorComponents
+
+    public float[] getColorComponents([ColorSpace](color/ColorSpace.md "class in java.awt.color") cspace,
+    float[] compArray)
+
+    Returns a `float` array containing only the color
+    components of the `Color` in the
+    `ColorSpace` specified by the `cspace`
+    parameter. If `compArray` is `null`, an array
+    with length equal to the number of components in
+    `cspace` is created for the return value. Otherwise,
+    `compArray` must have at least this length, and it is
+    filled in with the components and returned.
+
+    Parameters:
+    :   `cspace` - a specified `ColorSpace`
+    :   `compArray` - an array that this method fills with the color
+        components of this `Color` in the specified
+        `ColorSpace`
+
+    Returns:
+    :   the color components in a `float` array.
+  + ### getColorSpace
+
+    public [ColorSpace](color/ColorSpace.md "class in java.awt.color") getColorSpace()
+
+    Returns the `ColorSpace` of this `Color`.
+
+    Returns:
+    :   this `Color` object's `ColorSpace`.
+  + ### createContext
+
+    public [PaintContext](PaintContext.md "interface in java.awt") createContext([ColorModel](image/ColorModel.md "class in java.awt.image") cm,
+    [Rectangle](Rectangle.md "class in java.awt") r,
+    [Rectangle2D](geom/Rectangle2D.md "class in java.awt.geom") r2d,
+    [AffineTransform](geom/AffineTransform.md "class in java.awt.geom") xform,
+    [RenderingHints](RenderingHints.md "class in java.awt") hints)
+
+    Creates and returns a [`PaintContext`](PaintContext.md "interface in java.awt") used to
+    generate a solid color field pattern.
+    See the [`specification`](Paint.md#createContext(java.awt.image.ColorModel,java.awt.Rectangle,java.awt.geom.Rectangle2D,java.awt.geom.AffineTransform,java.awt.RenderingHints)) of the
+    method in the [`Paint`](Paint.md "interface in java.awt") interface for information
+    on null parameter handling.
+
+    Specified by:
+    :   `createContext` in interface `Paint`
+
+    Parameters:
+    :   `cm` - the preferred [`ColorModel`](image/ColorModel.md "class in java.awt.image") which represents the most convenient
+        format for the caller to receive the pixel data, or `null`
+        if there is no preference.
+    :   `r` - the device space bounding box
+        of the graphics primitive being rendered.
+    :   `r2d` - the user space bounding box
+        of the graphics primitive being rendered.
+    :   `xform` - the [`AffineTransform`](geom/AffineTransform.md "class in java.awt.geom") from user
+        space into device space.
+    :   `hints` - the set of hints that the context object can use to
+        choose between rendering alternatives.
+
+    Returns:
+    :   the `PaintContext` for
+        generating color patterns.
+
+    See Also:
+    :   - [`Paint`](Paint.md "interface in java.awt")
+        - [`PaintContext`](PaintContext.md "interface in java.awt")
+        - [`ColorModel`](image/ColorModel.md "class in java.awt.image")
+        - [`Rectangle`](Rectangle.md "class in java.awt")
+        - [`Rectangle2D`](geom/Rectangle2D.md "class in java.awt.geom")
+        - [`AffineTransform`](geom/AffineTransform.md "class in java.awt.geom")
+        - [`RenderingHints`](RenderingHints.md "class in java.awt")
+  + ### getTransparency
+
+    public int getTransparency()
+
+    Returns the transparency mode for this `Color`. This is
+    required to implement the `Paint` interface.
+
+    Specified by:
+    :   `getTransparency` in interface `Transparency`
+
+    Returns:
+    :   this `Color` object's transparency mode.
+
+    See Also:
+    :   - [`Paint`](Paint.md "interface in java.awt")
+        - [`Transparency`](Transparency.md "interface in java.awt")
+        - [`createContext(java.awt.image.ColorModel, java.awt.Rectangle, java.awt.geom.Rectangle2D, java.awt.geom.AffineTransform, java.awt.RenderingHints)`](#createContext(java.awt.image.ColorModel,java.awt.Rectangle,java.awt.geom.Rectangle2D,java.awt.geom.AffineTransform,java.awt.RenderingHints))

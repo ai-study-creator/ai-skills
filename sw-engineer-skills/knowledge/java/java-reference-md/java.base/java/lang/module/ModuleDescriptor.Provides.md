@@ -1,0 +1,180 @@
+Module [java.base](../../../module-summary.md)
+
+Package [java.lang.module](package-summary.md)
+
+# Class ModuleDescriptor.Provides
+
+[java.lang.Object](../Object.md "class in java.lang")
+
+java.lang.module.ModuleDescriptor.Provides
+
+All Implemented Interfaces:
+:   `Comparable<ModuleDescriptor.Provides>`
+
+Enclosing class:
+:   `ModuleDescriptor`
+
+---
+
+public static final class ModuleDescriptor.Provides
+extends [Object](../Object.md "class in java.lang")
+implements [Comparable](../Comparable.md "interface in java.lang")<[ModuleDescriptor.Provides](ModuleDescriptor.Provides.md "class in java.lang.module")>
+
+A service that a module provides one or more implementations of.
+
+Since:
+:   9
+
+See Also:
+:   * [`ModuleDescriptor.provides()`](ModuleDescriptor.md#provides())
+
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `int`
+
+  `compareTo(ModuleDescriptor.Provides that)`
+
+  Compares this `Provides` to another.
+
+  `boolean`
+
+  `equals(Object ob)`
+
+  Tests this `Provides` for equality with the given object.
+
+  `int`
+
+  `hashCode()`
+
+  Computes a hash code for this `Provides`.
+
+  `List<String>`
+
+  `providers()`
+
+  Returns the list of the fully qualified class names of the providers
+  or provider factories.
+
+  `String`
+
+  `service()`
+
+  Returns the fully qualified class name of the service type.
+
+  `String`
+
+  `toString()`
+
+  Returns a string describing this `Provides`.
+
+  ### Methods inherited from class java.lang.[Object](../Object.md "class in java.lang")
+
+  `clone, finalize, getClass, notify, notifyAll, wait, wait, wait`
+
+* ## Method Details
+
+  + ### service
+
+    public [String](../String.md "class in java.lang") service()
+
+    Returns the fully qualified class name of the service type.
+
+    Returns:
+    :   The fully qualified class name of the service type
+  + ### providers
+
+    public [List](../../util/List.md "interface in java.util")<[String](../String.md "class in java.lang")> providers()
+
+    Returns the list of the fully qualified class names of the providers
+    or provider factories.
+
+    Returns:
+    :   A non-empty and unmodifiable list of the fully qualified class
+        names of the providers or provider factories
+  + ### compareTo
+
+    public int compareTo([ModuleDescriptor.Provides](ModuleDescriptor.Provides.md "class in java.lang.module") that)
+
+    Compares this `Provides` to another.
+
+    Two `Provides` objects are compared by comparing the fully
+    qualified class name of the service type lexicographically. Where the
+    class names are equal then the list of the provider class names are
+    compared by comparing the corresponding elements of both lists
+    lexicographically and in sequence. Where the lists differ in size,
+    `N` is the size of the shorter list, and the first `N`
+    corresponding elements are equal, then the longer list is considered
+    to succeed the shorter list.
+
+    Specified by:
+    :   `compareTo` in interface `Comparable<ModuleDescriptor.Provides>`
+
+    Parameters:
+    :   `that` - The `Provides` to compare
+
+    Returns:
+    :   A negative integer, zero, or a positive integer if this
+        `Provides` is less than, equal to, or greater than
+        the given `Provides`
+  + ### hashCode
+
+    public int hashCode()
+
+    Computes a hash code for this `Provides`.
+
+    The hash code is based upon the service type and the set of
+    providers. It satisfies the general contract of the [`Object.hashCode`](../Object.md#hashCode()) method.
+
+    Overrides:
+    :   `hashCode` in class `Object`
+
+    Returns:
+    :   The hash-code value for this module provides
+
+    See Also:
+    :   - [`Object.equals(java.lang.Object)`](../Object.md#equals(java.lang.Object))
+        - [`System.identityHashCode(java.lang.Object)`](../System.md#identityHashCode(java.lang.Object))
+  + ### equals
+
+    public boolean equals([Object](../Object.md "class in java.lang") ob)
+
+    Tests this `Provides` for equality with the given object.
+
+    If the given object is not a `Provides` then this method
+    returns `false`. Two `Provides` objects are equal if the
+    service type is equal and the list of providers is equal.
+
+    This method satisfies the general contract of the [`Object.equals`](../Object.md#equals(java.lang.Object)) method.
+
+    Overrides:
+    :   `equals` in class `Object`
+
+    Parameters:
+    :   `ob` - the object to which this object is to be compared
+
+    Returns:
+    :   `true` if, and only if, the given object is a
+        `Provides` that is equal to this `Provides`
+
+    See Also:
+    :   - [`Object.hashCode()`](../Object.md#hashCode())
+        - [`HashMap`](../../util/HashMap.md "class in java.util")
+  + ### toString
+
+    public [String](../String.md "class in java.lang") toString()
+
+    Returns a string describing this `Provides`.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   A string describing this `Provides`

@@ -1,0 +1,19 @@
+= WebFlux Example
+
+[source,kotlin]
+----
+@RestController
+@RequestMapping("/api/orders")
+class OrderReactiveController(
+    private val service: OrderReactiveService
+) {
+    @GetMapping("/{id}")
+    fun get(@PathVariable id: UUID): Mono<ResponseEntity<OrderDto>> =
+        service.find(id)
+            .map { ResponseEntity.ok(it) }
+            .defaultIfEmpty(ResponseEntity.notFound().build())
+}
+----
+
+Use this only when the surrounding stack is reactive and non-blocking.
+Do not call blocking libraries on the event loop.

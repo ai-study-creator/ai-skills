@@ -1,0 +1,116 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [java.beans](package-summary.md)
+
+# Interface DesignMode
+
+All Known Subinterfaces:
+:   `BeanContext`, `BeanContextServices`
+
+All Known Implementing Classes:
+:   `BeanContextServicesSupport`, `BeanContextSupport`
+
+---
+
+public interface DesignMode
+
+This interface is intended to be implemented by, or delegated from, instances
+of java.beans.beancontext.BeanContext, in order to propagate to its nested hierarchy
+of java.beans.beancontext.BeanContextChild instances, the current "designTime" property.
+
+The JavaBeans specification defines the notion of design time as is a
+mode in which JavaBeans instances should function during their composition
+and customization in a interactive design, composition or construction tool,
+as opposed to runtime when the JavaBean is part of an applet, application,
+or other live Java executable abstraction.
+
+Since:
+:   1.2
+
+See Also:
+:   * [`BeanContext`](beancontext/BeanContext.md "interface in java.beans.beancontext")
+    * [`BeanContextChild`](beancontext/BeanContextChild.md "interface in java.beans.beancontext")
+    * [`BeanContextMembershipListener`](beancontext/BeanContextMembershipListener.md "interface in java.beans.beancontext")
+    * [`PropertyChangeEvent`](PropertyChangeEvent.md "class in java.beans")
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final String`
+
+  `PROPERTYNAME`
+
+  The standard value of the propertyName as fired from a BeanContext or
+  other source of PropertyChangeEvents.
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `boolean`
+
+  `isDesignTime()`
+
+  A value of true denotes that JavaBeans should behave in design time
+  mode, a value of false denotes runtime behavior.
+
+  `void`
+
+  `setDesignTime(boolean designTime)`
+
+  Sets the "value" of the "designTime" property.
+
+* ## Field Details
+
+  + ### PROPERTYNAME
+
+    static final [String](../../../java.base/java/lang/String.md "class in java.lang") PROPERTYNAME
+
+    The standard value of the propertyName as fired from a BeanContext or
+    other source of PropertyChangeEvents.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#java.beans.DesignMode.PROPERTYNAME)
+* ## Method Details
+
+  + ### setDesignTime
+
+    void setDesignTime(boolean designTime)
+
+    Sets the "value" of the "designTime" property.
+
+    If the implementing object is an instance of java.beans.beancontext.BeanContext,
+    or a subinterface thereof, then that BeanContext should fire a
+    PropertyChangeEvent, to its registered BeanContextMembershipListeners, with
+    parameters:
+    - `propertyName` - `java.beans.DesignMode.PROPERTYNAME`- `oldValue` - previous value of "designTime"- `newValue` - current value of "designTime"Note it is illegal for a BeanContextChild to invoke this method
+    associated with a BeanContext that it is nested within.
+
+    Parameters:
+    :   `designTime` - the current "value" of the "designTime" property
+
+    See Also:
+    :   - [`BeanContext`](beancontext/BeanContext.md "interface in java.beans.beancontext")
+        - [`BeanContextMembershipListener`](beancontext/BeanContextMembershipListener.md "interface in java.beans.beancontext")
+        - [`PropertyChangeEvent`](PropertyChangeEvent.md "class in java.beans")
+  + ### isDesignTime
+
+    boolean isDesignTime()
+
+    A value of true denotes that JavaBeans should behave in design time
+    mode, a value of false denotes runtime behavior.
+
+    Returns:
+    :   the current "value" of the "designTime" property.

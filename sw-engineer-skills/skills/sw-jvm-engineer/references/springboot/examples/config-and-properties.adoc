@@ -1,0 +1,15 @@
+= Configuration Properties Example
+
+[source,kotlin]
+----
+@ConfigurationProperties(prefix = "app.orders")
+@Validated
+data class OrderProperties(
+    @field:Min(1)
+    val retryCount: Int = 3,
+    val baseUrl: URI
+)
+----
+
+Prefer structured properties for nontrivial config.
+Validate at binding time so bad deployment values fail fast.

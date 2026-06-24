@@ -1,0 +1,31 @@
+= Spring Boot Data
+
+== General data rules
+- Keep transactional boundaries explicit.
+- Distinguish entities from DTOs.
+- Put business decisions in services, not repositories.
+- Choose SQL, NoSQL, or mixed persistence consciously.
+
+== JPA and Hibernate
+- Watch for N+1 queries.
+- Use fetch joins or projections when the use case needs them.
+- Avoid lazy-loading surprises outside a transaction.
+- Model fetch shape to the actual query path.
+- Keep entity graphs and query shapes aligned with the use case.
+- Do not use JPA as a reason to hide persistence behavior.
+
+== Repositories
+- Keep repository methods readable and intention-revealing.
+- Use pagination when result sets can grow.
+- Prefer derived queries for simple cases and explicit queries for complex ones.
+- Keep custom query logic close to the persistence boundary.
+
+== Multiple data sources
+- Introduce extra data sources only when the boundary is real.
+- Keep configuration and transaction managers explicit.
+- Make transaction ownership obvious.
+
+== Caching
+- Cache stable and expensive reads.
+- Define invalidation rules before turning caching on.
+- Keep cached data small, stable, and safe to reuse.

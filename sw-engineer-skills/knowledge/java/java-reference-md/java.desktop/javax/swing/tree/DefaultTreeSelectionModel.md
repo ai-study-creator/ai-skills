@@ -1,0 +1,1078 @@
+Module [java.desktop](../../../module-summary.md)
+
+Package [javax.swing.tree](package-summary.md)
+
+# Class DefaultTreeSelectionModel
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+javax.swing.tree.DefaultTreeSelectionModel
+
+All Implemented Interfaces:
+:   `Serializable`, `Cloneable`, `TreeSelectionModel`
+
+Direct Known Subclasses:
+:   `JTree.EmptySelectionModel`
+
+---
+
+public class DefaultTreeSelectionModel
+extends [Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+implements [Cloneable](../../../../java.base/java/lang/Cloneable.md "interface in java.lang"), [Serializable](../../../../java.base/java/io/Serializable.md "interface in java.io"), [TreeSelectionModel](TreeSelectionModel.md "interface in javax.swing.tree")
+
+Default implementation of TreeSelectionModel. Listeners are notified
+whenever
+the paths in the selection change, not the rows. In order
+to be able to track row changes you may wish to become a listener
+for expansion events on the tree and test for changes from there.
+
+resetRowSelection is called from any of the methods that update
+the selected paths. If you subclass any of these methods to
+filter what is allowed to be selected, be sure and message
+`resetRowSelection` if you do not message super.
+**Warning:**
+Serialized objects of this class will not be compatible with
+future Swing releases. The current serialization support is
+appropriate for short term storage or RMI between applications running
+the same version of Swing. As of 1.4, support for long term storage
+of all JavaBeans
+has been added to the `java.beans` package.
+Please see [`XMLEncoder`](../../../java/beans/XMLEncoder.md "class in java.beans").
+
+See Also:
+:   * [`JTree`](../JTree.md "class in javax.swing")
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected SwingPropertyChangeSupport`
+
+  `changeSupport`
+
+  Used to messaged registered listeners.
+
+  `protected int`
+
+  `leadIndex`
+
+  Index of the lead path in selection.
+
+  `protected TreePath`
+
+  `leadPath`
+
+  Last path that was added.
+
+  `protected int`
+
+  `leadRow`
+
+  Lead row.
+
+  `protected EventListenerList`
+
+  `listenerList`
+
+  Event listener list.
+
+  `protected DefaultListSelectionModel`
+
+  `listSelectionModel`
+
+  Handles maintaining the list selection model.
+
+  `protected RowMapper`
+
+  `rowMapper`
+
+  Provides a row for a given path.
+
+  `protected TreePath[]`
+
+  `selection`
+
+  Paths that are currently selected.
+
+  `static final String`
+
+  `SELECTION_MODE_PROPERTY`
+
+  Property name for selectionMode.
+
+  `protected int`
+
+  `selectionMode`
+
+  Mode for the selection, will be either SINGLE\_TREE\_SELECTION,
+  CONTIGUOUS\_TREE\_SELECTION or DISCONTIGUOUS\_TREE\_SELECTION.
+
+  ### Fields inherited from interface javax.swing.tree.[TreeSelectionModel](TreeSelectionModel.md "interface in javax.swing.tree")
+
+  `CONTIGUOUS_TREE_SELECTION, DISCONTIGUOUS_TREE_SELECTION, SINGLE_TREE_SELECTION`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `DefaultTreeSelectionModel()`
+
+  Creates a new instance of DefaultTreeSelectionModel that is
+  empty, with a selection mode of DISCONTIGUOUS\_TREE\_SELECTION.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete MethodsDeprecated Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `addPropertyChangeListener(PropertyChangeListener listener)`
+
+  Adds a PropertyChangeListener to the listener list.
+
+  `void`
+
+  `addSelectionPath(TreePath path)`
+
+  Adds path to the current selection.
+
+  `void`
+
+  `addSelectionPaths(TreePath[] paths)`
+
+  Adds paths to the current selection.
+
+  `void`
+
+  `addTreeSelectionListener(TreeSelectionListener x)`
+
+  Adds x to the list of listeners that are notified each time the
+  set of selected TreePaths changes.
+
+  `protected boolean`
+
+  `arePathsContiguous(TreePath[] paths)`
+
+  Returns true if the paths are contiguous,
+  or this object has no RowMapper.
+
+  `protected boolean`
+
+  `canPathsBeAdded(TreePath[] paths)`
+
+  Used to test if a particular set of `TreePath`s can
+  be added.
+
+  `protected boolean`
+
+  `canPathsBeRemoved(TreePath[] paths)`
+
+  Returns true if the paths can be removed without breaking the
+  continuity of the model.
+
+  `void`
+
+  `clearSelection()`
+
+  Empties the current selection.
+
+  `Object`
+
+  `clone()`
+
+  Returns a clone of this object with the same selection.
+
+  `protected void`
+
+  `fireValueChanged(TreeSelectionEvent e)`
+
+  Notifies all listeners that are registered for
+  tree selection events on this object.
+
+  `TreePath`
+
+  `getLeadSelectionPath()`
+
+  Returns the last path that was added.
+
+  `int`
+
+  `getLeadSelectionRow()`
+
+  Returns the lead selection index.
+
+  `<T extends EventListener>  
+  T[]`
+
+  `getListeners(Class<T> listenerType)`
+
+  Returns an array of all the objects currently registered
+  as `FooListener`s
+  upon this model.
+
+  `int`
+
+  `getMaxSelectionRow()`
+
+  Returns the largest value obtained from the RowMapper for the
+  current set of selected TreePaths.
+
+  `int`
+
+  `getMinSelectionRow()`
+
+  Returns the smallest value obtained from the RowMapper for the
+  current set of selected TreePaths.
+
+  `PropertyChangeListener[]`
+
+  `getPropertyChangeListeners()`
+
+  Returns an array of all the property change listeners
+  registered on this `DefaultTreeSelectionModel`.
+
+  `RowMapper`
+
+  `getRowMapper()`
+
+  Returns the RowMapper instance that is able to map a TreePath to a
+  row.
+
+  `int`
+
+  `getSelectionCount()`
+
+  Returns the number of paths that are selected.
+
+  `int`
+
+  `getSelectionMode()`
+
+  Returns the selection mode, one of `SINGLE_TREE_SELECTION`,
+  `DISCONTIGUOUS_TREE_SELECTION` or
+  `CONTIGUOUS_TREE_SELECTION`.
+
+  `TreePath`
+
+  `getSelectionPath()`
+
+  Returns the first path in the selection.
+
+  `TreePath[]`
+
+  `getSelectionPaths()`
+
+  Returns the selection.
+
+  `int[]`
+
+  `getSelectionRows()`
+
+  Returns the selection in terms of rows.
+
+  `TreeSelectionListener[]`
+
+  `getTreeSelectionListeners()`
+
+  Returns an array of all the tree selection listeners
+  registered on this model.
+
+  `protected void`
+
+  `insureRowContinuity()`
+
+  Makes sure the currently selected `TreePath`s are valid
+  for the current selection mode.
+
+  `protected void`
+
+  `insureUniqueness()`
+
+  This method is obsolete and its implementation is now a noop.
+
+  `boolean`
+
+  `isPathSelected(TreePath path)`
+
+  Returns true if the path, `path`,
+  is in the current selection.
+
+  `boolean`
+
+  `isRowSelected(int row)`
+
+  Returns true if the row identified by `row` is selected.
+
+  `boolean`
+
+  `isSelectionEmpty()`
+
+  Returns true if the selection is currently empty.
+
+  `protected void`
+
+  `notifyPathChange(Vector<?> changedPaths,
+  TreePath oldLeadSelection)`
+
+  Deprecated.
+
+  As of JDK version 1.7
+
+  `void`
+
+  `removePropertyChangeListener(PropertyChangeListener listener)`
+
+  Removes a PropertyChangeListener from the listener list.
+
+  `void`
+
+  `removeSelectionPath(TreePath path)`
+
+  Removes path from the selection.
+
+  `void`
+
+  `removeSelectionPaths(TreePath[] paths)`
+
+  Removes paths from the selection.
+
+  `void`
+
+  `removeTreeSelectionListener(TreeSelectionListener x)`
+
+  Removes x from the list of listeners that are notified each time
+  the set of selected TreePaths changes.
+
+  `void`
+
+  `resetRowSelection()`
+
+  Updates this object's mapping from TreePath to rows.
+
+  `void`
+
+  `setRowMapper(RowMapper newMapper)`
+
+  Sets the RowMapper instance.
+
+  `void`
+
+  `setSelectionMode(int mode)`
+
+  Sets the selection model, which must be one of SINGLE\_TREE\_SELECTION,
+  CONTIGUOUS\_TREE\_SELECTION or DISCONTIGUOUS\_TREE\_SELECTION.
+
+  `void`
+
+  `setSelectionPath(TreePath path)`
+
+  Sets the selection to path.
+
+  `void`
+
+  `setSelectionPaths(TreePath[] pPaths)`
+
+  Sets the selection.
+
+  `String`
+
+  `toString()`
+
+  Returns a string that displays and identifies this
+  object's properties.
+
+  `protected void`
+
+  `updateLeadIndex()`
+
+  Updates the leadIndex instance variable.
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Field Details
+
+  + ### SELECTION\_MODE\_PROPERTY
+
+    public static final [String](../../../../java.base/java/lang/String.md "class in java.lang") SELECTION\_MODE\_PROPERTY
+
+    Property name for selectionMode.
+
+    See Also:
+    :   - [Constant Field Values](../../../../constant-values.md#javax.swing.tree.DefaultTreeSelectionModel.SELECTION_MODE_PROPERTY)
+  + ### changeSupport
+
+    protected [SwingPropertyChangeSupport](../event/SwingPropertyChangeSupport.md "class in javax.swing.event") changeSupport
+
+    Used to messaged registered listeners.
+  + ### selection
+
+    protected [TreePath](TreePath.md "class in javax.swing.tree")[] selection
+
+    Paths that are currently selected. Will be null if nothing is
+    currently selected.
+  + ### listenerList
+
+    protected [EventListenerList](../event/EventListenerList.md "class in javax.swing.event") listenerList
+
+    Event listener list.
+  + ### rowMapper
+
+    protected transient [RowMapper](RowMapper.md "interface in javax.swing.tree") rowMapper
+
+    Provides a row for a given path.
+  + ### listSelectionModel
+
+    protected [DefaultListSelectionModel](../DefaultListSelectionModel.md "class in javax.swing") listSelectionModel
+
+    Handles maintaining the list selection model. The RowMapper is used
+    to map from a TreePath to a row, and the value is then placed here.
+  + ### selectionMode
+
+    protected int selectionMode
+
+    Mode for the selection, will be either SINGLE\_TREE\_SELECTION,
+    CONTIGUOUS\_TREE\_SELECTION or DISCONTIGUOUS\_TREE\_SELECTION.
+  + ### leadPath
+
+    protected [TreePath](TreePath.md "class in javax.swing.tree") leadPath
+
+    Last path that was added.
+  + ### leadIndex
+
+    protected int leadIndex
+
+    Index of the lead path in selection.
+  + ### leadRow
+
+    protected int leadRow
+
+    Lead row.
+* ## Constructor Details
+
+  + ### DefaultTreeSelectionModel
+
+    public DefaultTreeSelectionModel()
+
+    Creates a new instance of DefaultTreeSelectionModel that is
+    empty, with a selection mode of DISCONTIGUOUS\_TREE\_SELECTION.
+* ## Method Details
+
+  + ### setRowMapper
+
+    public void setRowMapper([RowMapper](RowMapper.md "interface in javax.swing.tree") newMapper)
+
+    Sets the RowMapper instance. This instance is used to determine
+    the row for a particular TreePath.
+
+    Specified by:
+    :   `setRowMapper` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `newMapper` - RowMapper to be set
+  + ### getRowMapper
+
+    public [RowMapper](RowMapper.md "interface in javax.swing.tree") getRowMapper()
+
+    Returns the RowMapper instance that is able to map a TreePath to a
+    row.
+
+    Specified by:
+    :   `getRowMapper` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the RowMapper instance that is able to map a TreePath
+        to a row
+  + ### setSelectionMode
+
+    public void setSelectionMode(int mode)
+
+    Sets the selection model, which must be one of SINGLE\_TREE\_SELECTION,
+    CONTIGUOUS\_TREE\_SELECTION or DISCONTIGUOUS\_TREE\_SELECTION. If mode
+    is not one of the defined value,
+    `DISCONTIGUOUS_TREE_SELECTION` is assumed.
+
+    This may change the selection if the current selection is not valid
+    for the new mode. For example, if three TreePaths are
+    selected when the mode is changed to `SINGLE_TREE_SELECTION`,
+    only one TreePath will remain selected. It is up to the particular
+    implementation to decide what TreePath remains selected.
+
+    Setting the mode to something other than the defined types will
+    result in the mode becoming `DISCONTIGUOUS_TREE_SELECTION`.
+
+    Specified by:
+    :   `setSelectionMode` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `mode` - selection mode to be set
+  + ### getSelectionMode
+
+    public int getSelectionMode()
+
+    Returns the selection mode, one of `SINGLE_TREE_SELECTION`,
+    `DISCONTIGUOUS_TREE_SELECTION` or
+    `CONTIGUOUS_TREE_SELECTION`.
+
+    Specified by:
+    :   `getSelectionMode` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the current selection mode
+  + ### setSelectionPath
+
+    public void setSelectionPath([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Sets the selection to path. If this represents a change, then
+    the TreeSelectionListeners are notified. If `path` is
+    null, this has the same effect as invoking `clearSelection`.
+
+    Specified by:
+    :   `setSelectionPath` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `path` - new path to select
+  + ### setSelectionPaths
+
+    public void setSelectionPaths([TreePath](TreePath.md "class in javax.swing.tree")[] pPaths)
+
+    Sets the selection. Whether the supplied paths are taken as the
+    new selection depends upon the selection mode. If the supplied
+    array is `null`, or empty, the selection is cleared. If
+    the selection mode is `SINGLE_TREE_SELECTION`, only the
+    first path in `pPaths` is used. If the selection
+    mode is `CONTIGUOUS_TREE_SELECTION` and the supplied paths
+    are not contiguous, then only the first path in `pPaths` is
+    used. If the selection mode is
+    `DISCONTIGUOUS_TREE_SELECTION`, then all paths are used.
+
+    All `null` paths in `pPaths` are ignored.
+
+    If this represents a change, all registered `TreeSelectionListener`s are notified.
+
+    The lead path is set to the last unique path.
+
+    The paths returned from `getSelectionPaths` are in the same
+    order as those supplied to this method.
+
+    Specified by:
+    :   `setSelectionPaths` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `pPaths` - the new selection
+  + ### addSelectionPath
+
+    public void addSelectionPath([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Adds path to the current selection. If path is not currently
+    in the selection the TreeSelectionListeners are notified. This has
+    no effect if `path` is null.
+
+    Specified by:
+    :   `addSelectionPath` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `path` - the new path to add to the current selection
+  + ### addSelectionPaths
+
+    public void addSelectionPaths([TreePath](TreePath.md "class in javax.swing.tree")[] paths)
+
+    Adds paths to the current selection. If any of the paths in
+    paths are not currently in the selection the TreeSelectionListeners
+    are notified. This has
+    no effect if `paths` is null.
+
+    The lead path is set to the last element in `paths`.
+
+    If the selection mode is `CONTIGUOUS_TREE_SELECTION`,
+    and adding the new paths would make the selection discontiguous.
+    Then two things can result: if the TreePaths in `paths`
+    are contiguous, then the selection becomes these TreePaths,
+    otherwise the TreePaths aren't contiguous and the selection becomes
+    the first TreePath in `paths`.
+
+    Specified by:
+    :   `addSelectionPaths` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `paths` - the new path to add to the current selection
+  + ### removeSelectionPath
+
+    public void removeSelectionPath([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Removes path from the selection. If path is in the selection
+    The TreeSelectionListeners are notified. This has no effect if
+    `path` is null.
+
+    Specified by:
+    :   `removeSelectionPath` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `path` - the path to remove from the selection
+  + ### removeSelectionPaths
+
+    public void removeSelectionPaths([TreePath](TreePath.md "class in javax.swing.tree")[] paths)
+
+    Removes paths from the selection. If any of the paths in paths
+    are in the selection the TreeSelectionListeners are notified.
+    This has no effect if `paths` is null.
+
+    Specified by:
+    :   `removeSelectionPaths` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `paths` - the paths to remove from the selection
+  + ### getSelectionPath
+
+    public [TreePath](TreePath.md "class in javax.swing.tree") getSelectionPath()
+
+    Returns the first path in the selection. This is useful if there
+    if only one item currently selected.
+
+    Specified by:
+    :   `getSelectionPath` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the first path in the selection
+  + ### getSelectionPaths
+
+    public [TreePath](TreePath.md "class in javax.swing.tree")[] getSelectionPaths()
+
+    Returns the selection.
+
+    Specified by:
+    :   `getSelectionPaths` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the selection
+  + ### getSelectionCount
+
+    public int getSelectionCount()
+
+    Returns the number of paths that are selected.
+
+    Specified by:
+    :   `getSelectionCount` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the number of paths that are selected
+  + ### isPathSelected
+
+    public boolean isPathSelected([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Returns true if the path, `path`,
+    is in the current selection.
+
+    Specified by:
+    :   `isPathSelected` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `path` - the path to be loked for
+
+    Returns:
+    :   whether the `path` is in the current selection
+  + ### isSelectionEmpty
+
+    public boolean isSelectionEmpty()
+
+    Returns true if the selection is currently empty.
+
+    Specified by:
+    :   `isSelectionEmpty` in interface `TreeSelectionModel`
+
+    Returns:
+    :   whether the selection is currently empty
+  + ### clearSelection
+
+    public void clearSelection()
+
+    Empties the current selection. If this represents a change in the
+    current selection, the selection listeners are notified.
+
+    Specified by:
+    :   `clearSelection` in interface `TreeSelectionModel`
+  + ### addTreeSelectionListener
+
+    public void addTreeSelectionListener([TreeSelectionListener](../event/TreeSelectionListener.md "interface in javax.swing.event") x)
+
+    Adds x to the list of listeners that are notified each time the
+    set of selected TreePaths changes.
+
+    Specified by:
+    :   `addTreeSelectionListener` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `x` - the new listener to be added
+  + ### removeTreeSelectionListener
+
+    public void removeTreeSelectionListener([TreeSelectionListener](../event/TreeSelectionListener.md "interface in javax.swing.event") x)
+
+    Removes x from the list of listeners that are notified each time
+    the set of selected TreePaths changes.
+
+    Specified by:
+    :   `removeTreeSelectionListener` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `x` - the listener to remove
+  + ### getTreeSelectionListeners
+
+    public [TreeSelectionListener](../event/TreeSelectionListener.md "interface in javax.swing.event")[] getTreeSelectionListeners()
+
+    Returns an array of all the tree selection listeners
+    registered on this model.
+
+    Returns:
+    :   all of this model's `TreeSelectionListener`s
+        or an empty
+        array if no tree selection listeners are currently registered
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`addTreeSelectionListener(javax.swing.event.TreeSelectionListener)`](#addTreeSelectionListener(javax.swing.event.TreeSelectionListener))
+        - [`removeTreeSelectionListener(javax.swing.event.TreeSelectionListener)`](#removeTreeSelectionListener(javax.swing.event.TreeSelectionListener))
+  + ### fireValueChanged
+
+    protected void fireValueChanged([TreeSelectionEvent](../event/TreeSelectionEvent.md "class in javax.swing.event") e)
+
+    Notifies all listeners that are registered for
+    tree selection events on this object.
+
+    Parameters:
+    :   `e` - the event that characterizes the change
+
+    See Also:
+    :   - [`addTreeSelectionListener(javax.swing.event.TreeSelectionListener)`](#addTreeSelectionListener(javax.swing.event.TreeSelectionListener))
+        - [`EventListenerList`](../event/EventListenerList.md "class in javax.swing.event")
+  + ### getListeners
+
+    public <T extends [EventListener](../../../../java.base/java/util/EventListener.md "interface in java.util")> T[] getListeners([Class](../../../../java.base/java/lang/Class.md "class in java.lang")<T> listenerType)
+
+    Returns an array of all the objects currently registered
+    as `FooListener`s
+    upon this model.
+    `FooListener`s are registered using the
+    `addFooListener` method.
+
+    You can specify the `listenerType` argument
+    with a class literal,
+    such as
+    `FooListener.class`.
+    For example, you can query a
+    `DefaultTreeSelectionModel` `m`
+    for its tree selection listeners with the following code:
+
+    ```
+    TreeSelectionListener[] tsls = (TreeSelectionListener[])(m.getListeners(TreeSelectionListener.class));
+    ```
+
+    If no such listeners exist, this method returns an empty array.
+
+    Type Parameters:
+    :   `T` - the listener type
+
+    Parameters:
+    :   `listenerType` - the type of listeners requested
+
+    Returns:
+    :   an array of all objects registered as
+        `FooListener`s on this component,
+        or an empty array if no such
+        listeners have been added
+
+    Throws:
+    :   `ClassCastException` - if `listenerType`
+        doesn't specify a class or interface that implements
+        `java.util.EventListener`
+
+    Since:
+    :   1.3
+
+    See Also:
+    :   - [`getTreeSelectionListeners()`](#getTreeSelectionListeners())
+        - [`getPropertyChangeListeners()`](#getPropertyChangeListeners())
+  + ### getSelectionRows
+
+    public int[] getSelectionRows()
+
+    Returns the selection in terms of rows. There is not
+    necessarily a one-to-one mapping between the `TreePath`s
+    returned from `getSelectionPaths` and this method. In
+    particular, if a `TreePath` is not viewable (the `RowMapper` returns `-1` for the row corresponding to the
+    `TreePath`), then the corresponding row is not included
+    in the returned array. For example, if the selection consists
+    of two paths, `A` and `B`, with `A` at row
+    `10`, and `B` not currently viewable, then this method
+    returns an array with the single entry `10`.
+
+    Specified by:
+    :   `getSelectionRows` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the selection in terms of rows
+  + ### getMinSelectionRow
+
+    public int getMinSelectionRow()
+
+    Returns the smallest value obtained from the RowMapper for the
+    current set of selected TreePaths. If nothing is selected,
+    or there is no RowMapper, this will return -1.
+
+    Specified by:
+    :   `getMinSelectionRow` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the smallest value obtained from the RowMapper
+        for the current set of selected TreePaths
+  + ### getMaxSelectionRow
+
+    public int getMaxSelectionRow()
+
+    Returns the largest value obtained from the RowMapper for the
+    current set of selected TreePaths. If nothing is selected,
+    or there is no RowMapper, this will return -1.
+
+    Specified by:
+    :   `getMaxSelectionRow` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the largest value obtained from the RowMapper
+        for the current set of selected TreePaths
+  + ### isRowSelected
+
+    public boolean isRowSelected(int row)
+
+    Returns true if the row identified by `row` is selected.
+
+    Specified by:
+    :   `isRowSelected` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `row` - row to check
+
+    Returns:
+    :   whether the row is selected
+  + ### resetRowSelection
+
+    public void resetRowSelection()
+
+    Updates this object's mapping from TreePath to rows. This should
+    be invoked when the mapping from TreePaths to integers has changed
+    (for example, a node has been expanded).
+
+    You do not normally have to call this, JTree and its associated
+    Listeners will invoke this for you. If you are implementing your own
+    View class, then you will have to invoke this.
+
+    This will invoke `insureRowContinuity` to make sure
+    the currently selected TreePaths are still valid based on the
+    selection mode.
+
+    Specified by:
+    :   `resetRowSelection` in interface `TreeSelectionModel`
+  + ### getLeadSelectionRow
+
+    public int getLeadSelectionRow()
+
+    Returns the lead selection index. That is the last index that was
+    added.
+
+    Specified by:
+    :   `getLeadSelectionRow` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the lead selection index
+  + ### getLeadSelectionPath
+
+    public [TreePath](TreePath.md "class in javax.swing.tree") getLeadSelectionPath()
+
+    Returns the last path that was added. This may differ from the
+    leadSelectionPath property maintained by the JTree.
+
+    Specified by:
+    :   `getLeadSelectionPath` in interface `TreeSelectionModel`
+
+    Returns:
+    :   the last path that was added
+  + ### addPropertyChangeListener
+
+    public void addPropertyChangeListener([PropertyChangeListener](../../../java/beans/PropertyChangeListener.md "interface in java.beans") listener)
+
+    Adds a PropertyChangeListener to the listener list.
+    The listener is registered for all properties.
+
+    A PropertyChangeEvent will get fired when the selection mode
+    changes.
+
+    Specified by:
+    :   `addPropertyChangeListener` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `listener` - the PropertyChangeListener to be added
+  + ### removePropertyChangeListener
+
+    public void removePropertyChangeListener([PropertyChangeListener](../../../java/beans/PropertyChangeListener.md "interface in java.beans") listener)
+
+    Removes a PropertyChangeListener from the listener list.
+    This removes a PropertyChangeListener that was registered
+    for all properties.
+
+    Specified by:
+    :   `removePropertyChangeListener` in interface `TreeSelectionModel`
+
+    Parameters:
+    :   `listener` - the PropertyChangeListener to be removed
+  + ### getPropertyChangeListeners
+
+    public [PropertyChangeListener](../../../java/beans/PropertyChangeListener.md "interface in java.beans")[] getPropertyChangeListeners()
+
+    Returns an array of all the property change listeners
+    registered on this `DefaultTreeSelectionModel`.
+
+    Returns:
+    :   all of this model's `PropertyChangeListener`s
+        or an empty
+        array if no property change listeners are currently registered
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`addPropertyChangeListener(java.beans.PropertyChangeListener)`](#addPropertyChangeListener(java.beans.PropertyChangeListener))
+        - [`removePropertyChangeListener(java.beans.PropertyChangeListener)`](#removePropertyChangeListener(java.beans.PropertyChangeListener))
+  + ### insureRowContinuity
+
+    protected void insureRowContinuity()
+
+    Makes sure the currently selected `TreePath`s are valid
+    for the current selection mode.
+    If the selection mode is `CONTIGUOUS_TREE_SELECTION`
+    and a `RowMapper` exists, this will make sure all
+    the rows are contiguous, that is, when sorted all the rows are
+    in order with no gaps.
+    If the selection isn't contiguous, the selection is
+    reset to contain the first set, when sorted, of contiguous rows.
+
+    If the selection mode is `SINGLE_TREE_SELECTION` and
+    more than one TreePath is selected, the selection is reset to
+    contain the first path currently selected.
+  + ### arePathsContiguous
+
+    protected boolean arePathsContiguous([TreePath](TreePath.md "class in javax.swing.tree")[] paths)
+
+    Returns true if the paths are contiguous,
+    or this object has no RowMapper.
+
+    Parameters:
+    :   `paths` - array of paths to check
+
+    Returns:
+    :   whether the paths are contiguous, or this object has no RowMapper
+  + ### canPathsBeAdded
+
+    protected boolean canPathsBeAdded([TreePath](TreePath.md "class in javax.swing.tree")[] paths)
+
+    Used to test if a particular set of `TreePath`s can
+    be added. This will return true if `paths` is null (or
+    empty), or this object has no RowMapper, or nothing is currently selected,
+    or the selection mode is `DISCONTIGUOUS_TREE_SELECTION`, or
+    adding the paths to the current selection still results in a
+    contiguous set of `TreePath`s.
+
+    Parameters:
+    :   `paths` - array of `TreePaths` to check
+
+    Returns:
+    :   whether the particular set of `TreePaths` can be added
+  + ### canPathsBeRemoved
+
+    protected boolean canPathsBeRemoved([TreePath](TreePath.md "class in javax.swing.tree")[] paths)
+
+    Returns true if the paths can be removed without breaking the
+    continuity of the model.
+    This is rather expensive.
+
+    Parameters:
+    :   `paths` - array of `TreePath` to check
+
+    Returns:
+    :   whether the paths can be removed without breaking the
+        continuity of the model
+  + ### notifyPathChange
+
+    [@Deprecated](../../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")
+    protected void notifyPathChange([Vector](../../../../java.base/java/util/Vector.md "class in java.util")<?> changedPaths,
+    [TreePath](TreePath.md "class in javax.swing.tree") oldLeadSelection)
+
+    Deprecated.
+
+    As of JDK version 1.7
+
+    Notifies listeners of a change in path. changePaths should contain
+    instances of PathPlaceHolder.
+
+    Parameters:
+    :   `changedPaths` - the vector of the changed paths
+    :   `oldLeadSelection` - the old selection path
+  + ### updateLeadIndex
+
+    protected void updateLeadIndex()
+
+    Updates the leadIndex instance variable.
+  + ### insureUniqueness
+
+    protected void insureUniqueness()
+
+    This method is obsolete and its implementation is now a noop. It's
+    still called by setSelectionPaths and addSelectionPaths, but only
+    for backwards compatibility.
+  + ### toString
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") toString()
+
+    Returns a string that displays and identifies this
+    object's properties.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   a String representation of this object
+  + ### clone
+
+    public [Object](../../../../java.base/java/lang/Object.md "class in java.lang") clone()
+    throws [CloneNotSupportedException](../../../../java.base/java/lang/CloneNotSupportedException.md "class in java.lang")
+
+    Returns a clone of this object with the same selection.
+    This method does not duplicate
+    selection listeners and property listeners.
+
+    Overrides:
+    :   `clone` in class `Object`
+
+    Returns:
+    :   a clone of this instance.
+
+    Throws:
+    :   `CloneNotSupportedException` - never thrown by instances of
+        this class
+
+    See Also:
+    :   - [`Cloneable`](../../../../java.base/java/lang/Cloneable.md "interface in java.lang")

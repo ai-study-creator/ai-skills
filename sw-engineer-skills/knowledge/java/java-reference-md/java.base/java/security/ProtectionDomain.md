@@ -1,0 +1,270 @@
+Module [java.base](../../module-summary.md)
+
+Package [java.security](package-summary.md)
+
+# Class ProtectionDomain
+
+[java.lang.Object](../lang/Object.md "class in java.lang")
+
+java.security.ProtectionDomain
+
+---
+
+public class ProtectionDomain
+extends [Object](../lang/Object.md "class in java.lang")
+
+The `ProtectionDomain` class encapsulates the characteristics of a
+domain, which encloses a set of classes whose instances are granted a set
+of permissions when being executed on behalf of a given set of Principals.
+
+A static set of permissions can be bound to a `ProtectionDomain`
+when it is constructed; such permissions are granted to the domain
+regardless of the policy in force. However, to support dynamic security
+policies, a `ProtectionDomain` can also be constructed such that it
+is dynamically mapped to a set of permissions by the current policy whenever
+a permission is checked.
+
+Since:
+:   1.2
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `ProtectionDomain(CodeSource codesource,
+  PermissionCollection permissions)`
+
+  Creates a new `ProtectionDomain` with the given `CodeSource`
+  and permissions.
+
+  `ProtectionDomain(CodeSource codesource,
+  PermissionCollection permissions,
+  ClassLoader classloader,
+  Principal[] principals)`
+
+  Creates a new `ProtectionDomain` qualified by the given
+  `CodeSource`, permissions, `ClassLoader` and array
+  of principals.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `final ClassLoader`
+
+  `getClassLoader()`
+
+  Returns the `ClassLoader` of this domain.
+
+  `final CodeSource`
+
+  `getCodeSource()`
+
+  Returns the `CodeSource` of this domain.
+
+  `final PermissionCollection`
+
+  `getPermissions()`
+
+  Returns the static permissions granted to this domain.
+
+  `final Principal[]`
+
+  `getPrincipals()`
+
+  Returns an array of principals for this domain.
+
+  `boolean`
+
+  `implies(Permission perm)`
+
+  Check and see if this `ProtectionDomain` implies the permissions
+  expressed in the `Permission` object.
+
+  `final boolean`
+
+  `staticPermissionsOnly()`
+
+  Returns `true` if this domain contains only static permissions
+  and does not check the current `Policy` at the time of
+  permission checking.
+
+  `String`
+
+  `toString()`
+
+  Convert a `ProtectionDomain` to a `String`.
+
+  ### Methods inherited from class java.lang.[Object](../lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### ProtectionDomain
+
+    public ProtectionDomain([CodeSource](CodeSource.md "class in java.security") codesource,
+    [PermissionCollection](PermissionCollection.md "class in java.security") permissions)
+
+    Creates a new `ProtectionDomain` with the given `CodeSource`
+    and permissions. If permissions is not `null`, then
+    `setReadOnly()` will be called on the passed in
+    permissions.
+
+    The permissions granted to this domain are static, i.e.
+    invoking the [`staticPermissionsOnly()`](#staticPermissionsOnly()) method returns
+    `true`.
+    They contain only the ones passed to this constructor and
+    the current policy will not be consulted.
+
+    Parameters:
+    :   `codesource` - the codesource associated with this domain
+    :   `permissions` - the permissions granted to this domain
+  + ### ProtectionDomain
+
+    public ProtectionDomain([CodeSource](CodeSource.md "class in java.security") codesource,
+    [PermissionCollection](PermissionCollection.md "class in java.security") permissions,
+    [ClassLoader](../lang/ClassLoader.md "class in java.lang") classloader,
+    [Principal](Principal.md "interface in java.security")[] principals)
+
+    Creates a new `ProtectionDomain` qualified by the given
+    `CodeSource`, permissions, `ClassLoader` and array
+    of principals. If permissions is not `null`, then
+    `setReadOnly()` will be called on the passed in permissions.
+
+    The permissions granted to this domain are dynamic, i.e.
+    invoking the [`staticPermissionsOnly()`](#staticPermissionsOnly()) method returns
+    `false`.
+    They include both the static permissions passed to this constructor,
+    and any permissions granted to this domain by the current policy at the
+    time a permission is checked.
+
+    This constructor is typically used by
+    [`ClassLoaders`](SecureClassLoader.md "class in java.security")
+    and [`DomainCombiners`](DomainCombiner.md "interface in java.security") which delegate to the
+    `Policy` object to actively associate the permissions granted to
+    this domain. This constructor affords the
+    policy provider the opportunity to augment the supplied
+    `PermissionCollection` to reflect policy changes.
+
+    Parameters:
+    :   `codesource` - the `CodeSource` associated with this domain
+    :   `permissions` - the permissions granted to this domain
+    :   `classloader` - the `ClassLoader` associated with this domain
+    :   `principals` - the array of `Principal` objects associated
+        with this domain. The contents of the array are copied to protect against
+        subsequent modification.
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`Policy.refresh()`](Policy.md#refresh())
+        - [`Policy.getPermissions(ProtectionDomain)`](Policy.md#getPermissions(java.security.ProtectionDomain))
+* ## Method Details
+
+  + ### getCodeSource
+
+    public final [CodeSource](CodeSource.md "class in java.security") getCodeSource()
+
+    Returns the `CodeSource` of this domain.
+
+    Returns:
+    :   the `CodeSource` of this domain which may be `null`.
+
+    Since:
+    :   1.2
+  + ### getClassLoader
+
+    public final [ClassLoader](../lang/ClassLoader.md "class in java.lang") getClassLoader()
+
+    Returns the `ClassLoader` of this domain.
+
+    Returns:
+    :   the `ClassLoader` of this domain which may be `null`.
+
+    Since:
+    :   1.4
+  + ### getPrincipals
+
+    public final [Principal](Principal.md "interface in java.security")[] getPrincipals()
+
+    Returns an array of principals for this domain.
+
+    Returns:
+    :   a non-null array of principals for this domain.
+        Returns a new array each time this method is called.
+
+    Since:
+    :   1.4
+  + ### getPermissions
+
+    public final [PermissionCollection](PermissionCollection.md "class in java.security") getPermissions()
+
+    Returns the static permissions granted to this domain.
+
+    Returns:
+    :   the static set of permissions for this domain which may be
+        `null`.
+
+    See Also:
+    :   - [`Policy.refresh()`](Policy.md#refresh())
+        - [`Policy.getPermissions(ProtectionDomain)`](Policy.md#getPermissions(java.security.ProtectionDomain))
+  + ### staticPermissionsOnly
+
+    public final boolean staticPermissionsOnly()
+
+    Returns `true` if this domain contains only static permissions
+    and does not check the current `Policy` at the time of
+    permission checking.
+
+    Returns:
+    :   `true` if this domain contains only static permissions.
+
+    Since:
+    :   9
+  + ### implies
+
+    public boolean implies([Permission](Permission.md "class in java.security") perm)
+
+    Check and see if this `ProtectionDomain` implies the permissions
+    expressed in the `Permission` object.
+
+    The set of permissions evaluated is a function of whether the
+    `ProtectionDomain` was constructed with a static set of permissions
+    or it was bound to a dynamically mapped set of permissions.
+
+    If the [`staticPermissionsOnly()`](#staticPermissionsOnly()) method returns
+    `true`, then the permission will only be checked against the
+    `PermissionCollection` supplied at construction.
+
+    Otherwise, the permission will be checked against the combination
+    of the `PermissionCollection` supplied at construction and
+    the current policy binding.
+
+    Parameters:
+    :   `perm` - the {code Permission} object to check.
+
+    Returns:
+    :   `true` if `perm` is implied by this
+        `ProtectionDomain`.
+  + ### toString
+
+    public [String](../lang/String.md "class in java.lang") toString()
+
+    Convert a `ProtectionDomain` to a `String`.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   a string representation of the object.

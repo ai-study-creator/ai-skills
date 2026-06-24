@@ -1,0 +1,128 @@
+Module [java.security.jgss](../../../module-summary.md)
+
+# Package org.ietf.jgss
+
+---
+
+package org.ietf.jgss
+
+This package presents a framework that allows application developers to
+make use of security services like authentication, data integrity and
+data confidentiality from a variety of underlying security mechanisms
+like Kerberos, using a unified API. The security mechanisms that an
+application can
+chose to use are identified with unique object identifiers. One example
+of such a mechanism is the Kerberos v5 GSS-API mechanism (object
+identifier 1.2.840.113554.1.2.2). This mechanism is available through
+the default instance of the GSSManager class.
+
+The GSS-API is defined in a language independent way in
+[RFC 2743](http://www.ietf.org/rfc/rfc2743.txt). The Java
+language bindings are defined in
+[RFC 2853](http://www.ietf.org/rfc/rfc2853.txt)
+
+An application starts out by instantiating a `GSSManager`
+which then serves as a factory for a security context. An application
+can use specific principal names and credentials that are also created
+using the GSSManager; or it can instantiate a
+context with system defaults. It then goes through a context
+establishment loop. Once a context is established with the
+peer, authentication is complete. Data protection such as integrity
+and confidentiality can then be obtained from this context.
+
+The GSS-API does not perform any communication with the peer. It merely
+produces tokens that the application must somehow transport to the
+other end.
+
+## Credential Acquisition
+
+The GSS-API itself does not dictate how an underlying mechanism
+obtains the credentials that are needed for authentication. It is
+assumed that prior to calling the GSS-API, these credentials are
+obtained and stored in a location that the mechanism provider is
+aware of. However, the default model in the Java platform will be
+that mechanism providers must obtain credentials only from the private
+or public credential sets associated with the
+[`Subject`](../../../../java.base/javax/security/auth/Subject.md "class in javax.security.auth") in the
+current access control context. The Kerberos v5
+mechanism will search for the required INITIATE and ACCEPT credentials
+([`KerberosTicket`](../../../javax/security/auth/kerberos/KerberosTicket.md "class in javax.security.auth.kerberos") and
+[`KerberosKey`](../../../javax/security/auth/kerberos/KerberosKey.md "class in javax.security.auth.kerberos")) in
+the private credential set whereas some other mechanism might look
+in the public set or in both. If the desired credential is not
+present in the appropriate sets of the current Subject, the GSS-API
+call must fail.
+
+This model has the advantage that credential management
+is simple and predictable from the applications point of view. An
+application, given the right permissions, can purge the credentials in
+the Subject or renew them using standard Java API's. If it purged
+the credentials, it would be sure that the JGSS mechanism would fail,
+or if it renewed a time based credential it would be sure that a JGSS
+mechanism would succeed.
+
+This model does require that a [`JAAS login`](../../../../java.base/javax/security/auth/login/package-summary.md) be performed in order to
+authenticate and populate a Subject that the JGSS mechanism can later
+utilize. However, applications have the ability to relax this
+restriction by means of a system property:
+`javax.security.auth.useSubjectCredsOnly`. By default
+this system property will be assumed to be `true` (even when
+it is unset) indicating that providers must only use the credentials
+that are present in the current Subject. However, if this property is
+explicitly set to false by the application, then it indicates that
+the provider is free to use any credentials cache of its choice. Such
+a credential cache might be a disk cache, an in-memory cache, or even
+just the current Subject itself.
+
+## Related Documentation
+
+For an online tutorial on using Java GSS-API, please see
+.
+
+Since:
+:   1.4
+
+* All Classes and InterfacesInterfacesClassesException Classes
+
+  Class
+
+  Description
+
+  [ChannelBinding](ChannelBinding.md "class in org.ietf.jgss")
+
+  This class encapsulates the concept of caller-provided channel
+  binding information.
+
+  [GSSContext](GSSContext.md "interface in org.ietf.jgss")
+
+  This interface encapsulates the GSS-API security context and provides
+  the security services that are available over the context.
+
+  [GSSCredential](GSSCredential.md "interface in org.ietf.jgss")
+
+  This interface encapsulates the GSS-API credentials for an entity.
+
+  [GSSException](GSSException.md "class in org.ietf.jgss")
+
+  This exception is thrown whenever a GSS-API error occurs, including
+  any mechanism specific error.
+
+  [GSSManager](GSSManager.md "class in org.ietf.jgss")
+
+  This class serves as a factory for other important
+  GSS-API classes and also provides information about the mechanisms that
+  are supported.
+
+  [GSSName](GSSName.md "interface in org.ietf.jgss")
+
+  This interface encapsulates a single GSS-API principal entity.
+
+  [MessageProp](MessageProp.md "class in org.ietf.jgss")
+
+  This is a utility class used within the per-message GSSContext
+  methods to convey per-message properties.
+
+  [Oid](Oid.md "class in org.ietf.jgss")
+
+  This class represents Universal Object Identifiers (Oids) and their
+  associated operations.

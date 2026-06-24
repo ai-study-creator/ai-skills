@@ -1,0 +1,19 @@
+= Application Bootstrap Example
+
+[source,kotlin]
+----
+@SpringBootApplication
+class Application
+
+fun main(args: Array<String>) {
+    runApplication<Application>(*args)
+}
+
+@Bean
+fun startupCheck(service: StartupCheckService) = ApplicationRunner {
+    service.verify()
+}
+----
+
+Use this shape when the startup path needs a small amount of bootstrapping logic.
+Keep the entry point thin and move real behavior into services or configuration beans.

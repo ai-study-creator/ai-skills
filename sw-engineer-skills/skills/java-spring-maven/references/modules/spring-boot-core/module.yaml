@@ -1,0 +1,12 @@
+id: spring-boot-core
+title: Spring Boot Core
+source_paths:
+  - knowledge/springboot/springboot-reference-md
+adherence_target: 80
+adherence_type: practical
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on:
+  - java-core

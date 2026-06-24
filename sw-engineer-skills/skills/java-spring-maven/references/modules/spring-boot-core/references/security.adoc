@@ -1,0 +1,20 @@
+= Spring Boot Security
+
+== Core stance
+- Start from least privilege.
+- Prefer stateless auth for APIs unless sessions are required.
+- Keep authentication and authorization separate.
+
+== Common patterns
+- Use `SecurityFilterChain` beans.
+- Enable method security when the rule belongs at the service boundary.
+- Use JWT or OAuth2 resource server support for token-based APIs.
+- Keep password handling delegated to proper encoders.
+
+== Operational concerns
+- Permit health endpoints only when appropriate.
+- Be explicit about CSRF, CORS, and session policy.
+- Return consistent unauthorized and forbidden responses.
+
+== Rule of thumb
+- If security behavior is not obvious in code, it is usually too implicit.

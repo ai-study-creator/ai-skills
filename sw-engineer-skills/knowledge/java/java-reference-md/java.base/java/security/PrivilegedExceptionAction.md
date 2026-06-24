@@ -1,0 +1,74 @@
+Module [java.base](../../module-summary.md)
+
+Package [java.security](package-summary.md)
+
+# Interface PrivilegedExceptionAction<T>
+
+Type Parameters:
+:   `T` - the type of the result of running the computation
+
+Functional Interface:
+:   This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+
+---
+
+[@FunctionalInterface](../lang/FunctionalInterface.md "annotation interface in java.lang")
+public interface PrivilegedExceptionAction<T>
+
+A computation to be performed with privileges enabled, that throws one or
+more checked exceptions. The computation is performed by invoking
+`AccessController.doPrivileged` on the
+`PrivilegedExceptionAction` object. This interface is
+used only for computations that throw checked exceptions;
+computations that do not throw
+checked exceptions should use `PrivilegedAction` instead.
+
+Since:
+:   1.2
+
+See Also:
+:   * [`AccessController`](AccessController.md "class in java.security")
+    * [`AccessController.doPrivileged(PrivilegedExceptionAction)`](AccessController.md#doPrivileged(java.security.PrivilegedExceptionAction))
+    * [`AccessController.doPrivileged(PrivilegedExceptionAction, AccessControlContext)`](AccessController.md#doPrivileged(java.security.PrivilegedExceptionAction,java.security.AccessControlContext))
+    * [`PrivilegedAction`](PrivilegedAction.md "interface in java.security")
+
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `T`
+
+  `run()`
+
+  Performs the computation.
+
+* ## Method Details
+
+  + ### run
+
+    [T](PrivilegedExceptionAction.md "type parameter in PrivilegedExceptionAction") run()
+    throws [Exception](../lang/Exception.md "class in java.lang")
+
+    Performs the computation. This method will be called by
+    `AccessController.doPrivileged` after enabling privileges.
+
+    Returns:
+    :   a class-dependent value that may represent the results of the
+        computation. Each class that implements
+        `PrivilegedExceptionAction` should document what
+        (if anything) this value represents.
+
+    Throws:
+    :   `Exception` - an exceptional condition has occurred. Each class
+        that implements `PrivilegedExceptionAction` should
+        document the exceptions that its run method can throw.
+
+    See Also:
+    :   - [`AccessController.doPrivileged(PrivilegedExceptionAction)`](AccessController.md#doPrivileged(java.security.PrivilegedExceptionAction))
+        - [`AccessController.doPrivileged(PrivilegedExceptionAction,AccessControlContext)`](AccessController.md#doPrivileged(java.security.PrivilegedExceptionAction,java.security.AccessControlContext))

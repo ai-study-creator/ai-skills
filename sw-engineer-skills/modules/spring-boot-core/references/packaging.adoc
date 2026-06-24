@@ -1,0 +1,22 @@
+= Packaging and Production Runtime
+
+== Read this for
+- packaging for production
+- container images
+- native images
+- AOT support
+- checkpoint/restore
+
+== Working rules
+- Choose packaging to match the deployment environment.
+- Keep startup and memory behavior visible when the runtime is constrained.
+- Treat native/AOT as a deployment choice, not a casual optimization.
+
+== Source notes
+This area maps to the packaging chapter in the source corpus, including:
+- container images
+- efficient images
+- buildpacks
+- Dockerfiles
+- native image support
+- AOT cache and checkpoint/restore

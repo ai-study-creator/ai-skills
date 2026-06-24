@@ -1,0 +1,342 @@
+Module [java.xml](../../../module-summary.md)
+
+Package [javax.xml.transform](package-summary.md)
+
+# Class TransformerException
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.lang.Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang")
+
+[java.lang.Exception](../../../../java.base/java/lang/Exception.md "class in java.lang")
+
+javax.xml.transform.TransformerException
+
+All Implemented Interfaces:
+:   `Serializable`
+
+Direct Known Subclasses:
+:   `TransformerConfigurationException`
+
+---
+
+public class TransformerException
+extends [Exception](../../../../java.base/java/lang/Exception.md "class in java.lang")
+
+This class specifies an exceptional condition that occurred
+during the transformation process.
+
+Since:
+:   1.4
+
+See Also:
+:   * [Serialized Form](../../../../serialized-form.md#javax.xml.transform.TransformerException)
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `TransformerException(String message)`
+
+  Create a new TransformerException.
+
+  `TransformerException(String message,
+  Throwable e)`
+
+  Wrap an existing exception in a TransformerException.
+
+  `TransformerException(String message,
+  SourceLocator locator)`
+
+  Create a new TransformerException from a message and a Locator.
+
+  `TransformerException(String message,
+  SourceLocator locator,
+  Throwable e)`
+
+  Wrap an existing exception in a TransformerException.
+
+  `TransformerException(Throwable e)`
+
+  Create a new TransformerException wrapping an existing exception.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `Throwable`
+
+  `getCause()`
+
+  Returns the cause of this throwable or `null` if the
+  cause is nonexistent or unknown.
+
+  `Throwable`
+
+  `getException()`
+
+  This method retrieves an exception that this exception wraps.
+
+  `String`
+
+  `getLocationAsString()`
+
+  Get the location information as a string.
+
+  `SourceLocator`
+
+  `getLocator()`
+
+  Method getLocator retrieves an instance of a SourceLocator
+  object that specifies where an error occurred.
+
+  `String`
+
+  `getMessageAndLocation()`
+
+  Get the error message with location information
+  appended.
+
+  `Throwable`
+
+  `initCause(Throwable cause)`
+
+  Initializes the *cause* of this throwable to the specified value.
+
+  `void`
+
+  `printStackTrace()`
+
+  Print the trace of methods from where the error
+  originated.
+
+  `void`
+
+  `printStackTrace(PrintStream s)`
+
+  Print the trace of methods from where the error
+  originated.
+
+  `void`
+
+  `printStackTrace(PrintWriter s)`
+
+  Print the trace of methods from where the error
+  originated.
+
+  `void`
+
+  `setLocator(SourceLocator location)`
+
+  Method setLocator sets an instance of a SourceLocator
+  object that specifies where an error occurred.
+
+  ### Methods inherited from class java.lang.[Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang")
+
+  `addSuppressed, fillInStackTrace, getLocalizedMessage, getMessage, getStackTrace, getSuppressed, setStackTrace, toString`
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### TransformerException
+
+    public TransformerException([String](../../../../java.base/java/lang/String.md "class in java.lang") message)
+
+    Create a new TransformerException.
+
+    Parameters:
+    :   `message` - The error or warning message.
+  + ### TransformerException
+
+    public TransformerException([Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang") e)
+
+    Create a new TransformerException wrapping an existing exception.
+
+    Parameters:
+    :   `e` - The exception to be wrapped.
+  + ### TransformerException
+
+    public TransformerException([String](../../../../java.base/java/lang/String.md "class in java.lang") message,
+    [Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang") e)
+
+    Wrap an existing exception in a TransformerException.
+
+    This is used for throwing processor exceptions before
+    the processing has started.
+
+    Parameters:
+    :   `message` - The error or warning message, or null to
+        use the message from the embedded exception.
+    :   `e` - Any exception
+  + ### TransformerException
+
+    public TransformerException([String](../../../../java.base/java/lang/String.md "class in java.lang") message,
+    [SourceLocator](SourceLocator.md "interface in javax.xml.transform") locator)
+
+    Create a new TransformerException from a message and a Locator.
+
+    This constructor is especially useful when an application is
+    creating its own exception from within a DocumentHandler
+    callback.
+
+    Parameters:
+    :   `message` - The error or warning message.
+    :   `locator` - The locator object for the error or warning.
+  + ### TransformerException
+
+    public TransformerException([String](../../../../java.base/java/lang/String.md "class in java.lang") message,
+    [SourceLocator](SourceLocator.md "interface in javax.xml.transform") locator,
+    [Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang") e)
+
+    Wrap an existing exception in a TransformerException.
+
+    Parameters:
+    :   `message` - The error or warning message, or null to
+        use the message from the embedded exception.
+    :   `locator` - The locator object for the error or warning.
+    :   `e` - Any exception
+* ## Method Details
+
+  + ### getLocator
+
+    public [SourceLocator](SourceLocator.md "interface in javax.xml.transform") getLocator()
+
+    Method getLocator retrieves an instance of a SourceLocator
+    object that specifies where an error occurred.
+
+    Returns:
+    :   A SourceLocator object, or null if none was specified.
+  + ### setLocator
+
+    public void setLocator([SourceLocator](SourceLocator.md "interface in javax.xml.transform") location)
+
+    Method setLocator sets an instance of a SourceLocator
+    object that specifies where an error occurred.
+
+    Parameters:
+    :   `location` - A SourceLocator object, or null to clear the location.
+  + ### getException
+
+    public [Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang") getException()
+
+    This method retrieves an exception that this exception wraps.
+
+    Returns:
+    :   An Throwable object, or null.
+
+    See Also:
+    :   - [`getCause()`](#getCause())
+  + ### getCause
+
+    public [Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang") getCause()
+
+    Returns the cause of this throwable or `null` if the
+    cause is nonexistent or unknown. (The cause is the throwable that
+    caused this throwable to get thrown.)
+
+    Overrides:
+    :   `getCause` in class `Throwable`
+
+    Returns:
+    :   the cause, or null if unknown
+  + ### initCause
+
+    public [Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang") initCause([Throwable](../../../../java.base/java/lang/Throwable.md "class in java.lang") cause)
+
+    Initializes the *cause* of this throwable to the specified value.
+    (The cause is the throwable that caused this throwable to get thrown.)
+
+    This method can be called at most once. It is generally called from
+    within the constructor, or immediately after creating the
+    throwable. If this throwable was created
+    with [`TransformerException(Throwable)`](#%3Cinit%3E(java.lang.Throwable)) or
+    [`TransformerException(String,Throwable)`](#%3Cinit%3E(java.lang.String,java.lang.Throwable)), this method cannot be called
+    even once.
+
+    Overrides:
+    :   `initCause` in class `Throwable`
+
+    Parameters:
+    :   `cause` - the cause (which is saved for later retrieval by the
+        [`getCause()`](#getCause()) method). (A `null` value is
+        permitted, and indicates that the cause is nonexistent or
+        unknown.)
+
+    Returns:
+    :   a reference to this `Throwable` instance.
+
+    Throws:
+    :   `IllegalArgumentException` - if `cause` is this
+        throwable. (A throwable cannot
+        be its own cause.)
+    :   `IllegalStateException` - if this throwable was
+        created with [`TransformerException(Throwable)`](#%3Cinit%3E(java.lang.Throwable)) or
+        [`TransformerException(String,Throwable)`](#%3Cinit%3E(java.lang.String,java.lang.Throwable)), or this method has already
+        been called on this throwable.
+  + ### getMessageAndLocation
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getMessageAndLocation()
+
+    Get the error message with location information
+    appended.
+
+    Returns:
+    :   A `String` representing the error message with
+        location information appended.
+  + ### getLocationAsString
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getLocationAsString()
+
+    Get the location information as a string.
+
+    Returns:
+    :   A string with location info, or null
+        if there is no location information.
+  + ### printStackTrace
+
+    public void printStackTrace()
+
+    Print the trace of methods from where the error
+    originated. This will trace all nested exception
+    objects, as well as this object.
+
+    Overrides:
+    :   `printStackTrace` in class `Throwable`
+  + ### printStackTrace
+
+    public void printStackTrace([PrintStream](../../../../java.base/java/io/PrintStream.md "class in java.io") s)
+
+    Print the trace of methods from where the error
+    originated. This will trace all nested exception
+    objects, as well as this object.
+
+    Overrides:
+    :   `printStackTrace` in class `Throwable`
+
+    Parameters:
+    :   `s` - The stream where the dump will be sent to.
+  + ### printStackTrace
+
+    public void printStackTrace([PrintWriter](../../../../java.base/java/io/PrintWriter.md "class in java.io") s)
+
+    Print the trace of methods from where the error
+    originated. This will trace all nested exception
+    objects, as well as this object.
+
+    Overrides:
+    :   `printStackTrace` in class `Throwable`
+
+    Parameters:
+    :   `s` - The writer where the dump will be sent to.

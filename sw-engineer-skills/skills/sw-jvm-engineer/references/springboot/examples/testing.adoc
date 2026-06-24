@@ -1,0 +1,22 @@
+= Testing Example
+
+[source,kotlin]
+----
+@SpringBootTest
+@Testcontainers
+class OrderApplicationTests {
+    companion object {
+        @Container
+        val postgres = PostgreSQLContainer("postgres:16")
+    }
+
+    @DynamicPropertySource
+    fun dbProps(registry: DynamicPropertyRegistry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl)
+        registry.add("spring.datasource.username", postgres::getUsername)
+        registry.add("spring.datasource.password", postgres::getPassword)
+    }
+}
+----
+
+Use full-context tests when the value is in wiring, config, or infrastructure behavior.

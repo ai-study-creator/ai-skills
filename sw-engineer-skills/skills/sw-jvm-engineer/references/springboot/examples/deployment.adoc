@@ -1,0 +1,18 @@
+= Deployment Example
+
+Key production settings:
+- externalize secrets and environment-specific values
+- use profiles for deployment shape
+- keep health and readiness endpoints available
+- set explicit graceful shutdown behavior
+
+Typical launch pattern:
+
+[source,shell]
+----
+JAVA_OPTS="-Xms256m -Xmx512m" \
+SPRING_PROFILES_ACTIVE=prod \
+java -jar app.jar
+----
+
+Use deployment examples to make the runtime contract obvious, not to hide defaults in code.

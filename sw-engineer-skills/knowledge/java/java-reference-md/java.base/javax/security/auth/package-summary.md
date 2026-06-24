@@ -1,0 +1,110 @@
+Module [java.base](../../../module-summary.md)
+
+# Package javax.security.auth
+
+---
+
+package javax.security.auth
+
+This package provides a framework for authentication and
+authorization. The framework allows
+authentication to be performed in pluggable fashion. Different
+authentication modules can be plugged under an application without
+requiring modifications to the application itself. The
+authorization component allows specification of access controls
+based on code location, code signers and code executors
+(Subjects).
+
+Since:
+:   1.4
+
+* Related Packages
+
+  Module
+
+  Package
+
+  Description
+
+  [java.base](../../../module-summary.md)
+
+  [javax.security.auth.callback](callback/package-summary.md)
+
+  This package provides the classes necessary for services
+  to interact with applications in order to retrieve
+  information (authentication data including usernames
+  or passwords, for example) or to display information
+  (error and warning messages, for example).
+
+  [java.security.jgss](../../../../java.security.jgss/module-summary.md)
+
+  [javax.security.auth.kerberos](../../../../java.security.jgss/javax/security/auth/kerberos/package-summary.md)
+
+  This package contains utility classes related to the Kerberos network
+  authentication protocol.
+
+  [java.base](../../../module-summary.md)
+
+  [javax.security.auth.login](login/package-summary.md)
+
+  This package provides a pluggable authentication framework.
+
+  [java.base](../../../module-summary.md)
+
+  [javax.security.auth.spi](spi/package-summary.md)
+
+  This package provides the interface to be used for
+  implementing pluggable authentication modules.
+
+  [java.base](../../../module-summary.md)
+
+  [javax.security.auth.x500](x500/package-summary.md)
+
+  This package contains the classes that should be used to store
+  X500 Principal and X500 Private Credentials in a
+  *Subject*.
+* All Classes and InterfacesInterfacesClassesException Classes
+
+  Class
+
+  Description
+
+  [AuthPermission](AuthPermission.md "class in javax.security.auth")
+
+  This class is for authentication permissions.
+
+  [Destroyable](Destroyable.md "interface in javax.security.auth")
+
+  Objects such as credentials may optionally implement this interface
+  to provide the capability to destroy its contents.
+
+  [DestroyFailedException](DestroyFailedException.md "class in javax.security.auth")
+
+  Signals that a `destroy` operation failed.
+
+  [PrivateCredentialPermission](PrivateCredentialPermission.md "class in javax.security.auth")
+
+  This class is used to protect access to private Credentials
+  belonging to a particular `Subject`.
+
+  [Refreshable](Refreshable.md "interface in javax.security.auth")
+
+  Objects such as credentials may optionally implement this
+  interface to provide the capability to refresh itself.
+
+  [RefreshFailedException](RefreshFailedException.md "class in javax.security.auth")
+
+  Signals that a `refresh` operation failed.
+
+  [Subject](Subject.md "class in javax.security.auth")
+
+  A `Subject` represents a grouping of related information
+  for a single entity, such as a person.
+
+  [SubjectDomainCombiner](SubjectDomainCombiner.md "class in javax.security.auth")
+
+  Deprecated, for removal: This API element is subject to removal in a future version.
+
+  This class is only useful in conjunction with
+  [the Security Manager](../../../java/lang/SecurityManager.md "class in java.lang"), which is deprecated
+  and subject to removal in a future release.

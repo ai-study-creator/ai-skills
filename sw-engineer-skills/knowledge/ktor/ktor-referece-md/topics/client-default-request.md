@@ -1,0 +1,186 @@
+[//]: # (title: Default request)
+
+<show-structure for="chapter" depth="2"/>
+<primary-label ref="client-plugin"/>
+
+<tldr>
+<var name="example_name" value="client-default-request"/>
+<include from="lib.topic" element-id="download_example"/>
+</tldr>
+
+<link-summary>
+The DefaultRequest plugin allows you to configure default parameters for all requests.
+</link-summary>
+
+The [`DefaultRequest`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html) plugin allows you to configure default parameters for all [requests](client-requests.md): specify a base URL, add headers, configure query parameters, and so on.
+
+
+## Add dependencies {id="add_dependencies"}
+
+`DefaultRequest` only requires the [ktor-client-core](client-dependencies.md) artifact and doesn't need any specific dependencies.
+
+
+## Install DefaultRequest {id="install_plugin"}
+
+To install `DefaultRequest`, pass it to the `install` function inside a [client configuration block](client-create-and-configure.md#configure-client):
+
+```kotlin
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
+//...
+val client = HttpClient(CIO) {
+    install(DefaultRequest)
+}
+```
+
+Or call the `defaultRequest()` function and [configure](#configure) required request parameters:
+
+```kotlin
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
+//...
+val client = HttpClient(CIO) {
+    defaultRequest {
+        // this: DefaultRequestBuilder
+    }
+}
+```
+
+### Replace existing configuration {id="default_request_replace"}
+
+If the `DefaultRequest` plugin has already been installed, you can replace its existing configuration in one of the following ways:
+
+- Use the `replace` parameter of the `defaultRequest()` function:
+
+```kotlin
+val client = HttpClient(CIO) {
+    defaultRequest(replace = true) {
+        // this: DefaultRequestBuilder
+    }
+}
+```
+
+- Use the generic `installOrReplace()` function:
+
+```kotlin
+val client = HttpClient(CIO) {
+    installOrReplace(DefaultRequest) {
+        // this: DefaultRequestBuilder
+    }
+}
+```
+
+## Configure DefaultRequest {id="configure"}
+
+### Base URL {id="url"}
+
+`DefaultRequest` allows you to configure a base part of the URL that is merged with a [request URL](client-requests.md#url).
+For example, the `url` function below specifies a base URL for all requests:
+
+```kotlin
+defaultRequest {
+    url("https://ktor.io/docs/")
+}
+```
+
+If you make the following request using the client with the above configuration, ...
+
+```kotlin
+```
+{src="snippets/client-default-request/src/main/kotlin/com/example/Application.kt" include-lines="25"}
+
+... the resulting URL will be the following: `https://ktor.io/docs/welcome.html`.
+To learn how base and request URLs are merged, see [DefaultRequest](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html).
+
+> The base URL path must end with a trailing slash. Otherwise, the request path replaces the last
+> segment of the base path according to [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-5.2)
+> URL resolution rules — for example, `path("v1")` is treated as a file and dropped when a request
+> path is appended, while `path("v1/")` is preserved as a directory prefix.
+>
+{style="note"}
+
+
+### URL parameters {id="url-params"}
+
+The `url` function also allows you to specify URL components separately, for example:
+- an HTTP scheme;
+- a host name;
+- a base URL path;
+- a query parameter.
+
+```kotlin
+```
+{src="snippets/client-default-request/src/main/kotlin/com/example/Application.kt" include-lines="15-20"}
+
+
+### Headers {id="headers"}
+
+To add a specific header to each request, use the `header` function:
+
+```kotlin
+```
+{src="snippets/client-default-request/src/main/kotlin/com/example/Application.kt" include-lines="14,21-22"}
+
+To avoid duplicating headers, you can use the `appendIfNameAbsent`, `appendIfNameAndValueAbsent`, and `contains` functions:
+
+```kotlin
+defaultRequest {
+    headers.appendIfNameAbsent("X-Custom-Header", "Hello")
+}
+```
+
+### Unix domain sockets
+
+> Unix domain sockets are supported only in the CIO engine.
+>
+{style="note"}
+
+You can [build individual requests with Unix domain sockets](client-requests.md#specify-a-unix-domain-socket),
+but you can also configure a default request with a socket parameter.
+
+To do that, pass a `unixSocket` call with the path to the socket to the `defaultRequest` function,
+for example:
+
+```kotlin
+val client = HttpClient(CIO)
+
+// Sending a single request to a Unix domain socket
+val response: HttpResponse = client.get("/") {
+    unixSocket("/tmp/test-unix-socket-ktor.sock")
+}
+
+// Setting up the socket for all requests from that client
+val clientDefault = HttpClient(CIO) {
+    defaultRequest {
+        unixSocket("/tmp/test-unix-socket-ktor.sock")
+    }    
+}
+
+val response: HttpResponse = clientDefault.get("/")
+```
+
+## Example {id="example"}
+
+The example below uses the following `DefaultRequest` configuration:
+* The `url` function defines an HTTP scheme, a host, a base URL path, and a query parameter.
+* The `header` function adds a custom header to all requests.
+
+```kotlin
+```
+{src="snippets/client-default-request/src/main/kotlin/com/example/Application.kt" include-lines="13-23"}
+
+The request below made by this client specifies a latter path segment only and applies parameters configured for `DefaultRequest` automatically:
+
+```kotlin
+```
+{src="snippets/client-default-request/src/main/kotlin/com/example/Application.kt" include-lines="25-26"}
+
+You can find the full example here: [client-default-request](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-default-request).
+
+
+
+
+
+

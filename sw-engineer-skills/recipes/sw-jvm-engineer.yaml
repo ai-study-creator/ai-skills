@@ -1,0 +1,23 @@
+id: sw-jvm-engineer
+name: sw-jvm-engineer
+display_name: SW JVM Engineer
+short_description: JVM backend skill for Java, Kotlin, Ktor, Spring Boot
+brand_color: "#2563EB"
+description: Use when working on Java, Kotlin, Ktor, or Spring Boot codebases that need production-grade implementation, performance awareness, strong testing, observability, or architecture guidance.
+default_prompt: Use $sw-jvm-engineer to implement production-grade JVM backend work with strong testing, observability, and performance discipline.
+modules:
+  - java-core
+  - java-streams-functional
+  - kotlin-core
+  - kotlin-coroutines
+  - ktor-core
+  - spring-boot-core
+  - spring-webflux
+  - monitoring-observability
+  - java-architecture
+adherence_expectation:
+  overall: 90
+  required_deep:
+    - spring-webflux
+    - java-streams-functional
+    - kotlin-coroutines

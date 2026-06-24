@@ -1,0 +1,24 @@
+= Spring Boot IO
+
+This chapter covers application features that are not strictly web or data, but still belong to the runtime boundary.
+
+== Topics
+- validation
+- caching
+- JTA
+- REST clients
+- gRPC
+- email
+- Quartz
+- Spring Batch
+- web services
+- Hazelcast
+
+== Working rules
+- Keep integration boundaries explicit.
+- Use caching only with a clear invalidation story.
+- Treat batch and scheduling work as production workloads, not background afterthoughts.
+- Keep client configuration and timeout policy visible.
+
+== Practical note
+Use this file when the task touches Boot features that are infrastructure-adjacent rather than request/response web handling.

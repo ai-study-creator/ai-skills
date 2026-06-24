@@ -1,0 +1,31 @@
+= Spring Boot Features
+
+Spring Boot's core strength is reducing boilerplate while keeping production behavior explicit.
+
+== Externalized configuration
+- Prefer `@ConfigurationProperties` for structured config.
+- Keep secrets out of source control.
+- Use profiles for environment-specific behavior, not ad hoc branching.
+- Remember that command-line args and environment variables can override file-based config.
+- Be aware of config precedence and the early-phase properties that affect startup behavior.
+- Use validation on configuration objects so bad deploys fail fast.
+
+== Startup and bootstrap
+- Keep the application entry point thin.
+- Move nontrivial setup into configuration classes or beans.
+- Use `ApplicationRunner` or `CommandLineRunner` only for startup tasks that are truly part of bootstrapping.
+- Keep startup logic deterministic and idempotent.
+
+== Logging
+- Use structured log messages with useful context.
+- Set log levels deliberately.
+- Do not rely on debug logging as a substitute for observability.
+- Coordinate logging with Actuator and tracing so the signals are useful together.
+
+== Profiles and conditions
+- Use profiles for deployment shape and environment differences.
+- Use conditional beans only when the behavior truly depends on runtime context.
+- Avoid hiding important runtime behavior behind too many conditions.
+
+== Practical rule
+- If a setting will change in production, make it external and validated.

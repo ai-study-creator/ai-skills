@@ -1,0 +1,14 @@
+id: java-architecture
+title: Java And Spring Architecture
+source_paths:
+  - external:Jeffallan/claude-skills/skills/java-architect
+  - knowledge/springboot/springboot-reference-md
+adherence_target: 80
+adherence_type: practical
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on:
+  - java-core
+  - spring-boot-core

@@ -1,0 +1,13 @@
+id: java-streams-functional
+title: Java Streams And Functional Style
+source_paths:
+  - knowledge/java/java-reference-md/java.base/java/util/stream
+  - knowledge/java/java-reference-md/java.base/java/util/function
+adherence_target: 100
+adherence_type: deep-operational
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on:
+  - java-core

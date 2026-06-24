@@ -1,0 +1,1642 @@
+Module [java.desktop](../../../../module-summary.md)
+
+Package [javax.swing.plaf.basic](package-summary.md)
+
+# Class BasicSliderUI
+
+[java.lang.Object](../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+[javax.swing.plaf.ComponentUI](../ComponentUI.md "class in javax.swing.plaf")
+
+[javax.swing.plaf.SliderUI](../SliderUI.md "class in javax.swing.plaf")
+
+javax.swing.plaf.basic.BasicSliderUI
+
+Direct Known Subclasses:
+:   `MetalSliderUI`, `SynthSliderUI`
+
+---
+
+public class BasicSliderUI
+extends [SliderUI](../SliderUI.md "class in javax.swing.plaf")
+
+A Basic L&F implementation of SliderUI.
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `class`
+
+  `BasicSliderUI.ActionScroller`
+
+  As of Java 2 platform v1.3 this undocumented class is no longer used.
+
+  `class`
+
+  `BasicSliderUI.ChangeHandler`
+
+  Data model listener.
+
+  `class`
+
+  `BasicSliderUI.ComponentHandler`
+
+  Listener for resizing events.
+
+  `class`
+
+  `BasicSliderUI.FocusHandler`
+
+  Focus-change listener.
+
+  `class`
+
+  `BasicSliderUI.PropertyChangeHandler`
+
+  A property change handler.
+
+  `class`
+
+  `BasicSliderUI.ScrollListener`
+
+  Scroll-event listener.
+
+  `class`
+
+  `BasicSliderUI.TrackListener`
+
+  Track mouse movements.
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected ChangeListener`
+
+  `changeListener`
+
+  Change listener
+
+  `protected ComponentListener`
+
+  `componentListener`
+
+  Component listener
+
+  `protected Rectangle`
+
+  `contentRect`
+
+  Content rectangle
+
+  `protected Insets`
+
+  `focusInsets`
+
+  Focus insets
+
+  `protected FocusListener`
+
+  `focusListener`
+
+  Focus listener
+
+  `protected Rectangle`
+
+  `focusRect`
+
+  Focus rectangle
+
+  `protected Insets`
+
+  `insetCache`
+
+  Inset cache
+
+  `protected Rectangle`
+
+  `labelRect`
+
+  Label rectangle
+
+  `protected boolean`
+
+  `leftToRightCache`
+
+  Left-to-right cache
+
+  `static final int`
+
+  `MAX_SCROLL`
+
+  Maximum scroll
+
+  `static final int`
+
+  `MIN_SCROLL`
+
+  Minimum scroll
+
+  `static final int`
+
+  `NEGATIVE_SCROLL`
+
+  Negative scroll
+
+  `static final int`
+
+  `POSITIVE_SCROLL`
+
+  Positive scroll
+
+  `protected PropertyChangeListener`
+
+  `propertyChangeListener`
+
+  Property change listener
+
+  `protected BasicSliderUI.ScrollListener`
+
+  `scrollListener`
+
+  Scroll listener
+
+  `protected Timer`
+
+  `scrollTimer`
+
+  Scroll timer
+
+  `protected JSlider`
+
+  `slider`
+
+  Slider
+
+  `protected Rectangle`
+
+  `thumbRect`
+
+  Thumb rectangle
+
+  `protected Rectangle`
+
+  `tickRect`
+
+  Tick rectangle
+
+  `protected int`
+
+  `trackBuffer`
+
+  The distance that the track is from the side of the control
+
+  `protected BasicSliderUI.TrackListener`
+
+  `trackListener`
+
+  Track listener
+
+  `protected Rectangle`
+
+  `trackRect`
+
+  Track rectangle
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `BasicSliderUI()`
+
+  Constructs a `BasicSliderUI`.
+
+  `BasicSliderUI(JSlider b)`
+
+  Constructs a `BasicSliderUI`.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `protected void`
+
+  `calculateContentRect()`
+
+  Calculates the content rectangle.
+
+  `protected void`
+
+  `calculateFocusRect()`
+
+  Calculates the focus rectangle.
+
+  `protected void`
+
+  `calculateGeometry()`
+
+  Calculates the geometry.
+
+  `protected void`
+
+  `calculateLabelRect()`
+
+  Calculates the label rectangle.
+
+  `protected void`
+
+  `calculateThumbLocation()`
+
+  Calculates the thumb location.
+
+  `protected void`
+
+  `calculateThumbSize()`
+
+  Calculates the thumb size rectangle.
+
+  `protected void`
+
+  `calculateTickRect()`
+
+  Calculates the tick rectangle.
+
+  `protected void`
+
+  `calculateTrackBuffer()`
+
+  Calculates the track buffer.
+
+  `protected void`
+
+  `calculateTrackRect()`
+
+  Calculates the track rectangle.
+
+  `protected ChangeListener`
+
+  `createChangeListener(JSlider slider)`
+
+  Creates a change listener.
+
+  `protected ComponentListener`
+
+  `createComponentListener(JSlider slider)`
+
+  Creates a composite listener.
+
+  `protected FocusListener`
+
+  `createFocusListener(JSlider slider)`
+
+  Creates a focus listener.
+
+  `protected PropertyChangeListener`
+
+  `createPropertyChangeListener(JSlider slider)`
+
+  Creates a property change listener.
+
+  `protected BasicSliderUI.ScrollListener`
+
+  `createScrollListener(JSlider slider)`
+
+  Creates a scroll listener.
+
+  `protected BasicSliderUI.TrackListener`
+
+  `createTrackListener(JSlider slider)`
+
+  Creates a track listener.
+
+  `static ComponentUI`
+
+  `createUI(JComponent b)`
+
+  Creates a UI.
+
+  `protected boolean`
+
+  `drawInverted()`
+
+  Draws inverted.
+
+  `int`
+
+  `getBaseline(JComponent c,
+  int width,
+  int height)`
+
+  Returns the baseline.
+
+  `Component.BaselineResizeBehavior`
+
+  `getBaselineResizeBehavior(JComponent c)`
+
+  Returns an enum indicating how the baseline of the component
+  changes as the size changes.
+
+  `protected Color`
+
+  `getFocusColor()`
+
+  Returns the focus color.
+
+  `protected int`
+
+  `getHeightOfHighValueLabel()`
+
+  Returns the height of the highest value label.
+
+  `protected int`
+
+  `getHeightOfLowValueLabel()`
+
+  Returns the height of the lowest value label.
+
+  `protected int`
+
+  `getHeightOfTallestLabel()`
+
+  Returns the height of the tallest label.
+
+  `protected Integer`
+
+  `getHighestValue()`
+
+  Returns the biggest value that has an entry in the label table.
+
+  `protected Component`
+
+  `getHighestValueLabel()`
+
+  Returns the label that corresponds to the lowest slider value in the
+  label table.
+
+  `protected Color`
+
+  `getHighlightColor()`
+
+  Returns the highlight color.
+
+  `protected Integer`
+
+  `getLowestValue()`
+
+  Returns the smallest value that has an entry in the label table.
+
+  `protected Component`
+
+  `getLowestValueLabel()`
+
+  Returns the label that corresponds to the highest slider value in the
+  label table.
+
+  `Dimension`
+
+  `getMaximumSize(JComponent c)`
+
+  Returns the maximum size.
+
+  `Dimension`
+
+  `getMinimumHorizontalSize()`
+
+  Returns the minimum horizontal size.
+
+  `Dimension`
+
+  `getMinimumSize(JComponent c)`
+
+  Returns the minimum size.
+
+  `Dimension`
+
+  `getMinimumVerticalSize()`
+
+  Returns the minimum vertical size.
+
+  `Dimension`
+
+  `getPreferredHorizontalSize()`
+
+  Returns the preferred horizontal size.
+
+  `Dimension`
+
+  `getPreferredSize(JComponent c)`
+
+  Returns the preferred size.
+
+  `Dimension`
+
+  `getPreferredVerticalSize()`
+
+  Returns the preferred vertical size.
+
+  `protected Color`
+
+  `getShadowColor()`
+
+  Returns the shadow color.
+
+  `protected Dimension`
+
+  `getThumbSize()`
+
+  Returns the thumb size.
+
+  `protected int`
+
+  `getTickLength()`
+
+  Gets the height of the tick area for horizontal sliders and the width of
+  the tick area for vertical sliders.
+
+  `protected int`
+
+  `getWidthOfHighValueLabel()`
+
+  Returns the width of the highest value label.
+
+  `protected int`
+
+  `getWidthOfLowValueLabel()`
+
+  Returns the width of the lowest value label.
+
+  `protected int`
+
+  `getWidthOfWidestLabel()`
+
+  Returns the width of the widest label.
+
+  `protected void`
+
+  `installDefaults(JSlider slider)`
+
+  Installs the defaults.
+
+  `protected void`
+
+  `installKeyboardActions(JSlider slider)`
+
+  Installs keyboard actions.
+
+  `protected void`
+
+  `installListeners(JSlider slider)`
+
+  Installs listeners.
+
+  `void`
+
+  `installUI(JComponent c)`
+
+  Installs a UI.
+
+  `protected boolean`
+
+  `isDragging()`
+
+  Returns true if the user is dragging the slider.
+
+  `protected boolean`
+
+  `labelsHaveSameBaselines()`
+
+  Returns true if all the labels from the label table have the same
+  baseline.
+
+  `void`
+
+  `paint(Graphics g,
+  JComponent c)`
+
+  Paints the specified component appropriately for the look and feel.
+
+  `void`
+
+  `paintFocus(Graphics g)`
+
+  Paints focus.
+
+  `protected void`
+
+  `paintHorizontalLabel(Graphics g,
+  int value,
+  Component label)`
+
+  Called for every label in the label table.
+
+  `void`
+
+  `paintLabels(Graphics g)`
+
+  Paints the labels.
+
+  `protected void`
+
+  `paintMajorTickForHorizSlider(Graphics g,
+  Rectangle tickBounds,
+  int x)`
+
+  Paints major tick for horizontal slider.
+
+  `protected void`
+
+  `paintMajorTickForVertSlider(Graphics g,
+  Rectangle tickBounds,
+  int y)`
+
+  Paints major tick for vertical slider.
+
+  `protected void`
+
+  `paintMinorTickForHorizSlider(Graphics g,
+  Rectangle tickBounds,
+  int x)`
+
+  Paints minor tick for horizontal slider.
+
+  `protected void`
+
+  `paintMinorTickForVertSlider(Graphics g,
+  Rectangle tickBounds,
+  int y)`
+
+  Paints minor tick for vertical slider.
+
+  `void`
+
+  `paintThumb(Graphics g)`
+
+  Paints the thumb.
+
+  `void`
+
+  `paintTicks(Graphics g)`
+
+  Paints ticks.
+
+  `void`
+
+  `paintTrack(Graphics g)`
+
+  Paints track.
+
+  `protected void`
+
+  `paintVerticalLabel(Graphics g,
+  int value,
+  Component label)`
+
+  Called for every label in the label table.
+
+  `protected void`
+
+  `recalculateIfInsetsChanged()`
+
+  Recalculates if the insets have changed.
+
+  `protected void`
+
+  `recalculateIfOrientationChanged()`
+
+  Recalculates if the orientation has changed.
+
+  `void`
+
+  `scrollByBlock(int direction)`
+
+  Scrolls by block.
+
+  `void`
+
+  `scrollByUnit(int direction)`
+
+  Scrolls by unit.
+
+  `protected void`
+
+  `scrollDueToClickInTrack(int dir)`
+
+  This function is called when a mousePressed was detected in the track,
+  not in the thumb.
+
+  `void`
+
+  `setThumbLocation(int x,
+  int y)`
+
+  Sets the thumb location.
+
+  `protected void`
+
+  `uninstallDefaults(JSlider slider)`
+
+  Uninstalls the defaults.
+
+  `protected void`
+
+  `uninstallKeyboardActions(JSlider slider)`
+
+  Uninstalls keyboard actions.
+
+  `protected void`
+
+  `uninstallListeners(JSlider slider)`
+
+  Uninstalls listeners.
+
+  `void`
+
+  `uninstallUI(JComponent c)`
+
+  Uninstalls a UI.
+
+  `int`
+
+  `valueForXPosition(int xPos)`
+
+  Returns the value at the x position.
+
+  `int`
+
+  `valueForYPosition(int yPos)`
+
+  Returns the value at the y position.
+
+  `protected int`
+
+  `xPositionForValue(int value)`
+
+  Returns the x position for a value.
+
+  `protected int`
+
+  `yPositionForValue(int value)`
+
+  Returns the y position for a value.
+
+  `protected int`
+
+  `yPositionForValue(int value,
+  int trackY,
+  int trackHeight)`
+
+  Returns the y location for the specified value.
+
+  ### Methods inherited from class javax.swing.plaf.[ComponentUI](../ComponentUI.md "class in javax.swing.plaf")
+
+  `contains, getAccessibleChild, getAccessibleChildrenCount, update`
+
+  ### Methods inherited from class java.lang.[Object](../../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Field Details
+
+  + ### POSITIVE\_SCROLL
+
+    public static final int POSITIVE\_SCROLL
+
+    Positive scroll
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.swing.plaf.basic.BasicSliderUI.POSITIVE_SCROLL)
+  + ### NEGATIVE\_SCROLL
+
+    public static final int NEGATIVE\_SCROLL
+
+    Negative scroll
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.swing.plaf.basic.BasicSliderUI.NEGATIVE_SCROLL)
+  + ### MIN\_SCROLL
+
+    public static final int MIN\_SCROLL
+
+    Minimum scroll
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.swing.plaf.basic.BasicSliderUI.MIN_SCROLL)
+  + ### MAX\_SCROLL
+
+    public static final int MAX\_SCROLL
+
+    Maximum scroll
+
+    See Also:
+    :   - [Constant Field Values](../../../../../constant-values.md#javax.swing.plaf.basic.BasicSliderUI.MAX_SCROLL)
+  + ### scrollTimer
+
+    protected [Timer](../../Timer.md "class in javax.swing") scrollTimer
+
+    Scroll timer
+  + ### slider
+
+    protected [JSlider](../../JSlider.md "class in javax.swing") slider
+
+    Slider
+  + ### focusInsets
+
+    protected [Insets](../../../../java/awt/Insets.md "class in java.awt") focusInsets
+
+    Focus insets
+  + ### insetCache
+
+    protected [Insets](../../../../java/awt/Insets.md "class in java.awt") insetCache
+
+    Inset cache
+  + ### leftToRightCache
+
+    protected boolean leftToRightCache
+
+    Left-to-right cache
+  + ### focusRect
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") focusRect
+
+    Focus rectangle
+  + ### contentRect
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") contentRect
+
+    Content rectangle
+  + ### labelRect
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") labelRect
+
+    Label rectangle
+  + ### tickRect
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") tickRect
+
+    Tick rectangle
+  + ### trackRect
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") trackRect
+
+    Track rectangle
+  + ### thumbRect
+
+    protected [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") thumbRect
+
+    Thumb rectangle
+  + ### trackBuffer
+
+    protected int trackBuffer
+
+    The distance that the track is from the side of the control
+  + ### trackListener
+
+    protected [BasicSliderUI.TrackListener](BasicSliderUI.TrackListener.md "class in javax.swing.plaf.basic") trackListener
+
+    Track listener
+  + ### changeListener
+
+    protected [ChangeListener](../../event/ChangeListener.md "interface in javax.swing.event") changeListener
+
+    Change listener
+  + ### componentListener
+
+    protected [ComponentListener](../../../../java/awt/event/ComponentListener.md "interface in java.awt.event") componentListener
+
+    Component listener
+  + ### focusListener
+
+    protected [FocusListener](../../../../java/awt/event/FocusListener.md "interface in java.awt.event") focusListener
+
+    Focus listener
+  + ### scrollListener
+
+    protected [BasicSliderUI.ScrollListener](BasicSliderUI.ScrollListener.md "class in javax.swing.plaf.basic") scrollListener
+
+    Scroll listener
+  + ### propertyChangeListener
+
+    protected [PropertyChangeListener](../../../../java/beans/PropertyChangeListener.md "interface in java.beans") propertyChangeListener
+
+    Property change listener
+* ## Constructor Details
+
+  + ### BasicSliderUI
+
+    public BasicSliderUI()
+
+    Constructs a `BasicSliderUI`.
+  + ### BasicSliderUI
+
+    public BasicSliderUI([JSlider](../../JSlider.md "class in javax.swing") b)
+
+    Constructs a `BasicSliderUI`.
+
+    Parameters:
+    :   `b` - a slider
+* ## Method Details
+
+  + ### getShadowColor
+
+    protected [Color](../../../../java/awt/Color.md "class in java.awt") getShadowColor()
+
+    Returns the shadow color.
+
+    Returns:
+    :   the shadow color
+  + ### getHighlightColor
+
+    protected [Color](../../../../java/awt/Color.md "class in java.awt") getHighlightColor()
+
+    Returns the highlight color.
+
+    Returns:
+    :   the highlight color
+  + ### getFocusColor
+
+    protected [Color](../../../../java/awt/Color.md "class in java.awt") getFocusColor()
+
+    Returns the focus color.
+
+    Returns:
+    :   the focus color
+  + ### isDragging
+
+    protected boolean isDragging()
+
+    Returns true if the user is dragging the slider.
+
+    Returns:
+    :   true if the user is dragging the slider
+
+    Since:
+    :   1.5
+  + ### createUI
+
+    public static [ComponentUI](../ComponentUI.md "class in javax.swing.plaf") createUI([JComponent](../../JComponent.md "class in javax.swing") b)
+
+    Creates a UI.
+
+    Parameters:
+    :   `b` - a component
+
+    Returns:
+    :   a UI
+  + ### installUI
+
+    public void installUI([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Installs a UI.
+
+    Overrides:
+    :   `installUI` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - a component
+
+    See Also:
+    :   - [`ComponentUI.uninstallUI(javax.swing.JComponent)`](../ComponentUI.md#uninstallUI(javax.swing.JComponent))
+        - [`JComponent.setUI(javax.swing.plaf.ComponentUI)`](../../JComponent.md#setUI(javax.swing.plaf.ComponentUI))
+        - [`JComponent.updateUI()`](../../JComponent.md#updateUI())
+  + ### uninstallUI
+
+    public void uninstallUI([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Uninstalls a UI.
+
+    Overrides:
+    :   `uninstallUI` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - a component
+
+    See Also:
+    :   - [`ComponentUI.installUI(javax.swing.JComponent)`](../ComponentUI.md#installUI(javax.swing.JComponent))
+        - [`JComponent.updateUI()`](../../JComponent.md#updateUI())
+  + ### installDefaults
+
+    protected void installDefaults([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Installs the defaults.
+
+    Parameters:
+    :   `slider` - a slider
+  + ### uninstallDefaults
+
+    protected void uninstallDefaults([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Uninstalls the defaults.
+
+    Parameters:
+    :   `slider` - a slider
+  + ### createTrackListener
+
+    protected [BasicSliderUI.TrackListener](BasicSliderUI.TrackListener.md "class in javax.swing.plaf.basic") createTrackListener([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Creates a track listener.
+
+    Parameters:
+    :   `slider` - a slider
+
+    Returns:
+    :   a track listener
+  + ### createChangeListener
+
+    protected [ChangeListener](../../event/ChangeListener.md "interface in javax.swing.event") createChangeListener([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Creates a change listener.
+
+    Parameters:
+    :   `slider` - a slider
+
+    Returns:
+    :   a change listener
+  + ### createComponentListener
+
+    protected [ComponentListener](../../../../java/awt/event/ComponentListener.md "interface in java.awt.event") createComponentListener([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Creates a composite listener.
+
+    Parameters:
+    :   `slider` - a slider
+
+    Returns:
+    :   a composite listener
+  + ### createFocusListener
+
+    protected [FocusListener](../../../../java/awt/event/FocusListener.md "interface in java.awt.event") createFocusListener([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Creates a focus listener.
+
+    Parameters:
+    :   `slider` - a slider
+
+    Returns:
+    :   a focus listener
+  + ### createScrollListener
+
+    protected [BasicSliderUI.ScrollListener](BasicSliderUI.ScrollListener.md "class in javax.swing.plaf.basic") createScrollListener([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Creates a scroll listener.
+
+    Parameters:
+    :   `slider` - a slider
+
+    Returns:
+    :   a scroll listener
+  + ### createPropertyChangeListener
+
+    protected [PropertyChangeListener](../../../../java/beans/PropertyChangeListener.md "interface in java.beans") createPropertyChangeListener([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Creates a property change listener.
+
+    Parameters:
+    :   `slider` - a slider
+
+    Returns:
+    :   a property change listener
+  + ### installListeners
+
+    protected void installListeners([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Installs listeners.
+
+    Parameters:
+    :   `slider` - a slider
+  + ### uninstallListeners
+
+    protected void uninstallListeners([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Uninstalls listeners.
+
+    Parameters:
+    :   `slider` - a slider
+  + ### installKeyboardActions
+
+    protected void installKeyboardActions([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Installs keyboard actions.
+
+    Parameters:
+    :   `slider` - a slider
+  + ### uninstallKeyboardActions
+
+    protected void uninstallKeyboardActions([JSlider](../../JSlider.md "class in javax.swing") slider)
+
+    Uninstalls keyboard actions.
+
+    Parameters:
+    :   `slider` - a slider
+  + ### getBaseline
+
+    public int getBaseline([JComponent](../../JComponent.md "class in javax.swing") c,
+    int width,
+    int height)
+
+    Returns the baseline.
+
+    Overrides:
+    :   `getBaseline` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - `JComponent` baseline is being requested for
+    :   `width` - the width to get the baseline for
+    :   `height` - the height to get the baseline for
+
+    Returns:
+    :   baseline or a value < 0 indicating there is no reasonable
+        baseline
+
+    Throws:
+    :   `NullPointerException` - if `c` is `null`
+    :   `IllegalArgumentException` - if width or height is < 0
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`JComponent.getBaseline(int, int)`](../../JComponent.md#getBaseline(int,int))
+  + ### getBaselineResizeBehavior
+
+    public [Component.BaselineResizeBehavior](../../../../java/awt/Component.BaselineResizeBehavior.md "enum class in java.awt") getBaselineResizeBehavior([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Returns an enum indicating how the baseline of the component
+    changes as the size changes.
+
+    Overrides:
+    :   `getBaselineResizeBehavior` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - `JComponent` to return baseline resize behavior for
+
+    Returns:
+    :   an enum indicating how the baseline changes as the component
+        size changes
+
+    Throws:
+    :   `NullPointerException` - if `c` is `null`
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`JComponent.getBaseline(int, int)`](../../JComponent.md#getBaseline(int,int))
+  + ### labelsHaveSameBaselines
+
+    protected boolean labelsHaveSameBaselines()
+
+    Returns true if all the labels from the label table have the same
+    baseline.
+
+    Returns:
+    :   true if all the labels from the label table have the
+        same baseline
+
+    Since:
+    :   1.6
+  + ### getPreferredHorizontalSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getPreferredHorizontalSize()
+
+    Returns the preferred horizontal size.
+
+    Returns:
+    :   the preferred horizontal size
+  + ### getPreferredVerticalSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getPreferredVerticalSize()
+
+    Returns the preferred vertical size.
+
+    Returns:
+    :   the preferred vertical size
+  + ### getMinimumHorizontalSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getMinimumHorizontalSize()
+
+    Returns the minimum horizontal size.
+
+    Returns:
+    :   the minimum horizontal size
+  + ### getMinimumVerticalSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getMinimumVerticalSize()
+
+    Returns the minimum vertical size.
+
+    Returns:
+    :   the minimum vertical size
+  + ### getPreferredSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getPreferredSize([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Returns the preferred size.
+
+    Overrides:
+    :   `getPreferredSize` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - a component
+
+    Returns:
+    :   the preferred size
+
+    See Also:
+    :   - [`JComponent.getPreferredSize()`](../../JComponent.md#getPreferredSize())
+        - [`LayoutManager.preferredLayoutSize(java.awt.Container)`](../../../../java/awt/LayoutManager.md#preferredLayoutSize(java.awt.Container))
+  + ### getMinimumSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getMinimumSize([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Returns the minimum size.
+
+    Overrides:
+    :   `getMinimumSize` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - a component
+
+    Returns:
+    :   the minimum size
+
+    See Also:
+    :   - [`JComponent.getMinimumSize()`](../../JComponent.md#getMinimumSize())
+        - [`LayoutManager.minimumLayoutSize(java.awt.Container)`](../../../../java/awt/LayoutManager.md#minimumLayoutSize(java.awt.Container))
+        - [`ComponentUI.getPreferredSize(javax.swing.JComponent)`](../ComponentUI.md#getPreferredSize(javax.swing.JComponent))
+  + ### getMaximumSize
+
+    public [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getMaximumSize([JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Returns the maximum size.
+
+    Overrides:
+    :   `getMaximumSize` in class `ComponentUI`
+
+    Parameters:
+    :   `c` - a component
+
+    Returns:
+    :   the maximum size
+
+    See Also:
+    :   - [`JComponent.getMaximumSize()`](../../JComponent.md#getMaximumSize())
+        - [`LayoutManager2.maximumLayoutSize(java.awt.Container)`](../../../../java/awt/LayoutManager2.md#maximumLayoutSize(java.awt.Container))
+  + ### calculateGeometry
+
+    protected void calculateGeometry()
+
+    Calculates the geometry.
+  + ### calculateFocusRect
+
+    protected void calculateFocusRect()
+
+    Calculates the focus rectangle.
+  + ### calculateThumbSize
+
+    protected void calculateThumbSize()
+
+    Calculates the thumb size rectangle.
+  + ### calculateContentRect
+
+    protected void calculateContentRect()
+
+    Calculates the content rectangle.
+  + ### calculateThumbLocation
+
+    protected void calculateThumbLocation()
+
+    Calculates the thumb location.
+  + ### calculateTrackBuffer
+
+    protected void calculateTrackBuffer()
+
+    Calculates the track buffer.
+  + ### calculateTrackRect
+
+    protected void calculateTrackRect()
+
+    Calculates the track rectangle.
+  + ### getTickLength
+
+    protected int getTickLength()
+
+    Gets the height of the tick area for horizontal sliders and the width of
+    the tick area for vertical sliders. BasicSliderUI uses the returned value
+    to determine the tick area rectangle. If you want to give your ticks some
+    room, make this larger than you need and paint your ticks away from the
+    sides in paintTicks().
+
+    Returns:
+    :   an integer representing the height of the tick area for
+        horizontal sliders, and the width of the tick area for the vertical
+        sliders
+  + ### calculateTickRect
+
+    protected void calculateTickRect()
+
+    Calculates the tick rectangle.
+  + ### calculateLabelRect
+
+    protected void calculateLabelRect()
+
+    Calculates the label rectangle.
+  + ### getThumbSize
+
+    protected [Dimension](../../../../java/awt/Dimension.md "class in java.awt") getThumbSize()
+
+    Returns the thumb size.
+
+    Returns:
+    :   the thumb size
+  + ### getWidthOfWidestLabel
+
+    protected int getWidthOfWidestLabel()
+
+    Returns the width of the widest label.
+
+    Returns:
+    :   the width of the widest label
+  + ### getHeightOfTallestLabel
+
+    protected int getHeightOfTallestLabel()
+
+    Returns the height of the tallest label.
+
+    Returns:
+    :   the height of the tallest label
+  + ### getWidthOfHighValueLabel
+
+    protected int getWidthOfHighValueLabel()
+
+    Returns the width of the highest value label.
+
+    Returns:
+    :   the width of the highest value label
+  + ### getWidthOfLowValueLabel
+
+    protected int getWidthOfLowValueLabel()
+
+    Returns the width of the lowest value label.
+
+    Returns:
+    :   the width of the lowest value label
+  + ### getHeightOfHighValueLabel
+
+    protected int getHeightOfHighValueLabel()
+
+    Returns the height of the highest value label.
+
+    Returns:
+    :   the height of the highest value label
+  + ### getHeightOfLowValueLabel
+
+    protected int getHeightOfLowValueLabel()
+
+    Returns the height of the lowest value label.
+
+    Returns:
+    :   the height of the lowest value label
+  + ### drawInverted
+
+    protected boolean drawInverted()
+
+    Draws inverted.
+
+    Returns:
+    :   the inverted-ness
+  + ### getHighestValue
+
+    protected [Integer](../../../../../java.base/java/lang/Integer.md "class in java.lang") getHighestValue()
+
+    Returns the biggest value that has an entry in the label table.
+
+    Returns:
+    :   biggest value that has an entry in the label table, or
+        null.
+
+    Since:
+    :   1.6
+  + ### getLowestValue
+
+    protected [Integer](../../../../../java.base/java/lang/Integer.md "class in java.lang") getLowestValue()
+
+    Returns the smallest value that has an entry in the label table.
+
+    Returns:
+    :   smallest value that has an entry in the label table, or
+        null.
+
+    Since:
+    :   1.6
+  + ### getLowestValueLabel
+
+    protected [Component](../../../../java/awt/Component.md "class in java.awt") getLowestValueLabel()
+
+    Returns the label that corresponds to the highest slider value in the
+    label table.
+
+    Returns:
+    :   the label that corresponds to the highest slider value in the
+        label table
+
+    See Also:
+    :   - [`JSlider.setLabelTable(java.util.Dictionary)`](../../JSlider.md#setLabelTable(java.util.Dictionary))
+  + ### getHighestValueLabel
+
+    protected [Component](../../../../java/awt/Component.md "class in java.awt") getHighestValueLabel()
+
+    Returns the label that corresponds to the lowest slider value in the
+    label table.
+
+    Returns:
+    :   the label that corresponds to the lowest slider value in the
+        label table
+
+    See Also:
+    :   - [`JSlider.setLabelTable(java.util.Dictionary)`](../../JSlider.md#setLabelTable(java.util.Dictionary))
+  + ### paint
+
+    public void paint([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [JComponent](../../JComponent.md "class in javax.swing") c)
+
+    Description copied from class: `ComponentUI`
+
+    Paints the specified component appropriately for the look and feel.
+    This method is invoked from the `ComponentUI.update` method when
+    the specified component is being painted. Subclasses should override
+    this method and use the specified `Graphics` object to
+    render the content of the component.
+
+    Overrides:
+    :   `paint` in class `ComponentUI`
+
+    Parameters:
+    :   `g` - the `Graphics` context in which to paint
+    :   `c` - the component being painted;
+        this argument is often ignored,
+        but might be used if the UI object is stateless
+        and shared by multiple components
+
+    See Also:
+    :   - [`ComponentUI.update(java.awt.Graphics, javax.swing.JComponent)`](../ComponentUI.md#update(java.awt.Graphics,javax.swing.JComponent))
+  + ### recalculateIfInsetsChanged
+
+    protected void recalculateIfInsetsChanged()
+
+    Recalculates if the insets have changed.
+  + ### recalculateIfOrientationChanged
+
+    protected void recalculateIfOrientationChanged()
+
+    Recalculates if the orientation has changed.
+  + ### paintFocus
+
+    public void paintFocus([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g)
+
+    Paints focus.
+
+    Parameters:
+    :   `g` - the graphics
+  + ### paintTrack
+
+    public void paintTrack([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g)
+
+    Paints track.
+
+    Parameters:
+    :   `g` - the graphics
+  + ### paintTicks
+
+    public void paintTicks([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g)
+
+    Paints ticks.
+
+    Parameters:
+    :   `g` - the graphics
+  + ### paintMinorTickForHorizSlider
+
+    protected void paintMinorTickForHorizSlider([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") tickBounds,
+    int x)
+
+    Paints minor tick for horizontal slider.
+
+    Parameters:
+    :   `g` - the graphics
+    :   `tickBounds` - the tick bounds
+    :   `x` - the x coordinate
+  + ### paintMajorTickForHorizSlider
+
+    protected void paintMajorTickForHorizSlider([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") tickBounds,
+    int x)
+
+    Paints major tick for horizontal slider.
+
+    Parameters:
+    :   `g` - the graphics
+    :   `tickBounds` - the tick bounds
+    :   `x` - the x coordinate
+  + ### paintMinorTickForVertSlider
+
+    protected void paintMinorTickForVertSlider([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") tickBounds,
+    int y)
+
+    Paints minor tick for vertical slider.
+
+    Parameters:
+    :   `g` - the graphics
+    :   `tickBounds` - the tick bounds
+    :   `y` - the y coordinate
+  + ### paintMajorTickForVertSlider
+
+    protected void paintMajorTickForVertSlider([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    [Rectangle](../../../../java/awt/Rectangle.md "class in java.awt") tickBounds,
+    int y)
+
+    Paints major tick for vertical slider.
+
+    Parameters:
+    :   `g` - the graphics
+    :   `tickBounds` - the tick bounds
+    :   `y` - the y coordinate
+  + ### paintLabels
+
+    public void paintLabels([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g)
+
+    Paints the labels.
+
+    Parameters:
+    :   `g` - the graphics
+  + ### paintHorizontalLabel
+
+    protected void paintHorizontalLabel([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    int value,
+    [Component](../../../../java/awt/Component.md "class in java.awt") label)
+
+    Called for every label in the label table. Used to draw the labels for
+    horizontal sliders. The graphics have been translated to labelRect.y
+    already.
+
+    Parameters:
+    :   `g` - the graphics context in which to paint
+    :   `value` - the value of the slider
+    :   `label` - the component label in the label table that needs to be
+        painted
+
+    See Also:
+    :   - [`JSlider.setLabelTable(java.util.Dictionary)`](../../JSlider.md#setLabelTable(java.util.Dictionary))
+  + ### paintVerticalLabel
+
+    protected void paintVerticalLabel([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g,
+    int value,
+    [Component](../../../../java/awt/Component.md "class in java.awt") label)
+
+    Called for every label in the label table. Used to draw the labels for
+    vertical sliders. The graphics have been translated to labelRect.x
+    already.
+
+    Parameters:
+    :   `g` - the graphics context in which to paint
+    :   `value` - the value of the slider
+    :   `label` - the component label in the label table that needs to be
+        painted
+
+    See Also:
+    :   - [`JSlider.setLabelTable(java.util.Dictionary)`](../../JSlider.md#setLabelTable(java.util.Dictionary))
+  + ### paintThumb
+
+    public void paintThumb([Graphics](../../../../java/awt/Graphics.md "class in java.awt") g)
+
+    Paints the thumb.
+
+    Parameters:
+    :   `g` - the graphics
+  + ### setThumbLocation
+
+    public void setThumbLocation(int x,
+    int y)
+
+    Sets the thumb location.
+
+    Parameters:
+    :   `x` - the x coordinate
+    :   `y` - the y coordinate
+  + ### scrollByBlock
+
+    public void scrollByBlock(int direction)
+
+    Scrolls by block.
+
+    Parameters:
+    :   `direction` - the direction
+  + ### scrollByUnit
+
+    public void scrollByUnit(int direction)
+
+    Scrolls by unit.
+
+    Parameters:
+    :   `direction` - the direction
+  + ### scrollDueToClickInTrack
+
+    protected void scrollDueToClickInTrack(int dir)
+
+    This function is called when a mousePressed was detected in the track,
+    not in the thumb. The default behavior is to scroll by block. You can
+    override this method to stop it from scrolling or to add additional
+    behavior.
+
+    Parameters:
+    :   `dir` - the direction and number of blocks to scroll
+  + ### xPositionForValue
+
+    protected int xPositionForValue(int value)
+
+    Returns the x position for a value.
+
+    Parameters:
+    :   `value` - the value
+
+    Returns:
+    :   the x position for a value
+  + ### yPositionForValue
+
+    protected int yPositionForValue(int value)
+
+    Returns the y position for a value.
+
+    Parameters:
+    :   `value` - the value
+
+    Returns:
+    :   the y position for a value
+  + ### yPositionForValue
+
+    protected int yPositionForValue(int value,
+    int trackY,
+    int trackHeight)
+
+    Returns the y location for the specified value. No checking is
+    done on the arguments. In particular if `trackHeight` is
+    negative undefined results may occur.
+
+    Parameters:
+    :   `value` - the slider value to get the location for
+    :   `trackY` - y-origin of the track
+    :   `trackHeight` - the height of the track
+
+    Returns:
+    :   the y location for the specified value of the slider
+
+    Since:
+    :   1.6
+  + ### valueForYPosition
+
+    public int valueForYPosition(int yPos)
+
+    Returns the value at the y position. If `yPos` is beyond the
+    track at the bottom or the top, this method sets the value to either
+    the minimum or maximum value of the slider, depending on if the slider
+    is inverted or not.
+
+    Parameters:
+    :   `yPos` - the location of the slider along the y axis
+
+    Returns:
+    :   the value at the y position
+  + ### valueForXPosition
+
+    public int valueForXPosition(int xPos)
+
+    Returns the value at the x position. If `xPos` is beyond the
+    track at the left or the right, this method sets the value to either the
+    minimum or maximum value of the slider, depending on if the slider is
+    inverted or not.
+
+    Parameters:
+    :   `xPos` - the location of the slider along the x axis
+
+    Returns:
+    :   the value of the x position

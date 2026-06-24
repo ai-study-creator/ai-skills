@@ -1,0 +1,743 @@
+Module [java.desktop](../../../module-summary.md)
+
+Package [javax.swing.tree](package-summary.md)
+
+# Class AbstractLayoutCache
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+javax.swing.tree.AbstractLayoutCache
+
+All Implemented Interfaces:
+:   `RowMapper`
+
+Direct Known Subclasses:
+:   `FixedHeightLayoutCache`, `VariableHeightLayoutCache`
+
+---
+
+public abstract class AbstractLayoutCache
+extends [Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+implements [RowMapper](RowMapper.md "interface in javax.swing.tree")
+
+**Warning:**
+Serialized objects of this class will not be compatible with
+future Swing releases. The current serialization support is
+appropriate for short term storage or RMI between applications running
+the same version of Swing. As of 1.4, support for long term storage
+of all JavaBeans
+has been added to the `java.beans` package.
+Please see [`XMLEncoder`](../../../java/beans/XMLEncoder.md "class in java.beans").
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `static class`
+
+  `AbstractLayoutCache.NodeDimensions`
+
+  Used by `AbstractLayoutCache` to determine the size
+  and x origin of a particular node.
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected AbstractLayoutCache.NodeDimensions`
+
+  `nodeDimensions`
+
+  Object responsible for getting the size of a node.
+
+  `protected boolean`
+
+  `rootVisible`
+
+  True if the root node is displayed, false if its children are
+  the highest visible nodes.
+
+  `protected int`
+
+  `rowHeight`
+
+  Height to use for each row.
+
+  `protected TreeModel`
+
+  `treeModel`
+
+  Model providing information.
+
+  `protected TreeSelectionModel`
+
+  `treeSelectionModel`
+
+  Selection model.
+* ## Constructor Summary
+
+  Constructors
+
+  Modifier
+
+  Constructor
+
+  Description
+
+  `protected`
+
+  `AbstractLayoutCache()`
+
+  Constructor for subclasses to call.
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `abstract Rectangle`
+
+  `getBounds(TreePath path,
+  Rectangle placeIn)`
+
+  Returns a rectangle giving the bounds needed to draw path.
+
+  `abstract boolean`
+
+  `getExpandedState(TreePath path)`
+
+  Returns true if the path is expanded, and visible.
+
+  `TreeModel`
+
+  `getModel()`
+
+  Returns the `TreeModel` that is providing the data.
+
+  `AbstractLayoutCache.NodeDimensions`
+
+  `getNodeDimensions()`
+
+  Returns the object that renders nodes in the tree, and which is
+  responsible for calculating the dimensions of individual nodes.
+
+  `protected Rectangle`
+
+  `getNodeDimensions(Object value,
+  int row,
+  int depth,
+  boolean expanded,
+  Rectangle placeIn)`
+
+  Returns, by reference in `placeIn`,
+  the size needed to represent `value`.
+
+  `abstract TreePath`
+
+  `getPathClosestTo(int x,
+  int y)`
+
+  Returns the path to the node that is closest to x,y.
+
+  `abstract TreePath`
+
+  `getPathForRow(int row)`
+
+  Returns the path for passed in row.
+
+  `int`
+
+  `getPreferredHeight()`
+
+  Returns the preferred height.
+
+  `int`
+
+  `getPreferredWidth(Rectangle bounds)`
+
+  Returns the preferred width for the passed in region.
+
+  `abstract int`
+
+  `getRowCount()`
+
+  Number of rows being displayed.
+
+  `abstract int`
+
+  `getRowForPath(TreePath path)`
+
+  Returns the row that the last item identified in path is visible
+  at.
+
+  `int`
+
+  `getRowHeight()`
+
+  Returns the height of each row.
+
+  `int[]`
+
+  `getRowsForPaths(TreePath[] paths)`
+
+  Returns the rows that the `TreePath` instances in
+  `path` are being displayed at.
+
+  `TreeSelectionModel`
+
+  `getSelectionModel()`
+
+  Returns the model used to maintain the selection.
+
+  `abstract int`
+
+  `getVisibleChildCount(TreePath path)`
+
+  Returns the number of visible children for row.
+
+  `abstract Enumeration<TreePath>`
+
+  `getVisiblePathsFrom(TreePath path)`
+
+  Returns an `Enumerator` that increments over the visible
+  paths starting at the passed in location.
+
+  `abstract void`
+
+  `invalidatePathBounds(TreePath path)`
+
+  Instructs the `LayoutCache` that the bounds for
+  `path` are invalid, and need to be updated.
+
+  `abstract void`
+
+  `invalidateSizes()`
+
+  Informs the `TreeState` that it needs to recalculate
+  all the sizes it is referencing.
+
+  `abstract boolean`
+
+  `isExpanded(TreePath path)`
+
+  Returns true if the value identified by row is currently expanded.
+
+  `protected boolean`
+
+  `isFixedRowHeight()`
+
+  Returns true if the height of each row is a fixed size.
+
+  `boolean`
+
+  `isRootVisible()`
+
+  Returns true if the root node of the tree is displayed.
+
+  `abstract void`
+
+  `setExpandedState(TreePath path,
+  boolean isExpanded)`
+
+  Marks the path `path` expanded state to
+  `isExpanded`.
+
+  `void`
+
+  `setModel(TreeModel newModel)`
+
+  Sets the `TreeModel` that will provide the data.
+
+  `void`
+
+  `setNodeDimensions(AbstractLayoutCache.NodeDimensions nd)`
+
+  Sets the renderer that is responsible for drawing nodes in the tree
+  and which is therefore responsible for calculating the dimensions of
+  individual nodes.
+
+  `void`
+
+  `setRootVisible(boolean rootVisible)`
+
+  Determines whether or not the root node from
+  the `TreeModel` is visible.
+
+  `void`
+
+  `setRowHeight(int rowHeight)`
+
+  Sets the height of each cell.
+
+  `void`
+
+  `setSelectionModel(TreeSelectionModel newLSM)`
+
+  Sets the `TreeSelectionModel` used to manage the
+  selection to new LSM.
+
+  `abstract void`
+
+  `treeNodesChanged(TreeModelEvent e)`
+
+  Invoked after a node (or a set of siblings) has changed in some
+  way.
+
+  `abstract void`
+
+  `treeNodesInserted(TreeModelEvent e)`
+
+  Invoked after nodes have been inserted into the tree.
+
+  `abstract void`
+
+  `treeNodesRemoved(TreeModelEvent e)`
+
+  Invoked after nodes have been removed from the tree.
+
+  `abstract void`
+
+  `treeStructureChanged(TreeModelEvent e)`
+
+  Invoked after the tree has drastically changed structure from a
+  given node down.
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Field Details
+
+  + ### nodeDimensions
+
+    protected [AbstractLayoutCache.NodeDimensions](AbstractLayoutCache.NodeDimensions.md "class in javax.swing.tree") nodeDimensions
+
+    Object responsible for getting the size of a node.
+  + ### treeModel
+
+    protected [TreeModel](TreeModel.md "interface in javax.swing.tree") treeModel
+
+    Model providing information.
+  + ### treeSelectionModel
+
+    protected [TreeSelectionModel](TreeSelectionModel.md "interface in javax.swing.tree") treeSelectionModel
+
+    Selection model.
+  + ### rootVisible
+
+    protected boolean rootVisible
+
+    True if the root node is displayed, false if its children are
+    the highest visible nodes.
+  + ### rowHeight
+
+    protected int rowHeight
+
+    Height to use for each row. If this is <= 0 the renderer will be
+    used to determine the height for each row.
+* ## Constructor Details
+
+  + ### AbstractLayoutCache
+
+    protected AbstractLayoutCache()
+
+    Constructor for subclasses to call.
+* ## Method Details
+
+  + ### setNodeDimensions
+
+    public void setNodeDimensions([AbstractLayoutCache.NodeDimensions](AbstractLayoutCache.NodeDimensions.md "class in javax.swing.tree") nd)
+
+    Sets the renderer that is responsible for drawing nodes in the tree
+    and which is therefore responsible for calculating the dimensions of
+    individual nodes.
+
+    Parameters:
+    :   `nd` - a `NodeDimensions` object
+  + ### getNodeDimensions
+
+    public [AbstractLayoutCache.NodeDimensions](AbstractLayoutCache.NodeDimensions.md "class in javax.swing.tree") getNodeDimensions()
+
+    Returns the object that renders nodes in the tree, and which is
+    responsible for calculating the dimensions of individual nodes.
+
+    Returns:
+    :   the `NodeDimensions` object
+  + ### setModel
+
+    public void setModel([TreeModel](TreeModel.md "interface in javax.swing.tree") newModel)
+
+    Sets the `TreeModel` that will provide the data.
+
+    Parameters:
+    :   `newModel` - the `TreeModel` that is to
+        provide the data
+  + ### getModel
+
+    public [TreeModel](TreeModel.md "interface in javax.swing.tree") getModel()
+
+    Returns the `TreeModel` that is providing the data.
+
+    Returns:
+    :   the `TreeModel` that is providing the data
+  + ### setRootVisible
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../../java/beans/BeanProperty.md#description())="Whether or not the root node from the TreeModel is visible.")
+    public void setRootVisible(boolean rootVisible)
+
+    Determines whether or not the root node from
+    the `TreeModel` is visible.
+
+    Parameters:
+    :   `rootVisible` - true if the root node of the tree is to be displayed
+
+    See Also:
+    :   - [`rootVisible`](#rootVisible)
+  + ### isRootVisible
+
+    public boolean isRootVisible()
+
+    Returns true if the root node of the tree is displayed.
+
+    Returns:
+    :   true if the root node of the tree is displayed
+
+    See Also:
+    :   - [`rootVisible`](#rootVisible)
+  + ### setRowHeight
+
+    [@BeanProperty](../../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../../java/beans/BeanProperty.md#description())="The height of each cell.")
+    public void setRowHeight(int rowHeight)
+
+    Sets the height of each cell. If the specified value
+    is less than or equal to zero the current cell renderer is
+    queried for each row's height.
+
+    Parameters:
+    :   `rowHeight` - the height of each cell, in pixels
+  + ### getRowHeight
+
+    public int getRowHeight()
+
+    Returns the height of each row. If the returned value is less than
+    or equal to 0 the height for each row is determined by the
+    renderer.
+
+    Returns:
+    :   the height of each row
+  + ### setSelectionModel
+
+    public void setSelectionModel([TreeSelectionModel](TreeSelectionModel.md "interface in javax.swing.tree") newLSM)
+
+    Sets the `TreeSelectionModel` used to manage the
+    selection to new LSM.
+
+    Parameters:
+    :   `newLSM` - the new `TreeSelectionModel`
+  + ### getSelectionModel
+
+    public [TreeSelectionModel](TreeSelectionModel.md "interface in javax.swing.tree") getSelectionModel()
+
+    Returns the model used to maintain the selection.
+
+    Returns:
+    :   the `treeSelectionModel`
+  + ### getPreferredHeight
+
+    public int getPreferredHeight()
+
+    Returns the preferred height.
+
+    Returns:
+    :   the preferred height
+  + ### getPreferredWidth
+
+    public int getPreferredWidth([Rectangle](../../../java/awt/Rectangle.md "class in java.awt") bounds)
+
+    Returns the preferred width for the passed in region.
+    The region is defined by the path closest to
+    `(bounds.x, bounds.y)` and
+    ends at `bounds.height + bounds.y`.
+    If `bounds` is `null`,
+    the preferred width for all the nodes
+    will be returned (and this may be a VERY expensive
+    computation).
+
+    Parameters:
+    :   `bounds` - the region being queried
+
+    Returns:
+    :   the preferred width for the passed in region
+  + ### isExpanded
+
+    public abstract boolean isExpanded([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Returns true if the value identified by row is currently expanded.
+
+    Parameters:
+    :   `path` - TreePath to check
+
+    Returns:
+    :   whether TreePath is expanded
+  + ### getBounds
+
+    public abstract [Rectangle](../../../java/awt/Rectangle.md "class in java.awt") getBounds([TreePath](TreePath.md "class in javax.swing.tree") path,
+    [Rectangle](../../../java/awt/Rectangle.md "class in java.awt") placeIn)
+
+    Returns a rectangle giving the bounds needed to draw path.
+
+    Parameters:
+    :   `path` - a `TreePath` specifying a node
+    :   `placeIn` - a `Rectangle` object giving the
+        available space
+
+    Returns:
+    :   a `Rectangle` object specifying the space to be used
+  + ### getPathForRow
+
+    public abstract [TreePath](TreePath.md "class in javax.swing.tree") getPathForRow(int row)
+
+    Returns the path for passed in row. If row is not visible
+    `null` is returned.
+
+    Parameters:
+    :   `row` - the row being queried
+
+    Returns:
+    :   the `TreePath` for the given row
+  + ### getRowForPath
+
+    public abstract int getRowForPath([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Returns the row that the last item identified in path is visible
+    at. Will return -1 if any of the elements in path are not
+    currently visible.
+
+    Parameters:
+    :   `path` - the `TreePath` being queried
+
+    Returns:
+    :   the row where the last item in path is visible or -1
+        if any elements in path aren't currently visible
+  + ### getPathClosestTo
+
+    public abstract [TreePath](TreePath.md "class in javax.swing.tree") getPathClosestTo(int x,
+    int y)
+
+    Returns the path to the node that is closest to x,y. If
+    there is nothing currently visible this will return `null`,
+    otherwise it'll always return a valid path.
+    If you need to test if the
+    returned object is exactly at x, y you should get the bounds for
+    the returned path and test x, y against that.
+
+    Parameters:
+    :   `x` - the horizontal component of the desired location
+    :   `y` - the vertical component of the desired location
+
+    Returns:
+    :   the `TreePath` closest to the specified point
+  + ### getVisiblePathsFrom
+
+    public abstract [Enumeration](../../../../java.base/java/util/Enumeration.md "interface in java.util")<[TreePath](TreePath.md "class in javax.swing.tree")> getVisiblePathsFrom([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Returns an `Enumerator` that increments over the visible
+    paths starting at the passed in location. The ordering of the
+    enumeration is based on how the paths are displayed.
+    The first element of the returned enumeration will be path,
+    unless it isn't visible,
+    in which case `null` will be returned.
+
+    Parameters:
+    :   `path` - the starting location for the enumeration
+
+    Returns:
+    :   the `Enumerator` starting at the desired location
+  + ### getVisibleChildCount
+
+    public abstract int getVisibleChildCount([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Returns the number of visible children for row.
+
+    Parameters:
+    :   `path` - the path being queried
+
+    Returns:
+    :   the number of visible children for the specified path
+  + ### setExpandedState
+
+    public abstract void setExpandedState([TreePath](TreePath.md "class in javax.swing.tree") path,
+    boolean isExpanded)
+
+    Marks the path `path` expanded state to
+    `isExpanded`.
+
+    Parameters:
+    :   `path` - the path being expanded or collapsed
+    :   `isExpanded` - true if the path should be expanded, false otherwise
+  + ### getExpandedState
+
+    public abstract boolean getExpandedState([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Returns true if the path is expanded, and visible.
+
+    Parameters:
+    :   `path` - the path being queried
+
+    Returns:
+    :   true if the path is expanded and visible, false otherwise
+  + ### getRowCount
+
+    public abstract int getRowCount()
+
+    Number of rows being displayed.
+
+    Returns:
+    :   the number of rows being displayed
+  + ### invalidateSizes
+
+    public abstract void invalidateSizes()
+
+    Informs the `TreeState` that it needs to recalculate
+    all the sizes it is referencing.
+  + ### invalidatePathBounds
+
+    public abstract void invalidatePathBounds([TreePath](TreePath.md "class in javax.swing.tree") path)
+
+    Instructs the `LayoutCache` that the bounds for
+    `path` are invalid, and need to be updated.
+
+    Parameters:
+    :   `path` - the path being updated
+  + ### treeNodesChanged
+
+    public abstract void treeNodesChanged([TreeModelEvent](../event/TreeModelEvent.md "class in javax.swing.event") e)
+
+    Invoked after a node (or a set of siblings) has changed in some
+    way. The node(s) have not changed locations in the tree or
+    altered their children arrays, but other attributes have
+    changed and may affect presentation. Example: the name of a
+    file has changed, but it is in the same location in the file
+    system.
+
+    e.path() returns the path the parent of the changed node(s).
+
+    e.childIndices() returns the index(es) of the changed node(s).
+
+    Parameters:
+    :   `e` - the `TreeModelEvent`
+  + ### treeNodesInserted
+
+    public abstract void treeNodesInserted([TreeModelEvent](../event/TreeModelEvent.md "class in javax.swing.event") e)
+
+    Invoked after nodes have been inserted into the tree.
+
+    e.path() returns the parent of the new nodes
+
+    e.childIndices() returns the indices of the new nodes in
+    ascending order.
+
+    Parameters:
+    :   `e` - the `TreeModelEvent`
+  + ### treeNodesRemoved
+
+    public abstract void treeNodesRemoved([TreeModelEvent](../event/TreeModelEvent.md "class in javax.swing.event") e)
+
+    Invoked after nodes have been removed from the tree. Note that
+    if a subtree is removed from the tree, this method may only be
+    invoked once for the root of the removed subtree, not once for
+    each individual set of siblings removed.
+
+    e.path() returns the former parent of the deleted nodes.
+
+    e.childIndices() returns the indices the nodes had before they were deleted in ascending order.
+
+    Parameters:
+    :   `e` - the `TreeModelEvent`
+  + ### treeStructureChanged
+
+    public abstract void treeStructureChanged([TreeModelEvent](../event/TreeModelEvent.md "class in javax.swing.event") e)
+
+    Invoked after the tree has drastically changed structure from a
+    given node down. If the path returned by `e.getPath()`
+    is of length one and the first element does not identify the
+    current root node the first element should become the new root
+    of the tree.
+
+    e.path() holds the path to the node.
+
+    e.childIndices() returns null.
+
+    Parameters:
+    :   `e` - the `TreeModelEvent`
+  + ### getRowsForPaths
+
+    public int[] getRowsForPaths([TreePath](TreePath.md "class in javax.swing.tree")[] paths)
+
+    Returns the rows that the `TreePath` instances in
+    `path` are being displayed at.
+    This method should return an array of the same length as that passed
+    in, and if one of the `TreePaths`
+    in `path` is not valid its entry in the array should
+    be set to -1.
+
+    Specified by:
+    :   `getRowsForPaths` in interface `RowMapper`
+
+    Parameters:
+    :   `paths` - the array of `TreePath`s being queried
+
+    Returns:
+    :   an array of the same length that is passed in containing
+        the rows that each corresponding where each
+        `TreePath` is displayed; if `paths`
+        is `null`, `null` is returned
+  + ### getNodeDimensions
+
+    protected [Rectangle](../../../java/awt/Rectangle.md "class in java.awt") getNodeDimensions([Object](../../../../java.base/java/lang/Object.md "class in java.lang") value,
+    int row,
+    int depth,
+    boolean expanded,
+    [Rectangle](../../../java/awt/Rectangle.md "class in java.awt") placeIn)
+
+    Returns, by reference in `placeIn`,
+    the size needed to represent `value`.
+    If `inPlace` is `null`, a newly created
+    `Rectangle` should be returned, otherwise the value
+    should be placed in `inPlace` and returned. This will
+    return `null` if there is no renderer.
+
+    Parameters:
+    :   `value` - the `value` to be represented
+    :   `row` - row being queried
+    :   `depth` - the depth of the row
+    :   `expanded` - true if row is expanded, false otherwise
+    :   `placeIn` - a `Rectangle` containing the size needed
+        to represent `value`
+
+    Returns:
+    :   a `Rectangle` containing the node dimensions,
+        or `null` if node has no dimension
+  + ### isFixedRowHeight
+
+    protected boolean isFixedRowHeight()
+
+    Returns true if the height of each row is a fixed size.
+
+    Returns:
+    :   whether the height of each row is a fixed size

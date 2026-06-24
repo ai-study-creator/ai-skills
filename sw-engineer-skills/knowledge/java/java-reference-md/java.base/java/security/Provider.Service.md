@@ -1,0 +1,271 @@
+Module [java.base](../../module-summary.md)
+
+Package [java.security](package-summary.md)
+
+# Class Provider.Service
+
+[java.lang.Object](../lang/Object.md "class in java.lang")
+
+java.security.Provider.Service
+
+Enclosing class:
+:   `Provider`
+
+---
+
+public static class Provider.Service
+extends [Object](../lang/Object.md "class in java.lang")
+
+The description of a security service. It encapsulates the properties
+of a service and contains a factory method to obtain new implementation
+instances of this service.
+
+Each service has a provider that offers the service, a type,
+an algorithm name, and the name of the class that implements the
+service. Optionally, it also includes a list of alternate algorithm
+names for this service (aliases) and attributes, which are a map of
+(name, value) `String` pairs.
+
+This class defines the methods [`supportsParameter()`](#supportsParameter(java.lang.Object)) and [`newInstance()`](#newInstance(java.lang.Object))
+which are used by the Java security framework when it searches for
+suitable services and instantiates them. The valid arguments to those
+methods depend on the type of service. For the service types defined
+within Java SE, see the
+for the valid values.
+Note that components outside of Java SE can define additional types of
+services and their behavior.
+
+Instances of this class are immutable.
+
+Since:
+:   1.5
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `Service(Provider provider,
+  String type,
+  String algorithm,
+  String className,
+  List<String> aliases,
+  Map<String,String> attributes)`
+
+  Construct a new service.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `final String`
+
+  `getAlgorithm()`
+
+  Return the name of the algorithm of this service.
+
+  `final String`
+
+  `getAttribute(String name)`
+
+  Return the value of the specified attribute or `null` if this
+  attribute is not set for this Service.
+
+  `final String`
+
+  `getClassName()`
+
+  Return the name of the class implementing this service.
+
+  `final Provider`
+
+  `getProvider()`
+
+  Return the Provider of this service.
+
+  `final String`
+
+  `getType()`
+
+  Get the type of this service.
+
+  `Object`
+
+  `newInstance(Object constructorParameter)`
+
+  Return a new instance of the implementation described by this
+  service.
+
+  `boolean`
+
+  `supportsParameter(Object parameter)`
+
+  Test whether this Service can use the specified parameter.
+
+  `String`
+
+  `toString()`
+
+  Return a `String` representation of this service.
+
+  ### Methods inherited from class java.lang.[Object](../lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### Service
+
+    public Service([Provider](Provider.md "class in java.security") provider,
+    [String](../lang/String.md "class in java.lang") type,
+    [String](../lang/String.md "class in java.lang") algorithm,
+    [String](../lang/String.md "class in java.lang") className,
+    [List](../util/List.md "interface in java.util")<[String](../lang/String.md "class in java.lang")> aliases,
+    [Map](../util/Map.md "interface in java.util")<[String](../lang/String.md "class in java.lang"),[String](../lang/String.md "class in java.lang")> attributes)
+
+    Construct a new service.
+
+    Parameters:
+    :   `provider` - the provider that offers this service
+    :   `type` - the type of this service
+    :   `algorithm` - the algorithm name
+    :   `className` - the name of the class implementing this service
+    :   `aliases` - List of aliases or `null` if algorithm has no
+        aliases
+    :   `attributes` - Map of attributes or `null` if this
+        implementation has no attributes
+
+    Throws:
+    :   `NullPointerException` - if provider, type, algorithm, or
+        className is `null`
+* ## Method Details
+
+  + ### getType
+
+    public final [String](../lang/String.md "class in java.lang") getType()
+
+    Get the type of this service. For example, `MessageDigest`.
+
+    Returns:
+    :   the type of this service
+  + ### getAlgorithm
+
+    public final [String](../lang/String.md "class in java.lang") getAlgorithm()
+
+    Return the name of the algorithm of this service. For example,
+    `SHA-1`.
+
+    Returns:
+    :   the algorithm of this service
+  + ### getProvider
+
+    public final [Provider](Provider.md "class in java.security") getProvider()
+
+    Return the Provider of this service.
+
+    Returns:
+    :   the Provider of this service
+  + ### getClassName
+
+    public final [String](../lang/String.md "class in java.lang") getClassName()
+
+    Return the name of the class implementing this service.
+
+    Returns:
+    :   the name of the class implementing this service
+  + ### getAttribute
+
+    public final [String](../lang/String.md "class in java.lang") getAttribute([String](../lang/String.md "class in java.lang") name)
+
+    Return the value of the specified attribute or `null` if this
+    attribute is not set for this Service.
+
+    Parameters:
+    :   `name` - the name of the requested attribute
+
+    Returns:
+    :   the value of the specified attribute or `null` if the
+        attribute is not present
+
+    Throws:
+    :   `NullPointerException` - if name is `null`
+  + ### newInstance
+
+    public [Object](../lang/Object.md "class in java.lang") newInstance([Object](../lang/Object.md "class in java.lang") constructorParameter)
+    throws [NoSuchAlgorithmException](NoSuchAlgorithmException.md "class in java.security")
+
+    Return a new instance of the implementation described by this
+    service. The security provider framework uses this method to
+    construct implementations. Applications will typically not need
+    to call it.
+
+    The default implementation uses reflection to invoke the
+    standard constructor for this type of service.
+    Security providers can override this method to implement
+    instantiation in a different way.
+    For details and the values of constructorParameter that are
+    valid for the various types of services see the
+    .
+
+    Parameters:
+    :   `constructorParameter` - the value to pass to the constructor,
+        or `null` if this type of service does not use a
+        constructorParameter.
+
+    Returns:
+    :   a new implementation of this service
+
+    Throws:
+    :   `InvalidParameterException` - if the value of
+        constructorParameter is invalid for this type of service.
+    :   `NoSuchAlgorithmException` - if instantiation failed for
+        any other reason.
+  + ### supportsParameter
+
+    public boolean supportsParameter([Object](../lang/Object.md "class in java.lang") parameter)
+
+    Test whether this Service can use the specified parameter.
+    Returns `false` if this service cannot use the parameter.
+    Returns `true` if this service can use the parameter,
+    if a fast test is infeasible, or if the status is unknown.
+
+    The security provider framework uses this method with
+    some types of services to quickly exclude non-matching
+    implementations for consideration.
+    Applications will typically not need to call it.
+
+    For details and the values of parameter that are valid for the
+    various types of services see the top of this class and the
+    .
+    Security providers can override it to implement their own test.
+
+    Parameters:
+    :   `parameter` - the parameter to test
+
+    Returns:
+    :   `false` if this service cannot use the specified
+        parameter; `true` if it can possibly use the parameter
+
+    Throws:
+    :   `InvalidParameterException` - if the value of parameter is
+        invalid for this type of service or if this method cannot be
+        used with this type of service
+  + ### toString
+
+    public [String](../lang/String.md "class in java.lang") toString()
+
+    Return a `String` representation of this service.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   a `String` representation of this service.

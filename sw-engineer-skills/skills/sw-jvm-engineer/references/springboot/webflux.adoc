@@ -1,0 +1,50 @@
+= Spring Boot WebFlux
+
+Spring WebFlux is the reactive web stack used by Spring Boot when the application is configured for reactive execution.
+
+== Choose it deliberately
+- Use WebFlux when the whole request path can stay non-blocking.
+- Use MVC when you depend on servlet-era libraries or a blocking stack.
+- Do not mix `spring-boot-starter-web` and `spring-boot-starter-webflux` unless you intentionally want MVC plus a reactive client.
+
+== Programming models
+- Annotation-based WebFlux is closest to MVC.
+- Functional WebFlux separates routing from handling.
+- Use the model that keeps the request path easiest to understand and test.
+
+== Auto-configuration
+- Spring Boot configures codecs, static resources, and sensible defaults automatically.
+- Add your own `WebFluxConfigurer` when you need extra configuration without taking over the whole stack.
+- Use `EnableWebFlux` only when you want full control.
+
+== Codecs and conversion
+- Treat readers and writers as part of the wire contract.
+- Customize codecs deliberately when a payload shape or serializer matters.
+- Keep date/time formatting and conversion settings explicit.
+
+== Static content and templates
+- WebFlux can serve static resources and template-driven pages.
+- Keep `static-path-pattern` and resource locations explicit when you change defaults.
+- Know that WebFlux does not behave like a servlet app for war packaging or `src/main/webapp`.
+
+== Error handling
+- Default handling produces useful JSON or HTML responses.
+- Prefer Problem Details support when it fits the contract.
+- Customize error attributes or handlers when you need to shape output.
+- Make sure handled exceptions are still recorded in observations when needed.
+
+== Functional routing
+- Use `RouterFunction` beans to modularize routes.
+- Keep handler functions small and testable.
+- Order router beans deliberately when precedence matters.
+
+== Filters and custom handlers
+- Use `WebFilter` for cross-cutting request/response work.
+- Keep the reactive handler chain explicit when you customize it.
+- Avoid blocking work in filters, handlers, or codecs.
+
+== Operational rules
+- Respect cancellation.
+- Keep backpressure visible in the code.
+- Prefer `Mono` and `Flux` at the web boundary, but not deeper than necessary.
+- Keep operator chains short enough that the business rule is still obvious.

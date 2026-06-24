@@ -1,0 +1,20 @@
+id: java-spring-maven
+name: java-spring-maven
+display_name: Java Spring Maven
+short_description: Java and Spring Boot backend skill with Maven, WebFlux, testing, and production readiness
+brand_color: "#0F766E"
+description: Use when working on Java and Spring Boot services that use Maven, especially WebFlux APIs, stream or functional style Java, testing, observability, packaging, and production readiness.
+default_prompt: Use $java-spring-maven to implement Java and Spring Boot backend work with Maven, WebFlux, testing, observability, and production discipline.
+modules:
+  - java-core
+  - java-streams-functional
+  - spring-boot-core
+  - spring-webflux
+  - monitoring-observability
+  - java-architecture
+  - maven-core
+adherence_expectation:
+  overall: 85
+  required_deep:
+    - spring-webflux
+    - java-streams-functional

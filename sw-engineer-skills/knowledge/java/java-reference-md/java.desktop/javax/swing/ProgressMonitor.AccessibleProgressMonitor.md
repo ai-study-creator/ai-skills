@@ -1,0 +1,637 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [javax.swing](package-summary.md)
+
+# Class ProgressMonitor.AccessibleProgressMonitor
+
+[java.lang.Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+[javax.accessibility.AccessibleContext](../accessibility/AccessibleContext.md "class in javax.accessibility")
+
+javax.swing.ProgressMonitor.AccessibleProgressMonitor
+
+All Implemented Interfaces:
+:   `PropertyChangeListener`, `EventListener`, `AccessibleText`, `ChangeListener`
+
+Enclosing class:
+:   `ProgressMonitor`
+
+---
+
+protected class ProgressMonitor.AccessibleProgressMonitor
+extends [AccessibleContext](../accessibility/AccessibleContext.md "class in javax.accessibility")
+implements [AccessibleText](../accessibility/AccessibleText.md "interface in javax.accessibility"), [ChangeListener](event/ChangeListener.md "interface in javax.swing.event"), [PropertyChangeListener](../../java/beans/PropertyChangeListener.md "interface in java.beans")
+
+`AccessibleProgressMonitor` implements accessibility
+support for the `ProgressMonitor` class.
+
+Since:
+:   1.5
+
+* ## Field Summary
+
+  ### Fields inherited from class javax.accessibility.[AccessibleContext](../accessibility/AccessibleContext.md "class in javax.accessibility")
+
+  `ACCESSIBLE_ACTION_PROPERTY, ACCESSIBLE_ACTIVE_DESCENDANT_PROPERTY, ACCESSIBLE_CARET_PROPERTY, ACCESSIBLE_CHILD_PROPERTY, ACCESSIBLE_COMPONENT_BOUNDS_CHANGED, ACCESSIBLE_DESCRIPTION_PROPERTY, ACCESSIBLE_HYPERTEXT_OFFSET, ACCESSIBLE_INVALIDATE_CHILDREN, ACCESSIBLE_NAME_PROPERTY, ACCESSIBLE_SELECTION_PROPERTY, ACCESSIBLE_STATE_PROPERTY, ACCESSIBLE_TABLE_CAPTION_CHANGED, ACCESSIBLE_TABLE_COLUMN_DESCRIPTION_CHANGED, ACCESSIBLE_TABLE_COLUMN_HEADER_CHANGED, ACCESSIBLE_TABLE_MODEL_CHANGED, ACCESSIBLE_TABLE_ROW_DESCRIPTION_CHANGED, ACCESSIBLE_TABLE_ROW_HEADER_CHANGED, ACCESSIBLE_TABLE_SUMMARY_CHANGED, ACCESSIBLE_TEXT_ATTRIBUTES_CHANGED, ACCESSIBLE_TEXT_PROPERTY, ACCESSIBLE_VALUE_PROPERTY, ACCESSIBLE_VISIBLE_DATA_PROPERTY, accessibleDescription, accessibleName, accessibleParent`
+
+  ### Fields inherited from interface javax.accessibility.[AccessibleText](../accessibility/AccessibleText.md "interface in javax.accessibility")
+
+  `CHARACTER, SENTENCE, WORD`
+* ## Constructor Summary
+
+  Constructors
+
+  Modifier
+
+  Constructor
+
+  Description
+
+  `protected`
+
+  `AccessibleProgressMonitor()`
+
+  AccessibleProgressMonitor constructor
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `Accessible`
+
+  `getAccessibleChild(int i)`
+
+  Returns the specified Accessible child of the object.
+
+  `int`
+
+  `getAccessibleChildrenCount()`
+
+  Returns the number of accessible children of the object.
+
+  `AccessibleComponent`
+
+  `getAccessibleComponent()`
+
+  Gets the AccessibleComponent associated with this object that has a
+  graphical representation.
+
+  `String`
+
+  `getAccessibleDescription()`
+
+  Gets the accessibleDescription property of this object.
+
+  `int`
+
+  `getAccessibleIndexInParent()`
+
+  Gets the 0-based index of this object in its accessible parent.
+
+  `String`
+
+  `getAccessibleName()`
+
+  Gets the accessibleName property of this object.
+
+  `Accessible`
+
+  `getAccessibleParent()`
+
+  Gets the Accessible parent of this object.
+
+  `AccessibleRole`
+
+  `getAccessibleRole()`
+
+  Gets the role of this object.
+
+  `AccessibleStateSet`
+
+  `getAccessibleStateSet()`
+
+  Gets the state set of this object.
+
+  `AccessibleText`
+
+  `getAccessibleText()`
+
+  Gets the AccessibleText associated with this object presenting
+  text on the display.
+
+  `AccessibleValue`
+
+  `getAccessibleValue()`
+
+  Gets the AccessibleValue associated with this object that supports a
+  Numerical value.
+
+  `String`
+
+  `getAfterIndex(int part,
+  int index)`
+
+  Returns the String after a given index.
+
+  `String`
+
+  `getAtIndex(int part,
+  int index)`
+
+  Returns the String at a given index.
+
+  `String`
+
+  `getBeforeIndex(int part,
+  int index)`
+
+  Returns the String before a given index.
+
+  `int`
+
+  `getCaretPosition()`
+
+  Returns the zero-based offset of the caret.
+
+  `AttributeSet`
+
+  `getCharacterAttribute(int i)`
+
+  Returns the AttributeSet for a given character at a given index
+
+  `Rectangle`
+
+  `getCharacterBounds(int i)`
+
+  Determines the bounding box of the character at the given
+  index into the string.
+
+  `int`
+
+  `getCharCount()`
+
+  Returns the number of characters (valid indices)
+
+  `int`
+
+  `getIndexAtPoint(Point p)`
+
+  Given a point in local coordinates, return the zero-based index
+  of the character under that Point.
+
+  `Locale`
+
+  `getLocale()`
+
+  Gets the locale of the component.
+
+  `String`
+
+  `getSelectedText()`
+
+  Returns the portion of the text that is selected.
+
+  `int`
+
+  `getSelectionEnd()`
+
+  Returns the end offset within the selected text.
+
+  `int`
+
+  `getSelectionStart()`
+
+  Returns the start offset within the selected text.
+
+  `void`
+
+  `propertyChange(PropertyChangeEvent e)`
+
+  This method gets called when a bound property is changed.
+
+  `void`
+
+  `stateChanged(ChangeEvent e)`
+
+  Invoked when the target of the listener has changed its state.
+
+  ### Methods inherited from class javax.accessibility.[AccessibleContext](../accessibility/AccessibleContext.md "class in javax.accessibility")
+
+  `addPropertyChangeListener, firePropertyChange, getAccessibleAction, getAccessibleEditableText, getAccessibleIcon, getAccessibleRelationSet, getAccessibleSelection, getAccessibleTable, removePropertyChangeListener, setAccessibleDescription, setAccessibleName, setAccessibleParent`
+
+  ### Methods inherited from class java.lang.[Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### AccessibleProgressMonitor
+
+    protected AccessibleProgressMonitor()
+
+    AccessibleProgressMonitor constructor
+* ## Method Details
+
+  + ### stateChanged
+
+    public void stateChanged([ChangeEvent](event/ChangeEvent.md "class in javax.swing.event") e)
+
+    Invoked when the target of the listener has changed its state.
+
+    Specified by:
+    :   `stateChanged` in interface `ChangeListener`
+
+    Parameters:
+    :   `e` - a `ChangeEvent` object. Must not be null.
+
+    Throws:
+    :   `NullPointerException` - if the parameter is null.
+  + ### propertyChange
+
+    public void propertyChange([PropertyChangeEvent](../../java/beans/PropertyChangeEvent.md "class in java.beans") e)
+
+    This method gets called when a bound property is changed.
+
+    Specified by:
+    :   `propertyChange` in interface `PropertyChangeListener`
+
+    Parameters:
+    :   `e` - A `PropertyChangeEvent` object describing
+        the event source and the property that has changed. Must not be null.
+
+    Throws:
+    :   `NullPointerException` - if the parameter is null.
+  + ### getAccessibleName
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getAccessibleName()
+
+    Gets the accessibleName property of this object. The accessibleName
+    property of an object is a localized String that designates the purpose
+    of the object. For example, the accessibleName property of a label
+    or button might be the text of the label or button itself. In the
+    case of an object that doesn't display its name, the accessibleName
+    should still be set. For example, in the case of a text field used
+    to enter the name of a city, the accessibleName for the en\_US locale
+    could be 'city.'
+
+    Overrides:
+    :   `getAccessibleName` in class `AccessibleContext`
+
+    Returns:
+    :   the localized name of the object; null if this
+        object does not have a name
+
+    See Also:
+    :   - [`AccessibleContext.setAccessibleName(java.lang.String)`](../accessibility/AccessibleContext.md#setAccessibleName(java.lang.String))
+  + ### getAccessibleDescription
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getAccessibleDescription()
+
+    Gets the accessibleDescription property of this object. The
+    accessibleDescription property of this object is a short localized
+    phrase describing the purpose of the object. For example, in the
+    case of a 'Cancel' button, the accessibleDescription could be
+    'Ignore changes and close dialog box.'
+
+    Overrides:
+    :   `getAccessibleDescription` in class `AccessibleContext`
+
+    Returns:
+    :   the localized description of the object; null if
+        this object does not have a description
+
+    See Also:
+    :   - [`AccessibleContext.setAccessibleDescription(java.lang.String)`](../accessibility/AccessibleContext.md#setAccessibleDescription(java.lang.String))
+  + ### getAccessibleRole
+
+    public [AccessibleRole](../accessibility/AccessibleRole.md "class in javax.accessibility") getAccessibleRole()
+
+    Gets the role of this object. The role of the object is the generic
+    purpose or use of the class of this object. For example, the role
+    of a push button is AccessibleRole.PUSH\_BUTTON. The roles in
+    AccessibleRole are provided so component developers can pick from
+    a set of predefined roles. This enables assistive technologies to
+    provide a consistent interface to various tweaked subclasses of
+    components (e.g., use AccessibleRole.PUSH\_BUTTON for all components
+    that act like a push button) as well as distinguish between subclasses
+    that behave differently (e.g., AccessibleRole.CHECK\_BOX for check boxes
+    and AccessibleRole.RADIO\_BUTTON for radio buttons).
+
+    Note that the AccessibleRole class is also extensible, so
+    custom component developers can define their own AccessibleRole's
+    if the set of predefined roles is inadequate.
+
+    Specified by:
+    :   `getAccessibleRole` in class `AccessibleContext`
+
+    Returns:
+    :   an instance of AccessibleRole describing the role of the object
+
+    See Also:
+    :   - [`AccessibleRole`](../accessibility/AccessibleRole.md "class in javax.accessibility")
+  + ### getAccessibleStateSet
+
+    public [AccessibleStateSet](../accessibility/AccessibleStateSet.md "class in javax.accessibility") getAccessibleStateSet()
+
+    Gets the state set of this object. The AccessibleStateSet of an object
+    is composed of a set of unique AccessibleStates. A change in the
+    AccessibleStateSet of an object will cause a PropertyChangeEvent to
+    be fired for the ACCESSIBLE\_STATE\_PROPERTY property.
+
+    Specified by:
+    :   `getAccessibleStateSet` in class `AccessibleContext`
+
+    Returns:
+    :   an instance of AccessibleStateSet containing the
+        current state set of the object
+
+    See Also:
+    :   - [`AccessibleStateSet`](../accessibility/AccessibleStateSet.md "class in javax.accessibility")
+        - [`AccessibleState`](../accessibility/AccessibleState.md "class in javax.accessibility")
+        - [`AccessibleContext.addPropertyChangeListener(java.beans.PropertyChangeListener)`](../accessibility/AccessibleContext.md#addPropertyChangeListener(java.beans.PropertyChangeListener))
+  + ### getAccessibleParent
+
+    public [Accessible](../accessibility/Accessible.md "interface in javax.accessibility") getAccessibleParent()
+
+    Gets the Accessible parent of this object.
+
+    Overrides:
+    :   `getAccessibleParent` in class `AccessibleContext`
+
+    Returns:
+    :   the Accessible parent of this object; null if this
+        object does not have an Accessible parent
+  + ### getAccessibleIndexInParent
+
+    public int getAccessibleIndexInParent()
+
+    Gets the 0-based index of this object in its accessible parent.
+
+    Specified by:
+    :   `getAccessibleIndexInParent` in class `AccessibleContext`
+
+    Returns:
+    :   the 0-based index of this object in its parent; -1 if this
+        object does not have an accessible parent.
+
+    See Also:
+    :   - [`getAccessibleParent()`](#getAccessibleParent())
+        - [`getAccessibleChildrenCount()`](#getAccessibleChildrenCount())
+        - [`getAccessibleChild(int)`](#getAccessibleChild(int))
+  + ### getAccessibleChildrenCount
+
+    public int getAccessibleChildrenCount()
+
+    Returns the number of accessible children of the object.
+
+    Specified by:
+    :   `getAccessibleChildrenCount` in class `AccessibleContext`
+
+    Returns:
+    :   the number of accessible children of the object.
+  + ### getAccessibleChild
+
+    public [Accessible](../accessibility/Accessible.md "interface in javax.accessibility") getAccessibleChild(int i)
+
+    Returns the specified Accessible child of the object. The Accessible
+    children of an Accessible object are zero-based, so the first child
+    of an Accessible child is at index 0, the second child is at index 1,
+    and so on.
+
+    Specified by:
+    :   `getAccessibleChild` in class `AccessibleContext`
+
+    Parameters:
+    :   `i` - zero-based index of child
+
+    Returns:
+    :   the Accessible child of the object
+
+    See Also:
+    :   - [`getAccessibleChildrenCount()`](#getAccessibleChildrenCount())
+  + ### getLocale
+
+    public [Locale](../../../java.base/java/util/Locale.md "class in java.util") getLocale()
+    throws [IllegalComponentStateException](../../java/awt/IllegalComponentStateException.md "class in java.awt")
+
+    Gets the locale of the component. If the component does not have a
+    locale, then the locale of its parent is returned.
+
+    Specified by:
+    :   `getLocale` in class `AccessibleContext`
+
+    Returns:
+    :   this component's locale. If this component does not have
+        a locale, the locale of its parent is returned.
+
+    Throws:
+    :   `IllegalComponentStateException` - If the Component does not have its own locale and has not yet been
+        added to a containment hierarchy such that the locale can be
+        determined from the containing parent.
+  + ### getAccessibleComponent
+
+    public [AccessibleComponent](../accessibility/AccessibleComponent.md "interface in javax.accessibility") getAccessibleComponent()
+
+    Gets the AccessibleComponent associated with this object that has a
+    graphical representation.
+
+    Overrides:
+    :   `getAccessibleComponent` in class `AccessibleContext`
+
+    Returns:
+    :   AccessibleComponent if supported by object; else return null
+
+    See Also:
+    :   - [`AccessibleComponent`](../accessibility/AccessibleComponent.md "interface in javax.accessibility")
+  + ### getAccessibleValue
+
+    public [AccessibleValue](../accessibility/AccessibleValue.md "interface in javax.accessibility") getAccessibleValue()
+
+    Gets the AccessibleValue associated with this object that supports a
+    Numerical value.
+
+    Overrides:
+    :   `getAccessibleValue` in class `AccessibleContext`
+
+    Returns:
+    :   AccessibleValue if supported by object; else return null
+
+    See Also:
+    :   - [`AccessibleValue`](../accessibility/AccessibleValue.md "interface in javax.accessibility")
+  + ### getAccessibleText
+
+    public [AccessibleText](../accessibility/AccessibleText.md "interface in javax.accessibility") getAccessibleText()
+
+    Gets the AccessibleText associated with this object presenting
+    text on the display.
+
+    Overrides:
+    :   `getAccessibleText` in class `AccessibleContext`
+
+    Returns:
+    :   AccessibleText if supported by object; else return null
+
+    See Also:
+    :   - [`AccessibleText`](../accessibility/AccessibleText.md "interface in javax.accessibility")
+  + ### getIndexAtPoint
+
+    public int getIndexAtPoint([Point](../../java/awt/Point.md "class in java.awt") p)
+
+    Given a point in local coordinates, return the zero-based index
+    of the character under that Point. If the point is invalid,
+    this method returns -1.
+
+    Specified by:
+    :   `getIndexAtPoint` in interface `AccessibleText`
+
+    Parameters:
+    :   `p` - the Point in local coordinates
+
+    Returns:
+    :   the zero-based index of the character under Point p; if
+        Point is invalid return -1.
+  + ### getCharacterBounds
+
+    public [Rectangle](../../java/awt/Rectangle.md "class in java.awt") getCharacterBounds(int i)
+
+    Determines the bounding box of the character at the given
+    index into the string. The bounds are returned in local
+    coordinates. If the index is invalid an empty rectangle is returned.
+
+    Specified by:
+    :   `getCharacterBounds` in interface `AccessibleText`
+
+    Parameters:
+    :   `i` - the index into the String
+
+    Returns:
+    :   the screen coordinates of the character's bounding box,
+        if index is invalid return an empty rectangle.
+  + ### getCharCount
+
+    public int getCharCount()
+
+    Returns the number of characters (valid indices)
+
+    Specified by:
+    :   `getCharCount` in interface `AccessibleText`
+
+    Returns:
+    :   the number of characters
+  + ### getCaretPosition
+
+    public int getCaretPosition()
+
+    Returns the zero-based offset of the caret.
+    Note: That to the right of the caret will have the same index
+    value as the offset (the caret is between two characters).
+
+    Specified by:
+    :   `getCaretPosition` in interface `AccessibleText`
+
+    Returns:
+    :   the zero-based offset of the caret.
+  + ### getAtIndex
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getAtIndex(int part,
+    int index)
+
+    Returns the String at a given index.
+
+    Specified by:
+    :   `getAtIndex` in interface `AccessibleText`
+
+    Parameters:
+    :   `part` - the CHARACTER, WORD, or SENTENCE to retrieve
+    :   `index` - an index within the text
+
+    Returns:
+    :   the letter, word, or sentence
+  + ### getAfterIndex
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getAfterIndex(int part,
+    int index)
+
+    Returns the String after a given index.
+
+    Specified by:
+    :   `getAfterIndex` in interface `AccessibleText`
+
+    Parameters:
+    :   `part` - the CHARACTER, WORD, or SENTENCE to retrieve
+    :   `index` - an index within the text
+
+    Returns:
+    :   the letter, word, or sentence
+  + ### getBeforeIndex
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getBeforeIndex(int part,
+    int index)
+
+    Returns the String before a given index.
+
+    Specified by:
+    :   `getBeforeIndex` in interface `AccessibleText`
+
+    Parameters:
+    :   `part` - the CHARACTER, WORD, or SENTENCE to retrieve
+    :   `index` - an index within the text
+
+    Returns:
+    :   the letter, word, or sentence
+  + ### getCharacterAttribute
+
+    public [AttributeSet](text/AttributeSet.md "interface in javax.swing.text") getCharacterAttribute(int i)
+
+    Returns the AttributeSet for a given character at a given index
+
+    Specified by:
+    :   `getCharacterAttribute` in interface `AccessibleText`
+
+    Parameters:
+    :   `i` - the zero-based index into the text
+
+    Returns:
+    :   the AttributeSet of the character
+  + ### getSelectionStart
+
+    public int getSelectionStart()
+
+    Returns the start offset within the selected text.
+    If there is no selection, but there is
+    a caret, the start and end offsets will be the same.
+
+    Specified by:
+    :   `getSelectionStart` in interface `AccessibleText`
+
+    Returns:
+    :   the index into the text of the start of the selection
+  + ### getSelectionEnd
+
+    public int getSelectionEnd()
+
+    Returns the end offset within the selected text.
+    If there is no selection, but there is
+    a caret, the start and end offsets will be the same.
+
+    Specified by:
+    :   `getSelectionEnd` in interface `AccessibleText`
+
+    Returns:
+    :   the index into the text of the end of the selection
+  + ### getSelectedText
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getSelectedText()
+
+    Returns the portion of the text that is selected.
+
+    Specified by:
+    :   `getSelectedText` in interface `AccessibleText`
+
+    Returns:
+    :   the String portion of the text that is selected

@@ -1,0 +1,31 @@
+= Spring Boot Reference
+
+Use these notes as a curated local guide, not a full dump of the upstream docs.
+Prefer the smallest topic file that matches the change.
+
+== Topic map
+- `using.adoc` - application structure, build systems, auto-configuration, running
+- `features.adoc` - bootstrapping, config, profiles, logging, Kotlin, SSL, AOP, scheduling
+- `web.adoc` - MVC, WebFlux, validation, filters, error handling, graceful shutdown
+- `webflux.adoc` - reactive stack selection, functional routing, codecs, error handling, tuning
+- `data.adoc` - SQL, NoSQL, JPA-style data access, caching, JTA, web services
+- `io.adoc` - validation, caching, rest clients, batch, messaging-style integrations, web services
+- `security.adoc` - auth, JWT, OAuth2, SAML2, session security, method security
+- `messaging.adoc` - JMS, Kafka, AMQP, Pulsar, RSocket, integration
+- `testing.adoc` - test slices, integration tests, Testcontainers, test utilities
+- `actuator.adoc` - production-ready endpoints, health, monitoring, JMX, process checks
+- `actuator-observability.adoc` - health, metrics, tracing, loggers, monitoring, JMX
+- `packaging.adoc` - packaging, native/AOT, container images, production runtime
+- `examples/` - small canonical examples for common patterns
+
+== Reading order
+1. Start with the topic file.
+2. Read `webflux.adoc` for reactive endpoints or `web.adoc` for MVC/servlet work.
+3. Read one example if the pattern needs code.
+4. Use the imported skill bundles only for observability or architecture-heavy work.
+
+== Default stance
+- Favor externalized configuration.
+- Prefer framework conventions over custom plumbing.
+- Keep bootstrapping simple.
+- Make production readiness visible early.

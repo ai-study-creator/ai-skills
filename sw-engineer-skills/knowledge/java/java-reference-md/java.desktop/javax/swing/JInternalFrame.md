@@ -1,0 +1,2425 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [javax.swing](package-summary.md)
+
+# Class JInternalFrame
+
+[java.lang.Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.awt.Component](../../java/awt/Component.md "class in java.awt")
+
+[java.awt.Container](../../java/awt/Container.md "class in java.awt")
+
+[javax.swing.JComponent](JComponent.md "class in javax.swing")
+
+javax.swing.JInternalFrame
+
+All Implemented Interfaces:
+:   `ImageObserver`, `MenuContainer`, `Serializable`, `Accessible`, `RootPaneContainer`, `WindowConstants`
+
+---
+
+[@JavaBean](../../java/beans/JavaBean.md "annotation interface in java.beans")([defaultProperty](../../java/beans/JavaBean.md#defaultProperty())="JMenuBar",
+[description](../../java/beans/JavaBean.md#description())="A frame container which is contained within another window.")
+public class JInternalFrame
+extends [JComponent](JComponent.md "class in javax.swing")
+implements [Accessible](../accessibility/Accessible.md "interface in javax.accessibility"), [WindowConstants](WindowConstants.md "interface in javax.swing"), [RootPaneContainer](RootPaneContainer.md "interface in javax.swing")
+
+A lightweight object that provides many of the features of
+a native frame, including dragging, closing, becoming an icon,
+resizing, title display, and support for a menu bar.
+For task-oriented documentation and examples of using internal frames,
+see [How to Use Internal Frames](https://docs.oracle.com/javase/tutorial/uiswing/components/internalframe.html),
+a section in *The Java Tutorial*.
+
+Generally,
+you add `JInternalFrame`s to a `JDesktopPane`. The UI
+delegates the look-and-feel-specific actions to the
+`DesktopManager`
+object maintained by the `JDesktopPane`.
+
+The `JInternalFrame` content pane
+is where you add child components.
+As a convenience, the `add`, `remove`, and `setLayout`
+methods of this class are overridden, so that they delegate calls
+to the corresponding methods of the `ContentPane`.
+For example, you can add a child component to an internal frame as follows:
+
+```
+       internalFrame.add(child);
+```
+
+And the child will be added to the contentPane.
+The content pane is actually managed by an instance of
+`JRootPane`,
+which also manages a layout pane, glass pane, and
+optional menu bar for the internal frame. Please see the
+`JRootPane`
+documentation for a complete description of these components.
+Refer to [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+for details on adding, removing and setting the `LayoutManager`
+of a `JInternalFrame`.
+
+**Warning:** Swing is not thread safe. For more
+information see [Swing's Threading
+Policy](package-summary.md#threading).
+
+**Warning:**
+Serialized objects of this class will not be compatible with
+future Swing releases. The current serialization support is
+appropriate for short term storage or RMI between applications running
+the same version of Swing. As of 1.4, support for long term storage
+of all JavaBeans
+has been added to the `java.beans` package.
+Please see [`XMLEncoder`](../../java/beans/XMLEncoder.md "class in java.beans").
+
+Since:
+:   1.2
+
+See Also:
+:   * [`InternalFrameEvent`](event/InternalFrameEvent.md "class in javax.swing.event")
+    * [`JDesktopPane`](JDesktopPane.md "class in javax.swing")
+    * [`DesktopManager`](DesktopManager.md "interface in javax.swing")
+    * [`JInternalFrame.JDesktopIcon`](JInternalFrame.JDesktopIcon.md "class in javax.swing")
+    * [`JRootPane`](JRootPane.md "class in javax.swing")
+    * [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `protected class`
+
+  `JInternalFrame.AccessibleJInternalFrame`
+
+  This class implements accessibility support for the
+  `JInternalFrame` class.
+
+  `static class`
+
+  `JInternalFrame.JDesktopIcon`
+
+  This component represents an iconified version of a
+  `JInternalFrame`.
+
+  ## Nested classes/interfaces inherited from class javax.swing.[JComponent](JComponent.md "class in javax.swing")
+
+  `JComponent.AccessibleJComponent`
+
+  ## Nested classes/interfaces inherited from class java.awt.[Container](../../java/awt/Container.md "class in java.awt")
+
+  `Container.AccessibleAWTContainer`
+
+  ## Nested classes/interfaces inherited from class java.awt.[Component](../../java/awt/Component.md "class in java.awt")
+
+  `Component.AccessibleAWTComponent, Component.BaselineResizeBehavior, Component.BltBufferStrategy, Component.FlipBufferStrategy`
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected boolean`
+
+  `closable`
+
+  The frame can be closed.
+
+  `static final String`
+
+  `CONTENT_PANE_PROPERTY`
+
+  Bound property name.
+
+  `protected JInternalFrame.JDesktopIcon`
+
+  `desktopIcon`
+
+  The icon that is displayed when this internal frame is iconified.
+
+  `static final String`
+
+  `FRAME_ICON_PROPERTY`
+
+  Bound property name.
+
+  `protected Icon`
+
+  `frameIcon`
+
+  The icon shown in the top-left corner of this internal frame.
+
+  `static final String`
+
+  `GLASS_PANE_PROPERTY`
+
+  Bound property name.
+
+  `protected boolean`
+
+  `iconable`
+
+  The frame can "iconified" (shrunk down and displayed as
+  an icon-image).
+
+  `static final String`
+
+  `IS_CLOSED_PROPERTY`
+
+  Constrained property name indicating that the internal frame is closed.
+
+  `static final String`
+
+  `IS_ICON_PROPERTY`
+
+  Constrained property name indicating that the internal frame is iconified.
+
+  `static final String`
+
+  `IS_MAXIMUM_PROPERTY`
+
+  Constrained property name indicating that the internal frame is maximized.
+
+  `static final String`
+
+  `IS_SELECTED_PROPERTY`
+
+  Constrained property name indicated that this frame has
+  selected status.
+
+  `protected boolean`
+
+  `isClosed`
+
+  The frame has been closed.
+
+  `protected boolean`
+
+  `isIcon`
+
+  The frame has been iconified.
+
+  `protected boolean`
+
+  `isMaximum`
+
+  The frame has been expanded to its maximum size.
+
+  `protected boolean`
+
+  `isSelected`
+
+  The frame is currently selected.
+
+  `static final String`
+
+  `LAYERED_PANE_PROPERTY`
+
+  Bound property name.
+
+  `protected boolean`
+
+  `maximizable`
+
+  The frame can be expanded to the size of the desktop pane.
+
+  `static final String`
+
+  `MENU_BAR_PROPERTY`
+
+  Bound property name.
+
+  `protected boolean`
+
+  `resizable`
+
+  The frame's size can be changed.
+
+  `static final String`
+
+  `ROOT_PANE_PROPERTY`
+
+  Bound property name.
+
+  `protected JRootPane`
+
+  `rootPane`
+
+  The `JRootPane` instance that manages the
+  content pane
+  and optional menu bar for this internal frame, as well as the
+  glass pane.
+
+  `protected boolean`
+
+  `rootPaneCheckingEnabled`
+
+  If true then calls to `add` and `setLayout`
+  will be forwarded to the `contentPane`.
+
+  `protected String`
+
+  `title`
+
+  The title displayed in this internal frame's title bar.
+
+  `static final String`
+
+  `TITLE_PROPERTY`
+
+  Bound property name.
+
+  ### Fields inherited from class javax.swing.[JComponent](JComponent.md "class in javax.swing")
+
+  `listenerList, TOOL_TIP_TEXT_KEY, ui, UNDEFINED_CONDITION, WHEN_ANCESTOR_OF_FOCUSED_COMPONENT, WHEN_FOCUSED, WHEN_IN_FOCUSED_WINDOW`
+
+  ### Fields inherited from class java.awt.[Component](../../java/awt/Component.md "class in java.awt")
+
+  `accessibleContext, BOTTOM_ALIGNMENT, CENTER_ALIGNMENT, LEFT_ALIGNMENT, RIGHT_ALIGNMENT, TOP_ALIGNMENT`
+
+  ### Fields inherited from interface java.awt.image.[ImageObserver](../../java/awt/image/ImageObserver.md "interface in java.awt.image")
+
+  `ABORT, ALLBITS, ERROR, FRAMEBITS, HEIGHT, PROPERTIES, SOMEBITS, WIDTH`
+
+  ### Fields inherited from interface javax.swing.[WindowConstants](WindowConstants.md "interface in javax.swing")
+
+  `DISPOSE_ON_CLOSE, DO_NOTHING_ON_CLOSE, EXIT_ON_CLOSE, HIDE_ON_CLOSE`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `JInternalFrame()`
+
+  Creates a non-resizable, non-closable, non-maximizable,
+  non-iconifiable `JInternalFrame` with no title.
+
+  `JInternalFrame(String title)`
+
+  Creates a non-resizable, non-closable, non-maximizable,
+  non-iconifiable `JInternalFrame` with the specified title.
+
+  `JInternalFrame(String title,
+  boolean resizable)`
+
+  Creates a non-closable, non-maximizable, non-iconifiable
+  `JInternalFrame` with the specified title
+  and resizability.
+
+  `JInternalFrame(String title,
+  boolean resizable,
+  boolean closable)`
+
+  Creates a non-maximizable, non-iconifiable `JInternalFrame`
+  with the specified title, resizability, and
+  closability.
+
+  `JInternalFrame(String title,
+  boolean resizable,
+  boolean closable,
+  boolean maximizable)`
+
+  Creates a non-iconifiable `JInternalFrame`
+  with the specified title,
+  resizability, closability, and maximizability.
+
+  `JInternalFrame(String title,
+  boolean resizable,
+  boolean closable,
+  boolean maximizable,
+  boolean iconifiable)`
+
+  Creates a `JInternalFrame` with the specified title,
+  resizability, closability, maximizability, and iconifiability.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete MethodsDeprecated Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `protected void`
+
+  `addImpl(Component comp,
+  Object constraints,
+  int index)`
+
+  Adds the specified child `Component`.
+
+  `void`
+
+  `addInternalFrameListener(InternalFrameListener l)`
+
+  Adds the specified listener to receive internal
+  frame events from this internal frame.
+
+  `protected JRootPane`
+
+  `createRootPane()`
+
+  Called by the constructor to set up the `JRootPane`.
+
+  `void`
+
+  `dispose()`
+
+  Makes this internal frame
+  invisible, unselected, and closed.
+
+  `void`
+
+  `doDefaultCloseAction()`
+
+  Fires an
+  `INTERNAL_FRAME_CLOSING` event
+  and then performs the action specified by
+  the internal frame's default close operation.
+
+  `protected void`
+
+  `fireInternalFrameEvent(int id)`
+
+  Fires an internal frame event.
+
+  `AccessibleContext`
+
+  `getAccessibleContext()`
+
+  Gets the `AccessibleContext` associated with this
+  `JInternalFrame`.
+
+  `Container`
+
+  `getContentPane()`
+
+  Returns the content pane for this internal frame.
+
+  `int`
+
+  `getDefaultCloseOperation()`
+
+  Returns the default operation that occurs when the user
+  initiates a "close" on this internal frame.
+
+  `JInternalFrame.JDesktopIcon`
+
+  `getDesktopIcon()`
+
+  Returns the `JDesktopIcon` used when this
+  `JInternalFrame` is iconified.
+
+  `JDesktopPane`
+
+  `getDesktopPane()`
+
+  Convenience method that searches the ancestor hierarchy for a
+  `JDesktop` instance.
+
+  `final Container`
+
+  `getFocusCycleRootAncestor()`
+
+  Always returns `null` because `JInternalFrame`s
+  must always be roots of a focus
+  traversal cycle.
+
+  `Component`
+
+  `getFocusOwner()`
+
+  If this `JInternalFrame` is active,
+  returns the child that has focus.
+
+  `Icon`
+
+  `getFrameIcon()`
+
+  Returns the image displayed in the title bar of this internal frame (usually
+  in the top-left corner).
+
+  `Component`
+
+  `getGlassPane()`
+
+  Returns the glass pane for this internal frame.
+
+  `InternalFrameListener[]`
+
+  `getInternalFrameListeners()`
+
+  Returns an array of all the `InternalFrameListener`s added
+  to this `JInternalFrame` with
+  `addInternalFrameListener`.
+
+  `JMenuBar`
+
+  `getJMenuBar()`
+
+  Returns the current `JMenuBar` for this
+  `JInternalFrame`, or `null`
+  if no menu bar has been set.
+
+  `Cursor`
+
+  `getLastCursor()`
+
+  Returns the last `Cursor` that was set by the
+  `setCursor` method that is not a resizable
+  `Cursor`.
+
+  `int`
+
+  `getLayer()`
+
+  Convenience method for getting the layer attribute of this component.
+
+  `JLayeredPane`
+
+  `getLayeredPane()`
+
+  Returns the layered pane for this internal frame.
+
+  `JMenuBar`
+
+  `getMenuBar()`
+
+  Deprecated.
+
+  As of Swing version 1.0.3,
+  replaced by `getJMenuBar()`.
+
+  `Component`
+
+  `getMostRecentFocusOwner()`
+
+  Returns the child component of this `JInternalFrame`
+  that will receive the
+  focus when this `JInternalFrame` is selected.
+
+  `Rectangle`
+
+  `getNormalBounds()`
+
+  If the `JInternalFrame` is not in maximized state, returns
+  `getBounds()`; otherwise, returns the bounds that the
+  `JInternalFrame` would be restored to.
+
+  `JRootPane`
+
+  `getRootPane()`
+
+  Returns the `rootPane` object for this internal frame.
+
+  `String`
+
+  `getTitle()`
+
+  Returns the title of the `JInternalFrame`.
+
+  `InternalFrameUI`
+
+  `getUI()`
+
+  Returns the look-and-feel object that renders this component.
+
+  `String`
+
+  `getUIClassID()`
+
+  Returns the name of the look-and-feel
+  class that renders this component.
+
+  `final String`
+
+  `getWarningString()`
+
+  Gets the warning string that is displayed with this internal frame.
+
+  `void`
+
+  `hide()`
+
+  `boolean`
+
+  `isClosable()`
+
+  Returns whether this `JInternalFrame` can be closed by
+  some user action.
+
+  `boolean`
+
+  `isClosed()`
+
+  Returns whether this `JInternalFrame` is currently closed.
+
+  `final boolean`
+
+  `isFocusCycleRoot()`
+
+  Always returns `true` because all `JInternalFrame`s must be
+  roots of a focus traversal cycle.
+
+  `boolean`
+
+  `isIcon()`
+
+  Returns whether the `JInternalFrame` is currently iconified.
+
+  `boolean`
+
+  `isIconifiable()`
+
+  Gets the `iconable` property,
+  which by default is `false`.
+
+  `boolean`
+
+  `isMaximizable()`
+
+  Gets the value of the `maximizable` property.
+
+  `boolean`
+
+  `isMaximum()`
+
+  Returns whether the `JInternalFrame` is currently maximized.
+
+  `boolean`
+
+  `isResizable()`
+
+  Returns whether the `JInternalFrame` can be resized
+  by some user action.
+
+  `protected boolean`
+
+  `isRootPaneCheckingEnabled()`
+
+  Returns whether calls to `add` and
+  `setLayout` are forwarded to the `contentPane`.
+
+  `boolean`
+
+  `isSelected()`
+
+  Returns whether the `JInternalFrame` is the
+  currently "selected" or active frame.
+
+  `void`
+
+  `moveToBack()`
+
+  Convenience method that moves this component to position -1 if its
+  parent is a `JLayeredPane`.
+
+  `void`
+
+  `moveToFront()`
+
+  Convenience method that moves this component to position 0 if its
+  parent is a `JLayeredPane`.
+
+  `void`
+
+  `pack()`
+
+  Causes subcomponents of this `JInternalFrame`
+  to be laid out at their preferred size.
+
+  `protected void`
+
+  `paintComponent(Graphics g)`
+
+  Overridden to allow optimized painting when the
+  internal frame is being dragged.
+
+  `protected String`
+
+  `paramString()`
+
+  Returns a string representation of this `JInternalFrame`.
+
+  `void`
+
+  `remove(Component comp)`
+
+  Removes the specified component from the container.
+
+  `void`
+
+  `removeInternalFrameListener(InternalFrameListener l)`
+
+  Removes the specified internal frame listener so that it no longer
+  receives internal frame events from this internal frame.
+
+  `void`
+
+  `reshape(int x,
+  int y,
+  int width,
+  int height)`
+
+  Moves and resizes this component.
+
+  `void`
+
+  `restoreSubcomponentFocus()`
+
+  Requests the internal frame to restore focus to the
+  last subcomponent that had focus.
+
+  `void`
+
+  `setClosable(boolean b)`
+
+  Sets whether this `JInternalFrame` can be closed by
+  some user action.
+
+  `void`
+
+  `setClosed(boolean b)`
+
+  Closes this internal frame if the argument is `true`.
+
+  `void`
+
+  `setContentPane(Container c)`
+
+  Sets this `JInternalFrame`'s `contentPane`
+  property.
+
+  `void`
+
+  `setCursor(Cursor cursor)`
+
+  Sets the cursor image to the specified cursor.
+
+  `void`
+
+  `setDefaultCloseOperation(int operation)`
+
+  Sets the operation that will happen by default when
+  the user initiates a "close" on this internal frame.
+
+  `void`
+
+  `setDesktopIcon(JInternalFrame.JDesktopIcon d)`
+
+  Sets the `JDesktopIcon` associated with this
+  `JInternalFrame`.
+
+  `final void`
+
+  `setFocusCycleRoot(boolean focusCycleRoot)`
+
+  Does nothing because `JInternalFrame`s must always be roots of a focus
+  traversal cycle.
+
+  `void`
+
+  `setFrameIcon(Icon icon)`
+
+  Sets an image to be displayed in the titlebar of this internal frame (usually
+  in the top-left corner).
+
+  `void`
+
+  `setGlassPane(Component glass)`
+
+  Sets this `JInternalFrame`'s
+  `glassPane` property.
+
+  `void`
+
+  `setIcon(boolean b)`
+
+  Iconifies or de-iconifies this internal frame,
+  if the look and feel supports iconification.
+
+  `void`
+
+  `setIconifiable(boolean b)`
+
+  Sets the `iconable` property,
+  which must be `true`
+  for the user to be able to
+  make the `JInternalFrame` an icon.
+
+  `void`
+
+  `setJMenuBar(JMenuBar m)`
+
+  Sets the `menuBar` property for this `JInternalFrame`.
+
+  `void`
+
+  `setLayer(int layer)`
+
+  Convenience method for setting the layer attribute of this component.
+
+  `void`
+
+  `setLayer(Integer layer)`
+
+  Convenience method for setting the layer attribute of this component.
+
+  `void`
+
+  `setLayeredPane(JLayeredPane layered)`
+
+  Sets this `JInternalFrame`'s
+  `layeredPane` property.
+
+  `void`
+
+  `setLayout(LayoutManager manager)`
+
+  Ensures that, by default, the layout of this component cannot be set.
+
+  `void`
+
+  `setMaximizable(boolean b)`
+
+  Sets the `maximizable` property,
+  which determines whether the `JInternalFrame`
+  can be maximized by
+  some user action.
+
+  `void`
+
+  `setMaximum(boolean b)`
+
+  Maximizes and restores this internal frame.
+
+  `void`
+
+  `setMenuBar(JMenuBar m)`
+
+  Deprecated.
+
+  As of Swing version 1.0.3
+  replaced by `setJMenuBar(JMenuBar m)`.
+
+  `void`
+
+  `setNormalBounds(Rectangle r)`
+
+  Sets the normal bounds for this internal frame, the bounds that
+  this internal frame would be restored to from its maximized state.
+
+  `void`
+
+  `setResizable(boolean b)`
+
+  Sets whether the `JInternalFrame` can be resized by some
+  user action.
+
+  `protected void`
+
+  `setRootPane(JRootPane root)`
+
+  Sets the `rootPane` property
+  for this `JInternalFrame`.
+
+  `protected void`
+
+  `setRootPaneCheckingEnabled(boolean enabled)`
+
+  Sets whether calls to `add` and
+  `setLayout` are forwarded to the `contentPane`.
+
+  `void`
+
+  `setSelected(boolean selected)`
+
+  Selects or deselects the internal frame
+  if it's showing.
+
+  `void`
+
+  `setTitle(String title)`
+
+  Sets the `JInternalFrame` title.
+
+  `void`
+
+  `setUI(InternalFrameUI ui)`
+
+  Sets the UI delegate for this `JInternalFrame`.
+
+  `void`
+
+  `show()`
+
+  If the internal frame is not visible,
+  brings the internal frame to the front,
+  makes it visible,
+  and attempts to select it.
+
+  `void`
+
+  `toBack()`
+
+  Sends this internal frame to the back.
+
+  `void`
+
+  `toFront()`
+
+  Brings this internal frame to the front.
+
+  `void`
+
+  `updateUI()`
+
+  Notification from the `UIManager` that the look and feel
+  has changed.
+
+  ### Methods inherited from class javax.swing.[JComponent](JComponent.md "class in javax.swing")
+
+  `addAncestorListener, addNotify, addVetoableChangeListener, computeVisibleRect, contains, createToolTip, disable, enable, firePropertyChange, firePropertyChange, firePropertyChange, fireVetoableChange, getActionForKeyStroke, getActionMap, getAlignmentX, getAlignmentY, getAncestorListeners, getAutoscrolls, getBaseline, getBaselineResizeBehavior, getBorder, getBounds, getClientProperty, getComponentGraphics, getComponentPopupMenu, getConditionForKeyStroke, getDebugGraphicsOptions, getDefaultLocale, getFontMetrics, getGraphics, getHeight, getInheritsPopupMenu, getInputMap, getInputMap, getInputVerifier, getInsets, getInsets, getListeners, getLocation, getMaximumSize, getMinimumSize, getNextFocusableComponent, getPopupLocation, getPreferredSize, getRegisteredKeyStrokes, getSize, getToolTipLocation, getToolTipText, getToolTipText, getTopLevelAncestor, getTransferHandler, getVerifyInputWhenFocusTarget, getVetoableChangeListeners, getVisibleRect, getWidth, getX, getY, grabFocus, isDoubleBuffered, isLightweightComponent, isManagingFocus, isOpaque, isOptimizedDrawingEnabled, isPaintingForPrint, isPaintingOrigin, isPaintingTile, isRequestFocusEnabled, isValidateRoot, paint, paintBorder, paintChildren, paintImmediately, paintImmediately, print, printAll, printBorder, printChildren, printComponent, processComponentKeyEvent, processKeyBinding, processKeyEvent, processMouseEvent, processMouseMotionEvent, putClientProperty, registerKeyboardAction, registerKeyboardAction, removeAncestorListener, removeNotify, removeVetoableChangeListener, repaint, repaint, requestDefaultFocus, requestFocus, requestFocus, requestFocusInWindow, requestFocusInWindow, resetKeyboardActions, revalidate, scrollRectToVisible, setActionMap, setAlignmentX, setAlignmentY, setAutoscrolls, setBackground, setBorder, setComponentPopupMenu, setDebugGraphicsOptions, setDefaultLocale, setDoubleBuffered, setEnabled, setFocusTraversalKeys, setFont, setForeground, setInheritsPopupMenu, setInputMap, setInputVerifier, setMaximumSize, setMinimumSize, setNextFocusableComponent, setOpaque, setPreferredSize, setRequestFocusEnabled, setToolTipText, setTransferHandler, setUI, setVerifyInputWhenFocusTarget, setVisible, unregisterKeyboardAction, update`
+
+  ### Methods inherited from class java.awt.[Container](../../java/awt/Container.md "class in java.awt")
+
+  `add, add, add, add, add, addContainerListener, addPropertyChangeListener, addPropertyChangeListener, applyComponentOrientation, areFocusTraversalKeysSet, countComponents, deliverEvent, doLayout, findComponentAt, findComponentAt, getComponent, getComponentAt, getComponentAt, getComponentCount, getComponents, getComponentZOrder, getContainerListeners, getFocusTraversalKeys, getFocusTraversalPolicy, getLayout, getMousePosition, insets, invalidate, isAncestorOf, isFocusCycleRoot, isFocusTraversalPolicyProvider, isFocusTraversalPolicySet, layout, list, list, locate, minimumSize, paintComponents, preferredSize, printComponents, processContainerEvent, processEvent, remove, removeAll, removeContainerListener, setComponentZOrder, setFocusTraversalPolicy, setFocusTraversalPolicyProvider, transferFocusDownCycle, validate, validateTree`
+
+  ### Methods inherited from class java.awt.[Component](../../java/awt/Component.md "class in java.awt")
+
+  `action, add, addComponentListener, addFocusListener, addHierarchyBoundsListener, addHierarchyListener, addInputMethodListener, addKeyListener, addMouseListener, addMouseMotionListener, addMouseWheelListener, bounds, checkImage, checkImage, coalesceEvents, contains, createImage, createImage, createVolatileImage, createVolatileImage, disableEvents, dispatchEvent, enable, enableEvents, enableInputMethods, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, getBackground, getBounds, getColorModel, getComponentListeners, getComponentOrientation, getCursor, getDropTarget, getFocusListeners, getFocusTraversalKeysEnabled, getFont, getForeground, getGraphicsConfiguration, getHierarchyBoundsListeners, getHierarchyListeners, getIgnoreRepaint, getInputContext, getInputMethodListeners, getInputMethodRequests, getKeyListeners, getLocale, getLocation, getLocationOnScreen, getMouseListeners, getMouseMotionListeners, getMousePosition, getMouseWheelListeners, getName, getParent, getPropertyChangeListeners, getPropertyChangeListeners, getSize, getToolkit, getTreeLock, gotFocus, handleEvent, hasFocus, imageUpdate, inside, isBackgroundSet, isCursorSet, isDisplayable, isEnabled, isFocusable, isFocusOwner, isFocusTraversable, isFontSet, isForegroundSet, isLightweight, isMaximumSizeSet, isMinimumSizeSet, isPreferredSizeSet, isShowing, isValid, isVisible, keyDown, keyUp, list, list, list, location, lostFocus, mouseDown, mouseDrag, mouseEnter, mouseExit, mouseMove, mouseUp, move, nextFocus, paintAll, postEvent, prepareImage, prepareImage, processComponentEvent, processFocusEvent, processHierarchyBoundsEvent, processHierarchyEvent, processInputMethodEvent, processMouseWheelEvent, remove, removeComponentListener, removeFocusListener, removeHierarchyBoundsListener, removeHierarchyListener, removeInputMethodListener, removeKeyListener, removeMouseListener, removeMouseMotionListener, removeMouseWheelListener, removePropertyChangeListener, removePropertyChangeListener, repaint, repaint, repaint, requestFocus, requestFocus, requestFocusInWindow, resize, resize, setBounds, setBounds, setComponentOrientation, setDropTarget, setFocusable, setFocusTraversalKeysEnabled, setIgnoreRepaint, setLocale, setLocation, setLocation, setMixingCutoutShape, setName, setSize, setSize, show, size, toString, transferFocus, transferFocusBackward, transferFocusUpCycle`
+
+  ### Methods inherited from class java.lang.[Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Field Details
+
+  + ### rootPane
+
+    protected [JRootPane](JRootPane.md "class in javax.swing") rootPane
+
+    The `JRootPane` instance that manages the
+    content pane
+    and optional menu bar for this internal frame, as well as the
+    glass pane.
+
+    See Also:
+    :   - [`JRootPane`](JRootPane.md "class in javax.swing")
+        - [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+  + ### rootPaneCheckingEnabled
+
+    protected boolean rootPaneCheckingEnabled
+
+    If true then calls to `add` and `setLayout`
+    will be forwarded to the `contentPane`. This is initially
+    false, but is set to true when the `JInternalFrame` is
+    constructed.
+
+    See Also:
+    :   - [`isRootPaneCheckingEnabled()`](#isRootPaneCheckingEnabled())
+        - [`setRootPaneCheckingEnabled(boolean)`](#setRootPaneCheckingEnabled(boolean))
+        - [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+  + ### closable
+
+    protected boolean closable
+
+    The frame can be closed.
+  + ### isClosed
+
+    protected boolean isClosed
+
+    The frame has been closed.
+  + ### maximizable
+
+    protected boolean maximizable
+
+    The frame can be expanded to the size of the desktop pane.
+  + ### isMaximum
+
+    protected boolean isMaximum
+
+    The frame has been expanded to its maximum size.
+
+    See Also:
+    :   - [`maximizable`](#maximizable)
+  + ### iconable
+
+    protected boolean iconable
+
+    The frame can "iconified" (shrunk down and displayed as
+    an icon-image).
+
+    See Also:
+    :   - [`JInternalFrame.JDesktopIcon`](JInternalFrame.JDesktopIcon.md "class in javax.swing")
+        - [`setIconifiable(boolean)`](#setIconifiable(boolean))
+  + ### isIcon
+
+    protected boolean isIcon
+
+    The frame has been iconified.
+
+    See Also:
+    :   - [`isIcon()`](#isIcon())
+  + ### resizable
+
+    protected boolean resizable
+
+    The frame's size can be changed.
+  + ### isSelected
+
+    protected boolean isSelected
+
+    The frame is currently selected.
+  + ### frameIcon
+
+    protected [Icon](Icon.md "interface in javax.swing") frameIcon
+
+    The icon shown in the top-left corner of this internal frame.
+  + ### title
+
+    protected [String](../../../java.base/java/lang/String.md "class in java.lang") title
+
+    The title displayed in this internal frame's title bar.
+  + ### desktopIcon
+
+    protected [JInternalFrame.JDesktopIcon](JInternalFrame.JDesktopIcon.md "class in javax.swing") desktopIcon
+
+    The icon that is displayed when this internal frame is iconified.
+    Subclassers must ensure this is set to a non-null value
+    during construction and not subsequently set this to null.
+
+    See Also:
+    :   - [`iconable`](#iconable)
+  + ### CONTENT\_PANE\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") CONTENT\_PANE\_PROPERTY
+
+    Bound property name.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.CONTENT_PANE_PROPERTY)
+  + ### MENU\_BAR\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") MENU\_BAR\_PROPERTY
+
+    Bound property name.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.MENU_BAR_PROPERTY)
+  + ### TITLE\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") TITLE\_PROPERTY
+
+    Bound property name.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.TITLE_PROPERTY)
+  + ### LAYERED\_PANE\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") LAYERED\_PANE\_PROPERTY
+
+    Bound property name.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.LAYERED_PANE_PROPERTY)
+  + ### ROOT\_PANE\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") ROOT\_PANE\_PROPERTY
+
+    Bound property name.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.ROOT_PANE_PROPERTY)
+  + ### GLASS\_PANE\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") GLASS\_PANE\_PROPERTY
+
+    Bound property name.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.GLASS_PANE_PROPERTY)
+  + ### FRAME\_ICON\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") FRAME\_ICON\_PROPERTY
+
+    Bound property name.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.FRAME_ICON_PROPERTY)
+  + ### IS\_SELECTED\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") IS\_SELECTED\_PROPERTY
+
+    Constrained property name indicated that this frame has
+    selected status.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.IS_SELECTED_PROPERTY)
+  + ### IS\_CLOSED\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") IS\_CLOSED\_PROPERTY
+
+    Constrained property name indicating that the internal frame is closed.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.IS_CLOSED_PROPERTY)
+  + ### IS\_MAXIMUM\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") IS\_MAXIMUM\_PROPERTY
+
+    Constrained property name indicating that the internal frame is maximized.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.IS_MAXIMUM_PROPERTY)
+  + ### IS\_ICON\_PROPERTY
+
+    public static final [String](../../../java.base/java/lang/String.md "class in java.lang") IS\_ICON\_PROPERTY
+
+    Constrained property name indicating that the internal frame is iconified.
+
+    See Also:
+    :   - [Constant Field Values](../../../constant-values.md#javax.swing.JInternalFrame.IS_ICON_PROPERTY)
+* ## Constructor Details
+
+  + ### JInternalFrame
+
+    public JInternalFrame()
+
+    Creates a non-resizable, non-closable, non-maximizable,
+    non-iconifiable `JInternalFrame` with no title.
+  + ### JInternalFrame
+
+    public JInternalFrame([String](../../../java.base/java/lang/String.md "class in java.lang") title)
+
+    Creates a non-resizable, non-closable, non-maximizable,
+    non-iconifiable `JInternalFrame` with the specified title.
+    Note that passing in a `null` `title` results in
+    unspecified behavior and possibly an exception.
+
+    Parameters:
+    :   `title` - the non-`null` `String`
+        to display in the title bar
+  + ### JInternalFrame
+
+    public JInternalFrame([String](../../../java.base/java/lang/String.md "class in java.lang") title,
+    boolean resizable)
+
+    Creates a non-closable, non-maximizable, non-iconifiable
+    `JInternalFrame` with the specified title
+    and resizability.
+
+    Parameters:
+    :   `title` - the `String` to display in the title bar
+    :   `resizable` - if `true`, the internal frame can be resized
+  + ### JInternalFrame
+
+    public JInternalFrame([String](../../../java.base/java/lang/String.md "class in java.lang") title,
+    boolean resizable,
+    boolean closable)
+
+    Creates a non-maximizable, non-iconifiable `JInternalFrame`
+    with the specified title, resizability, and
+    closability.
+
+    Parameters:
+    :   `title` - the `String` to display in the title bar
+    :   `resizable` - if `true`, the internal frame can be resized
+    :   `closable` - if `true`, the internal frame can be closed
+  + ### JInternalFrame
+
+    public JInternalFrame([String](../../../java.base/java/lang/String.md "class in java.lang") title,
+    boolean resizable,
+    boolean closable,
+    boolean maximizable)
+
+    Creates a non-iconifiable `JInternalFrame`
+    with the specified title,
+    resizability, closability, and maximizability.
+
+    Parameters:
+    :   `title` - the `String` to display in the title bar
+    :   `resizable` - if `true`, the internal frame can be resized
+    :   `closable` - if `true`, the internal frame can be closed
+    :   `maximizable` - if `true`, the internal frame can be maximized
+  + ### JInternalFrame
+
+    public JInternalFrame([String](../../../java.base/java/lang/String.md "class in java.lang") title,
+    boolean resizable,
+    boolean closable,
+    boolean maximizable,
+    boolean iconifiable)
+
+    Creates a `JInternalFrame` with the specified title,
+    resizability, closability, maximizability, and iconifiability.
+    All `JInternalFrame` constructors use this one.
+
+    Parameters:
+    :   `title` - the `String` to display in the title bar
+    :   `resizable` - if `true`, the internal frame can be resized
+    :   `closable` - if `true`, the internal frame can be closed
+    :   `maximizable` - if `true`, the internal frame can be maximized
+    :   `iconifiable` - if `true`, the internal frame can be iconified
+* ## Method Details
+
+  + ### createRootPane
+
+    protected [JRootPane](JRootPane.md "class in javax.swing") createRootPane()
+
+    Called by the constructor to set up the `JRootPane`.
+
+    Returns:
+    :   a new `JRootPane`
+
+    See Also:
+    :   - [`JRootPane`](JRootPane.md "class in javax.swing")
+  + ### getUI
+
+    public [InternalFrameUI](plaf/InternalFrameUI.md "class in javax.swing.plaf") getUI()
+
+    Returns the look-and-feel object that renders this component.
+
+    Overrides:
+    :   `getUI` in class `JComponent`
+
+    Returns:
+    :   the `InternalFrameUI` object that renders
+        this component
+  + ### setUI
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([hidden](../../java/beans/BeanProperty.md#hidden())=true,
+    [visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The UI object that implements the Component\'s LookAndFeel.")
+    public void setUI([InternalFrameUI](plaf/InternalFrameUI.md "class in javax.swing.plaf") ui)
+
+    Sets the UI delegate for this `JInternalFrame`.
+
+    Parameters:
+    :   `ui` - the UI delegate
+  + ### updateUI
+
+    public void updateUI()
+
+    Notification from the `UIManager` that the look and feel
+    has changed.
+    Replaces the current UI object with the latest version from the
+    `UIManager`.
+
+    Overrides:
+    :   `updateUI` in class `JComponent`
+
+    See Also:
+    :   - [`JComponent.updateUI()`](JComponent.md#updateUI())
+  + ### getUIClassID
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false,
+    [description](../../java/beans/BeanProperty.md#description())="UIClassID")
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getUIClassID()
+
+    Returns the name of the look-and-feel
+    class that renders this component.
+
+    Overrides:
+    :   `getUIClassID` in class `JComponent`
+
+    Returns:
+    :   the string "InternalFrameUI"
+
+    See Also:
+    :   - [`JComponent.getUIClassID()`](JComponent.md#getUIClassID())
+        - [`UIDefaults.getUI(javax.swing.JComponent)`](UIDefaults.md#getUI(javax.swing.JComponent))
+  + ### isRootPaneCheckingEnabled
+
+    protected boolean isRootPaneCheckingEnabled()
+
+    Returns whether calls to `add` and
+    `setLayout` are forwarded to the `contentPane`.
+
+    Returns:
+    :   true if `add` and `setLayout`
+        are forwarded; false otherwise
+
+    See Also:
+    :   - [`addImpl(java.awt.Component, java.lang.Object, int)`](#addImpl(java.awt.Component,java.lang.Object,int))
+        - [`setLayout(java.awt.LayoutManager)`](#setLayout(java.awt.LayoutManager))
+        - [`setRootPaneCheckingEnabled(boolean)`](#setRootPaneCheckingEnabled(boolean))
+        - [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+  + ### setRootPaneCheckingEnabled
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([hidden](../../java/beans/BeanProperty.md#hidden())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Whether the add and setLayout methods are forwarded")
+    protected void setRootPaneCheckingEnabled(boolean enabled)
+
+    Sets whether calls to `add` and
+    `setLayout` are forwarded to the `contentPane`.
+
+    Parameters:
+    :   `enabled` - true if `add` and `setLayout`
+        are forwarded, false if they should operate directly on the
+        `JInternalFrame`.
+
+    See Also:
+    :   - [`addImpl(java.awt.Component, java.lang.Object, int)`](#addImpl(java.awt.Component,java.lang.Object,int))
+        - [`setLayout(java.awt.LayoutManager)`](#setLayout(java.awt.LayoutManager))
+        - [`isRootPaneCheckingEnabled()`](#isRootPaneCheckingEnabled())
+        - [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+  + ### addImpl
+
+    protected void addImpl([Component](../../java/awt/Component.md "class in java.awt") comp,
+    [Object](../../../java.base/java/lang/Object.md "class in java.lang") constraints,
+    int index)
+
+    Adds the specified child `Component`.
+    This method is overridden to conditionally forward calls to the
+    `contentPane`.
+    By default, children are added to the `contentPane` instead
+    of the frame, refer to [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing") for
+    details.
+
+    Overrides:
+    :   `addImpl` in class `Container`
+
+    Parameters:
+    :   `comp` - the component to be enhanced
+    :   `constraints` - the constraints to be respected
+    :   `index` - the index
+
+    Throws:
+    :   `IllegalArgumentException` - if `index` is invalid
+    :   `IllegalArgumentException` - if adding the container's parent
+        to itself
+    :   `IllegalArgumentException` - if adding a window to a container
+
+    See Also:
+    :   - [`setRootPaneCheckingEnabled(boolean)`](#setRootPaneCheckingEnabled(boolean))
+        - [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+  + ### remove
+
+    public void remove([Component](../../java/awt/Component.md "class in java.awt") comp)
+
+    Removes the specified component from the container. If
+    `comp` is not a child of the `JInternalFrame`
+    this will forward the call to the `contentPane`.
+
+    Overrides:
+    :   `remove` in class `Container`
+
+    Parameters:
+    :   `comp` - the component to be removed
+
+    Throws:
+    :   `NullPointerException` - if `comp` is null
+
+    See Also:
+    :   - [`Container.add(java.awt.Component)`](../../java/awt/Container.md#add(java.awt.Component))
+        - [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing")
+  + ### setLayout
+
+    public void setLayout([LayoutManager](../../java/awt/LayoutManager.md "interface in java.awt") manager)
+
+    Ensures that, by default, the layout of this component cannot be set.
+    Overridden to conditionally forward the call to the
+    `contentPane`.
+    Refer to [`RootPaneContainer`](RootPaneContainer.md "interface in javax.swing") for
+    more information.
+
+    Overrides:
+    :   `setLayout` in class `Container`
+
+    Parameters:
+    :   `manager` - the `LayoutManager`
+
+    See Also:
+    :   - [`setRootPaneCheckingEnabled(boolean)`](#setRootPaneCheckingEnabled(boolean))
+  + ### getMenuBar
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")
+    public [JMenuBar](JMenuBar.md "class in javax.swing") getMenuBar()
+
+    Deprecated.
+
+    As of Swing version 1.0.3,
+    replaced by `getJMenuBar()`.
+
+    Returns the current `JMenuBar` for this
+    `JInternalFrame`, or `null`
+    if no menu bar has been set.
+
+    Returns:
+    :   the current menu bar, or `null` if none has been set
+  + ### getJMenuBar
+
+    public [JMenuBar](JMenuBar.md "class in javax.swing") getJMenuBar()
+
+    Returns the current `JMenuBar` for this
+    `JInternalFrame`, or `null`
+    if no menu bar has been set.
+
+    Returns:
+    :   the `JMenuBar` used by this internal frame
+
+    See Also:
+    :   - [`setJMenuBar(javax.swing.JMenuBar)`](#setJMenuBar(javax.swing.JMenuBar))
+  + ### setMenuBar
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")
+    public void setMenuBar([JMenuBar](JMenuBar.md "class in javax.swing") m)
+
+    Deprecated.
+
+    As of Swing version 1.0.3
+    replaced by `setJMenuBar(JMenuBar m)`.
+
+    Sets the `menuBar` property for this `JInternalFrame`.
+
+    Parameters:
+    :   `m` - the `JMenuBar` to use in this internal frame
+
+    See Also:
+    :   - [`getJMenuBar()`](#getJMenuBar())
+  + ### setJMenuBar
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The menu bar for accessing pulldown menus from this internal frame.")
+    public void setJMenuBar([JMenuBar](JMenuBar.md "class in javax.swing") m)
+
+    Sets the `menuBar` property for this `JInternalFrame`.
+
+    Parameters:
+    :   `m` - the `JMenuBar` to use in this internal frame
+
+    See Also:
+    :   - [`getJMenuBar()`](#getJMenuBar())
+  + ### getContentPane
+
+    public [Container](../../java/awt/Container.md "class in java.awt") getContentPane()
+
+    Returns the content pane for this internal frame.
+
+    Specified by:
+    :   `getContentPane` in interface `RootPaneContainer`
+
+    Returns:
+    :   the content pane
+
+    See Also:
+    :   - [`RootPaneContainer.setContentPane(java.awt.Container)`](RootPaneContainer.md#setContentPane(java.awt.Container))
+  + ### setContentPane
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([hidden](../../java/beans/BeanProperty.md#hidden())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The client area of the internal frame where child components are normally inserted.")
+    public void setContentPane([Container](../../java/awt/Container.md "class in java.awt") c)
+
+    Sets this `JInternalFrame`'s `contentPane`
+    property.
+
+    Specified by:
+    :   `setContentPane` in interface `RootPaneContainer`
+
+    Parameters:
+    :   `c` - the content pane for this internal frame
+
+    Throws:
+    :   `IllegalComponentStateException` - (a runtime
+        exception) if the content pane parameter is `null`
+
+    See Also:
+    :   - [`RootPaneContainer.getContentPane()`](RootPaneContainer.md#getContentPane())
+  + ### getLayeredPane
+
+    public [JLayeredPane](JLayeredPane.md "class in javax.swing") getLayeredPane()
+
+    Returns the layered pane for this internal frame.
+
+    Specified by:
+    :   `getLayeredPane` in interface `RootPaneContainer`
+
+    Returns:
+    :   a `JLayeredPane` object
+
+    See Also:
+    :   - [`RootPaneContainer.setLayeredPane(javax.swing.JLayeredPane)`](RootPaneContainer.md#setLayeredPane(javax.swing.JLayeredPane))
+        - [`RootPaneContainer.getLayeredPane()`](RootPaneContainer.md#getLayeredPane())
+  + ### setLayeredPane
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([hidden](../../java/beans/BeanProperty.md#hidden())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The pane which holds the various desktop layers.")
+    public void setLayeredPane([JLayeredPane](JLayeredPane.md "class in javax.swing") layered)
+
+    Sets this `JInternalFrame`'s
+    `layeredPane` property.
+
+    Specified by:
+    :   `setLayeredPane` in interface `RootPaneContainer`
+
+    Parameters:
+    :   `layered` - the `JLayeredPane` for this internal frame
+
+    Throws:
+    :   `IllegalComponentStateException` - (a runtime
+        exception) if the layered pane parameter is `null`
+
+    See Also:
+    :   - [`RootPaneContainer.setLayeredPane(javax.swing.JLayeredPane)`](RootPaneContainer.md#setLayeredPane(javax.swing.JLayeredPane))
+  + ### getGlassPane
+
+    public [Component](../../java/awt/Component.md "class in java.awt") getGlassPane()
+
+    Returns the glass pane for this internal frame.
+
+    Specified by:
+    :   `getGlassPane` in interface `RootPaneContainer`
+
+    Returns:
+    :   the glass pane
+
+    See Also:
+    :   - [`RootPaneContainer.setGlassPane(java.awt.Component)`](RootPaneContainer.md#setGlassPane(java.awt.Component))
+  + ### setGlassPane
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([hidden](../../java/beans/BeanProperty.md#hidden())=true,
+    [description](../../java/beans/BeanProperty.md#description())="A transparent pane used for menu rendering.")
+    public void setGlassPane([Component](../../java/awt/Component.md "class in java.awt") glass)
+
+    Sets this `JInternalFrame`'s
+    `glassPane` property.
+
+    Specified by:
+    :   `setGlassPane` in interface `RootPaneContainer`
+
+    Parameters:
+    :   `glass` - the glass pane for this internal frame
+
+    See Also:
+    :   - [`RootPaneContainer.getGlassPane()`](RootPaneContainer.md#getGlassPane())
+  + ### getRootPane
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([hidden](../../java/beans/BeanProperty.md#hidden())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The root pane used by this internal frame.")
+    public [JRootPane](JRootPane.md "class in javax.swing") getRootPane()
+
+    Returns the `rootPane` object for this internal frame.
+
+    Specified by:
+    :   `getRootPane` in interface `RootPaneContainer`
+
+    Overrides:
+    :   `getRootPane` in class `JComponent`
+
+    Returns:
+    :   the `rootPane` property
+
+    See Also:
+    :   - [`RootPaneContainer.getRootPane()`](RootPaneContainer.md#getRootPane())
+  + ### setRootPane
+
+    protected void setRootPane([JRootPane](JRootPane.md "class in javax.swing") root)
+
+    Sets the `rootPane` property
+    for this `JInternalFrame`.
+    This method is called by the constructor.
+
+    Parameters:
+    :   `root` - the new `JRootPane` object
+  + ### setClosable
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Indicates whether this internal frame can be closed.")
+    public void setClosable(boolean b)
+
+    Sets whether this `JInternalFrame` can be closed by
+    some user action.
+
+    Parameters:
+    :   `b` - a boolean value, where `true` means this internal frame can be closed
+  + ### isClosable
+
+    public boolean isClosable()
+
+    Returns whether this `JInternalFrame` can be closed by
+    some user action.
+
+    Returns:
+    :   `true` if this internal frame can be closed
+  + ### isClosed
+
+    public boolean isClosed()
+
+    Returns whether this `JInternalFrame` is currently closed.
+
+    Returns:
+    :   `true` if this internal frame is closed, `false` otherwise
+  + ### setClosed
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../java/beans/BeanProperty.md#description())="Indicates whether this internal frame has been closed.")
+    public void setClosed(boolean b)
+    throws [PropertyVetoException](../../java/beans/PropertyVetoException.md "class in java.beans")
+
+    Closes this internal frame if the argument is `true`.
+    Do not invoke this method with a `false` argument;
+    the result of invoking `setClosed(false)`
+    is unspecified.
+
+    If the internal frame is already closed,
+    this method does nothing and returns immediately.
+    Otherwise,
+    this method begins by firing
+    an `INTERNAL_FRAME_CLOSING` event.
+    Then this method sets the `closed` property to `true`
+    unless a listener vetoes the property change.
+    This method finishes by making the internal frame
+    invisible and unselected,
+    and then firing an `INTERNAL_FRAME_CLOSED` event.
+
+    **Note:**
+    To reuse an internal frame that has been closed,
+    you must add it to a container
+    (even if you never removed it from its previous container).
+    Typically, this container will be the `JDesktopPane`
+    that previously contained the internal frame.
+
+    Parameters:
+    :   `b` - must be `true`
+
+    Throws:
+    :   `PropertyVetoException` - when the attempt to set the
+        property is vetoed by the `JInternalFrame`
+
+    See Also:
+    :   - [`isClosed()`](#isClosed())
+        - [`setDefaultCloseOperation(int)`](#setDefaultCloseOperation(int))
+        - [`dispose()`](#dispose())
+        - [`InternalFrameEvent.INTERNAL_FRAME_CLOSING`](event/InternalFrameEvent.md#INTERNAL_FRAME_CLOSING)
+  + ### setResizable
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Determines whether this internal frame can be resized by the user.")
+    public void setResizable(boolean b)
+
+    Sets whether the `JInternalFrame` can be resized by some
+    user action.
+
+    Parameters:
+    :   `b` - a boolean, where `true` means this internal frame can be resized
+  + ### isResizable
+
+    public boolean isResizable()
+
+    Returns whether the `JInternalFrame` can be resized
+    by some user action.
+
+    Returns:
+    :   `true` if this internal frame can be resized, `false` otherwise
+  + ### setIconifiable
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Determines whether this internal frame can be iconified.")
+    public void setIconifiable(boolean b)
+
+    Sets the `iconable` property,
+    which must be `true`
+    for the user to be able to
+    make the `JInternalFrame` an icon.
+    Some look and feels might not implement iconification;
+    they will ignore this property.
+
+    Parameters:
+    :   `b` - a boolean, where `true` means this internal frame can be iconified
+  + ### isIconifiable
+
+    public boolean isIconifiable()
+
+    Gets the `iconable` property,
+    which by default is `false`.
+
+    Returns:
+    :   the value of the `iconable` property.
+
+    See Also:
+    :   - [`setIconifiable(boolean)`](#setIconifiable(boolean))
+  + ### isIcon
+
+    public boolean isIcon()
+
+    Returns whether the `JInternalFrame` is currently iconified.
+
+    Returns:
+    :   `true` if this internal frame is iconified
+  + ### setIcon
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../java/beans/BeanProperty.md#description())="The image displayed when this internal frame is minimized.")
+    public void setIcon(boolean b)
+    throws [PropertyVetoException](../../java/beans/PropertyVetoException.md "class in java.beans")
+
+    Iconifies or de-iconifies this internal frame,
+    if the look and feel supports iconification.
+    If the internal frame's state changes to iconified,
+    this method fires an `INTERNAL_FRAME_ICONIFIED` event.
+    If the state changes to de-iconified,
+    an `INTERNAL_FRAME_DEICONIFIED` event is fired.
+
+    Parameters:
+    :   `b` - a boolean, where `true` means to iconify this internal frame and
+        `false` means to de-iconify it
+
+    Throws:
+    :   `PropertyVetoException` - when the attempt to set the
+        property is vetoed by the `JInternalFrame`
+
+    See Also:
+    :   - [`InternalFrameEvent.INTERNAL_FRAME_ICONIFIED`](event/InternalFrameEvent.md#INTERNAL_FRAME_ICONIFIED)
+        - [`InternalFrameEvent.INTERNAL_FRAME_DEICONIFIED`](event/InternalFrameEvent.md#INTERNAL_FRAME_DEICONIFIED)
+  + ### setMaximizable
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Determines whether this internal frame can be maximized.")
+    public void setMaximizable(boolean b)
+
+    Sets the `maximizable` property,
+    which determines whether the `JInternalFrame`
+    can be maximized by
+    some user action.
+    Some look and feels might not support maximizing internal frames;
+    they will ignore this property.
+
+    Parameters:
+    :   `b` - `true` to specify that this internal frame should be maximizable; `false` to specify that it should not be
+  + ### isMaximizable
+
+    public boolean isMaximizable()
+
+    Gets the value of the `maximizable` property.
+
+    Returns:
+    :   the value of the `maximizable` property
+
+    See Also:
+    :   - [`setMaximizable(boolean)`](#setMaximizable(boolean))
+  + ### isMaximum
+
+    public boolean isMaximum()
+
+    Returns whether the `JInternalFrame` is currently maximized.
+
+    Returns:
+    :   `true` if this internal frame is maximized, `false` otherwise
+  + ### setMaximum
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../java/beans/BeanProperty.md#description())="Indicates whether this internal frame is maximized.")
+    public void setMaximum(boolean b)
+    throws [PropertyVetoException](../../java/beans/PropertyVetoException.md "class in java.beans")
+
+    Maximizes and restores this internal frame. A maximized frame is resized to
+    fully fit the `JDesktopPane` area associated with the
+    `JInternalFrame`.
+    A restored frame's size is set to the `JInternalFrame`'s
+    actual size.
+
+    Parameters:
+    :   `b` - a boolean, where `true` maximizes this internal frame and `false`
+        restores it
+
+    Throws:
+    :   `PropertyVetoException` - when the attempt to set the
+        property is vetoed by the `JInternalFrame`
+  + ### getTitle
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getTitle()
+
+    Returns the title of the `JInternalFrame`.
+
+    Returns:
+    :   a `String` containing this internal frame's title
+
+    See Also:
+    :   - [`setTitle(java.lang.String)`](#setTitle(java.lang.String))
+  + ### setTitle
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The text displayed in the title bar.")
+    public void setTitle([String](../../../java.base/java/lang/String.md "class in java.lang") title)
+
+    Sets the `JInternalFrame` title. `title`
+    may have a `null` value.
+
+    Parameters:
+    :   `title` - the `String` to display in the title bar
+
+    See Also:
+    :   - [`getTitle()`](#getTitle())
+  + ### setSelected
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../java/beans/BeanProperty.md#description())="Indicates whether this internal frame is currently the active frame.")
+    public void setSelected(boolean selected)
+    throws [PropertyVetoException](../../java/beans/PropertyVetoException.md "class in java.beans")
+
+    Selects or deselects the internal frame
+    if it's showing.
+    A `JInternalFrame` normally draws its title bar
+    differently if it is
+    the selected frame, which indicates to the user that this
+    internal frame has the focus.
+    When this method changes the state of the internal frame
+    from deselected to selected, it fires an
+    `InternalFrameEvent.INTERNAL_FRAME_ACTIVATED` event.
+    If the change is from selected to deselected,
+    an `InternalFrameEvent.INTERNAL_FRAME_DEACTIVATED` event
+    is fired.
+
+    Parameters:
+    :   `selected` - a boolean, where `true` means this internal frame
+        should become selected (currently active)
+        and `false` means it should become deselected
+
+    Throws:
+    :   `PropertyVetoException` - when the attempt to set the
+        property is vetoed by the `JInternalFrame`
+
+    See Also:
+    :   - [`Component.isShowing()`](../../java/awt/Component.md#isShowing())
+        - [`InternalFrameEvent.INTERNAL_FRAME_ACTIVATED`](event/InternalFrameEvent.md#INTERNAL_FRAME_ACTIVATED)
+        - [`InternalFrameEvent.INTERNAL_FRAME_DEACTIVATED`](event/InternalFrameEvent.md#INTERNAL_FRAME_DEACTIVATED)
+  + ### isSelected
+
+    public boolean isSelected()
+
+    Returns whether the `JInternalFrame` is the
+    currently "selected" or active frame.
+
+    Returns:
+    :   `true` if this internal frame is currently selected (active)
+
+    See Also:
+    :   - [`setSelected(boolean)`](#setSelected(boolean))
+  + ### setFrameIcon
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../java/beans/BeanProperty.md#description())="The icon shown in the top-left corner of this internal frame.")
+    public void setFrameIcon([Icon](Icon.md "interface in javax.swing") icon)
+
+    Sets an image to be displayed in the titlebar of this internal frame (usually
+    in the top-left corner).
+    Some look and feels might not support displaying an icon in the titlebar.
+    This image is not the `desktopIcon` object, which
+    is the image displayed in the `JDesktop` when
+    this internal frame is iconified.
+    Passing `null` to this function is valid,
+    but the look and feel can choose the appropriate behavior
+    for that situation, such as displaying no icon
+    or a default icon for the look and feel.
+
+    Parameters:
+    :   `icon` - the `Icon` to display in the title bar
+
+    See Also:
+    :   - [`getFrameIcon()`](#getFrameIcon())
+  + ### getFrameIcon
+
+    public [Icon](Icon.md "interface in javax.swing") getFrameIcon()
+
+    Returns the image displayed in the title bar of this internal frame (usually
+    in the top-left corner).
+
+    Returns:
+    :   the `Icon` displayed in the title bar
+
+    See Also:
+    :   - [`setFrameIcon(javax.swing.Icon)`](#setFrameIcon(javax.swing.Icon))
+  + ### moveToFront
+
+    public void moveToFront()
+
+    Convenience method that moves this component to position 0 if its
+    parent is a `JLayeredPane`.
+  + ### moveToBack
+
+    public void moveToBack()
+
+    Convenience method that moves this component to position -1 if its
+    parent is a `JLayeredPane`.
+  + ### getLastCursor
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public [Cursor](../../java/awt/Cursor.md "class in java.awt") getLastCursor()
+
+    Returns the last `Cursor` that was set by the
+    `setCursor` method that is not a resizable
+    `Cursor`.
+
+    Returns:
+    :   the last non-resizable `Cursor`
+
+    Since:
+    :   1.6
+  + ### setCursor
+
+    public void setCursor([Cursor](../../java/awt/Cursor.md "class in java.awt") cursor)
+
+    Sets the cursor image to the specified cursor. This cursor
+    image is displayed when the `contains` method for
+    this component returns true for the current cursor location, and
+    this Component is visible, displayable, and enabled. Setting the
+    cursor of a `Container` causes that cursor to be displayed
+    within all of the container's subcomponents, except for those
+    that have a non-`null` cursor.
+
+    The method may have no visual effect if the Java platform
+    implementation and/or the native system do not support
+    changing the mouse cursor shape.
+
+    Overrides:
+    :   `setCursor` in class `Component`
+
+    Parameters:
+    :   `cursor` - One of the constants defined
+        by the `Cursor` class;
+        if this parameter is `null`
+        then this component will inherit
+        the cursor of its parent
+
+    Since:
+    :   1.6
+
+    See Also:
+    :   - [`Component.isEnabled()`](../../java/awt/Component.md#isEnabled())
+        - [`Component.isShowing()`](../../java/awt/Component.md#isShowing())
+        - [`Component.getCursor()`](../../java/awt/Component.md#getCursor())
+        - [`Component.contains(int, int)`](../../java/awt/Component.md#contains(int,int))
+        - [`Toolkit.createCustomCursor(java.awt.Image, java.awt.Point, java.lang.String)`](../../java/awt/Toolkit.md#createCustomCursor(java.awt.Image,java.awt.Point,java.lang.String))
+        - [`Cursor`](../../java/awt/Cursor.md "class in java.awt")
+  + ### setLayer
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false,
+    [expert](../../java/beans/BeanProperty.md#expert())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Specifies what desktop layer is used.")
+    public void setLayer([Integer](../../../java.base/java/lang/Integer.md "class in java.lang") layer)
+
+    Convenience method for setting the layer attribute of this component.
+
+    Parameters:
+    :   `layer` - an `Integer` object specifying this
+        frame's desktop layer
+
+    Throws:
+    :   `NullPointerException` - if `layer` is `null`
+
+    See Also:
+    :   - [`JLayeredPane`](JLayeredPane.md "class in javax.swing")
+  + ### setLayer
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false,
+    [expert](../../java/beans/BeanProperty.md#expert())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Specifies what desktop layer is used.")
+    public void setLayer(int layer)
+
+    Convenience method for setting the layer attribute of this component.
+    The method `setLayer(Integer)` should be used for
+    layer values predefined in `JLayeredPane`.
+    When using `setLayer(int)`, care must be taken not to
+    accidentally clash with those values.
+
+    Parameters:
+    :   `layer` - an integer specifying this internal frame's desktop layer
+
+    Since:
+    :   1.3
+
+    See Also:
+    :   - [`setLayer(Integer)`](#setLayer(java.lang.Integer))
+        - [`JLayeredPane`](JLayeredPane.md "class in javax.swing")
+  + ### getLayer
+
+    public int getLayer()
+
+    Convenience method for getting the layer attribute of this component.
+
+    Returns:
+    :   an `Integer` object specifying this
+        frame's desktop layer
+
+    See Also:
+    :   - [`JLayeredPane`](JLayeredPane.md "class in javax.swing")
+  + ### getDesktopPane
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public [JDesktopPane](JDesktopPane.md "class in javax.swing") getDesktopPane()
+
+    Convenience method that searches the ancestor hierarchy for a
+    `JDesktop` instance. If `JInternalFrame`
+    finds none, the `desktopIcon` tree is searched.
+
+    Returns:
+    :   the `JDesktopPane` this internal frame belongs to,
+        or `null` if none is found
+  + ### setDesktopIcon
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../java/beans/BeanProperty.md#description())="The icon shown when this internal frame is minimized.")
+    public void setDesktopIcon([JInternalFrame.JDesktopIcon](JInternalFrame.JDesktopIcon.md "class in javax.swing") d)
+
+    Sets the `JDesktopIcon` associated with this
+    `JInternalFrame`.
+
+    Parameters:
+    :   `d` - the `JDesktopIcon` to display on the desktop
+
+    Throws:
+    :   `NullPointerException` - if the `d` is `null`
+
+    See Also:
+    :   - [`getDesktopIcon()`](#getDesktopIcon())
+  + ### getDesktopIcon
+
+    public [JInternalFrame.JDesktopIcon](JInternalFrame.JDesktopIcon.md "class in javax.swing") getDesktopIcon()
+
+    Returns the `JDesktopIcon` used when this
+    `JInternalFrame` is iconified.
+
+    Returns:
+    :   the `JDesktopIcon` displayed on the desktop
+
+    See Also:
+    :   - [`setDesktopIcon(javax.swing.JInternalFrame.JDesktopIcon)`](#setDesktopIcon(javax.swing.JInternalFrame.JDesktopIcon))
+  + ### getNormalBounds
+
+    public [Rectangle](../../java/awt/Rectangle.md "class in java.awt") getNormalBounds()
+
+    If the `JInternalFrame` is not in maximized state, returns
+    `getBounds()`; otherwise, returns the bounds that the
+    `JInternalFrame` would be restored to.
+
+    Returns:
+    :   a `Rectangle` containing the bounds of this
+        frame when in the normal state
+
+    Since:
+    :   1.3
+  + ### setNormalBounds
+
+    public void setNormalBounds([Rectangle](../../java/awt/Rectangle.md "class in java.awt") r)
+
+    Sets the normal bounds for this internal frame, the bounds that
+    this internal frame would be restored to from its maximized state.
+    This method is intended for use only by desktop managers.
+
+    Parameters:
+    :   `r` - the bounds that this internal frame should be restored to
+
+    Since:
+    :   1.3
+  + ### getFocusOwner
+
+    public [Component](../../java/awt/Component.md "class in java.awt") getFocusOwner()
+
+    If this `JInternalFrame` is active,
+    returns the child that has focus.
+    Otherwise, returns `null`.
+
+    Returns:
+    :   the component with focus, or `null` if no children have focus
+
+    Since:
+    :   1.3
+  + ### getMostRecentFocusOwner
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public [Component](../../java/awt/Component.md "class in java.awt") getMostRecentFocusOwner()
+
+    Returns the child component of this `JInternalFrame`
+    that will receive the
+    focus when this `JInternalFrame` is selected.
+    If this `JInternalFrame` is
+    currently selected, this method returns the same component as
+    the `getFocusOwner` method.
+    If this `JInternalFrame` is not selected,
+    then the child component that most recently requested focus will be
+    returned. If no child component has ever requested focus, then this
+    `JInternalFrame`'s initial focusable component is returned.
+    If no such
+    child exists, then this `JInternalFrame`'s default component
+    to focus is returned.
+
+    Returns:
+    :   the child component that will receive focus when this
+        `JInternalFrame` is selected
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`getFocusOwner()`](#getFocusOwner())
+        - [`isSelected`](#isSelected)
+  + ### restoreSubcomponentFocus
+
+    public void restoreSubcomponentFocus()
+
+    Requests the internal frame to restore focus to the
+    last subcomponent that had focus. This is used by the UI when
+    the user selected this internal frame --
+    for example, by clicking on the title bar.
+
+    Since:
+    :   1.3
+  + ### reshape
+
+    public void reshape(int x,
+    int y,
+    int width,
+    int height)
+
+    Moves and resizes this component. Unlike other components,
+    this implementation also forces re-layout, so that frame
+    decorations such as the title bar are always redisplayed.
+
+    Overrides:
+    :   `reshape` in class `JComponent`
+
+    Parameters:
+    :   `x` - an integer giving the component's new horizontal position
+        measured in pixels from the left of its container
+    :   `y` - an integer giving the component's new vertical position,
+        measured in pixels from the bottom of its container
+    :   `width` - an integer giving the component's new width in pixels
+    :   `height` - an integer giving the component's new height in pixels
+
+    See Also:
+    :   - [`Component.setBounds(int, int, int, int)`](../../java/awt/Component.md#setBounds(int,int,int,int))
+  + ### addInternalFrameListener
+
+    public void addInternalFrameListener([InternalFrameListener](event/InternalFrameListener.md "interface in javax.swing.event") l)
+
+    Adds the specified listener to receive internal
+    frame events from this internal frame.
+
+    Parameters:
+    :   `l` - the internal frame listener
+  + ### removeInternalFrameListener
+
+    public void removeInternalFrameListener([InternalFrameListener](event/InternalFrameListener.md "interface in javax.swing.event") l)
+
+    Removes the specified internal frame listener so that it no longer
+    receives internal frame events from this internal frame.
+
+    Parameters:
+    :   `l` - the internal frame listener
+  + ### getInternalFrameListeners
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public [InternalFrameListener](event/InternalFrameListener.md "interface in javax.swing.event")[] getInternalFrameListeners()
+
+    Returns an array of all the `InternalFrameListener`s added
+    to this `JInternalFrame` with
+    `addInternalFrameListener`.
+
+    Returns:
+    :   all of the `InternalFrameListener`s added or an empty
+        array if no listeners have been added
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`addInternalFrameListener(javax.swing.event.InternalFrameListener)`](#addInternalFrameListener(javax.swing.event.InternalFrameListener))
+  + ### fireInternalFrameEvent
+
+    protected void fireInternalFrameEvent(int id)
+
+    Fires an internal frame event.
+
+    Parameters:
+    :   `id` - the type of the event being fired; one of the following:
+        - `InternalFrameEvent.INTERNAL_FRAME_OPENED`- `InternalFrameEvent.INTERNAL_FRAME_CLOSING`- `InternalFrameEvent.INTERNAL_FRAME_CLOSED`- `InternalFrameEvent.INTERNAL_FRAME_ICONIFIED`- `InternalFrameEvent.INTERNAL_FRAME_DEICONIFIED`- `InternalFrameEvent.INTERNAL_FRAME_ACTIVATED`- `InternalFrameEvent.INTERNAL_FRAME_DEACTIVATED`If the event type is not one of the above, nothing happens.
+  + ### doDefaultCloseAction
+
+    public void doDefaultCloseAction()
+
+    Fires an
+    `INTERNAL_FRAME_CLOSING` event
+    and then performs the action specified by
+    the internal frame's default close operation.
+    This method is typically invoked by the
+    look-and-feel-implemented action handler
+    for the internal frame's close button.
+
+    Since:
+    :   1.3
+
+    See Also:
+    :   - [`setDefaultCloseOperation(int)`](#setDefaultCloseOperation(int))
+        - [`InternalFrameEvent.INTERNAL_FRAME_CLOSING`](event/InternalFrameEvent.md#INTERNAL_FRAME_CLOSING)
+  + ### setDefaultCloseOperation
+
+    public void setDefaultCloseOperation(int operation)
+
+    Sets the operation that will happen by default when
+    the user initiates a "close" on this internal frame.
+    The possible choices are:
+      
+      
+
+    `DO_NOTHING_ON_CLOSE`: Do nothing. This requires the program to handle the operation in the `internalFrameClosing` method of a registered `InternalFrameListener` object. `HIDE_ON_CLOSE`: Automatically make the internal frame invisible. `DISPOSE_ON_CLOSE`: Automatically dispose of the internal frame.
+
+    The default value is `DISPOSE_ON_CLOSE`.
+    Before performing the specified close operation,
+    the internal frame fires
+    an `INTERNAL_FRAME_CLOSING` event.
+
+    Parameters:
+    :   `operation` - one of the following constants defined in
+        `javax.swing.WindowConstants`
+        (an interface implemented by
+        `JInternalFrame`):
+        `DO_NOTHING_ON_CLOSE`,
+        `HIDE_ON_CLOSE`, or
+        `DISPOSE_ON_CLOSE`
+
+    See Also:
+    :   - [`addInternalFrameListener(javax.swing.event.InternalFrameListener)`](#addInternalFrameListener(javax.swing.event.InternalFrameListener))
+        - [`getDefaultCloseOperation()`](#getDefaultCloseOperation())
+        - [`JComponent.setVisible(boolean)`](JComponent.md#setVisible(boolean))
+        - [`dispose()`](#dispose())
+        - [`InternalFrameEvent.INTERNAL_FRAME_CLOSING`](event/InternalFrameEvent.md#INTERNAL_FRAME_CLOSING)
+  + ### getDefaultCloseOperation
+
+    public int getDefaultCloseOperation()
+
+    Returns the default operation that occurs when the user
+    initiates a "close" on this internal frame.
+
+    Returns:
+    :   the operation that will occur when the user closes the internal
+        frame
+
+    See Also:
+    :   - [`setDefaultCloseOperation(int)`](#setDefaultCloseOperation(int))
+  + ### pack
+
+    public void pack()
+
+    Causes subcomponents of this `JInternalFrame`
+    to be laid out at their preferred size. Internal frames that are
+    iconized or maximized are first restored and then packed. If the
+    internal frame is unable to be restored its state is not changed
+    and will not be packed.
+
+    See Also:
+    :   - [`Window.pack()`](../../java/awt/Window.md#pack())
+  + ### show
+
+    public void show()
+
+    If the internal frame is not visible,
+    brings the internal frame to the front,
+    makes it visible,
+    and attempts to select it.
+    The first time the internal frame is made visible,
+    this method also fires an `INTERNAL_FRAME_OPENED` event.
+    This method does nothing if the internal frame is already visible.
+    Invoking this method
+    has the same result as invoking
+    `setVisible(true)`.
+
+    Overrides:
+    :   `show` in class `Component`
+
+    See Also:
+    :   - [`moveToFront()`](#moveToFront())
+        - [`setSelected(boolean)`](#setSelected(boolean))
+        - [`InternalFrameEvent.INTERNAL_FRAME_OPENED`](event/InternalFrameEvent.md#INTERNAL_FRAME_OPENED)
+        - [`JComponent.setVisible(boolean)`](JComponent.md#setVisible(boolean))
+  + ### hide
+
+    public void hide()
+
+    Description copied from class: `JComponent`
+
+    Overrides:
+    :   `hide` in class `JComponent`
+  + ### dispose
+
+    public void dispose()
+
+    Makes this internal frame
+    invisible, unselected, and closed.
+    If the frame is not already closed,
+    this method fires an
+    `INTERNAL_FRAME_CLOSED` event.
+    The results of invoking this method are similar to
+    `setClosed(true)`,
+    but `dispose` always succeeds in closing
+    the internal frame and does not fire
+    an `INTERNAL_FRAME_CLOSING` event.
+
+    See Also:
+    :   - [`InternalFrameEvent.INTERNAL_FRAME_CLOSED`](event/InternalFrameEvent.md#INTERNAL_FRAME_CLOSED)
+        - [`JComponent.setVisible(boolean)`](JComponent.md#setVisible(boolean))
+        - [`setSelected(boolean)`](#setSelected(boolean))
+        - [`setClosed(boolean)`](#setClosed(boolean))
+  + ### toFront
+
+    public void toFront()
+
+    Brings this internal frame to the front.
+    Places this internal frame at the top of the stacking order
+    and makes the corresponding adjustment to other visible internal
+    frames.
+
+    See Also:
+    :   - [`Window.toFront()`](../../java/awt/Window.md#toFront())
+        - [`moveToFront()`](#moveToFront())
+  + ### toBack
+
+    public void toBack()
+
+    Sends this internal frame to the back.
+    Places this internal frame at the bottom of the stacking order
+    and makes the corresponding adjustment to other visible
+    internal frames.
+
+    See Also:
+    :   - [`Window.toBack()`](../../java/awt/Window.md#toBack())
+        - [`moveToBack()`](#moveToBack())
+  + ### setFocusCycleRoot
+
+    public final void setFocusCycleRoot(boolean focusCycleRoot)
+
+    Does nothing because `JInternalFrame`s must always be roots of a focus
+    traversal cycle.
+
+    Overrides:
+    :   `setFocusCycleRoot` in class `Container`
+
+    Parameters:
+    :   `focusCycleRoot` - this value is ignored
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`isFocusCycleRoot()`](#isFocusCycleRoot())
+        - [`Container.setFocusTraversalPolicy(java.awt.FocusTraversalPolicy)`](../../java/awt/Container.md#setFocusTraversalPolicy(java.awt.FocusTraversalPolicy))
+        - [`Container.getFocusTraversalPolicy()`](../../java/awt/Container.md#getFocusTraversalPolicy())
+  + ### isFocusCycleRoot
+
+    public final boolean isFocusCycleRoot()
+
+    Always returns `true` because all `JInternalFrame`s must be
+    roots of a focus traversal cycle.
+
+    Overrides:
+    :   `isFocusCycleRoot` in class `Container`
+
+    Returns:
+    :   `true`
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`setFocusCycleRoot(boolean)`](#setFocusCycleRoot(boolean))
+        - [`Container.setFocusTraversalPolicy(java.awt.FocusTraversalPolicy)`](../../java/awt/Container.md#setFocusTraversalPolicy(java.awt.FocusTraversalPolicy))
+        - [`Container.getFocusTraversalPolicy()`](../../java/awt/Container.md#getFocusTraversalPolicy())
+  + ### getFocusCycleRootAncestor
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public final [Container](../../java/awt/Container.md "class in java.awt") getFocusCycleRootAncestor()
+
+    Always returns `null` because `JInternalFrame`s
+    must always be roots of a focus
+    traversal cycle.
+
+    Overrides:
+    :   `getFocusCycleRootAncestor` in class `Component`
+
+    Returns:
+    :   `null`
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`Container.isFocusCycleRoot()`](../../java/awt/Container.md#isFocusCycleRoot())
+  + ### getWarningString
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public final [String](../../../java.base/java/lang/String.md "class in java.lang") getWarningString()
+
+    Gets the warning string that is displayed with this internal frame.
+    Since an internal frame is always secure (since it's fully
+    contained within a window that might need a warning string)
+    this method always returns `null`.
+
+    Returns:
+    :   `null`
+
+    See Also:
+    :   - [`Window.getWarningString()`](../../java/awt/Window.md#getWarningString())
+  + ### paramString
+
+    protected [String](../../../java.base/java/lang/String.md "class in java.lang") paramString()
+
+    Returns a string representation of this `JInternalFrame`.
+    This method
+    is intended to be used only for debugging purposes, and the
+    content and format of the returned string may vary between
+    implementations. The returned string may be empty but may not
+    be `null`.
+
+    Overrides:
+    :   `paramString` in class `JComponent`
+
+    Returns:
+    :   a string representation of this `JInternalFrame`
+  + ### paintComponent
+
+    protected void paintComponent([Graphics](../../java/awt/Graphics.md "class in java.awt") g)
+
+    Overridden to allow optimized painting when the
+    internal frame is being dragged.
+
+    Overrides:
+    :   `paintComponent` in class `JComponent`
+
+    Parameters:
+    :   `g` - the `Graphics` object to protect
+
+    See Also:
+    :   - [`JComponent.paint(java.awt.Graphics)`](JComponent.md#paint(java.awt.Graphics))
+        - [`ComponentUI`](plaf/ComponentUI.md "class in javax.swing.plaf")
+  + ### getAccessibleContext
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public [AccessibleContext](../accessibility/AccessibleContext.md "class in javax.accessibility") getAccessibleContext()
+
+    Gets the `AccessibleContext` associated with this
+    `JInternalFrame`.
+    For internal frames, the `AccessibleContext`
+    takes the form of an
+    `AccessibleJInternalFrame` object.
+    A new `AccessibleJInternalFrame` instance is created if necessary.
+
+    Specified by:
+    :   `getAccessibleContext` in interface `Accessible`
+
+    Overrides:
+    :   `getAccessibleContext` in class `Component`
+
+    Returns:
+    :   an `AccessibleJInternalFrame` that serves as the
+        `AccessibleContext` of this
+        `JInternalFrame`
+
+    See Also:
+    :   - [`JInternalFrame.AccessibleJInternalFrame`](JInternalFrame.AccessibleJInternalFrame.md "class in javax.swing")

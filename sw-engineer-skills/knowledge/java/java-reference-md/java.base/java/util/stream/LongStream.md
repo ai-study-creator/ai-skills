@@ -1,0 +1,1377 @@
+Module [java.base](../../../module-summary.md)
+
+Package [java.util.stream](package-summary.md)
+
+# Interface LongStream
+
+All Superinterfaces:
+:   `AutoCloseable`, `BaseStream<Long,LongStream>`
+
+---
+
+public interface LongStream
+extends [BaseStream](BaseStream.md "interface in java.util.stream")<[Long](../../lang/Long.md "class in java.lang"),[LongStream](LongStream.md "interface in java.util.stream")>
+
+A sequence of primitive long-valued elements supporting sequential and parallel
+aggregate operations. This is the `long` primitive specialization of
+[`Stream`](Stream.md "interface in java.util.stream").
+
+The following example illustrates an aggregate operation using
+[`Stream`](Stream.md "interface in java.util.stream") and [`LongStream`](LongStream.md "interface in java.util.stream"), computing the sum of the weights of the
+red widgets:
+
+```
+     long sum = widgets.stream()
+                       .filter(w -> w.getColor() == RED)
+                       .mapToLong(w -> w.getWeight())
+                       .sum();
+```
+
+See the class documentation for [`Stream`](Stream.md "interface in java.util.stream") and the package documentation
+for [java.util.stream](package-summary.md) for additional
+specification of streams, stream operations, stream pipelines, and
+parallelism.
+
+Since:
+:   1.8
+
+See Also:
+:   * [`Stream`](Stream.md "interface in java.util.stream")
+    * [java.util.stream](package-summary.md)
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Interface
+
+  Description
+
+  `static interface`
+
+  `LongStream.Builder`
+
+  A mutable builder for a `LongStream`.
+
+  `static interface`
+
+  `LongStream.LongMapMultiConsumer`
+
+  Represents an operation that accepts a `long`-valued argument
+  and a LongConsumer, and returns no result.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsAbstract MethodsDefault Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `boolean`
+
+  `allMatch(LongPredicate predicate)`
+
+  Returns whether all elements of this stream match the provided predicate.
+
+  `boolean`
+
+  `anyMatch(LongPredicate predicate)`
+
+  Returns whether any elements of this stream match the provided
+  predicate.
+
+  `DoubleStream`
+
+  `asDoubleStream()`
+
+  Returns a `DoubleStream` consisting of the elements of this stream,
+  converted to `double`.
+
+  `OptionalDouble`
+
+  `average()`
+
+  Returns an `OptionalDouble` describing the arithmetic mean of elements of
+  this stream, or an empty optional if this stream is empty.
+
+  `Stream<Long>`
+
+  `boxed()`
+
+  Returns a `Stream` consisting of the elements of this stream,
+  each boxed to a `Long`.
+
+  `static LongStream.Builder`
+
+  `builder()`
+
+  Returns a builder for a `LongStream`.
+
+  `<R> R`
+
+  `collect(Supplier<R> supplier,
+  ObjLongConsumer<R> accumulator,
+  BiConsumer<R,R> combiner)`
+
+  Performs a [mutable
+  reduction](package-summary.md#MutableReduction) operation on the elements of this stream.
+
+  `static LongStream`
+
+  `concat(LongStream a,
+  LongStream b)`
+
+  Creates a lazily concatenated stream whose elements are all the
+  elements of the first stream followed by all the elements of the
+  second stream.
+
+  `long`
+
+  `count()`
+
+  Returns the count of elements in this stream.
+
+  `LongStream`
+
+  `distinct()`
+
+  Returns a stream consisting of the distinct elements of this stream.
+
+  `default LongStream`
+
+  `dropWhile(LongPredicate predicate)`
+
+  Returns, if this stream is ordered, a stream consisting of the remaining
+  elements of this stream after dropping the longest prefix of elements
+  that match the given predicate.
+
+  `static LongStream`
+
+  `empty()`
+
+  Returns an empty sequential `LongStream`.
+
+  `LongStream`
+
+  `filter(LongPredicate predicate)`
+
+  Returns a stream consisting of the elements of this stream that match
+  the given predicate.
+
+  `OptionalLong`
+
+  `findAny()`
+
+  Returns an [`OptionalLong`](../OptionalLong.md "class in java.util") describing some element of the stream, or
+  an empty `OptionalLong` if the stream is empty.
+
+  `OptionalLong`
+
+  `findFirst()`
+
+  Returns an [`OptionalLong`](../OptionalLong.md "class in java.util") describing the first element of this
+  stream, or an empty `OptionalLong` if the stream is empty.
+
+  `LongStream`
+
+  `flatMap(LongFunction<? extends LongStream> mapper)`
+
+  Returns a stream consisting of the results of replacing each element of
+  this stream with the contents of a mapped stream produced by applying
+  the provided mapping function to each element.
+
+  `void`
+
+  `forEach(LongConsumer action)`
+
+  Performs an action for each element of this stream.
+
+  `void`
+
+  `forEachOrdered(LongConsumer action)`
+
+  Performs an action for each element of this stream, guaranteeing that
+  each element is processed in encounter order for streams that have a
+  defined encounter order.
+
+  `static LongStream`
+
+  `generate(LongSupplier s)`
+
+  Returns an infinite sequential unordered stream where each element is
+  generated by the provided `LongSupplier`.
+
+  `static LongStream`
+
+  `iterate(long seed,
+  LongPredicate hasNext,
+  LongUnaryOperator next)`
+
+  Returns a sequential ordered `LongStream` produced by iterative
+  application of the given `next` function to an initial element,
+  conditioned on satisfying the given `hasNext` predicate.
+
+  `static LongStream`
+
+  `iterate(long seed,
+  LongUnaryOperator f)`
+
+  Returns an infinite sequential ordered `LongStream` produced by iterative
+  application of a function `f` to an initial element `seed`,
+  producing a `Stream` consisting of `seed`, `f(seed)`,
+  `f(f(seed))`, etc.
+
+  `PrimitiveIterator.OfLong`
+
+  `iterator()`
+
+  Returns an iterator for the elements of this stream.
+
+  `LongStream`
+
+  `limit(long maxSize)`
+
+  Returns a stream consisting of the elements of this stream, truncated
+  to be no longer than `maxSize` in length.
+
+  `LongStream`
+
+  `map(LongUnaryOperator mapper)`
+
+  Returns a stream consisting of the results of applying the given
+  function to the elements of this stream.
+
+  `default LongStream`
+
+  `mapMulti(LongStream.LongMapMultiConsumer mapper)`
+
+  Returns a stream consisting of the results of replacing each element of
+  this stream with multiple elements, specifically zero or more elements.
+
+  `DoubleStream`
+
+  `mapToDouble(LongToDoubleFunction mapper)`
+
+  Returns a `DoubleStream` consisting of the results of applying the
+  given function to the elements of this stream.
+
+  `IntStream`
+
+  `mapToInt(LongToIntFunction mapper)`
+
+  Returns an `IntStream` consisting of the results of applying the
+  given function to the elements of this stream.
+
+  `<U> Stream<U>`
+
+  `mapToObj(LongFunction<? extends U> mapper)`
+
+  Returns an object-valued `Stream` consisting of the results of
+  applying the given function to the elements of this stream.
+
+  `OptionalLong`
+
+  `max()`
+
+  Returns an `OptionalLong` describing the maximum element of this
+  stream, or an empty optional if this stream is empty.
+
+  `OptionalLong`
+
+  `min()`
+
+  Returns an `OptionalLong` describing the minimum element of this
+  stream, or an empty optional if this stream is empty.
+
+  `boolean`
+
+  `noneMatch(LongPredicate predicate)`
+
+  Returns whether no elements of this stream match the provided predicate.
+
+  `static LongStream`
+
+  `of(long t)`
+
+  Returns a sequential `LongStream` containing a single element.
+
+  `static LongStream`
+
+  `of(long... values)`
+
+  Returns a sequential ordered stream whose elements are the specified values.
+
+  `LongStream`
+
+  `parallel()`
+
+  Returns an equivalent stream that is parallel.
+
+  `LongStream`
+
+  `peek(LongConsumer action)`
+
+  Returns a stream consisting of the elements of this stream, additionally
+  performing the provided action on each element as elements are consumed
+  from the resulting stream.
+
+  `static LongStream`
+
+  `range(long startInclusive,
+  long endExclusive)`
+
+  Returns a sequential ordered `LongStream` from `startInclusive`
+  (inclusive) to `endExclusive` (exclusive) by an incremental step of
+  `1`.
+
+  `static LongStream`
+
+  `rangeClosed(long startInclusive,
+  long endInclusive)`
+
+  Returns a sequential ordered `LongStream` from `startInclusive`
+  (inclusive) to `endInclusive` (inclusive) by an incremental step of
+  `1`.
+
+  `long`
+
+  `reduce(long identity,
+  LongBinaryOperator op)`
+
+  Performs a [reduction](package-summary.md#Reduction) on the
+  elements of this stream, using the provided identity value and an
+  [associative](package-summary.md#Associativity)
+  accumulation function, and returns the reduced value.
+
+  `OptionalLong`
+
+  `reduce(LongBinaryOperator op)`
+
+  Performs a [reduction](package-summary.md#Reduction) on the
+  elements of this stream, using an
+  [associative](package-summary.md#Associativity) accumulation
+  function, and returns an `OptionalLong` describing the reduced value,
+  if any.
+
+  `LongStream`
+
+  `sequential()`
+
+  Returns an equivalent stream that is sequential.
+
+  `LongStream`
+
+  `skip(long n)`
+
+  Returns a stream consisting of the remaining elements of this stream
+  after discarding the first `n` elements of the stream.
+
+  `LongStream`
+
+  `sorted()`
+
+  Returns a stream consisting of the elements of this stream in sorted
+  order.
+
+  `Spliterator.OfLong`
+
+  `spliterator()`
+
+  Returns a spliterator for the elements of this stream.
+
+  `long`
+
+  `sum()`
+
+  Returns the sum of elements in this stream.
+
+  `LongSummaryStatistics`
+
+  `summaryStatistics()`
+
+  Returns a `LongSummaryStatistics` describing various summary data
+  about the elements of this stream.
+
+  `default LongStream`
+
+  `takeWhile(LongPredicate predicate)`
+
+  Returns, if this stream is ordered, a stream consisting of the longest
+  prefix of elements taken from this stream that match the given predicate.
+
+  `long[]`
+
+  `toArray()`
+
+  Returns an array containing the elements of this stream.
+
+  ### Methods inherited from interface java.util.stream.[BaseStream](BaseStream.md "interface in java.util.stream")
+
+  `close, isParallel, onClose, unordered`
+
+* ## Method Details
+
+  + ### filter
+
+    [LongStream](LongStream.md "interface in java.util.stream") filter([LongPredicate](../function/LongPredicate.md "interface in java.util.function") predicate)
+
+    Returns a stream consisting of the elements of this stream that match
+    the given predicate.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `predicate` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        predicate to apply to each element to determine if it
+        should be included
+
+    Returns:
+    :   the new stream
+  + ### map
+
+    [LongStream](LongStream.md "interface in java.util.stream") map([LongUnaryOperator](../function/LongUnaryOperator.md "interface in java.util.function") mapper)
+
+    Returns a stream consisting of the results of applying the given
+    function to the elements of this stream.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `mapper` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function to apply to each element
+
+    Returns:
+    :   the new stream
+  + ### mapToObj
+
+    <U> [Stream](Stream.md "interface in java.util.stream")<U> mapToObj([LongFunction](../function/LongFunction.md "interface in java.util.function")<? extends U> mapper)
+
+    Returns an object-valued `Stream` consisting of the results of
+    applying the given function to the elements of this stream.
+
+    This is an [intermediate operation](package-summary.md#StreamOps).
+
+    Type Parameters:
+    :   `U` - the element type of the new stream
+
+    Parameters:
+    :   `mapper` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function to apply to each element
+
+    Returns:
+    :   the new stream
+  + ### mapToInt
+
+    [IntStream](IntStream.md "interface in java.util.stream") mapToInt([LongToIntFunction](../function/LongToIntFunction.md "interface in java.util.function") mapper)
+
+    Returns an `IntStream` consisting of the results of applying the
+    given function to the elements of this stream.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `mapper` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function to apply to each element
+
+    Returns:
+    :   the new stream
+  + ### mapToDouble
+
+    [DoubleStream](DoubleStream.md "interface in java.util.stream") mapToDouble([LongToDoubleFunction](../function/LongToDoubleFunction.md "interface in java.util.function") mapper)
+
+    Returns a `DoubleStream` consisting of the results of applying the
+    given function to the elements of this stream.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `mapper` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function to apply to each element
+
+    Returns:
+    :   the new stream
+  + ### flatMap
+
+    [LongStream](LongStream.md "interface in java.util.stream") flatMap([LongFunction](../function/LongFunction.md "interface in java.util.function")<? extends [LongStream](LongStream.md "interface in java.util.stream")> mapper)
+
+    Returns a stream consisting of the results of replacing each element of
+    this stream with the contents of a mapped stream produced by applying
+    the provided mapping function to each element. Each mapped stream is
+    [`closed`](BaseStream.md#close()) after its contents
+    have been placed into this stream. (If a mapped stream is `null`
+    an empty stream is used, instead.)
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `mapper` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function to apply to each element which produces a
+        `LongStream` of new values
+
+    Returns:
+    :   the new stream
+
+    See Also:
+    :   - [`Stream.flatMap(Function)`](Stream.md#flatMap(java.util.function.Function))
+  + ### mapMulti
+
+    default [LongStream](LongStream.md "interface in java.util.stream") mapMulti([LongStream.LongMapMultiConsumer](LongStream.LongMapMultiConsumer.md "interface in java.util.stream") mapper)
+
+    Returns a stream consisting of the results of replacing each element of
+    this stream with multiple elements, specifically zero or more elements.
+    Replacement is performed by applying the provided mapping function to each
+    element in conjunction with a [consumer](../function/LongConsumer.md "interface in java.util.function") argument
+    that accepts replacement elements. The mapping function calls the consumer
+    zero or more times to provide the replacement elements.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    If the [consumer](../function/LongConsumer.md "interface in java.util.function") argument is used outside the scope of
+    its application to the mapping function, the results are undefined.
+
+    Parameters:
+    :   `mapper` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function that generates replacement elements
+
+    Returns:
+    :   the new stream
+
+    Since:
+    :   16
+
+    See Also:
+    :   - [`Stream.mapMulti`](Stream.md#mapMulti(java.util.function.BiConsumer))
+  + ### distinct
+
+    [LongStream](LongStream.md "interface in java.util.stream") distinct()
+
+    Returns a stream consisting of the distinct elements of this stream.
+
+    This is a [stateful
+    intermediate operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   the new stream
+  + ### sorted
+
+    [LongStream](LongStream.md "interface in java.util.stream") sorted()
+
+    Returns a stream consisting of the elements of this stream in sorted
+    order.
+
+    This is a [stateful
+    intermediate operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   the new stream
+  + ### peek
+
+    [LongStream](LongStream.md "interface in java.util.stream") peek([LongConsumer](../function/LongConsumer.md "interface in java.util.function") action)
+
+    Returns a stream consisting of the elements of this stream, additionally
+    performing the provided action on each element as elements are consumed
+    from the resulting stream.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    For parallel stream pipelines, the action may be called at
+    whatever time and in whatever thread the element is made available by the
+    upstream operation. If the action modifies shared state,
+    it is responsible for providing the required synchronization.
+
+    Parameters:
+    :   `action` - a [non-interfering](package-summary.md#NonInterference) action to perform on the elements as
+        they are consumed from the stream
+
+    Returns:
+    :   the new stream
+  + ### limit
+
+    [LongStream](LongStream.md "interface in java.util.stream") limit(long maxSize)
+
+    Returns a stream consisting of the elements of this stream, truncated
+    to be no longer than `maxSize` in length.
+
+    This is a [short-circuiting
+    stateful intermediate operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `maxSize` - the number of elements the stream should be limited to
+
+    Returns:
+    :   the new stream
+
+    Throws:
+    :   `IllegalArgumentException` - if `maxSize` is negative
+  + ### skip
+
+    [LongStream](LongStream.md "interface in java.util.stream") skip(long n)
+
+    Returns a stream consisting of the remaining elements of this stream
+    after discarding the first `n` elements of the stream.
+    If this stream contains fewer than `n` elements then an
+    empty stream will be returned.
+
+    This is a [stateful
+    intermediate operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `n` - the number of leading elements to skip
+
+    Returns:
+    :   the new stream
+
+    Throws:
+    :   `IllegalArgumentException` - if `n` is negative
+  + ### takeWhile
+
+    default [LongStream](LongStream.md "interface in java.util.stream") takeWhile([LongPredicate](../function/LongPredicate.md "interface in java.util.function") predicate)
+
+    Returns, if this stream is ordered, a stream consisting of the longest
+    prefix of elements taken from this stream that match the given predicate.
+    Otherwise returns, if this stream is unordered, a stream consisting of a
+    subset of elements taken from this stream that match the given predicate.
+
+    If this stream is ordered then the longest prefix is a contiguous
+    sequence of elements of this stream that match the given predicate. The
+    first element of the sequence is the first element of this stream, and
+    the element immediately following the last element of the sequence does
+    not match the given predicate.
+
+    If this stream is unordered, and some (but not all) elements of this
+    stream match the given predicate, then the behavior of this operation is
+    nondeterministic; it is free to take any subset of matching elements
+    (which includes the empty set).
+
+    Independent of whether this stream is ordered or unordered if all
+    elements of this stream match the given predicate then this operation
+    takes all elements (the result is the same as the input), or if no
+    elements of the stream match the given predicate then no elements are
+    taken (the result is an empty stream).
+
+    This is a [short-circuiting
+    stateful intermediate operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `predicate` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        predicate to apply to elements to determine the longest
+        prefix of elements.
+
+    Returns:
+    :   the new stream
+
+    Since:
+    :   9
+  + ### dropWhile
+
+    default [LongStream](LongStream.md "interface in java.util.stream") dropWhile([LongPredicate](../function/LongPredicate.md "interface in java.util.function") predicate)
+
+    Returns, if this stream is ordered, a stream consisting of the remaining
+    elements of this stream after dropping the longest prefix of elements
+    that match the given predicate. Otherwise returns, if this stream is
+    unordered, a stream consisting of the remaining elements of this stream
+    after dropping a subset of elements that match the given predicate.
+
+    If this stream is ordered then the longest prefix is a contiguous
+    sequence of elements of this stream that match the given predicate. The
+    first element of the sequence is the first element of this stream, and
+    the element immediately following the last element of the sequence does
+    not match the given predicate.
+
+    If this stream is unordered, and some (but not all) elements of this
+    stream match the given predicate, then the behavior of this operation is
+    nondeterministic; it is free to drop any subset of matching elements
+    (which includes the empty set).
+
+    Independent of whether this stream is ordered or unordered if all
+    elements of this stream match the given predicate then this operation
+    drops all elements (the result is an empty stream), or if no elements of
+    the stream match the given predicate then no elements are dropped (the
+    result is the same as the input).
+
+    This is a [stateful
+    intermediate operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `predicate` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        predicate to apply to elements to determine the longest
+        prefix of elements.
+
+    Returns:
+    :   the new stream
+
+    Since:
+    :   9
+  + ### forEach
+
+    void forEach([LongConsumer](../function/LongConsumer.md "interface in java.util.function") action)
+
+    Performs an action for each element of this stream.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    For parallel stream pipelines, this operation does *not*
+    guarantee to respect the encounter order of the stream, as doing so
+    would sacrifice the benefit of parallelism. For any given element, the
+    action may be performed at whatever time and in whatever thread the
+    library chooses. If the action accesses shared state, it is
+    responsible for providing the required synchronization.
+
+    Parameters:
+    :   `action` - a [non-interfering](package-summary.md#NonInterference) action to perform on the elements
+  + ### forEachOrdered
+
+    void forEachOrdered([LongConsumer](../function/LongConsumer.md "interface in java.util.function") action)
+
+    Performs an action for each element of this stream, guaranteeing that
+    each element is processed in encounter order for streams that have a
+    defined encounter order.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `action` - a [non-interfering](package-summary.md#NonInterference) action to perform on the elements
+
+    See Also:
+    :   - [`forEach(LongConsumer)`](#forEach(java.util.function.LongConsumer))
+  + ### toArray
+
+    long[] toArray()
+
+    Returns an array containing the elements of this stream.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   an array containing the elements of this stream
+  + ### reduce
+
+    long reduce(long identity,
+    [LongBinaryOperator](../function/LongBinaryOperator.md "interface in java.util.function") op)
+
+    Performs a [reduction](package-summary.md#Reduction) on the
+    elements of this stream, using the provided identity value and an
+    [associative](package-summary.md#Associativity)
+    accumulation function, and returns the reduced value. This is equivalent
+    to:
+
+    ```
+         long result = identity;
+         for (long element : this stream)
+             result = accumulator.applyAsLong(result, element)
+         return result;
+    ```
+
+    but is not constrained to execute sequentially.
+
+    The `identity` value must be an identity for the accumulator
+    function. This means that for all `x`,
+    `accumulator.apply(identity, x)` is equal to `x`.
+    The `accumulator` function must be an
+    [associative](package-summary.md#Associativity) function.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `identity` - the identity value for the accumulating function
+    :   `op` - an [associative](package-summary.md#Associativity),
+        [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function for combining two values
+
+    Returns:
+    :   the result of the reduction
+
+    See Also:
+    :   - [`sum()`](#sum())
+        - [`min()`](#min())
+        - [`max()`](#max())
+        - [`average()`](#average())
+  + ### reduce
+
+    [OptionalLong](../OptionalLong.md "class in java.util") reduce([LongBinaryOperator](../function/LongBinaryOperator.md "interface in java.util.function") op)
+
+    Performs a [reduction](package-summary.md#Reduction) on the
+    elements of this stream, using an
+    [associative](package-summary.md#Associativity) accumulation
+    function, and returns an `OptionalLong` describing the reduced value,
+    if any. This is equivalent to:
+
+    ```
+         boolean foundAny = false;
+         long result = null;
+         for (long element : this stream) {
+             if (!foundAny) {
+                 foundAny = true;
+                 result = element;
+             }
+             else
+                 result = accumulator.applyAsLong(result, element);
+         }
+         return foundAny ? OptionalLong.of(result) : OptionalLong.empty();
+    ```
+
+    but is not constrained to execute sequentially.
+
+    The `accumulator` function must be an
+    [associative](package-summary.md#Associativity) function.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `op` - an [associative](package-summary.md#Associativity),
+        [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function for combining two values
+
+    Returns:
+    :   the result of the reduction
+
+    See Also:
+    :   - [`reduce(long, LongBinaryOperator)`](#reduce(long,java.util.function.LongBinaryOperator))
+  + ### collect
+
+    <R> R collect([Supplier](../function/Supplier.md "interface in java.util.function")<R> supplier,
+    [ObjLongConsumer](../function/ObjLongConsumer.md "interface in java.util.function")<R> accumulator,
+    [BiConsumer](../function/BiConsumer.md "interface in java.util.function")<R,R> combiner)
+
+    Performs a [mutable
+    reduction](package-summary.md#MutableReduction) operation on the elements of this stream. A mutable
+    reduction is one in which the reduced value is a mutable result container,
+    such as an `ArrayList`, and elements are incorporated by updating
+    the state of the result rather than by replacing the result. This
+    produces a result equivalent to:
+
+    ```
+         R result = supplier.get();
+         for (long element : this stream)
+             accumulator.accept(result, element);
+         return result;
+    ```
+
+    Like [`reduce(long, LongBinaryOperator)`](#reduce(long,java.util.function.LongBinaryOperator)), `collect` operations
+    can be parallelized without requiring additional synchronization.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Type Parameters:
+    :   `R` - the type of the mutable result container
+
+    Parameters:
+    :   `supplier` - a function that creates a new mutable result container.
+        For a parallel execution, this function may be called
+        multiple times and must return a fresh value each time.
+    :   `accumulator` - an [associative](package-summary.md#Associativity),
+        [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function that must fold an element into a result
+        container.
+    :   `combiner` - an [associative](package-summary.md#Associativity),
+        [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        function that accepts two partial result containers
+        and merges them, which must be compatible with the
+        accumulator function. The combiner function must fold
+        the elements from the second result container into the
+        first result container.
+
+    Returns:
+    :   the result of the reduction
+
+    See Also:
+    :   - [`Stream.collect(Supplier, BiConsumer, BiConsumer)`](Stream.md#collect(java.util.function.Supplier,java.util.function.BiConsumer,java.util.function.BiConsumer))
+  + ### sum
+
+    long sum()
+
+    Returns the sum of elements in this stream. This is a special case
+    of a [reduction](package-summary.md#Reduction)
+    and is equivalent to:
+
+    ```
+         return reduce(0, Long::sum);
+    ```
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   the sum of elements in this stream
+  + ### min
+
+    [OptionalLong](../OptionalLong.md "class in java.util") min()
+
+    Returns an `OptionalLong` describing the minimum element of this
+    stream, or an empty optional if this stream is empty. This is a special
+    case of a [reduction](package-summary.md#Reduction)
+    and is equivalent to:
+
+    ```
+         return reduce(Long::min);
+    ```
+
+    This is a [terminal operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   an `OptionalLong` containing the minimum element of this
+        stream, or an empty `OptionalLong` if the stream is empty
+  + ### max
+
+    [OptionalLong](../OptionalLong.md "class in java.util") max()
+
+    Returns an `OptionalLong` describing the maximum element of this
+    stream, or an empty optional if this stream is empty. This is a special
+    case of a [reduction](package-summary.md#Reduction)
+    and is equivalent to:
+
+    ```
+         return reduce(Long::max);
+    ```
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   an `OptionalLong` containing the maximum element of this
+        stream, or an empty `OptionalLong` if the stream is empty
+  + ### count
+
+    long count()
+
+    Returns the count of elements in this stream. This is a special case of
+    a [reduction](package-summary.md#Reduction) and is
+    equivalent to:
+
+    ```
+         return map(e -> 1L).sum();
+    ```
+
+    This is a [terminal operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   the count of elements in this stream
+  + ### average
+
+    [OptionalDouble](../OptionalDouble.md "class in java.util") average()
+
+    Returns an `OptionalDouble` describing the arithmetic mean of elements of
+    this stream, or an empty optional if this stream is empty. This is a
+    special case of a
+    [reduction](package-summary.md#Reduction).
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   an `OptionalDouble` containing the average element of this
+        stream, or an empty optional if the stream is empty
+  + ### summaryStatistics
+
+    [LongSummaryStatistics](../LongSummaryStatistics.md "class in java.util") summaryStatistics()
+
+    Returns a `LongSummaryStatistics` describing various summary data
+    about the elements of this stream. This is a special case of a
+    [reduction](package-summary.md#Reduction).
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   a `LongSummaryStatistics` describing various summary data
+        about the elements of this stream
+  + ### anyMatch
+
+    boolean anyMatch([LongPredicate](../function/LongPredicate.md "interface in java.util.function") predicate)
+
+    Returns whether any elements of this stream match the provided
+    predicate. May not evaluate the predicate on all elements if not
+    necessary for determining the result. If the stream is empty then
+    `false` is returned and the predicate is not evaluated.
+
+    This is a [short-circuiting
+    terminal operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `predicate` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        predicate to apply to elements of this stream
+
+    Returns:
+    :   `true` if any elements of the stream match the provided
+        predicate, otherwise `false`
+  + ### allMatch
+
+    boolean allMatch([LongPredicate](../function/LongPredicate.md "interface in java.util.function") predicate)
+
+    Returns whether all elements of this stream match the provided predicate.
+    May not evaluate the predicate on all elements if not necessary for
+    determining the result. If the stream is empty then `true` is
+    returned and the predicate is not evaluated.
+
+    This is a [short-circuiting
+    terminal operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `predicate` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        predicate to apply to elements of this stream
+
+    Returns:
+    :   `true` if either all elements of the stream match the
+        provided predicate or the stream is empty, otherwise `false`
+  + ### noneMatch
+
+    boolean noneMatch([LongPredicate](../function/LongPredicate.md "interface in java.util.function") predicate)
+
+    Returns whether no elements of this stream match the provided predicate.
+    May not evaluate the predicate on all elements if not necessary for
+    determining the result. If the stream is empty then `true` is
+    returned and the predicate is not evaluated.
+
+    This is a [short-circuiting
+    terminal operation](package-summary.md#StreamOps).
+
+    Parameters:
+    :   `predicate` - a [non-interfering](package-summary.md#NonInterference),
+        [stateless](package-summary.md#Statelessness)
+        predicate to apply to elements of this stream
+
+    Returns:
+    :   `true` if either no elements of the stream match the
+        provided predicate or the stream is empty, otherwise `false`
+  + ### findFirst
+
+    [OptionalLong](../OptionalLong.md "class in java.util") findFirst()
+
+    Returns an [`OptionalLong`](../OptionalLong.md "class in java.util") describing the first element of this
+    stream, or an empty `OptionalLong` if the stream is empty. If the
+    stream has no encounter order, then any element may be returned.
+
+    This is a [short-circuiting
+    terminal operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   an `OptionalLong` describing the first element of this
+        stream, or an empty `OptionalLong` if the stream is empty
+  + ### findAny
+
+    [OptionalLong](../OptionalLong.md "class in java.util") findAny()
+
+    Returns an [`OptionalLong`](../OptionalLong.md "class in java.util") describing some element of the stream, or
+    an empty `OptionalLong` if the stream is empty.
+
+    This is a [short-circuiting
+    terminal operation](package-summary.md#StreamOps).
+
+    The behavior of this operation is explicitly nondeterministic; it is
+    free to select any element in the stream. This is to allow for maximal
+    performance in parallel operations; the cost is that multiple invocations
+    on the same source may not return the same result. (If a stable result
+    is desired, use [`findFirst()`](#findFirst()) instead.)
+
+    Returns:
+    :   an `OptionalLong` describing some element of this stream,
+        or an empty `OptionalLong` if the stream is empty
+
+    See Also:
+    :   - [`findFirst()`](#findFirst())
+  + ### asDoubleStream
+
+    [DoubleStream](DoubleStream.md "interface in java.util.stream") asDoubleStream()
+
+    Returns a `DoubleStream` consisting of the elements of this stream,
+    converted to `double`.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   a `DoubleStream` consisting of the elements of this stream,
+        converted to `double`
+  + ### boxed
+
+    [Stream](Stream.md "interface in java.util.stream")<[Long](../../lang/Long.md "class in java.lang")> boxed()
+
+    Returns a `Stream` consisting of the elements of this stream,
+    each boxed to a `Long`.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Returns:
+    :   a `Stream` consistent of the elements of this stream,
+        each boxed to `Long`
+  + ### sequential
+
+    [LongStream](LongStream.md "interface in java.util.stream") sequential()
+
+    Description copied from interface: `BaseStream`
+
+    Returns an equivalent stream that is sequential. May return
+    itself, either because the stream was already sequential, or because
+    the underlying stream state was modified to be sequential.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Specified by:
+    :   `sequential` in interface `BaseStream<Long,LongStream>`
+
+    Returns:
+    :   a sequential stream
+  + ### parallel
+
+    [LongStream](LongStream.md "interface in java.util.stream") parallel()
+
+    Description copied from interface: `BaseStream`
+
+    Returns an equivalent stream that is parallel. May return
+    itself, either because the stream was already parallel, or because
+    the underlying stream state was modified to be parallel.
+
+    This is an [intermediate
+    operation](package-summary.md#StreamOps).
+
+    Specified by:
+    :   `parallel` in interface `BaseStream<Long,LongStream>`
+
+    Returns:
+    :   a parallel stream
+  + ### iterator
+
+    [PrimitiveIterator.OfLong](../PrimitiveIterator.OfLong.md "interface in java.util") iterator()
+
+    Description copied from interface: `BaseStream`
+
+    Returns an iterator for the elements of this stream.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Specified by:
+    :   `iterator` in interface `BaseStream<Long,LongStream>`
+
+    Returns:
+    :   the element iterator for this stream
+  + ### spliterator
+
+    [Spliterator.OfLong](../Spliterator.OfLong.md "interface in java.util") spliterator()
+
+    Description copied from interface: `BaseStream`
+
+    Returns a spliterator for the elements of this stream.
+
+    This is a [terminal
+    operation](package-summary.md#StreamOps).
+
+    Specified by:
+    :   `spliterator` in interface `BaseStream<Long,LongStream>`
+
+    Returns:
+    :   the element spliterator for this stream
+  + ### builder
+
+    static [LongStream.Builder](LongStream.Builder.md "interface in java.util.stream") builder()
+
+    Returns a builder for a `LongStream`.
+
+    Returns:
+    :   a stream builder
+  + ### empty
+
+    static [LongStream](LongStream.md "interface in java.util.stream") empty()
+
+    Returns an empty sequential `LongStream`.
+
+    Returns:
+    :   an empty sequential stream
+  + ### of
+
+    static [LongStream](LongStream.md "interface in java.util.stream") of(long t)
+
+    Returns a sequential `LongStream` containing a single element.
+
+    Parameters:
+    :   `t` - the single element
+
+    Returns:
+    :   a singleton sequential stream
+  + ### of
+
+    static [LongStream](LongStream.md "interface in java.util.stream") of(long... values)
+
+    Returns a sequential ordered stream whose elements are the specified values.
+
+    Parameters:
+    :   `values` - the elements of the new stream
+
+    Returns:
+    :   the new stream
+  + ### iterate
+
+    static [LongStream](LongStream.md "interface in java.util.stream") iterate(long seed,
+    [LongUnaryOperator](../function/LongUnaryOperator.md "interface in java.util.function") f)
+
+    Returns an infinite sequential ordered `LongStream` produced by iterative
+    application of a function `f` to an initial element `seed`,
+    producing a `Stream` consisting of `seed`, `f(seed)`,
+    `f(f(seed))`, etc.
+
+    The first element (position `0`) in the `LongStream` will
+    be the provided `seed`. For `n > 0`, the element at position
+    `n`, will be the result of applying the function `f` to the
+    element at position `n - 1`.
+
+    The action of applying `f` for one element
+    [*happens-before*](../concurrent/package-summary.md#MemoryVisibility)
+    the action of applying `f` for subsequent elements. For any given
+    element the action may be performed in whatever thread the library
+    chooses.
+
+    Parameters:
+    :   `seed` - the initial element
+    :   `f` - a function to be applied to the previous element to produce
+        a new element
+
+    Returns:
+    :   a new sequential `LongStream`
+  + ### iterate
+
+    static [LongStream](LongStream.md "interface in java.util.stream") iterate(long seed,
+    [LongPredicate](../function/LongPredicate.md "interface in java.util.function") hasNext,
+    [LongUnaryOperator](../function/LongUnaryOperator.md "interface in java.util.function") next)
+
+    Returns a sequential ordered `LongStream` produced by iterative
+    application of the given `next` function to an initial element,
+    conditioned on satisfying the given `hasNext` predicate. The
+    stream terminates as soon as the `hasNext` predicate returns false.
+
+    `LongStream.iterate` should produce the same sequence of elements as
+    produced by the corresponding for-loop:
+
+    ```
+         for (long index=seed; hasNext.test(index); index = next.applyAsLong(index)) {
+             ...
+         }
+    ```
+
+    The resulting sequence may be empty if the `hasNext` predicate
+    does not hold on the seed value. Otherwise the first element will be the
+    supplied `seed` value, the next element (if present) will be the
+    result of applying the `next` function to the `seed` value,
+    and so on iteratively until the `hasNext` predicate indicates that
+    the stream should terminate.
+
+    The action of applying the `hasNext` predicate to an element
+    [*happens-before*](../concurrent/package-summary.md#MemoryVisibility)
+    the action of applying the `next` function to that element. The
+    action of applying the `next` function for one element
+    *happens-before* the action of applying the `hasNext`
+    predicate for subsequent elements. For any given element an action may
+    be performed in whatever thread the library chooses.
+
+    Parameters:
+    :   `seed` - the initial element
+    :   `hasNext` - a predicate to apply to elements to determine when the
+        stream must terminate.
+    :   `next` - a function to be applied to the previous element to produce
+        a new element
+
+    Returns:
+    :   a new sequential `LongStream`
+
+    Since:
+    :   9
+  + ### generate
+
+    static [LongStream](LongStream.md "interface in java.util.stream") generate([LongSupplier](../function/LongSupplier.md "interface in java.util.function") s)
+
+    Returns an infinite sequential unordered stream where each element is
+    generated by the provided `LongSupplier`. This is suitable for
+    generating constant streams, streams of random elements, etc.
+
+    Parameters:
+    :   `s` - the `LongSupplier` for generated elements
+
+    Returns:
+    :   a new infinite sequential unordered `LongStream`
+  + ### range
+
+    static [LongStream](LongStream.md "interface in java.util.stream") range(long startInclusive,
+    long endExclusive)
+
+    Returns a sequential ordered `LongStream` from `startInclusive`
+    (inclusive) to `endExclusive` (exclusive) by an incremental step of
+    `1`.
+
+    Parameters:
+    :   `startInclusive` - the (inclusive) initial value
+    :   `endExclusive` - the exclusive upper bound
+
+    Returns:
+    :   a sequential `LongStream` for the range of `long`
+        elements
+  + ### rangeClosed
+
+    static [LongStream](LongStream.md "interface in java.util.stream") rangeClosed(long startInclusive,
+    long endInclusive)
+
+    Returns a sequential ordered `LongStream` from `startInclusive`
+    (inclusive) to `endInclusive` (inclusive) by an incremental step of
+    `1`.
+
+    Parameters:
+    :   `startInclusive` - the (inclusive) initial value
+    :   `endInclusive` - the inclusive upper bound
+
+    Returns:
+    :   a sequential `LongStream` for the range of `long`
+        elements
+  + ### concat
+
+    static [LongStream](LongStream.md "interface in java.util.stream") concat([LongStream](LongStream.md "interface in java.util.stream") a,
+    [LongStream](LongStream.md "interface in java.util.stream") b)
+
+    Creates a lazily concatenated stream whose elements are all the
+    elements of the first stream followed by all the elements of the
+    second stream. The resulting stream is ordered if both
+    of the input streams are ordered, and parallel if either of the input
+    streams is parallel. When the resulting stream is closed, the close
+    handlers for both input streams are invoked.
+
+    This method operates on the two input streams and binds each stream
+    to its source. As a result subsequent modifications to an input stream
+    source may not be reflected in the concatenated stream result.
+
+    Parameters:
+    :   `a` - the first stream
+    :   `b` - the second stream
+
+    Returns:
+    :   the concatenation of the two input streams

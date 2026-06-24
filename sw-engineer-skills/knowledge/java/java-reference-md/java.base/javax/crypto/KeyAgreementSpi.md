@@ -1,0 +1,304 @@
+Module [java.base](../../module-summary.md)
+
+Package [javax.crypto](package-summary.md)
+
+# Class KeyAgreementSpi
+
+[java.lang.Object](../../java/lang/Object.md "class in java.lang")
+
+javax.crypto.KeyAgreementSpi
+
+---
+
+public abstract class KeyAgreementSpi
+extends [Object](../../java/lang/Object.md "class in java.lang")
+
+This class defines the *Service Provider Interface* (**SPI**)
+for the `KeyAgreement` class.
+All the abstract methods in this class must be implemented by each
+cryptographic service provider who wishes to supply the implementation
+of a particular key agreement algorithm.
+
+The keys involved in establishing a shared secret are created by one
+of the
+key generators (`KeyPairGenerator` or
+`KeyGenerator`), a `KeyFactory`, or as a result from
+an intermediate phase of the key agreement protocol
+([`engineDoPhase`](#engineDoPhase(java.security.Key,boolean))).
+
+For each of the correspondents in the key exchange,
+`engineDoPhase`
+needs to be called. For example, if the key exchange is with one other
+party, `engineDoPhase` needs to be called once, with the
+`lastPhase` flag set to `true`.
+If the key exchange is
+with two other parties, `engineDoPhase` needs to be called twice,
+the first time setting the `lastPhase` flag to
+`false`, and the second time setting it to `true`.
+There may be any number of parties involved in a key exchange.
+
+Since:
+:   1.4
+
+See Also:
+:   * [`KeyGenerator`](KeyGenerator.md "class in javax.crypto")
+    * [`SecretKey`](SecretKey.md "interface in javax.crypto")
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `KeyAgreementSpi()`
+
+  Constructor for subclasses to call.
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `protected abstract Key`
+
+  `engineDoPhase(Key key,
+  boolean lastPhase)`
+
+  Executes the next phase of this key agreement with the given
+  key that was received from one of the other parties involved in this key
+  agreement.
+
+  `protected abstract byte[]`
+
+  `engineGenerateSecret()`
+
+  Generates the shared secret and returns it in a new buffer.
+
+  `protected abstract int`
+
+  `engineGenerateSecret(byte[] sharedSecret,
+  int offset)`
+
+  Generates the shared secret, and places it into the buffer
+  `sharedSecret`, beginning at `offset` inclusive.
+
+  `protected abstract SecretKey`
+
+  `engineGenerateSecret(String algorithm)`
+
+  Creates the shared secret and returns it as a secret key object
+  of the requested algorithm type.
+
+  `protected abstract void`
+
+  `engineInit(Key key,
+  SecureRandom random)`
+
+  Initializes this key agreement with the given key and source of
+  randomness.
+
+  `protected abstract void`
+
+  `engineInit(Key key,
+  AlgorithmParameterSpec params,
+  SecureRandom random)`
+
+  Initializes this key agreement with the given key, set of
+  algorithm parameters, and source of randomness.
+
+  ### Methods inherited from class java.lang.[Object](../../java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### KeyAgreementSpi
+
+    public KeyAgreementSpi()
+
+    Constructor for subclasses to call.
+* ## Method Details
+
+  + ### engineInit
+
+    protected abstract void engineInit([Key](../../java/security/Key.md "interface in java.security") key,
+    [SecureRandom](../../java/security/SecureRandom.md "class in java.security") random)
+    throws [InvalidKeyException](../../java/security/InvalidKeyException.md "class in java.security")
+
+    Initializes this key agreement with the given key and source of
+    randomness. The given key is required to contain all the algorithm
+    parameters required for this key agreement.
+
+    If the key agreement algorithm requires random bytes, it gets them
+    from the given source of randomness, `random`.
+    However, if the underlying
+    algorithm implementation does not require any random bytes,
+    `random` is ignored.
+
+    Parameters:
+    :   `key` - the party's private information. For example, in the case
+        of the Diffie-Hellman key agreement, this would be the party's own
+        Diffie-Hellman private key.
+    :   `random` - the source of randomness
+
+    Throws:
+    :   `InvalidKeyException` - if the given key is
+        inappropriate for this key agreement, e.g., is of the wrong type or
+        has an incompatible algorithm type.
+  + ### engineInit
+
+    protected abstract void engineInit([Key](../../java/security/Key.md "interface in java.security") key,
+    [AlgorithmParameterSpec](../../java/security/spec/AlgorithmParameterSpec.md "interface in java.security.spec") params,
+    [SecureRandom](../../java/security/SecureRandom.md "class in java.security") random)
+    throws [InvalidKeyException](../../java/security/InvalidKeyException.md "class in java.security"),
+    [InvalidAlgorithmParameterException](../../java/security/InvalidAlgorithmParameterException.md "class in java.security")
+
+    Initializes this key agreement with the given key, set of
+    algorithm parameters, and source of randomness.
+
+    Parameters:
+    :   `key` - the party's private information. For example, in the case
+        of the Diffie-Hellman key agreement, this would be the party's own
+        Diffie-Hellman private key.
+    :   `params` - the key agreement parameters
+    :   `random` - the source of randomness
+
+    Throws:
+    :   `InvalidKeyException` - if the given key is
+        inappropriate for this key agreement, e.g., is of the wrong type or
+        has an incompatible algorithm type.
+    :   `InvalidAlgorithmParameterException` - if the given parameters
+        are inappropriate for this key agreement.
+  + ### engineDoPhase
+
+    protected abstract [Key](../../java/security/Key.md "interface in java.security") engineDoPhase([Key](../../java/security/Key.md "interface in java.security") key,
+    boolean lastPhase)
+    throws [InvalidKeyException](../../java/security/InvalidKeyException.md "class in java.security"),
+    [IllegalStateException](../../java/lang/IllegalStateException.md "class in java.lang")
+
+    Executes the next phase of this key agreement with the given
+    key that was received from one of the other parties involved in this key
+    agreement.
+
+    Parameters:
+    :   `key` - the key for this phase. For example, in the case of
+        Diffie-Hellman between 2 parties, this would be the other party's
+        Diffie-Hellman public key.
+    :   `lastPhase` - flag which indicates whether this is the last
+        phase of this key agreement.
+
+    Returns:
+    :   the (intermediate) key resulting from this phase,
+        or `null` if this phase does not yield a key
+
+    Throws:
+    :   `InvalidKeyException` - if the given key is inappropriate for
+        this phase.
+    :   `IllegalStateException` - if this key agreement has not been
+        initialized.
+  + ### engineGenerateSecret
+
+    protected abstract byte[] engineGenerateSecret()
+    throws [IllegalStateException](../../java/lang/IllegalStateException.md "class in java.lang")
+
+    Generates the shared secret and returns it in a new buffer.
+
+    This method resets this `KeyAgreementSpi` object to the state
+    that it was in after the most recent call to one of the `init`
+    methods. After a call to `generateSecret`, the object can be reused
+    for further key agreement operations by calling `doPhase` to supply
+    new keys, and then calling `generateSecret` to produce a new
+    secret. In this case, the private information and algorithm parameters
+    supplied to `init` will be used for multiple key agreement
+    operations. The `init` method can be called after
+    `generateSecret` to change the private information used in
+    subsequent operations.
+
+    Returns:
+    :   the new buffer with the shared secret
+
+    Throws:
+    :   `IllegalStateException` - if this key agreement has not been
+        initialized or if `doPhase` has not been called to supply the
+        keys for all parties in the agreement
+  + ### engineGenerateSecret
+
+    protected abstract int engineGenerateSecret(byte[] sharedSecret,
+    int offset)
+    throws [IllegalStateException](../../java/lang/IllegalStateException.md "class in java.lang"),
+    [ShortBufferException](ShortBufferException.md "class in javax.crypto")
+
+    Generates the shared secret, and places it into the buffer
+    `sharedSecret`, beginning at `offset` inclusive.
+
+    If the `sharedSecret` buffer is too small to hold the
+    result, a `ShortBufferException` is thrown.
+    In this case, this call should be repeated with a larger output buffer.
+
+    This method resets this `KeyAgreementSpi` object to the state
+    that it was in after the most recent call to one of the `init`
+    methods. After a call to `generateSecret`, the object can be reused
+    for further key agreement operations by calling `doPhase` to supply
+    new keys, and then calling `generateSecret` to produce a new
+    secret. In this case, the private information and algorithm parameters
+    supplied to `init` will be used for multiple key agreement
+    operations. The `init` method can be called after
+    `generateSecret` to change the private information used in
+    subsequent operations.
+
+    Parameters:
+    :   `sharedSecret` - the buffer for the shared secret
+    :   `offset` - the offset in `sharedSecret` where the
+        shared secret will be stored
+
+    Returns:
+    :   the number of bytes placed into `sharedSecret`
+
+    Throws:
+    :   `IllegalStateException` - if this key agreement has not been
+        initialized or if `doPhase` has not been called to supply the
+        keys for all parties in the agreement
+    :   `ShortBufferException` - if the given output buffer is too small
+        to hold the secret
+  + ### engineGenerateSecret
+
+    protected abstract [SecretKey](SecretKey.md "interface in javax.crypto") engineGenerateSecret([String](../../java/lang/String.md "class in java.lang") algorithm)
+    throws [IllegalStateException](../../java/lang/IllegalStateException.md "class in java.lang"),
+    [NoSuchAlgorithmException](../../java/security/NoSuchAlgorithmException.md "class in java.security"),
+    [InvalidKeyException](../../java/security/InvalidKeyException.md "class in java.security")
+
+    Creates the shared secret and returns it as a secret key object
+    of the requested algorithm type.
+
+    This method resets this `KeyAgreementSpi` object to the state
+    that it was in after the most recent call to one of the `init`
+    methods. After a call to `generateSecret`, the object can be reused
+    for further key agreement operations by calling `doPhase` to supply
+    new keys, and then calling `generateSecret` to produce a new
+    secret. In this case, the private information and algorithm parameters
+    supplied to `init` will be used for multiple key agreement
+    operations. The `init` method can be called after
+    `generateSecret` to change the private information used in
+    subsequent operations.
+
+    Parameters:
+    :   `algorithm` - the requested secret key algorithm
+
+    Returns:
+    :   the shared secret key
+
+    Throws:
+    :   `IllegalStateException` - if this key agreement has not been
+        initialized or if `doPhase` has not been called to supply the
+        keys for all parties in the agreement
+    :   `NoSuchAlgorithmException` - if the requested secret key
+        algorithm is not available
+    :   `InvalidKeyException` - if the shared secret key material cannot
+        be used to generate a secret key of the requested algorithm type (e.g.,
+        the key material is too short)

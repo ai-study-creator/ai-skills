@@ -1,0 +1,1411 @@
+Module [java.datatransfer](../../../module-summary.md)
+
+Package [java.awt.datatransfer](package-summary.md)
+
+# Class DataFlavor
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+java.awt.datatransfer.DataFlavor
+
+All Implemented Interfaces:
+:   `Externalizable`, `Serializable`, `Cloneable`
+
+---
+
+public class DataFlavor
+extends [Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+implements [Externalizable](../../../../java.base/java/io/Externalizable.md "interface in java.io"), [Cloneable](../../../../java.base/java/lang/Cloneable.md "interface in java.lang")
+
+A `DataFlavor` provides meta information about data. `DataFlavor`
+is typically used to access data on the clipboard, or during a drag and drop
+operation.
+
+An instance of `DataFlavor` encapsulates a content type as defined in
+[RFC 2045](http://www.ietf.org/rfc/rfc2045.txt) and
+[RFC 2046](http://www.ietf.org/rfc/rfc2046.txt). A content type is
+typically referred to as a MIME type.
+
+A content type consists of a media type (referred to as the primary type), a
+subtype, and optional parameters. See
+[RFC 2045](http://www.ietf.org/rfc/rfc2045.txt) for details on the
+syntax of a MIME type.
+
+The JRE data transfer implementation interprets the parameter
+"class" of a MIME type as **a representation class**. The
+representation class reflects the class of the object being transferred. In
+other words, the representation class is the type of object returned by
+[`Transferable.getTransferData(java.awt.datatransfer.DataFlavor)`](Transferable.md#getTransferData(java.awt.datatransfer.DataFlavor)). For example, the MIME type of
+[`imageFlavor`](#imageFlavor) is `"image/x-java-image;class=java.awt.Image"`,
+the primary type is `image`, the subtype is `x-java-image`, and
+the representation class is `java.awt.Image`. When
+`getTransferData` is invoked with a `DataFlavor` of
+`imageFlavor`, an instance of `java.awt.Image` is returned. It's
+important to note that `DataFlavor` does no error checking against the
+representation class. It is up to consumers of `DataFlavor`, such as
+`Transferable`, to honor the representation class.
+  
+Note, if you do not specify a representation class when creating a
+`DataFlavor`, the default representation class is used. See appropriate
+documentation for `DataFlavor`'s constructors.
+
+Also, `DataFlavor` instances with the "text" primary MIME
+type may have a "charset" parameter. Refer to
+[RFC 2046](http://www.ietf.org/rfc/rfc2046.txt) and
+[`selectBestTextFlavor(java.awt.datatransfer.DataFlavor[])`](#selectBestTextFlavor(java.awt.datatransfer.DataFlavor%5B%5D)) for details on "text" MIME types and
+the "charset" parameter.
+
+Equality of `DataFlavors` is determined by the primary type, subtype,
+and representation class. Refer to [`equals(DataFlavor)`](#equals(java.awt.datatransfer.DataFlavor)) for details.
+When determining equality, any optional parameters are ignored. For example,
+the following produces two `DataFlavors` that are considered identical:
+
+```
+   DataFlavor flavor1 = new DataFlavor(Object.class, "X-test/test; class=<java.lang.Object>; foo=bar");
+   DataFlavor flavor2 = new DataFlavor(Object.class, "X-test/test; class=<java.lang.Object>; x=y");
+   // The following returns true.
+   flavor1.equals(flavor2);
+```
+
+As mentioned, `flavor1` and `flavor2` are considered identical.
+As such, asking a `Transferable` for either `DataFlavor` returns
+the same results.
+
+For more information on using data transfer with Swing see the
+[How
+to Use Drag and Drop and Data Transfer](http://docs.oracle.com/javase/tutorial/uiswing/dnd/index.html), section in
+*The Java Tutorial*.
+
+Since:
+:   1.1
+
+See Also:
+:   * [Serialized Form](../../../../serialized-form.md#java.awt.datatransfer.DataFlavor)
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final DataFlavor`
+
+  `allHtmlFlavor`
+
+  Represents a piece of an HTML markup.
+
+  `static final DataFlavor`
+
+  `fragmentHtmlFlavor`
+
+  Represents a piece of an HTML markup.
+
+  `static final DataFlavor`
+
+  `imageFlavor`
+
+  The `DataFlavor` representing a Java Image class, where:
+
+  `static final DataFlavor`
+
+  `javaFileListFlavor`
+
+  To transfer a list of files to/from Java (and the underlying platform) a
+  `DataFlavor` of this type/subtype and representation class of
+  `java.util.List` is used.
+
+  `static final String`
+
+  `javaJVMLocalObjectMimeType`
+
+  To transfer a reference to an arbitrary Java object reference that has no
+  associated MIME Content-type, across a `Transferable` interface
+  WITHIN THE SAME JVM, a `DataFlavor` with this type/subtype is used,
+  with a `representationClass` equal to the type of the
+  class/interface being passed across the `Transferable`.
+
+  `static final String`
+
+  `javaRemoteObjectMimeType`
+
+  In order to pass a live link to a Remote object via a Drag and Drop
+  `ACTION_LINK` operation a Mime Content Type of
+  application/x-java-remote-object should be used, where the representation
+  class of the `DataFlavor` represents the type of the `Remote`
+  interface to be transferred.
+
+  `static final String`
+
+  `javaSerializedObjectMimeType`
+
+  A MIME Content-Type of application/x-java-serialized-object represents a
+  graph of Java object(s) that have been made persistent.
+
+  `static final DataFlavor`
+
+  `plainTextFlavor`
+
+  Deprecated.
+
+  as of 1.3.
+
+  `static final DataFlavor`
+
+  `selectionHtmlFlavor`
+
+  Represents a piece of an HTML markup.
+
+  `static final DataFlavor`
+
+  `stringFlavor`
+
+  The `DataFlavor` representing a Java Unicode String class, where:
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `DataFlavor()`
+
+  Constructs a new `DataFlavor`.
+
+  `DataFlavor(Class<?> representationClass,
+  String humanPresentableName)`
+
+  Constructs a `DataFlavor` that represents a Java class.
+
+  `DataFlavor(String mimeType)`
+
+  Constructs a `DataFlavor` from a `mimeType` string.
+
+  `DataFlavor(String mimeType,
+  String humanPresentableName)`
+
+  Constructs a `DataFlavor` that represents a `MimeType`.
+
+  `DataFlavor(String mimeType,
+  String humanPresentableName,
+  ClassLoader classLoader)`
+
+  Constructs a `DataFlavor` that represents a `MimeType`.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete MethodsDeprecated Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `Object`
+
+  `clone()`
+
+  Returns a clone of this `DataFlavor`.
+
+  `boolean`
+
+  `equals(DataFlavor that)`
+
+  This method has the same behavior as [`equals(Object)`](#equals(java.lang.Object)).
+
+  `boolean`
+
+  `equals(Object o)`
+
+  Indicates whether some other object is "equal to" this one.
+
+  `boolean`
+
+  `equals(String s)`
+
+  Deprecated.
+
+  As inconsistent with `hashCode()` contract, use
+  [`isMimeTypeEqual(String)`](#isMimeTypeEqual(java.lang.String)) instead.
+
+  `final Class<?>`
+
+  `getDefaultRepresentationClass()`
+
+  Returns the default representation class.
+
+  `final String`
+
+  `getDefaultRepresentationClassAsString()`
+
+  Returns the name of the default representation class.
+
+  `String`
+
+  `getHumanPresentableName()`
+
+  Returns the human presentable name for the data format that this
+  `DataFlavor` represents.
+
+  `String`
+
+  `getMimeType()`
+
+  Returns the MIME type string for this `DataFlavor`.
+
+  `String`
+
+  `getParameter(String paramName)`
+
+  Returns the human presentable name for this `DataFlavor` if
+  `paramName` equals "humanPresentableName".
+
+  `String`
+
+  `getPrimaryType()`
+
+  Returns the primary MIME type for this `DataFlavor`.
+
+  `Reader`
+
+  `getReaderForText(Transferable transferable)`
+
+  Gets a Reader for a text flavor, decoded, if necessary, for the expected
+  charset (encoding).
+
+  `Class<?>`
+
+  `getRepresentationClass()`
+
+  Returns the `Class` which objects supporting this
+  `DataFlavor` will return when this `DataFlavor` is requested.
+
+  `String`
+
+  `getSubType()`
+
+  Returns the sub MIME type of this `DataFlavor`.
+
+  `static final DataFlavor`
+
+  `getTextPlainUnicodeFlavor()`
+
+  Returns a `DataFlavor` representing plain text with Unicode
+  encoding, where:
+
+  `int`
+
+  `hashCode()`
+
+  Returns hash code for this `DataFlavor`.
+
+  `boolean`
+
+  `isFlavorJavaFileListType()`
+
+  Returns `true` if the `DataFlavor` specified represents a
+  list of file objects.
+
+  `boolean`
+
+  `isFlavorRemoteObjectType()`
+
+  Returns `true` if the `DataFlavor` specified represents a
+  remote object.
+
+  `boolean`
+
+  `isFlavorSerializedObjectType()`
+
+  Returns `true` if the `DataFlavor` specified represents a
+  serialized object.
+
+  `boolean`
+
+  `isFlavorTextType()`
+
+  Returns whether this `DataFlavor` is a valid text flavor for this
+  implementation of the Java platform.
+
+  `final boolean`
+
+  `isMimeTypeEqual(DataFlavor dataFlavor)`
+
+  Compares the `mimeType` of two `DataFlavor` objects.
+
+  `boolean`
+
+  `isMimeTypeEqual(String mimeType)`
+
+  Returns whether the string representation of the MIME type passed in is
+  equivalent to the MIME type of this `DataFlavor`.
+
+  `boolean`
+
+  `isMimeTypeSerializedObject()`
+
+  Does the `DataFlavor` represent a serialized object?
+
+  `boolean`
+
+  `isRepresentationClassByteBuffer()`
+
+  Returns whether the representation class for this `DataFlavor` is
+  `java.nio.ByteBuffer` or a subclass thereof.
+
+  `boolean`
+
+  `isRepresentationClassCharBuffer()`
+
+  Returns whether the representation class for this `DataFlavor` is
+  `java.nio.CharBuffer` or a subclass thereof.
+
+  `boolean`
+
+  `isRepresentationClassInputStream()`
+
+  Does the `DataFlavor` represent a `java.io.InputStream`?
+
+  `boolean`
+
+  `isRepresentationClassReader()`
+
+  Returns whether the representation class for this `DataFlavor` is
+  `java.io.Reader` or a subclass thereof.
+
+  `boolean`
+
+  `isRepresentationClassRemote()`
+
+  Returns `true` if the representation class is `Remote`.
+
+  `boolean`
+
+  `isRepresentationClassSerializable()`
+
+  Returns `true` if the representation class can be serialized.
+
+  `boolean`
+
+  `match(DataFlavor that)`
+
+  Identical to [`equals(DataFlavor)`](#equals(java.awt.datatransfer.DataFlavor)).
+
+  `protected String`
+
+  `normalizeMimeType(String mimeType)`
+
+  Deprecated.
+
+  This method is never invoked by this implementation from 1.1
+  onwards
+
+  `protected String`
+
+  `normalizeMimeTypeParameter(String parameterName,
+  String parameterValue)`
+
+  Deprecated.
+
+  This method is never invoked by this implementation from 1.1
+  onwards
+
+  `void`
+
+  `readExternal(ObjectInput is)`
+
+  Restores this `DataFlavor` from a Serialized state.
+
+  `static final DataFlavor`
+
+  `selectBestTextFlavor(DataFlavor[] availableFlavors)`
+
+  Selects the best text `DataFlavor` from an array of
+  `DataFlavor`s.
+
+  `void`
+
+  `setHumanPresentableName(String humanPresentableName)`
+
+  Sets the human presentable name for the data format that this
+  `DataFlavor` represents.
+
+  `String`
+
+  `toString()`
+
+  String representation of this `DataFlavor` and its parameters.
+
+  `protected static final Class<?>`
+
+  `tryToLoadClass(String className,
+  ClassLoader fallback)`
+
+  Tries to load a class from: the bootstrap loader, the system loader, the
+  context loader (if one is present) and finally the loader specified.
+
+  `void`
+
+  `writeExternal(ObjectOutput os)`
+
+  Serializes this `DataFlavor`.
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `finalize, getClass, notify, notifyAll, wait, wait, wait`
+
+* ## Field Details
+
+  + ### stringFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") stringFlavor
+
+    The `DataFlavor` representing a Java Unicode String class, where:
+
+    ```
+         representationClass = java.lang.String
+         mimeType            = "application/x-java-serialized-object"
+    ```
+  + ### imageFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") imageFlavor
+
+    The `DataFlavor` representing a Java Image class, where:
+
+    ```
+         representationClass = java.awt.Image
+         mimeType            = "image/x-java-image"
+    ```
+
+    Will be `null` if `java.awt.Image` is not visible, the
+    `java.desktop` module is not loaded, or the `java.desktop`
+    module is not in the run-time image.
+  + ### plainTextFlavor
+
+    [@Deprecated](../../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") plainTextFlavor
+
+    Deprecated.
+
+    as of 1.3. Use [`getReaderForText(java.awt.datatransfer.Transferable)`](#getReaderForText(java.awt.datatransfer.Transferable)) instead of
+    `Transferable.getTransferData(DataFlavor.plainTextFlavor)`.
+
+    The `DataFlavor` representing plain text with Unicode encoding,
+    where:
+
+    ```
+         representationClass = InputStream
+         mimeType            = "text/plain; charset=unicode"
+    ```
+
+    This `DataFlavor` has been **deprecated** because:
+    - Its representation is an InputStream, an 8-bit based representation,
+      while Unicode is a 16-bit character set
+    - The charset "unicode" is not well-defined. "unicode" implies a
+      particular platform's implementation of Unicode, not a cross-platform
+      implementation
+  + ### javaSerializedObjectMimeType
+
+    public static final [String](../../../../java.base/java/lang/String.md "class in java.lang") javaSerializedObjectMimeType
+
+    A MIME Content-Type of application/x-java-serialized-object represents a
+    graph of Java object(s) that have been made persistent.
+
+    The representation class associated with this `DataFlavor`
+    identifies the Java type of an object returned as a reference from an
+    invocation `java.awt.datatransfer.getTransferData`.
+
+    See Also:
+    :   - [Constant Field Values](../../../../constant-values.md#java.awt.datatransfer.DataFlavor.javaSerializedObjectMimeType)
+  + ### javaFileListFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") javaFileListFlavor
+
+    To transfer a list of files to/from Java (and the underlying platform) a
+    `DataFlavor` of this type/subtype and representation class of
+    `java.util.List` is used. Each element of the list is
+    required/guaranteed to be of type `java.io.File`.
+  + ### javaJVMLocalObjectMimeType
+
+    public static final [String](../../../../java.base/java/lang/String.md "class in java.lang") javaJVMLocalObjectMimeType
+
+    To transfer a reference to an arbitrary Java object reference that has no
+    associated MIME Content-type, across a `Transferable` interface
+    WITHIN THE SAME JVM, a `DataFlavor` with this type/subtype is used,
+    with a `representationClass` equal to the type of the
+    class/interface being passed across the `Transferable`.
+
+    The object reference returned from `Transferable.getTransferData`
+    for a `DataFlavor` with this MIME Content-Type is required to be an
+    instance of the representation Class of the `DataFlavor`.
+
+    See Also:
+    :   - [Constant Field Values](../../../../constant-values.md#java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType)
+  + ### javaRemoteObjectMimeType
+
+    public static final [String](../../../../java.base/java/lang/String.md "class in java.lang") javaRemoteObjectMimeType
+
+    In order to pass a live link to a Remote object via a Drag and Drop
+    `ACTION_LINK` operation a Mime Content Type of
+    application/x-java-remote-object should be used, where the representation
+    class of the `DataFlavor` represents the type of the `Remote`
+    interface to be transferred.
+
+    See Also:
+    :   - [Constant Field Values](../../../../constant-values.md#java.awt.datatransfer.DataFlavor.javaRemoteObjectMimeType)
+  + ### selectionHtmlFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") selectionHtmlFlavor
+
+    Represents a piece of an HTML markup. The markup consists of the part
+    selected on the source side. Therefore some tags in the markup may be
+    unpaired. If the flavor is used to represent the data in a
+    [`Transferable`](Transferable.md "interface in java.awt.datatransfer") instance, no additional changes will be made. This
+    DataFlavor instance represents the same HTML markup as DataFlavor
+    instances which content MIME type does not contain document parameter
+    and representation class is the String class.
+
+    ```
+         representationClass = String
+         mimeType            = "text/html"
+    ```
+
+    Since:
+    :   1.8
+  + ### fragmentHtmlFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") fragmentHtmlFlavor
+
+    Represents a piece of an HTML markup. If possible, the markup received
+    from a native system is supplemented with pair tags to be a well-formed
+    HTML markup. If the flavor is used to represent the data in a
+    [`Transferable`](Transferable.md "interface in java.awt.datatransfer") instance, no additional changes will be made.
+
+    ```
+         representationClass = String
+         mimeType            = "text/html"
+    ```
+
+    Since:
+    :   1.8
+  + ### allHtmlFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") allHtmlFlavor
+
+    Represents a piece of an HTML markup. If possible, the markup received
+    from a native system is supplemented with additional tags to make up a
+    well-formed HTML document. If the flavor is used to represent the data in
+    a [`Transferable`](Transferable.md "interface in java.awt.datatransfer") instance, no additional changes will be made.
+
+    ```
+         representationClass = String
+         mimeType            = "text/html"
+    ```
+
+    Since:
+    :   1.8
+* ## Constructor Details
+
+  + ### DataFlavor
+
+    public DataFlavor()
+
+    Constructs a new `DataFlavor`. This constructor is provided only
+    for the purpose of supporting the `Externalizable` interface. It is
+    not intended for public (client) use.
+
+    Since:
+    :   1.2
+  + ### DataFlavor
+
+    public DataFlavor([Class](../../../../java.base/java/lang/Class.md "class in java.lang")<?> representationClass,
+    [String](../../../../java.base/java/lang/String.md "class in java.lang") humanPresentableName)
+
+    Constructs a `DataFlavor` that represents a Java class.
+
+    The returned `DataFlavor` will have the following characteristics:
+
+    ```
+        representationClass = representationClass
+        mimeType            = application/x-java-serialized-object
+    ```
+
+    Parameters:
+    :   `representationClass` - the class used to transfer data in this
+        flavor
+    :   `humanPresentableName` - the human-readable string used to identify
+        this flavor; if this parameter is `null` then the value of
+        the MIME Content Type is used
+
+    Throws:
+    :   `NullPointerException` - if `representationClass` is
+        `null`
+  + ### DataFlavor
+
+    public DataFlavor([String](../../../../java.base/java/lang/String.md "class in java.lang") mimeType,
+    [String](../../../../java.base/java/lang/String.md "class in java.lang") humanPresentableName)
+
+    Constructs a `DataFlavor` that represents a `MimeType`.
+
+    The returned `DataFlavor` will have the following characteristics:
+
+    If the `mimeType` is
+    "application/x-java-serialized-object; class=<representation class>",
+    the result is the same as calling
+    `new DataFlavor(Class.forName(<representation class>)`.
+
+    Otherwise:
+
+    ```
+         representationClass = InputStream
+         mimeType            = mimeType
+    ```
+
+    Parameters:
+    :   `mimeType` - the string used to identify the MIME type for this
+        flavor; if the `mimeType` does not specify a "class="
+        parameter, or if the class is not successfully loaded, then an
+        `IllegalArgumentException` is thrown
+    :   `humanPresentableName` - the human-readable string used to identify
+        this flavor; if this parameter is `null` then the value of
+        the MIME Content Type is used
+
+    Throws:
+    :   `IllegalArgumentException` - if `mimeType` is invalid or if the
+        class is not successfully loaded
+    :   `NullPointerException` - if `mimeType` is `null`
+  + ### DataFlavor
+
+    public DataFlavor([String](../../../../java.base/java/lang/String.md "class in java.lang") mimeType,
+    [String](../../../../java.base/java/lang/String.md "class in java.lang") humanPresentableName,
+    [ClassLoader](../../../../java.base/java/lang/ClassLoader.md "class in java.lang") classLoader)
+    throws [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    Constructs a `DataFlavor` that represents a `MimeType`.
+
+    The returned `DataFlavor` will have the following characteristics:
+
+    If the mimeType is
+    "application/x-java-serialized-object; class=<representation class>",
+    the result is the same as calling
+    `new DataFlavor(Class.forName(<representation class>)`.
+
+    Otherwise:
+
+    ```
+         representationClass = InputStream
+         mimeType            = mimeType
+    ```
+
+    Parameters:
+    :   `mimeType` - the string used to identify the MIME type for this
+        flavor
+    :   `humanPresentableName` - the human-readable string used to identify
+        this flavor
+    :   `classLoader` - the class loader to use
+
+    Throws:
+    :   `ClassNotFoundException` - if the class is not loaded
+    :   `IllegalArgumentException` - if `mimeType` is invalid
+    :   `NullPointerException` - if `mimeType` is `null`
+  + ### DataFlavor
+
+    public DataFlavor([String](../../../../java.base/java/lang/String.md "class in java.lang") mimeType)
+    throws [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    Constructs a `DataFlavor` from a `mimeType` string. The
+    string can specify a "class=<fully specified Java class name>"
+    parameter to create a `DataFlavor` with the desired representation
+    class. If the string does not contain "class=" parameter,
+    `java.io.InputStream` is used as default.
+
+    Parameters:
+    :   `mimeType` - the string used to identify the MIME type for this
+        flavor; if the class specified by "class=" parameter is not
+        successfully loaded, then a `ClassNotFoundException` is
+        thrown
+
+    Throws:
+    :   `ClassNotFoundException` - if the class is not loaded
+    :   `IllegalArgumentException` - if `mimeType` is invalid
+    :   `NullPointerException` - if `mimeType` is `null`
+* ## Method Details
+
+  + ### tryToLoadClass
+
+    protected static final [Class](../../../../java.base/java/lang/Class.md "class in java.lang")<?> tryToLoadClass([String](../../../../java.base/java/lang/String.md "class in java.lang") className,
+    [ClassLoader](../../../../java.base/java/lang/ClassLoader.md "class in java.lang") fallback)
+    throws [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    Tries to load a class from: the bootstrap loader, the system loader, the
+    context loader (if one is present) and finally the loader specified.
+
+    Parameters:
+    :   `className` - the name of the class to be loaded
+    :   `fallback` - the fallback loader
+
+    Returns:
+    :   the class loaded
+
+    Throws:
+    :   `ClassNotFoundException` - if class is not found
+  + ### toString
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") toString()
+
+    String representation of this `DataFlavor` and its parameters. The
+    resulting `String` contains the name of the `DataFlavor`
+    class, this flavor's MIME type, and its representation class. If this
+    flavor has a primary MIME type of "text", supports the charset parameter,
+    and has an encoded representation, the flavor's charset is also included.
+    See `selectBestTextFlavor` for a list of text flavors which support
+    the charset parameter.
+
+    Overrides:
+    :   `toString` in class `Object`
+
+    Returns:
+    :   string representation of this `DataFlavor`
+
+    See Also:
+    :   - [`selectBestTextFlavor(java.awt.datatransfer.DataFlavor[])`](#selectBestTextFlavor(java.awt.datatransfer.DataFlavor%5B%5D))
+  + ### getTextPlainUnicodeFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") getTextPlainUnicodeFlavor()
+
+    Returns a `DataFlavor` representing plain text with Unicode
+    encoding, where:
+
+    ```
+         representationClass = java.io.InputStream
+         mimeType            = "text/plain;
+                                charset=<platform default Unicode encoding>"
+    ```
+
+    Returns:
+    :   a `DataFlavor` representing plain text with Unicode
+        encoding
+
+    Since:
+    :   1.3
+  + ### selectBestTextFlavor
+
+    public static final [DataFlavor](DataFlavor.md "class in java.awt.datatransfer") selectBestTextFlavor([DataFlavor](DataFlavor.md "class in java.awt.datatransfer")[] availableFlavors)
+
+    Selects the best text `DataFlavor` from an array of
+    `DataFlavor`s. Only `DataFlavor.stringFlavor`, and equivalent
+    flavors, and flavors that have a primary MIME type of "text", are
+    considered for selection.
+
+    Flavors are first sorted by their MIME types in the following order:
+    - "text/sgml"- "text/xml"- "text/html"- "text/rtf"- "text/enriched"- "text/richtext"- "text/uri-list"- "text/tab-separated-values"- "text/t140"- "text/rfc822-headers"- "text/parityfec"- "text/directory"- "text/css"- "text/calendar"- "application/x-java-serialized-object"- "text/plain"- "text/<other>"
+
+    For example, "text/sgml" will be selected over "text/html", and
+    `DataFlavor.stringFlavor` will be chosen over
+    `DataFlavor.plainTextFlavor`.
+
+    If two or more flavors share the best MIME type in the array, then that
+    MIME type will be checked to see if it supports the charset parameter.
+
+    The following MIME types support, or are treated as though they support,
+    the charset parameter:
+    - "text/sgml"- "text/xml"- "text/html"- "text/enriched"- "text/richtext"- "text/uri-list"- "text/directory"- "text/css"- "text/calendar"- "application/x-java-serialized-object"- "text/plain"The following MIME types do not support, or are treated as though they do
+    not support, the charset parameter:
+    - "text/rtf"- "text/tab-separated-values"- "text/t140"- "text/rfc822-headers"- "text/parityfec"For "text/<other>" MIME types, the first time the JRE needs to
+    determine whether the MIME type supports the charset parameter, it will
+    check whether the parameter is explicitly listed in an arbitrarily chosen
+    `DataFlavor` which uses that MIME type. If so, the JRE will assume
+    from that point on that the MIME type supports the charset parameter and
+    will not check again. If the parameter is not explicitly listed, the JRE
+    will assume from that point on that the MIME type does not support the
+    charset parameter and will not check again. Because this check is
+    performed on an arbitrarily chosen `DataFlavor`, developers must
+    ensure that all `DataFlavor`s with a "text/<other>" MIME type
+    specify the charset parameter if it is supported by that MIME type.
+    Developers should never rely on the JRE to substitute the platform's
+    default charset for a "text/<other>" DataFlavor. Failure to adhere
+    to this restriction will lead to undefined behavior.
+
+    If the best MIME type in the array does not support the charset
+    parameter, the flavors which share that MIME type will then be sorted by
+    their representation classes in the following order:
+    `java.io.InputStream`, `java.nio.ByteBuffer`, `[B`,
+    <all others>.
+
+    If two or more flavors share the best representation class, or if no
+    flavor has one of the three specified representations, then one of those
+    flavors will be chosen non-deterministically.
+
+    If the best MIME type in the array does support the charset parameter,
+    the flavors which share that MIME type will then be sorted by their
+    representation classes in the following order: `java.io.Reader`,
+    `java.lang.String`, `java.nio.CharBuffer`, `[C`,
+    <all others>.
+
+    If two or more flavors share the best representation class, and that
+    representation is one of the four explicitly listed, then one of those
+    flavors will be chosen non-deterministically. If, however, no flavor has
+    one of the four specified representations, the flavors will then be
+    sorted by their charsets. Unicode charsets, such as "UTF-16", "UTF-8",
+    "UTF-16BE", "UTF-16LE", and their aliases, are considered best. After
+    them, the platform default charset and its aliases are selected.
+    "US-ASCII" and its aliases are worst. All other charsets are chosen in
+    alphabetical order, but only charsets supported by this implementation of
+    the Java platform will be considered.
+
+    If two or more flavors share the best charset, the flavors will then
+    again be sorted by their representation classes in the following order:
+    `java.io.InputStream`, `java.nio.ByteBuffer`, `[B`,
+    <all others>.
+
+    If two or more flavors share the best representation class, or if no
+    flavor has one of the three specified representations, then one of those
+    flavors will be chosen non-deterministically.
+
+    Parameters:
+    :   `availableFlavors` - an array of available `DataFlavor`s
+
+    Returns:
+    :   the best (highest fidelity) flavor according to the rules
+        specified above, or `null`, if `availableFlavors` is
+        `null`, has zero length, or contains no text flavors
+
+    Since:
+    :   1.3
+  + ### getReaderForText
+
+    public [Reader](../../../../java.base/java/io/Reader.md "class in java.io") getReaderForText([Transferable](Transferable.md "interface in java.awt.datatransfer") transferable)
+    throws [UnsupportedFlavorException](UnsupportedFlavorException.md "class in java.awt.datatransfer"),
+    [IOException](../../../../java.base/java/io/IOException.md "class in java.io")
+
+    Gets a Reader for a text flavor, decoded, if necessary, for the expected
+    charset (encoding). The supported representation classes are
+    `java.io.Reader`, `java.lang.String`,
+    `java.nio.CharBuffer`, `[C`, `java.io.InputStream`,
+    `java.nio.ByteBuffer`, and `[B`.
+
+    Because text flavors which do not support the charset parameter are
+    encoded in a non-standard format, this method should not be called for
+    such flavors. However, in order to maintain backward-compatibility, if
+    this method is called for such a flavor, this method will treat the
+    flavor as though it supports the charset parameter and attempt to decode
+    it accordingly. See `selectBestTextFlavor` for a list of text
+    flavors which do not support the charset parameter.
+
+    Parameters:
+    :   `transferable` - the `Transferable` whose data will be
+        requested in this flavor
+
+    Returns:
+    :   a `Reader` to read the `Transferable`'s data
+
+    Throws:
+    :   `IllegalArgumentException` - if the representation class is not one
+        of the seven listed above
+    :   `IllegalArgumentException` - if the `Transferable` has
+        `null` data
+    :   `NullPointerException` - if the `Transferable` is `null`
+    :   `UnsupportedEncodingException` - if this flavor's representation is
+        `java.io.InputStream`, `java.nio.ByteBuffer`, or
+        `[B` and this flavor's encoding is not supported by this
+        implementation of the Java platform
+    :   `UnsupportedFlavorException` - if the `Transferable` does not
+        support this flavor
+    :   `IOException` - if the data cannot be read because of an I/O error
+
+    Since:
+    :   1.3
+
+    See Also:
+    :   - [`selectBestTextFlavor(java.awt.datatransfer.DataFlavor[])`](#selectBestTextFlavor(java.awt.datatransfer.DataFlavor%5B%5D))
+  + ### getMimeType
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getMimeType()
+
+    Returns the MIME type string for this `DataFlavor`.
+
+    Returns:
+    :   the MIME type string for this flavor
+  + ### getRepresentationClass
+
+    public [Class](../../../../java.base/java/lang/Class.md "class in java.lang")<?> getRepresentationClass()
+
+    Returns the `Class` which objects supporting this
+    `DataFlavor` will return when this `DataFlavor` is requested.
+
+    Returns:
+    :   the `Class` which objects supporting this
+        `DataFlavor` will return when this `DataFlavor` is
+        requested
+  + ### getHumanPresentableName
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getHumanPresentableName()
+
+    Returns the human presentable name for the data format that this
+    `DataFlavor` represents. This name would be localized for different
+    countries.
+
+    Returns:
+    :   the human presentable name for the data format that this
+        `DataFlavor` represents
+  + ### getPrimaryType
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getPrimaryType()
+
+    Returns the primary MIME type for this `DataFlavor`.
+
+    Returns:
+    :   the primary MIME type of this `DataFlavor`
+  + ### getSubType
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getSubType()
+
+    Returns the sub MIME type of this `DataFlavor`.
+
+    Returns:
+    :   the Sub MIME type of this `DataFlavor`
+  + ### getParameter
+
+    public [String](../../../../java.base/java/lang/String.md "class in java.lang") getParameter([String](../../../../java.base/java/lang/String.md "class in java.lang") paramName)
+
+    Returns the human presentable name for this `DataFlavor` if
+    `paramName` equals "humanPresentableName". Otherwise returns the
+    MIME type value associated with `paramName`.
+
+    Parameters:
+    :   `paramName` - the parameter name requested
+
+    Returns:
+    :   the value of the name parameter, or `null` if there is no
+        associated value
+  + ### setHumanPresentableName
+
+    public void setHumanPresentableName([String](../../../../java.base/java/lang/String.md "class in java.lang") humanPresentableName)
+
+    Sets the human presentable name for the data format that this
+    `DataFlavor` represents. This name would be localized for different
+    countries.
+
+    Parameters:
+    :   `humanPresentableName` - the new human presentable name
+  + ### equals
+
+    public boolean equals([Object](../../../../java.base/java/lang/Object.md "class in java.lang") o)
+
+    Indicates whether some other object is "equal to" this one.
+
+    The `equals` method implements an equivalence relation
+    on non-null object references:
+    - It is *reflexive*: for any non-null reference value
+      `x`, `x.equals(x)` should return
+      `true`.- It is *symmetric*: for any non-null reference values
+        `x` and `y`, `x.equals(y)`
+        should return `true` if and only if
+        `y.equals(x)` returns `true`.- It is *transitive*: for any non-null reference values
+          `x`, `y`, and `z`, if
+          `x.equals(y)` returns `true` and
+          `y.equals(z)` returns `true`, then
+          `x.equals(z)` should return `true`.- It is *consistent*: for any non-null reference values
+            `x` and `y`, multiple invocations of
+            `x.equals(y)` consistently return `true`
+            or consistently return `false`, provided no
+            information used in `equals` comparisons on the
+            objects is modified.- For any non-null reference value `x`,
+              `x.equals(null)` should return `false`.
+
+    An equivalence relation partitions the elements it operates on
+    into *equivalence classes*; all the members of an
+    equivalence class are equal to each other. Members of an
+    equivalence class are substitutable for each other, at least
+    for some purposes.
+
+    The equals comparison for the `DataFlavor` class is implemented as
+    follows: Two `DataFlavor`s are considered equal if and only if
+    their MIME primary type and subtype and representation class are equal.
+    Additionally, if the primary type is "text", the subtype denotes a text
+    flavor which supports the charset parameter, and the representation class
+    is not `java.io.Reader`, `java.lang.String`,
+    `java.nio.CharBuffer`, or `[C`, the `charset` parameter
+    must also be equal. If a charset is not explicitly specified for one or
+    both `DataFlavor`s, the platform default encoding is assumed. See
+    `selectBestTextFlavor` for a list of text flavors which support the
+    charset parameter.
+
+    Overrides:
+    :   `equals` in class `Object`
+
+    Parameters:
+    :   `o` - the `Object` to compare with `this`
+
+    Returns:
+    :   `true` if `that` is equivalent to this
+        `DataFlavor`; `false` otherwise
+
+    See Also:
+    :   - [`selectBestTextFlavor(java.awt.datatransfer.DataFlavor[])`](#selectBestTextFlavor(java.awt.datatransfer.DataFlavor%5B%5D))
+  + ### equals
+
+    public boolean equals([DataFlavor](DataFlavor.md "class in java.awt.datatransfer") that)
+
+    This method has the same behavior as [`equals(Object)`](#equals(java.lang.Object)). The only
+    difference being that it takes a `DataFlavor` instance as a
+    parameter.
+
+    Parameters:
+    :   `that` - the `DataFlavor` to compare with `this`
+
+    Returns:
+    :   `true` if `that` is equivalent to this
+        `DataFlavor`; `false` otherwise
+
+    See Also:
+    :   - [`selectBestTextFlavor(java.awt.datatransfer.DataFlavor[])`](#selectBestTextFlavor(java.awt.datatransfer.DataFlavor%5B%5D))
+  + ### equals
+
+    [@Deprecated](../../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")
+    public boolean equals([String](../../../../java.base/java/lang/String.md "class in java.lang") s)
+
+    Deprecated.
+
+    As inconsistent with `hashCode()` contract, use
+    [`isMimeTypeEqual(String)`](#isMimeTypeEqual(java.lang.String)) instead.
+
+    Compares only the `mimeType` against the passed in `String`
+    and `representationClass` is not considered in the comparison. If
+    `representationClass` needs to be compared, then
+    `equals(new DataFlavor(s))` may be used.
+
+    Parameters:
+    :   `s` - the `mimeType` to compare
+
+    Returns:
+    :   `true` if the String (MimeType) is equal; `false`
+        otherwise or if `s` is `null`
+  + ### hashCode
+
+    public int hashCode()
+
+    Returns hash code for this `DataFlavor`. For two equal
+    `DataFlavor`s, hash codes are equal. For the `String` that
+    matches `DataFlavor.equals(String)`, it is not guaranteed that
+    `DataFlavor`'s hash code is equal to the hash code of the
+    `String`.
+
+    Overrides:
+    :   `hashCode` in class `Object`
+
+    Returns:
+    :   a hash code for this `DataFlavor`
+
+    See Also:
+    :   - [`Object.equals(java.lang.Object)`](../../../../java.base/java/lang/Object.md#equals(java.lang.Object))
+        - [`System.identityHashCode(java.lang.Object)`](../../../../java.base/java/lang/System.md#identityHashCode(java.lang.Object))
+  + ### match
+
+    public boolean match([DataFlavor](DataFlavor.md "class in java.awt.datatransfer") that)
+
+    Identical to [`equals(DataFlavor)`](#equals(java.awt.datatransfer.DataFlavor)).
+
+    Parameters:
+    :   `that` - the `DataFlavor` to compare with `this`
+
+    Returns:
+    :   `true` if `that` is equivalent to this
+        `DataFlavor`; `false` otherwise
+
+    Since:
+    :   1.3
+
+    See Also:
+    :   - [`selectBestTextFlavor(java.awt.datatransfer.DataFlavor[])`](#selectBestTextFlavor(java.awt.datatransfer.DataFlavor%5B%5D))
+  + ### isMimeTypeEqual
+
+    public boolean isMimeTypeEqual([String](../../../../java.base/java/lang/String.md "class in java.lang") mimeType)
+
+    Returns whether the string representation of the MIME type passed in is
+    equivalent to the MIME type of this `DataFlavor`. Parameters are
+    not included in the comparison.
+
+    Parameters:
+    :   `mimeType` - the string representation of the MIME type
+
+    Returns:
+    :   `true` if the string representation of the MIME type passed
+        in is equivalent to the MIME type of this `DataFlavor`;
+        `false` otherwise
+
+    Throws:
+    :   `NullPointerException` - if mimeType is `null`
+  + ### isMimeTypeEqual
+
+    public final boolean isMimeTypeEqual([DataFlavor](DataFlavor.md "class in java.awt.datatransfer") dataFlavor)
+
+    Compares the `mimeType` of two `DataFlavor` objects. No
+    parameters are considered.
+
+    Parameters:
+    :   `dataFlavor` - the `DataFlavor` to be compared
+
+    Returns:
+    :   `true` if the `MimeType`s are equal, otherwise
+        `false`
+  + ### isMimeTypeSerializedObject
+
+    public boolean isMimeTypeSerializedObject()
+
+    Does the `DataFlavor` represent a serialized object?
+
+    Returns:
+    :   whether or not a serialized object is represented
+  + ### getDefaultRepresentationClass
+
+    public final [Class](../../../../java.base/java/lang/Class.md "class in java.lang")<?> getDefaultRepresentationClass()
+
+    Returns the default representation class.
+
+    Returns:
+    :   the default representation class
+  + ### getDefaultRepresentationClassAsString
+
+    public final [String](../../../../java.base/java/lang/String.md "class in java.lang") getDefaultRepresentationClassAsString()
+
+    Returns the name of the default representation class.
+
+    Returns:
+    :   the name of the default representation class
+  + ### isRepresentationClassInputStream
+
+    public boolean isRepresentationClassInputStream()
+
+    Does the `DataFlavor` represent a `java.io.InputStream`?
+
+    Returns:
+    :   whether or not this `DataFlavor` represent a
+        `java.io.InputStream`
+  + ### isRepresentationClassReader
+
+    public boolean isRepresentationClassReader()
+
+    Returns whether the representation class for this `DataFlavor` is
+    `java.io.Reader` or a subclass thereof.
+
+    Returns:
+    :   whether or not the representation class for this
+        `DataFlavor` is `java.io.Reader` or a subclass
+        thereof
+
+    Since:
+    :   1.4
+  + ### isRepresentationClassCharBuffer
+
+    public boolean isRepresentationClassCharBuffer()
+
+    Returns whether the representation class for this `DataFlavor` is
+    `java.nio.CharBuffer` or a subclass thereof.
+
+    Returns:
+    :   whether or not the representation class for this
+        `DataFlavor` is `java.nio.CharBuffer` or a subclass
+        thereof
+
+    Since:
+    :   1.4
+  + ### isRepresentationClassByteBuffer
+
+    public boolean isRepresentationClassByteBuffer()
+
+    Returns whether the representation class for this `DataFlavor` is
+    `java.nio.ByteBuffer` or a subclass thereof.
+
+    Returns:
+    :   whether or not the representation class for this
+        `DataFlavor` is `java.nio.ByteBuffer` or a subclass
+        thereof
+
+    Since:
+    :   1.4
+  + ### isRepresentationClassSerializable
+
+    public boolean isRepresentationClassSerializable()
+
+    Returns `true` if the representation class can be serialized.
+
+    Returns:
+    :   `true` if the representation class can be serialized
+  + ### isRepresentationClassRemote
+
+    public boolean isRepresentationClassRemote()
+
+    Returns `true` if the representation class is `Remote`.
+
+    Returns:
+    :   `true` if the representation class is `Remote`
+  + ### isFlavorSerializedObjectType
+
+    public boolean isFlavorSerializedObjectType()
+
+    Returns `true` if the `DataFlavor` specified represents a
+    serialized object.
+
+    Returns:
+    :   `true` if the `DataFlavor` specified represents a
+        Serialized Object
+  + ### isFlavorRemoteObjectType
+
+    public boolean isFlavorRemoteObjectType()
+
+    Returns `true` if the `DataFlavor` specified represents a
+    remote object.
+
+    Returns:
+    :   `true` if the `DataFlavor` specified represents a
+        Remote Object
+  + ### isFlavorJavaFileListType
+
+    public boolean isFlavorJavaFileListType()
+
+    Returns `true` if the `DataFlavor` specified represents a
+    list of file objects.
+
+    Returns:
+    :   `true` if the `DataFlavor` specified represents a
+        `java.util.List` of `java.io.File` objects
+  + ### isFlavorTextType
+
+    public boolean isFlavorTextType()
+
+    Returns whether this `DataFlavor` is a valid text flavor for this
+    implementation of the Java platform. Only flavors equivalent to
+    `DataFlavor.stringFlavor` and `DataFlavor`s with a primary
+    MIME type of "text" can be valid text flavors.
+
+    If this flavor supports the charset parameter, it must be equivalent to
+    `DataFlavor.stringFlavor`, or its representation must be
+    `java.io.Reader`, `java.lang.String`,
+    `java.nio.CharBuffer`, `[C`, `java.io.InputStream`,
+    `java.nio.ByteBuffer`, or `[B`. If the representation is
+    `java.io.InputStream`, `java.nio.ByteBuffer`, or `[B`,
+    then this flavor's `charset` parameter must be supported by this
+    implementation of the Java platform. If a charset is not specified, then
+    the platform default charset, which is always supported, is assumed.
+
+    If this flavor does not support the charset parameter, its representation
+    must be `java.io.InputStream`, `java.nio.ByteBuffer`, or
+    `[B`.
+
+    See `selectBestTextFlavor` for a list of text flavors which support
+    the charset parameter.
+
+    Returns:
+    :   `true` if this `DataFlavor` is a valid text flavor as
+        described above; `false` otherwise
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`selectBestTextFlavor(java.awt.datatransfer.DataFlavor[])`](#selectBestTextFlavor(java.awt.datatransfer.DataFlavor%5B%5D))
+  + ### writeExternal
+
+    public void writeExternal([ObjectOutput](../../../../java.base/java/io/ObjectOutput.md "interface in java.io") os)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io")
+
+    Serializes this `DataFlavor`.
+
+    Specified by:
+    :   `writeExternal` in interface `Externalizable`
+
+    Parameters:
+    :   `os` - the stream to write the object to
+
+    Throws:
+    :   `IOException` - Includes any I/O exceptions that may occur
+  + ### readExternal
+
+    public void readExternal([ObjectInput](../../../../java.base/java/io/ObjectInput.md "interface in java.io") is)
+    throws [IOException](../../../../java.base/java/io/IOException.md "class in java.io"),
+    [ClassNotFoundException](../../../../java.base/java/lang/ClassNotFoundException.md "class in java.lang")
+
+    Restores this `DataFlavor` from a Serialized state.
+
+    Specified by:
+    :   `readExternal` in interface `Externalizable`
+
+    Parameters:
+    :   `is` - the stream to read data from in order to restore the object
+
+    Throws:
+    :   `IOException` - if I/O errors occur
+    :   `ClassNotFoundException` - If the class for an object being
+        restored cannot be found.
+  + ### clone
+
+    public [Object](../../../../java.base/java/lang/Object.md "class in java.lang") clone()
+    throws [CloneNotSupportedException](../../../../java.base/java/lang/CloneNotSupportedException.md "class in java.lang")
+
+    Returns a clone of this `DataFlavor`.
+
+    Overrides:
+    :   `clone` in class `Object`
+
+    Returns:
+    :   a clone of this `DataFlavor`
+
+    Throws:
+    :   `CloneNotSupportedException` - if the object's class does not
+        support the `Cloneable` interface. Subclasses
+        that override the `clone` method can also
+        throw this exception to indicate that an instance cannot
+        be cloned.
+
+    See Also:
+    :   - [`Cloneable`](../../../../java.base/java/lang/Cloneable.md "interface in java.lang")
+  + ### normalizeMimeTypeParameter
+
+    [@Deprecated](../../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")
+    protected [String](../../../../java.base/java/lang/String.md "class in java.lang") normalizeMimeTypeParameter([String](../../../../java.base/java/lang/String.md "class in java.lang") parameterName,
+    [String](../../../../java.base/java/lang/String.md "class in java.lang") parameterValue)
+
+    Deprecated.
+
+    This method is never invoked by this implementation from 1.1
+    onwards
+
+    Called on `DataFlavor` for every MIME Type parameter to allow
+    `DataFlavor` subclasses to handle special parameters like the
+    text/plain `charset` parameters, whose values are case insensitive.
+    (MIME type parameter values are supposed to be case sensitive.
+
+    This method is called for each parameter name/value pair and should
+    return the normalized representation of the `parameterValue`.
+
+    Parameters:
+    :   `parameterName` - the parameter name
+    :   `parameterValue` - the parameter value
+
+    Returns:
+    :   the parameter value
+  + ### normalizeMimeType
+
+    [@Deprecated](../../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")
+    protected [String](../../../../java.base/java/lang/String.md "class in java.lang") normalizeMimeType([String](../../../../java.base/java/lang/String.md "class in java.lang") mimeType)
+
+    Deprecated.
+
+    This method is never invoked by this implementation from 1.1
+    onwards
+
+    Called for each MIME type string to give `DataFlavor` subtypes the
+    opportunity to change how the normalization of MIME types is
+    accomplished. One possible use would be to add default parameter/value
+    pairs in cases where none are present in the MIME type string passed in.
+
+    Parameters:
+    :   `mimeType` - the mime type
+
+    Returns:
+    :   the mime type

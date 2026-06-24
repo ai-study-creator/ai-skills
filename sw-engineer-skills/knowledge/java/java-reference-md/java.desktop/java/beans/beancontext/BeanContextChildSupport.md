@@ -1,0 +1,485 @@
+Module [java.desktop](../../../module-summary.md)
+
+Package [java.beans.beancontext](package-summary.md)
+
+# Class BeanContextChildSupport
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+java.beans.beancontext.BeanContextChildSupport
+
+All Implemented Interfaces:
+:   `BeanContextChild`, `BeanContextServiceRevokedListener`, `BeanContextServicesListener`, `Serializable`, `EventListener`
+
+Direct Known Subclasses:
+:   `BeanContextSupport`
+
+---
+
+public class BeanContextChildSupport
+extends [Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+implements [BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext"), [BeanContextServicesListener](BeanContextServicesListener.md "interface in java.beans.beancontext"), [Serializable](../../../../java.base/java/io/Serializable.md "interface in java.io")
+
+This is a general support class to provide support for implementing the
+BeanContextChild protocol.
+This class may either be directly subclassed, or encapsulated and delegated
+to in order to implement this interface for a given component.
+
+Since:
+:   1.2
+
+See Also:
+:   * [`BeanContext`](BeanContext.md "interface in java.beans.beancontext")
+    * [`BeanContextServices`](BeanContextServices.md "interface in java.beans.beancontext")
+    * [`BeanContextChild`](BeanContextChild.md "interface in java.beans.beancontext")
+    * [Serialized Form](../../../../serialized-form.md#java.beans.beancontext.BeanContextChildSupport)
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected BeanContext`
+
+  `beanContext`
+
+  The bean context.
+
+  `BeanContextChild`
+
+  `beanContextChildPeer`
+
+  The `BeanContext` in which
+  this `BeanContextChild` is nested.
+
+  `protected PropertyChangeSupport`
+
+  `pcSupport`
+
+  The `PropertyChangeSupport` associated with this
+  `BeanContextChildSupport`.
+
+  `protected boolean`
+
+  `rejectedSetBCOnce`
+
+  A flag indicating that there has been
+  at least one `PropertyChangeVetoException`
+  thrown for the attempted setBeanContext operation.
+
+  `protected VetoableChangeSupport`
+
+  `vcSupport`
+
+  The `VetoableChangeSupport` associated with this
+  `BeanContextChildSupport`.
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `BeanContextChildSupport()`
+
+  construct a BeanContextChildSupport where this class has been
+  subclassed in order to implement the JavaBean component itself.
+
+  `BeanContextChildSupport(BeanContextChild bcc)`
+
+  construct a BeanContextChildSupport where the JavaBean component
+  itself implements BeanContextChild, and encapsulates this, delegating
+  that interface to this implementation
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `addPropertyChangeListener(String name,
+  PropertyChangeListener pcl)`
+
+  Add a PropertyChangeListener for a specific property.
+
+  `void`
+
+  `addVetoableChangeListener(String name,
+  VetoableChangeListener vcl)`
+
+  Add a VetoableChangeListener for a specific property.
+
+  `void`
+
+  `firePropertyChange(String name,
+  Object oldValue,
+  Object newValue)`
+
+  Report a bound property update to any registered listeners.
+
+  `void`
+
+  `fireVetoableChange(String name,
+  Object oldValue,
+  Object newValue)`
+
+  Report a vetoable property update to any registered listeners.
+
+  `BeanContext`
+
+  `getBeanContext()`
+
+  Gets the nesting `BeanContext`
+  for this `BeanContextChildSupport`.
+
+  `BeanContextChild`
+
+  `getBeanContextChildPeer()`
+
+  Gets the `BeanContextChild` associated with this
+  `BeanContextChildSupport`.
+
+  `protected void`
+
+  `initializeBeanContextResources()`
+
+  This method may be overridden by subclasses to provide their own
+  initialization behaviors.
+
+  `boolean`
+
+  `isDelegated()`
+
+  Reports whether or not this class is a delegate of another.
+
+  `protected void`
+
+  `releaseBeanContextResources()`
+
+  This method may be overridden by subclasses to provide their own
+  release behaviors.
+
+  `void`
+
+  `removePropertyChangeListener(String name,
+  PropertyChangeListener pcl)`
+
+  Remove a PropertyChangeListener for a specific property.
+
+  `void`
+
+  `removeVetoableChangeListener(String name,
+  VetoableChangeListener vcl)`
+
+  Removes a `VetoableChangeListener`.
+
+  `void`
+
+  `serviceAvailable(BeanContextServiceAvailableEvent bcsae)`
+
+  A new service is available from the nesting BeanContext.
+
+  `void`
+
+  `serviceRevoked(BeanContextServiceRevokedEvent bcsre)`
+
+  A service provided by the nesting BeanContext has been revoked.
+
+  `void`
+
+  `setBeanContext(BeanContext bc)`
+
+  Sets the `BeanContext` for
+  this `BeanContextChildSupport`.
+
+  `boolean`
+
+  `validatePendingSetBeanContext(BeanContext newValue)`
+
+  Called from setBeanContext to validate (or otherwise) the
+  pending change in the nesting BeanContext property value.
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Field Details
+
+  + ### beanContextChildPeer
+
+    public [BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext") beanContextChildPeer
+
+    The `BeanContext` in which
+    this `BeanContextChild` is nested.
+  + ### pcSupport
+
+    protected [PropertyChangeSupport](../PropertyChangeSupport.md "class in java.beans") pcSupport
+
+    The `PropertyChangeSupport` associated with this
+    `BeanContextChildSupport`.
+  + ### vcSupport
+
+    protected [VetoableChangeSupport](../VetoableChangeSupport.md "class in java.beans") vcSupport
+
+    The `VetoableChangeSupport` associated with this
+    `BeanContextChildSupport`.
+  + ### beanContext
+
+    protected transient [BeanContext](BeanContext.md "interface in java.beans.beancontext") beanContext
+
+    The bean context.
+  + ### rejectedSetBCOnce
+
+    protected transient boolean rejectedSetBCOnce
+
+    A flag indicating that there has been
+    at least one `PropertyChangeVetoException`
+    thrown for the attempted setBeanContext operation.
+* ## Constructor Details
+
+  + ### BeanContextChildSupport
+
+    public BeanContextChildSupport()
+
+    construct a BeanContextChildSupport where this class has been
+    subclassed in order to implement the JavaBean component itself.
+  + ### BeanContextChildSupport
+
+    public BeanContextChildSupport([BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext") bcc)
+
+    construct a BeanContextChildSupport where the JavaBean component
+    itself implements BeanContextChild, and encapsulates this, delegating
+    that interface to this implementation
+
+    Parameters:
+    :   `bcc` - the underlying bean context child
+* ## Method Details
+
+  + ### setBeanContext
+
+    public void setBeanContext([BeanContext](BeanContext.md "interface in java.beans.beancontext") bc)
+    throws [PropertyVetoException](../PropertyVetoException.md "class in java.beans")
+
+    Sets the `BeanContext` for
+    this `BeanContextChildSupport`.
+
+    Specified by:
+    :   `setBeanContext` in interface `BeanContextChild`
+
+    Parameters:
+    :   `bc` - the new value to be assigned to the `BeanContext`
+        property
+
+    Throws:
+    :   `PropertyVetoException` - if the change is rejected
+  + ### getBeanContext
+
+    public [BeanContext](BeanContext.md "interface in java.beans.beancontext") getBeanContext()
+
+    Gets the nesting `BeanContext`
+    for this `BeanContextChildSupport`.
+
+    Specified by:
+    :   `getBeanContext` in interface `BeanContextChild`
+
+    Returns:
+    :   the nesting `BeanContext` for
+        this `BeanContextChildSupport`.
+  + ### addPropertyChangeListener
+
+    public void addPropertyChangeListener([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [PropertyChangeListener](../PropertyChangeListener.md "interface in java.beans") pcl)
+
+    Add a PropertyChangeListener for a specific property.
+    The same listener object may be added more than once. For each
+    property, the listener will be invoked the number of times it was added
+    for that property.
+    If `name` or `pcl` is null, no exception is thrown
+    and no action is taken.
+
+    Specified by:
+    :   `addPropertyChangeListener` in interface `BeanContextChild`
+
+    Parameters:
+    :   `name` - The name of the property to listen on
+    :   `pcl` - The `PropertyChangeListener` to be added
+  + ### removePropertyChangeListener
+
+    public void removePropertyChangeListener([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [PropertyChangeListener](../PropertyChangeListener.md "interface in java.beans") pcl)
+
+    Remove a PropertyChangeListener for a specific property.
+    If `pcl` was added more than once to the same event
+    source for the specified property, it will be notified one less time
+    after being removed.
+    If `name` is null, no exception is thrown
+    and no action is taken.
+    If `pcl` is null, or was never added for the specified
+    property, no exception is thrown and no action is taken.
+
+    Specified by:
+    :   `removePropertyChangeListener` in interface `BeanContextChild`
+
+    Parameters:
+    :   `name` - The name of the property that was listened on
+    :   `pcl` - The PropertyChangeListener to be removed
+  + ### addVetoableChangeListener
+
+    public void addVetoableChangeListener([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [VetoableChangeListener](../VetoableChangeListener.md "interface in java.beans") vcl)
+
+    Add a VetoableChangeListener for a specific property.
+    The same listener object may be added more than once. For each
+    property, the listener will be invoked the number of times it was added
+    for that property.
+    If `name` or `vcl` is null, no exception is thrown
+    and no action is taken.
+
+    Specified by:
+    :   `addVetoableChangeListener` in interface `BeanContextChild`
+
+    Parameters:
+    :   `name` - The name of the property to listen on
+    :   `vcl` - The `VetoableChangeListener` to be added
+  + ### removeVetoableChangeListener
+
+    public void removeVetoableChangeListener([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [VetoableChangeListener](../VetoableChangeListener.md "interface in java.beans") vcl)
+
+    Removes a `VetoableChangeListener`.
+    If `pcl` was added more than once to the same event
+    source for the specified property, it will be notified one less time
+    after being removed.
+    If `name` is null, no exception is thrown
+    and no action is taken.
+    If `vcl` is null, or was never added for the specified
+    property, no exception is thrown and no action is taken.
+
+    Specified by:
+    :   `removeVetoableChangeListener` in interface `BeanContextChild`
+
+    Parameters:
+    :   `name` - The name of the property that was listened on
+    :   `vcl` - The `VetoableChangeListener` to be removed
+  + ### serviceRevoked
+
+    public void serviceRevoked([BeanContextServiceRevokedEvent](BeanContextServiceRevokedEvent.md "class in java.beans.beancontext") bcsre)
+
+    A service provided by the nesting BeanContext has been revoked.
+    Subclasses may override this method in order to implement their own
+    behaviors.
+
+    Specified by:
+    :   `serviceRevoked` in interface `BeanContextServiceRevokedListener`
+
+    Parameters:
+    :   `bcsre` - The `BeanContextServiceRevokedEvent` fired as a
+        result of a service being revoked
+  + ### serviceAvailable
+
+    public void serviceAvailable([BeanContextServiceAvailableEvent](BeanContextServiceAvailableEvent.md "class in java.beans.beancontext") bcsae)
+
+    A new service is available from the nesting BeanContext.
+    Subclasses may override this method in order to implement their own
+    behaviors
+
+    Specified by:
+    :   `serviceAvailable` in interface `BeanContextServicesListener`
+
+    Parameters:
+    :   `bcsae` - The BeanContextServiceAvailableEvent fired as a
+        result of a service becoming available
+  + ### getBeanContextChildPeer
+
+    public [BeanContextChild](BeanContextChild.md "interface in java.beans.beancontext") getBeanContextChildPeer()
+
+    Gets the `BeanContextChild` associated with this
+    `BeanContextChildSupport`.
+
+    Returns:
+    :   the `BeanContextChild` peer of this class
+  + ### isDelegated
+
+    public boolean isDelegated()
+
+    Reports whether or not this class is a delegate of another.
+
+    Returns:
+    :   true if this class is a delegate of another
+  + ### firePropertyChange
+
+    public void firePropertyChange([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [Object](../../../../java.base/java/lang/Object.md "class in java.lang") oldValue,
+    [Object](../../../../java.base/java/lang/Object.md "class in java.lang") newValue)
+
+    Report a bound property update to any registered listeners. No event is
+    fired if old and new are equal and non-null.
+
+    Parameters:
+    :   `name` - The programmatic name of the property that was changed
+    :   `oldValue` - The old value of the property
+    :   `newValue` - The new value of the property
+  + ### fireVetoableChange
+
+    public void fireVetoableChange([String](../../../../java.base/java/lang/String.md "class in java.lang") name,
+    [Object](../../../../java.base/java/lang/Object.md "class in java.lang") oldValue,
+    [Object](../../../../java.base/java/lang/Object.md "class in java.lang") newValue)
+    throws [PropertyVetoException](../PropertyVetoException.md "class in java.beans")
+
+    Report a vetoable property update to any registered listeners.
+    If anyone vetos the change, then fire a new event
+    reverting everyone to the old value and then rethrow
+    the PropertyVetoException.
+
+    No event is fired if old and new are equal and non-null.
+
+    Parameters:
+    :   `name` - The programmatic name of the property that is about to
+        change
+    :   `oldValue` - The old value of the property
+    :   `newValue` - - The new value of the property
+
+    Throws:
+    :   `PropertyVetoException` - if the recipient wishes the property
+        change to be rolled back.
+  + ### validatePendingSetBeanContext
+
+    public boolean validatePendingSetBeanContext([BeanContext](BeanContext.md "interface in java.beans.beancontext") newValue)
+
+    Called from setBeanContext to validate (or otherwise) the
+    pending change in the nesting BeanContext property value.
+    Returning false will cause setBeanContext to throw
+    PropertyVetoException.
+
+    Parameters:
+    :   `newValue` - the new value that has been requested for
+        the BeanContext property
+
+    Returns:
+    :   `true` if the change operation is to be vetoed
+  + ### releaseBeanContextResources
+
+    protected void releaseBeanContextResources()
+
+    This method may be overridden by subclasses to provide their own
+    release behaviors. When invoked any resources held by this instance
+    obtained from its current BeanContext property should be released
+    since the object is no longer nested within that BeanContext.
+  + ### initializeBeanContextResources
+
+    protected void initializeBeanContextResources()
+
+    This method may be overridden by subclasses to provide their own
+    initialization behaviors. When invoked any resources required by the
+    BeanContextChild should be obtained from the current BeanContext.

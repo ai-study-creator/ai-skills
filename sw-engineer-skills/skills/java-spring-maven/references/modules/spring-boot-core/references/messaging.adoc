@@ -1,0 +1,23 @@
+= Messaging
+
+Spring Boot supports multiple messaging styles. Choose the transport that matches the integration.
+
+== Topics
+- JMS
+- Kafka
+- AMQP
+- Pulsar
+- RSocket
+- Spring Integration
+- WebSockets
+
+== Working rules
+- Keep message contracts explicit.
+- Distinguish synchronous request/response from asynchronous event publication.
+- Separate consumer retry behavior, dead-letter strategy, and idempotency decisions.
+- Keep serialization and schema compatibility visible.
+
+== Operational concerns
+- Know delivery semantics.
+- Know how failures are retried or parked.
+- Know how consumers are scaled and observed.

@@ -1,0 +1,114 @@
+Module [java.naming](../../../module-summary.md)
+
+Package [javax.naming.ldap](package-summary.md)
+
+# Interface ExtendedResponse
+
+All Superinterfaces:
+:   `Serializable`
+
+All Known Subinterfaces:
+:   `UnsolicitedNotification`
+
+All Known Implementing Classes:
+:   `StartTlsResponse`
+
+---
+
+public interface ExtendedResponse
+extends [Serializable](../../../../java.base/java/io/Serializable.md "interface in java.io")
+
+This interface represents an LDAP extended operation response as defined in
+[RFC 2251](http://www.ietf.org/rfc/rfc2251.txt).
+
+```
+     ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
+          COMPONENTS OF LDAPResult,
+          responseName     [10] LDAPOID OPTIONAL,
+          response         [11] OCTET STRING OPTIONAL }
+```
+
+It comprises an optional object identifier and an optional ASN.1 BER
+encoded value.
+
+The methods in this class can be used by the application to get low
+level information about the extended operation response. However, typically,
+the application will be using methods specific to the class that
+implements this interface. Such a class should have decoded the BER buffer
+in the response and should provide methods that allow the user to
+access that data in the response in a type-safe and friendly manner.
+
+For example, suppose the LDAP server supported a 'get time' extended operation.
+It would supply GetTimeRequest and GetTimeResponse classes.
+The GetTimeResponse class might look like:
+> ```
+>  public class GetTimeResponse implements ExtendedResponse {
+>      public java.util.Date getDate() {...};
+>      public long getTime() {...};
+>      ....
+>  }
+> ```
+
+A program would use then these classes as follows:
+> ```
+>  GetTimeResponse resp =
+>      (GetTimeResponse) ectx.extendedOperation(new GetTimeRequest());
+>  java.util.Date now = resp.getDate();
+> ```
+
+Since:
+:   1.3
+
+See Also:
+:   * [`ExtendedRequest`](ExtendedRequest.md "interface in javax.naming.ldap")
+
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `byte[]`
+
+  `getEncodedValue()`
+
+  Retrieves the ASN.1 BER encoded value of the LDAP extended operation
+  response.
+
+  `String`
+
+  `getID()`
+
+  Retrieves the object identifier of the response.
+
+* ## Method Details
+
+  + ### getID
+
+    [String](../../../../java.base/java/lang/String.md "class in java.lang") getID()
+
+    Retrieves the object identifier of the response.
+    The LDAP protocol specifies that the response object identifier is optional.
+    If the server does not send it, the response will contain no ID (i.e. null).
+
+    Returns:
+    :   A possibly null object identifier string representing the LDAP
+        `ExtendedResponse.responseName` component.
+  + ### getEncodedValue
+
+    byte[] getEncodedValue()
+
+    Retrieves the ASN.1 BER encoded value of the LDAP extended operation
+    response. Null is returned if the value is absent from the response
+    sent by the LDAP server.
+    The result is the raw BER bytes including the tag and length of
+    the response value. It does not include the response OID.
+
+    Returns:
+    :   A possibly null byte array representing the ASN.1 BER encoded
+        contents of the LDAP `ExtendedResponse.response`
+        component.

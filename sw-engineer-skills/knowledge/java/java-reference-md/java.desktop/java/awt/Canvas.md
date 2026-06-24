@@ -1,0 +1,319 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [java.awt](package-summary.md)
+
+# Class Canvas
+
+[java.lang.Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.awt.Component](Component.md "class in java.awt")
+
+java.awt.Canvas
+
+All Implemented Interfaces:
+:   `ImageObserver`, `MenuContainer`, `Serializable`, `Accessible`
+
+---
+
+public class Canvas
+extends [Component](Component.md "class in java.awt")
+implements [Accessible](../../javax/accessibility/Accessible.md "interface in javax.accessibility")
+
+A `Canvas` component represents a blank rectangular
+area of the screen onto which the application can draw or from
+which the application can trap input events from the user.
+
+An application must subclass the `Canvas` class in
+order to get useful functionality such as creating a custom
+component. The `paint` method must be overridden
+in order to perform custom graphics on the canvas.
+
+Since:
+:   1.0
+
+See Also:
+:   * [Serialized Form](../../../serialized-form.md#java.awt.Canvas)
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `protected class`
+
+  `Canvas.AccessibleAWTCanvas`
+
+  This class implements accessibility support for the
+  `Canvas` class.
+
+  ## Nested classes/interfaces inherited from class java.awt.[Component](Component.md "class in java.awt")
+
+  `Component.AccessibleAWTComponent, Component.BaselineResizeBehavior, Component.BltBufferStrategy, Component.FlipBufferStrategy`
+* ## Field Summary
+
+  ### Fields inherited from class java.awt.[Component](Component.md "class in java.awt")
+
+  `accessibleContext, BOTTOM_ALIGNMENT, CENTER_ALIGNMENT, LEFT_ALIGNMENT, RIGHT_ALIGNMENT, TOP_ALIGNMENT`
+
+  ### Fields inherited from interface java.awt.image.[ImageObserver](image/ImageObserver.md "interface in java.awt.image")
+
+  `ABORT, ALLBITS, ERROR, FRAMEBITS, HEIGHT, PROPERTIES, SOMEBITS, WIDTH`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `Canvas()`
+
+  Constructs a new Canvas.
+
+  `Canvas(GraphicsConfiguration config)`
+
+  Constructs a new Canvas given a GraphicsConfiguration object.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `addNotify()`
+
+  Creates the peer of the canvas.
+
+  `void`
+
+  `createBufferStrategy(int numBuffers)`
+
+  Creates a new strategy for multi-buffering on this component.
+
+  `void`
+
+  `createBufferStrategy(int numBuffers,
+  BufferCapabilities caps)`
+
+  Creates a new strategy for multi-buffering on this component with the
+  required buffer capabilities.
+
+  `AccessibleContext`
+
+  `getAccessibleContext()`
+
+  Gets the AccessibleContext associated with this Canvas.
+
+  `BufferStrategy`
+
+  `getBufferStrategy()`
+
+  Returns the `BufferStrategy` used by this component.
+
+  `void`
+
+  `paint(Graphics g)`
+
+  Paints this canvas.
+
+  `void`
+
+  `update(Graphics g)`
+
+  Updates this canvas.
+
+  ### Methods inherited from class java.awt.[Component](Component.md "class in java.awt")
+
+  `action, add, addComponentListener, addFocusListener, addHierarchyBoundsListener, addHierarchyListener, addInputMethodListener, addKeyListener, addMouseListener, addMouseMotionListener, addMouseWheelListener, addPropertyChangeListener, addPropertyChangeListener, applyComponentOrientation, areFocusTraversalKeysSet, bounds, checkImage, checkImage, coalesceEvents, contains, contains, createImage, createImage, createVolatileImage, createVolatileImage, deliverEvent, disable, disableEvents, dispatchEvent, doLayout, enable, enable, enableEvents, enableInputMethods, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, getAlignmentX, getAlignmentY, getBackground, getBaseline, getBaselineResizeBehavior, getBounds, getBounds, getColorModel, getComponentAt, getComponentAt, getComponentListeners, getComponentOrientation, getCursor, getDropTarget, getFocusCycleRootAncestor, getFocusListeners, getFocusTraversalKeys, getFocusTraversalKeysEnabled, getFont, getFontMetrics, getForeground, getGraphics, getGraphicsConfiguration, getHeight, getHierarchyBoundsListeners, getHierarchyListeners, getIgnoreRepaint, getInputContext, getInputMethodListeners, getInputMethodRequests, getKeyListeners, getListeners, getLocale, getLocation, getLocation, getLocationOnScreen, getMaximumSize, getMinimumSize, getMouseListeners, getMouseMotionListeners, getMousePosition, getMouseWheelListeners, getName, getParent, getPreferredSize, getPropertyChangeListeners, getPropertyChangeListeners, getSize, getSize, getToolkit, getTreeLock, getWidth, getX, getY, gotFocus, handleEvent, hasFocus, hide, imageUpdate, inside, invalidate, isBackgroundSet, isCursorSet, isDisplayable, isDoubleBuffered, isEnabled, isFocusable, isFocusCycleRoot, isFocusOwner, isFocusTraversable, isFontSet, isForegroundSet, isLightweight, isMaximumSizeSet, isMinimumSizeSet, isOpaque, isPreferredSizeSet, isShowing, isValid, isVisible, keyDown, keyUp, layout, list, list, list, list, list, locate, location, lostFocus, minimumSize, mouseDown, mouseDrag, mouseEnter, mouseExit, mouseMove, mouseUp, move, nextFocus, paintAll, paramString, postEvent, preferredSize, prepareImage, prepareImage, print, printAll, processComponentEvent, processEvent, processFocusEvent, processHierarchyBoundsEvent, processHierarchyEvent, processInputMethodEvent, processKeyEvent, processMouseEvent, processMouseMotionEvent, processMouseWheelEvent, remove, removeComponentListener, removeFocusListener, removeHierarchyBoundsListener, removeHierarchyListener, removeInputMethodListener, removeKeyListener, removeMouseListener, removeMouseMotionListener, removeMouseWheelListener, removeNotify, removePropertyChangeListener, removePropertyChangeListener, repaint, repaint, repaint, repaint, requestFocus, requestFocus, requestFocus, requestFocus, requestFocusInWindow, requestFocusInWindow, requestFocusInWindow, reshape, resize, resize, revalidate, setBackground, setBounds, setBounds, setComponentOrientation, setCursor, setDropTarget, setEnabled, setFocusable, setFocusTraversalKeys, setFocusTraversalKeysEnabled, setFont, setForeground, setIgnoreRepaint, setLocale, setLocation, setLocation, setMaximumSize, setMinimumSize, setMixingCutoutShape, setName, setPreferredSize, setSize, setSize, setVisible, show, show, size, toString, transferFocus, transferFocusBackward, transferFocusUpCycle, validate`
+
+  ### Methods inherited from class java.lang.[Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### Canvas
+
+    public Canvas()
+
+    Constructs a new Canvas.
+  + ### Canvas
+
+    public Canvas([GraphicsConfiguration](GraphicsConfiguration.md "class in java.awt") config)
+
+    Constructs a new Canvas given a GraphicsConfiguration object. If null is
+    passed, then the default GraphicsConfiguration will be used.
+
+    Parameters:
+    :   `config` - a reference to a GraphicsConfiguration object or null
+
+    See Also:
+    :   - [`GraphicsConfiguration`](GraphicsConfiguration.md "class in java.awt")
+        - [`Component.getGraphicsConfiguration()`](Component.md#getGraphicsConfiguration())
+* ## Method Details
+
+  + ### addNotify
+
+    public void addNotify()
+
+    Creates the peer of the canvas. This peer allows you to change the
+    user interface of the canvas without changing its functionality.
+
+    Overrides:
+    :   `addNotify` in class `Component`
+
+    See Also:
+    :   - [`Component.getToolkit()`](Component.md#getToolkit())
+  + ### paint
+
+    public void paint([Graphics](Graphics.md "class in java.awt") g)
+
+    Paints this canvas.
+
+    Most applications that subclass `Canvas` should
+    override this method in order to perform some useful operation
+    (typically, custom painting of the canvas).
+    The default operation is simply to clear the canvas.
+    Applications that override this method need not call
+    super.paint(g).
+
+    Overrides:
+    :   `paint` in class `Component`
+
+    Parameters:
+    :   `g` - the specified Graphics context
+
+    See Also:
+    :   - [`update(Graphics)`](#update(java.awt.Graphics))
+        - [`Component.paint(Graphics)`](Component.md#paint(java.awt.Graphics))
+  + ### update
+
+    public void update([Graphics](Graphics.md "class in java.awt") g)
+
+    Updates this canvas.
+
+    This method is called in response to a call to `repaint`.
+    The canvas is first cleared by filling it with the background
+    color, and then completely redrawn by calling this canvas's
+    `paint` method.
+    Note: applications that override this method should either call
+    super.update(g) or incorporate the functionality described
+    above into their own code.
+
+    Overrides:
+    :   `update` in class `Component`
+
+    Parameters:
+    :   `g` - the specified Graphics context
+
+    See Also:
+    :   - [`paint(Graphics)`](#paint(java.awt.Graphics))
+        - [`Component.update(Graphics)`](Component.md#update(java.awt.Graphics))
+  + ### createBufferStrategy
+
+    public void createBufferStrategy(int numBuffers)
+
+    Creates a new strategy for multi-buffering on this component.
+    Multi-buffering is useful for rendering performance. This method
+    attempts to create the best strategy available with the number of
+    buffers supplied. It will always create a `BufferStrategy`
+    with that number of buffers.
+    A page-flipping strategy is attempted first, then a blitting strategy
+    using accelerated buffers. Finally, an unaccelerated blitting
+    strategy is used.
+
+    Each time this method is called,
+    the existing buffer strategy for this component is discarded.
+
+    Parameters:
+    :   `numBuffers` - number of buffers to create, including the front buffer
+
+    Throws:
+    :   `IllegalArgumentException` - if numBuffers is less than 1.
+    :   `IllegalStateException` - if the component is not displayable
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`Component.isDisplayable()`](Component.md#isDisplayable())
+        - [`getBufferStrategy()`](#getBufferStrategy())
+  + ### createBufferStrategy
+
+    public void createBufferStrategy(int numBuffers,
+    [BufferCapabilities](BufferCapabilities.md "class in java.awt") caps)
+    throws [AWTException](AWTException.md "class in java.awt")
+
+    Creates a new strategy for multi-buffering on this component with the
+    required buffer capabilities. This is useful, for example, if only
+    accelerated memory or page flipping is desired (as specified by the
+    buffer capabilities).
+
+    Each time this method
+    is called, the existing buffer strategy for this component is discarded.
+
+    Parameters:
+    :   `numBuffers` - number of buffers to create
+    :   `caps` - the required capabilities for creating the buffer strategy;
+        cannot be `null`
+
+    Throws:
+    :   `AWTException` - if the capabilities supplied could not be
+        supported or met; this may happen, for example, if there is not enough
+        accelerated memory currently available, or if page flipping is specified
+        but not possible.
+    :   `IllegalArgumentException` - if numBuffers is less than 1, or if
+        caps is `null`
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`getBufferStrategy()`](#getBufferStrategy())
+  + ### getBufferStrategy
+
+    public [BufferStrategy](image/BufferStrategy.md "class in java.awt.image") getBufferStrategy()
+
+    Returns the `BufferStrategy` used by this component. This
+    method will return null if a `BufferStrategy` has not yet
+    been created or has been disposed.
+
+    Returns:
+    :   the buffer strategy used by this component
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`createBufferStrategy(int)`](#createBufferStrategy(int))
+  + ### getAccessibleContext
+
+    public [AccessibleContext](../../javax/accessibility/AccessibleContext.md "class in javax.accessibility") getAccessibleContext()
+
+    Gets the AccessibleContext associated with this Canvas.
+    For canvases, the AccessibleContext takes the form of an
+    AccessibleAWTCanvas.
+    A new AccessibleAWTCanvas instance is created if necessary.
+
+    Specified by:
+    :   `getAccessibleContext` in interface `Accessible`
+
+    Overrides:
+    :   `getAccessibleContext` in class `Component`
+
+    Returns:
+    :   an AccessibleAWTCanvas that serves as the
+        AccessibleContext of this Canvas
+
+    Since:
+    :   1.3

@@ -1,0 +1,11 @@
+id: kotlin-core
+title: Kotlin Core
+source_paths:
+  - knowledge/kotlin/kotlin-reference-md
+adherence_target: 95
+adherence_type: practical
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on: []

@@ -1,0 +1,300 @@
+Module [java.base](../../../module-summary.md)
+
+Package [java.util.zip](package-summary.md)
+
+# Class InflaterOutputStream
+
+[java.lang.Object](../../lang/Object.md "class in java.lang")
+
+[java.io.OutputStream](../../io/OutputStream.md "class in java.io")
+
+[java.io.FilterOutputStream](../../io/FilterOutputStream.md "class in java.io")
+
+java.util.zip.InflaterOutputStream
+
+All Implemented Interfaces:
+:   `Closeable`, `Flushable`, `AutoCloseable`
+
+---
+
+public class InflaterOutputStream
+extends [FilterOutputStream](../../io/FilterOutputStream.md "class in java.io")
+
+Implements an output stream filter for uncompressing data stored in the
+"deflate" compression format.
+
+Since:
+:   1.6
+
+See Also:
+:   * [`InflaterInputStream`](InflaterInputStream.md "class in java.util.zip")
+    * [`DeflaterInputStream`](DeflaterInputStream.md "class in java.util.zip")
+    * [`DeflaterOutputStream`](DeflaterOutputStream.md "class in java.util.zip")
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected final byte[]`
+
+  `buf`
+
+  Output buffer for writing uncompressed data.
+
+  `protected final Inflater`
+
+  `inf`
+
+  Decompressor for this stream.
+
+  ### Fields inherited from class java.io.[FilterOutputStream](../../io/FilterOutputStream.md "class in java.io")
+
+  `out`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `InflaterOutputStream(OutputStream out)`
+
+  Creates a new output stream with a default decompressor and buffer
+  size.
+
+  `InflaterOutputStream(OutputStream out,
+  Inflater infl)`
+
+  Creates a new output stream with the specified decompressor and a
+  default buffer size.
+
+  `InflaterOutputStream(OutputStream out,
+  Inflater infl,
+  int bufLen)`
+
+  Creates a new output stream with the specified decompressor and
+  buffer size.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `close()`
+
+  Writes any remaining uncompressed data to the output stream and closes
+  the underlying output stream.
+
+  `void`
+
+  `finish()`
+
+  Finishes writing uncompressed data to the output stream without closing
+  the underlying stream.
+
+  `void`
+
+  `flush()`
+
+  Flushes this output stream, forcing any pending buffered output bytes to be
+  written.
+
+  `void`
+
+  `write(byte[] b,
+  int off,
+  int len)`
+
+  Writes an array of bytes to the uncompressed output stream.
+
+  `void`
+
+  `write(int b)`
+
+  Writes a byte to the uncompressed output stream.
+
+  ### Methods inherited from class java.io.[FilterOutputStream](../../io/FilterOutputStream.md "class in java.io")
+
+  `write`
+
+  ### Methods inherited from class java.io.[OutputStream](../../io/OutputStream.md "class in java.io")
+
+  `nullOutputStream`
+
+  ### Methods inherited from class java.lang.[Object](../../lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Field Details
+
+  + ### inf
+
+    protected final [Inflater](Inflater.md "class in java.util.zip") inf
+
+    Decompressor for this stream.
+  + ### buf
+
+    protected final byte[] buf
+
+    Output buffer for writing uncompressed data.
+* ## Constructor Details
+
+  + ### InflaterOutputStream
+
+    public InflaterOutputStream([OutputStream](../../io/OutputStream.md "class in java.io") out)
+
+    Creates a new output stream with a default decompressor and buffer
+    size.
+
+    Parameters:
+    :   `out` - output stream to write the uncompressed data to
+
+    Throws:
+    :   `NullPointerException` - if `out` is null
+  + ### InflaterOutputStream
+
+    public InflaterOutputStream([OutputStream](../../io/OutputStream.md "class in java.io") out,
+    [Inflater](Inflater.md "class in java.util.zip") infl)
+
+    Creates a new output stream with the specified decompressor and a
+    default buffer size.
+
+    Parameters:
+    :   `out` - output stream to write the uncompressed data to
+    :   `infl` - decompressor ("inflater") for this stream
+
+    Throws:
+    :   `NullPointerException` - if `out` or `infl` is null
+  + ### InflaterOutputStream
+
+    public InflaterOutputStream([OutputStream](../../io/OutputStream.md "class in java.io") out,
+    [Inflater](Inflater.md "class in java.util.zip") infl,
+    int bufLen)
+
+    Creates a new output stream with the specified decompressor and
+    buffer size.
+
+    Parameters:
+    :   `out` - output stream to write the uncompressed data to
+    :   `infl` - decompressor ("inflater") for this stream
+    :   `bufLen` - decompression buffer size
+
+    Throws:
+    :   `IllegalArgumentException` - if `bufLen <= 0`
+    :   `NullPointerException` - if `out` or `infl` is null
+* ## Method Details
+
+  + ### close
+
+    public void close()
+    throws [IOException](../../io/IOException.md "class in java.io")
+
+    Writes any remaining uncompressed data to the output stream and closes
+    the underlying output stream.
+
+    Specified by:
+    :   `close` in interface `AutoCloseable`
+
+    Specified by:
+    :   `close` in interface `Closeable`
+
+    Overrides:
+    :   `close` in class `FilterOutputStream`
+
+    Throws:
+    :   `IOException` - if an I/O error occurs
+
+    See Also:
+    :   - [`FilterOutputStream.flush()`](../../io/FilterOutputStream.md#flush())
+        - [`FilterOutputStream.out`](../../io/FilterOutputStream.md#out)
+  + ### flush
+
+    public void flush()
+    throws [IOException](../../io/IOException.md "class in java.io")
+
+    Flushes this output stream, forcing any pending buffered output bytes to be
+    written.
+
+    Specified by:
+    :   `flush` in interface `Flushable`
+
+    Overrides:
+    :   `flush` in class `FilterOutputStream`
+
+    Throws:
+    :   `IOException` - if an I/O error occurs or this stream is already
+        closed
+
+    See Also:
+    :   - [`FilterOutputStream.out`](../../io/FilterOutputStream.md#out)
+  + ### finish
+
+    public void finish()
+    throws [IOException](../../io/IOException.md "class in java.io")
+
+    Finishes writing uncompressed data to the output stream without closing
+    the underlying stream. Use this method when applying multiple filters in
+    succession to the same output stream.
+
+    Throws:
+    :   `IOException` - if an I/O error occurs or this stream is already
+        closed
+  + ### write
+
+    public void write(int b)
+    throws [IOException](../../io/IOException.md "class in java.io")
+
+    Writes a byte to the uncompressed output stream.
+
+    Overrides:
+    :   `write` in class `FilterOutputStream`
+
+    Parameters:
+    :   `b` - a single byte of compressed data to decompress and write to
+        the output stream
+
+    Throws:
+    :   `IOException` - if an I/O error occurs or this stream is already
+        closed
+    :   `ZipException` - if a compression (ZIP) format error occurs
+  + ### write
+
+    public void write(byte[] b,
+    int off,
+    int len)
+    throws [IOException](../../io/IOException.md "class in java.io")
+
+    Writes an array of bytes to the uncompressed output stream.
+
+    Overrides:
+    :   `write` in class `FilterOutputStream`
+
+    Parameters:
+    :   `b` - buffer containing compressed data to decompress and write to
+        the output stream
+    :   `off` - starting offset of the compressed data within `b`
+    :   `len` - number of bytes to decompress from `b`
+
+    Throws:
+    :   `IndexOutOfBoundsException` - if `off < 0`, or if
+        `len < 0`, or if `len > b.length - off`
+    :   `IOException` - if an I/O error occurs or this stream is already
+        closed
+    :   `NullPointerException` - if `b` is null
+    :   `ZipException` - if a compression (ZIP) format error occurs
+
+    See Also:
+    :   - [`FilterOutputStream.write(int)`](../../io/FilterOutputStream.md#write(int))

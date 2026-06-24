@@ -1,0 +1,13 @@
+id: spring-webflux
+title: Spring WebFlux
+source_paths:
+  - knowledge/springboot/springboot-reference-md/spring-boot-docs/src/docs/antora/modules/reference/pages/web/reactive.adoc
+  - knowledge/springboot/springboot-reference-md
+adherence_target: 100
+adherence_type: deep-operational
+exports:
+  - index.md
+  - source-map.md
+  - references/
+depends_on:
+  - spring-boot-core

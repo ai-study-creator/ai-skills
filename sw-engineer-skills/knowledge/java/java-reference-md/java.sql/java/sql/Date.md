@@ -1,0 +1,424 @@
+Module [java.sql](../../module-summary.md)
+
+Package [java.sql](package-summary.md)
+
+# Class Date
+
+[java.lang.Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.util.Date](../../../java.base/java/util/Date.md "class in java.util")
+
+java.sql.Date
+
+All Implemented Interfaces:
+:   `Serializable`, `Cloneable`, `Comparable<Date>`
+
+---
+
+public class Date
+extends [Date](../../../java.base/java/util/Date.md "class in java.util")
+
+A thin wrapper around a millisecond value that allows
+JDBC to identify this as an SQL `DATE` value. A
+milliseconds value represents the number of milliseconds that
+have passed since January 1, 1970 00:00:00.000 GMT.
+
+To conform with the definition of SQL `DATE`, the
+millisecond values wrapped by a `java.sql.Date` instance
+must be 'normalized' by setting the
+hours, minutes, seconds, and milliseconds to zero in the particular
+time zone with which the instance is associated.
+
+Since:
+:   1.1
+
+See Also:
+:   * [Serialized Form](../../../serialized-form.md#java.sql.Date)
+
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `Date(int year,
+  int month,
+  int day)`
+
+  Deprecated.
+
+  instead use the constructor `Date(long date)`
+
+  `Date(long date)`
+
+  Constructs a `Date` object using the given milliseconds
+  time value.
+* ## Method Summary
+
+  All MethodsStatic MethodsInstance MethodsConcrete MethodsDeprecated Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `int`
+
+  `getHours()`
+
+  Deprecated.
+
+  `int`
+
+  `getMinutes()`
+
+  Deprecated.
+
+  `int`
+
+  `getSeconds()`
+
+  Deprecated.
+
+  `void`
+
+  `setHours(int i)`
+
+  Deprecated.
+
+  `void`
+
+  `setMinutes(int i)`
+
+  Deprecated.
+
+  `void`
+
+  `setSeconds(int i)`
+
+  Deprecated.
+
+  `void`
+
+  `setTime(long date)`
+
+  Sets an existing `Date` object
+  using the given milliseconds time value.
+
+  `Instant`
+
+  `toInstant()`
+
+  This method always throws an UnsupportedOperationException and should
+  not be used because SQL `Date` values do not have a time
+  component.
+
+  `LocalDate`
+
+  `toLocalDate()`
+
+  Creates a `LocalDate` instance using the year, month and day
+  from this `Date` object.
+
+  `String`
+
+  `toString()`
+
+  Formats a date in the date escape format yyyy-mm-dd.
+
+  `static Date`
+
+  `valueOf(String s)`
+
+  Converts a string in JDBC date escape format to
+  a `Date` value.
+
+  `static Date`
+
+  `valueOf(LocalDate date)`
+
+  Obtains an instance of `Date` from a [`LocalDate`](../../../java.base/java/time/LocalDate.md "class in java.time") object
+  with the same year, month and day of month value as the given
+  `LocalDate`.
+
+  ### Methods inherited from class java.util.[Date](../../../java.base/java/util/Date.md "class in java.util")
+
+  `after, before, clone, compareTo, equals, from, getDate, getDay, getMonth, getTime, getTimezoneOffset, getYear, hashCode, parse, setDate, setMonth, setYear, toGMTString, toLocaleString, UTC`
+
+  ### Methods inherited from class java.lang.[Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `finalize, getClass, notify, notifyAll, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### Date
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../java.base/java/lang/Deprecated.md#since())="1.2")
+    public Date(int year,
+    int month,
+    int day)
+
+    Deprecated.
+
+    instead use the constructor `Date(long date)`
+
+    Constructs a `Date` object initialized with the given
+    year, month, and day.
+
+    The result is undefined if a given argument is out of bounds.
+
+    Parameters:
+    :   `year` - the year minus 1900; must be 0 to 8099. (Note that
+        8099 is 9999 minus 1900.)
+    :   `month` - 0 to 11
+    :   `day` - 1 to 31
+  + ### Date
+
+    public Date(long date)
+
+    Constructs a `Date` object using the given milliseconds
+    time value. If the given milliseconds value contains time
+    information, the driver will set the time components to the
+    time in the default time zone (the time zone of the Java virtual
+    machine running the application) that corresponds to zero GMT.
+
+    Parameters:
+    :   `date` - milliseconds since January 1, 1970, 00:00:00 GMT not
+        to exceed the milliseconds representation for the year 8099.
+        A negative number indicates the number of milliseconds
+        before January 1, 1970, 00:00:00 GMT.
+* ## Method Details
+
+  + ### setTime
+
+    public void setTime(long date)
+
+    Sets an existing `Date` object
+    using the given milliseconds time value.
+    If the given milliseconds value contains time information,
+    the driver will set the time components to the
+    time in the default time zone (the time zone of the Java virtual
+    machine running the application) that corresponds to zero GMT.
+
+    Overrides:
+    :   `setTime` in class `Date`
+
+    Parameters:
+    :   `date` - milliseconds since January 1, 1970, 00:00:00 GMT not
+        to exceed the milliseconds representation for the year 8099.
+        A negative number indicates the number of milliseconds
+        before January 1, 1970, 00:00:00 GMT.
+  + ### valueOf
+
+    public static [Date](Date.md "class in java.sql") valueOf([String](../../../java.base/java/lang/String.md "class in java.lang") s)
+
+    Converts a string in JDBC date escape format to
+    a `Date` value.
+
+    Parameters:
+    :   `s` - a `String` object representing a date in
+        in the format "yyyy-[m]m-[d]d". The leading zero for `mm`
+        and `dd` may also be omitted.
+
+    Returns:
+    :   a `java.sql.Date` object representing the
+        given date
+
+    Throws:
+    :   `IllegalArgumentException` - if the date given is not in the
+        JDBC date escape format (yyyy-[m]m-[d]d)
+  + ### toString
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") toString()
+
+    Formats a date in the date escape format yyyy-mm-dd.
+
+    Overrides:
+    :   `toString` in class `Date`
+
+    Returns:
+    :   a String in yyyy-mm-dd format
+
+    See Also:
+    :   - [`Date.toLocaleString()`](../../../java.base/java/util/Date.md#toLocaleString())
+        - [`Date.toGMTString()`](../../../java.base/java/util/Date.md#toGMTString())
+  + ### getHours
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../java.base/java/lang/Deprecated.md#since())="1.2")
+    public int getHours()
+
+    Deprecated.
+
+    This method is deprecated and should not be used because SQL Date
+    values do not have a time component.
+
+    Overrides:
+    :   `getHours` in class `Date`
+
+    Returns:
+    :   the hour represented by this date.
+
+    Throws:
+    :   `IllegalArgumentException` - if this method is invoked
+
+    See Also:
+    :   - [`setHours(int)`](#setHours(int))
+  + ### getMinutes
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../java.base/java/lang/Deprecated.md#since())="1.2")
+    public int getMinutes()
+
+    Deprecated.
+
+    This method is deprecated and should not be used because SQL Date
+    values do not have a time component.
+
+    Overrides:
+    :   `getMinutes` in class `Date`
+
+    Returns:
+    :   the number of minutes past the hour represented by this date.
+
+    Throws:
+    :   `IllegalArgumentException` - if this method is invoked
+
+    See Also:
+    :   - [`setMinutes(int)`](#setMinutes(int))
+  + ### getSeconds
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../java.base/java/lang/Deprecated.md#since())="1.2")
+    public int getSeconds()
+
+    Deprecated.
+
+    This method is deprecated and should not be used because SQL Date
+    values do not have a time component.
+
+    Overrides:
+    :   `getSeconds` in class `Date`
+
+    Returns:
+    :   the number of seconds past the minute represented by this date.
+
+    Throws:
+    :   `IllegalArgumentException` - if this method is invoked
+
+    See Also:
+    :   - [`setSeconds(int)`](#setSeconds(int))
+  + ### setHours
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../java.base/java/lang/Deprecated.md#since())="1.2")
+    public void setHours(int i)
+
+    Deprecated.
+
+    This method is deprecated and should not be used because SQL Date
+    values do not have a time component.
+
+    Overrides:
+    :   `setHours` in class `Date`
+
+    Parameters:
+    :   `i` - the hour value.
+
+    Throws:
+    :   `IllegalArgumentException` - if this method is invoked
+
+    See Also:
+    :   - [`getHours()`](#getHours())
+  + ### setMinutes
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../java.base/java/lang/Deprecated.md#since())="1.2")
+    public void setMinutes(int i)
+
+    Deprecated.
+
+    This method is deprecated and should not be used because SQL Date
+    values do not have a time component.
+
+    Overrides:
+    :   `setMinutes` in class `Date`
+
+    Parameters:
+    :   `i` - the value of the minutes.
+
+    Throws:
+    :   `IllegalArgumentException` - if this method is invoked
+
+    See Also:
+    :   - [`getMinutes()`](#getMinutes())
+  + ### setSeconds
+
+    [@Deprecated](../../../java.base/java/lang/Deprecated.md "annotation interface in java.lang")([since](../../../java.base/java/lang/Deprecated.md#since())="1.2")
+    public void setSeconds(int i)
+
+    Deprecated.
+
+    This method is deprecated and should not be used because SQL Date
+    values do not have a time component.
+
+    Overrides:
+    :   `setSeconds` in class `Date`
+
+    Parameters:
+    :   `i` - the seconds value.
+
+    Throws:
+    :   `IllegalArgumentException` - if this method is invoked
+
+    See Also:
+    :   - [`getSeconds()`](#getSeconds())
+  + ### valueOf
+
+    public static [Date](Date.md "class in java.sql") valueOf([LocalDate](../../../java.base/java/time/LocalDate.md "class in java.time") date)
+
+    Obtains an instance of `Date` from a [`LocalDate`](../../../java.base/java/time/LocalDate.md "class in java.time") object
+    with the same year, month and day of month value as the given
+    `LocalDate`.
+
+    The provided `LocalDate` is interpreted as the local date
+    in the local time zone.
+
+    Parameters:
+    :   `date` - a `LocalDate` to convert
+
+    Returns:
+    :   a `Date` object
+
+    Throws:
+    :   `NullPointerException` - if `date` is null
+
+    Since:
+    :   1.8
+  + ### toLocalDate
+
+    public [LocalDate](../../../java.base/java/time/LocalDate.md "class in java.time") toLocalDate()
+
+    Creates a `LocalDate` instance using the year, month and day
+    from this `Date` object.
+
+    Returns:
+    :   a `LocalDate` object representing the same date value
+
+    Since:
+    :   1.8
+  + ### toInstant
+
+    public [Instant](../../../java.base/java/time/Instant.md "class in java.time") toInstant()
+
+    This method always throws an UnsupportedOperationException and should
+    not be used because SQL `Date` values do not have a time
+    component.
+
+    Overrides:
+    :   `toInstant` in class `Date`
+
+    Returns:
+    :   an instant representing the same point on the time-line as
+        this `Date` object
+
+    Throws:
+    :   `UnsupportedOperationException` - if this method is invoked

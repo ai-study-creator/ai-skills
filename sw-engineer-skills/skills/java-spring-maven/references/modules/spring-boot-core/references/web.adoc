@@ -1,0 +1,28 @@
+= Spring Boot Web
+
+Spring Boot web applications usually fall into one of two shapes:
+- Servlet stack with Spring MVC
+- Reactive stack with WebFlux
+
+== Choose the stack deliberately
+- Use MVC for the common blocking stack and existing servlet libraries.
+- Use WebFlux when the whole request path is non-blocking and you need reactive composition.
+- Do not mix blocking dependencies into a reactive endpoint without a clear boundary.
+- Keep the stack choice consistent with the runtime, test strategy, and downstream libraries.
+
+== MVC
+- Keep controllers thin.
+- Validate request bodies at the boundary.
+- Return stable error shapes.
+- Prefer service-layer business logic over controller logic.
+- Use centralized exception handling and request validation.
+- Keep filters and interceptors for cross-cutting concerns, not business logic.
+
+== WebFlux
+- See `webflux.adoc` for a full reactive-stack guide.
+
+== Web concerns
+- Use centralized exception handling.
+- Apply filters and interceptors sparingly.
+- Keep CORS, static assets, and request size limits explicit.
+- Treat graceful shutdown and request cancellation as part of the contract.

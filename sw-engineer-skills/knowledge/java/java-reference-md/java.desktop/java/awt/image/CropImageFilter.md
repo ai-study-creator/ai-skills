@@ -1,0 +1,276 @@
+Module [java.desktop](../../../module-summary.md)
+
+Package [java.awt.image](package-summary.md)
+
+# Class CropImageFilter
+
+[java.lang.Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.awt.image.ImageFilter](ImageFilter.md "class in java.awt.image")
+
+java.awt.image.CropImageFilter
+
+All Implemented Interfaces:
+:   `ImageConsumer`, `Cloneable`
+
+---
+
+public class CropImageFilter
+extends [ImageFilter](ImageFilter.md "class in java.awt.image")
+
+An ImageFilter class for cropping images.
+This class extends the basic ImageFilter Class to extract a given
+rectangular region of an existing Image and provide a source for a
+new image containing just the extracted region. It is meant to
+be used in conjunction with a FilteredImageSource object to produce
+cropped versions of existing images.
+
+See Also:
+:   * [`FilteredImageSource`](FilteredImageSource.md "class in java.awt.image")
+    * [`ImageFilter`](ImageFilter.md "class in java.awt.image")
+
+* ## Field Summary
+
+  ### Fields inherited from class java.awt.image.[ImageFilter](ImageFilter.md "class in java.awt.image")
+
+  `consumer`
+
+  ### Fields inherited from interface java.awt.image.[ImageConsumer](ImageConsumer.md "interface in java.awt.image")
+
+  `COMPLETESCANLINES, IMAGEABORTED, IMAGEERROR, RANDOMPIXELORDER, SINGLEFRAME, SINGLEFRAMEDONE, SINGLEPASS, STATICIMAGEDONE, TOPDOWNLEFTRIGHT`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `CropImageFilter(int x,
+  int y,
+  int w,
+  int h)`
+
+  Constructs a CropImageFilter that extracts the absolute rectangular
+  region of pixels from its source Image as specified by the x, y,
+  w, and h parameters.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `setDimensions(int w,
+  int h)`
+
+  Override the source image's dimensions and pass the dimensions
+  of the rectangular cropped region to the ImageConsumer.
+
+  `void`
+
+  `setPixels(int x,
+  int y,
+  int w,
+  int h,
+  ColorModel model,
+  byte[] pixels,
+  int off,
+  int scansize)`
+
+  Determine whether the delivered byte pixels intersect the region to
+  be extracted and passes through only that subset of pixels that
+  appear in the output region.
+
+  `void`
+
+  `setPixels(int x,
+  int y,
+  int w,
+  int h,
+  ColorModel model,
+  int[] pixels,
+  int off,
+  int scansize)`
+
+  Determine if the delivered int pixels intersect the region to
+  be extracted and pass through only that subset of pixels that
+  appear in the output region.
+
+  `void`
+
+  `setProperties(Hashtable<?,?> props)`
+
+  Passes along the properties from the source object after adding a
+  property indicating the cropped region.
+
+  ### Methods inherited from class java.awt.image.[ImageFilter](ImageFilter.md "class in java.awt.image")
+
+  `clone, getFilterInstance, imageComplete, resendTopDownLeftRight, setColorModel, setHints`
+
+  ### Methods inherited from class java.lang.[Object](../../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+* ## Constructor Details
+
+  + ### CropImageFilter
+
+    public CropImageFilter(int x,
+    int y,
+    int w,
+    int h)
+
+    Constructs a CropImageFilter that extracts the absolute rectangular
+    region of pixels from its source Image as specified by the x, y,
+    w, and h parameters.
+
+    Parameters:
+    :   `x` - the x location of the top of the rectangle to be extracted
+    :   `y` - the y location of the top of the rectangle to be extracted
+    :   `w` - the width of the rectangle to be extracted
+    :   `h` - the height of the rectangle to be extracted
+* ## Method Details
+
+  + ### setProperties
+
+    public void setProperties([Hashtable](../../../../java.base/java/util/Hashtable.md "class in java.util")<?,?> props)
+
+    Passes along the properties from the source object after adding a
+    property indicating the cropped region.
+    This method invokes `super.setProperties`,
+    which might result in additional properties being added.
+
+    Note: This method is intended to be called by the
+    `ImageProducer` of the `Image` whose pixels
+    are being filtered. Developers using
+    this class to filter pixels from an image should avoid calling
+    this method directly since that operation could interfere
+    with the filtering operation.
+
+    Specified by:
+    :   `setProperties` in interface `ImageConsumer`
+
+    Overrides:
+    :   `setProperties` in class `ImageFilter`
+
+    Parameters:
+    :   `props` - the properties from the source object
+  + ### setDimensions
+
+    public void setDimensions(int w,
+    int h)
+
+    Override the source image's dimensions and pass the dimensions
+    of the rectangular cropped region to the ImageConsumer.
+
+    Note: This method is intended to be called by the
+    `ImageProducer` of the `Image` whose
+    pixels are being filtered. Developers using
+    this class to filter pixels from an image should avoid calling
+    this method directly since that operation could interfere
+    with the filtering operation.
+
+    Specified by:
+    :   `setDimensions` in interface `ImageConsumer`
+
+    Overrides:
+    :   `setDimensions` in class `ImageFilter`
+
+    Parameters:
+    :   `w` - the width of the source image
+    :   `h` - the height of the source image
+
+    See Also:
+    :   - [`ImageConsumer`](ImageConsumer.md "interface in java.awt.image")
+  + ### setPixels
+
+    public void setPixels(int x,
+    int y,
+    int w,
+    int h,
+    [ColorModel](ColorModel.md "class in java.awt.image") model,
+    byte[] pixels,
+    int off,
+    int scansize)
+
+    Determine whether the delivered byte pixels intersect the region to
+    be extracted and passes through only that subset of pixels that
+    appear in the output region.
+
+    Note: This method is intended to be called by the
+    `ImageProducer` of the `Image` whose
+    pixels are being filtered. Developers using
+    this class to filter pixels from an image should avoid calling
+    this method directly since that operation could interfere
+    with the filtering operation.
+
+    Specified by:
+    :   `setPixels` in interface `ImageConsumer`
+
+    Overrides:
+    :   `setPixels` in class `ImageFilter`
+
+    Parameters:
+    :   `x` - the X coordinate of the upper-left corner of the
+        area of pixels to be set
+    :   `y` - the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+    :   `w` - the width of the area of pixels
+    :   `h` - the height of the area of pixels
+    :   `model` - the specified `ColorModel`
+    :   `pixels` - the array of pixels
+    :   `off` - the offset into the `pixels` array
+    :   `scansize` - the distance from one row of pixels to the next in
+        the `pixels` array
+
+    See Also:
+    :   - [`ImageConsumer.setPixels(int, int, int, int, java.awt.image.ColorModel, byte[], int, int)`](ImageConsumer.md#setPixels(int,int,int,int,java.awt.image.ColorModel,byte%5B%5D,int,int))
+  + ### setPixels
+
+    public void setPixels(int x,
+    int y,
+    int w,
+    int h,
+    [ColorModel](ColorModel.md "class in java.awt.image") model,
+    int[] pixels,
+    int off,
+    int scansize)
+
+    Determine if the delivered int pixels intersect the region to
+    be extracted and pass through only that subset of pixels that
+    appear in the output region.
+
+    Note: This method is intended to be called by the
+    `ImageProducer` of the `Image` whose
+    pixels are being filtered. Developers using
+    this class to filter pixels from an image should avoid calling
+    this method directly since that operation could interfere
+    with the filtering operation.
+
+    Specified by:
+    :   `setPixels` in interface `ImageConsumer`
+
+    Overrides:
+    :   `setPixels` in class `ImageFilter`
+
+    Parameters:
+    :   `x` - the X coordinate of the upper-left corner of the
+        area of pixels to be set
+    :   `y` - the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+    :   `w` - the width of the area of pixels
+    :   `h` - the height of the area of pixels
+    :   `model` - the specified `ColorModel`
+    :   `pixels` - the array of pixels
+    :   `off` - the offset into the `pixels` array
+    :   `scansize` - the distance from one row of pixels to the next in
+        the `pixels` array
+
+    See Also:
+    :   - [`ImageConsumer.setPixels(int, int, int, int, java.awt.image.ColorModel, byte[], int, int)`](ImageConsumer.md#setPixels(int,int,int,int,java.awt.image.ColorModel,byte%5B%5D,int,int))

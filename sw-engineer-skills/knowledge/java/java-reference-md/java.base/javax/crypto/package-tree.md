@@ -1,0 +1,55 @@
+# Hierarchy For Package javax.crypto
+
+Package Hierarchies:
+
+* [All Packages](../../../overview-tree.md)
+
+## Class Hierarchy
+
+* java.lang.[Object](../../java/lang/Object.md "class in java.lang")
+  + javax.crypto.[Cipher](Cipher.md "class in javax.crypto")
+    - javax.crypto.[NullCipher](NullCipher.md "class in javax.crypto")
+  + javax.crypto.[CipherSpi](CipherSpi.md "class in javax.crypto")
+  + javax.crypto.[EncryptedPrivateKeyInfo](EncryptedPrivateKeyInfo.md "class in javax.crypto")
+  + javax.crypto.[ExemptionMechanism](ExemptionMechanism.md "class in javax.crypto")
+  + javax.crypto.[ExemptionMechanismSpi](ExemptionMechanismSpi.md "class in javax.crypto")
+  + java.io.[InputStream](../../java/io/InputStream.md "class in java.io") (implements java.io.[Closeable](../../java/io/Closeable.md "interface in java.io"))
+    - java.io.[FilterInputStream](../../java/io/FilterInputStream.md "class in java.io")
+      * javax.crypto.[CipherInputStream](CipherInputStream.md "class in javax.crypto")
+  + javax.crypto.[KEM](KEM.md "class in javax.crypto")
+  + javax.crypto.[KEM.Decapsulator](KEM.Decapsulator.md "class in javax.crypto")
+  + javax.crypto.[KEM.Encapsulated](KEM.Encapsulated.md "class in javax.crypto")
+  + javax.crypto.[KEM.Encapsulator](KEM.Encapsulator.md "class in javax.crypto")
+  + javax.crypto.[KeyAgreement](KeyAgreement.md "class in javax.crypto")
+  + javax.crypto.[KeyAgreementSpi](KeyAgreementSpi.md "class in javax.crypto")
+  + javax.crypto.[KeyGenerator](KeyGenerator.md "class in javax.crypto")
+  + javax.crypto.[KeyGeneratorSpi](KeyGeneratorSpi.md "class in javax.crypto")
+  + javax.crypto.[Mac](Mac.md "class in javax.crypto") (implements java.lang.[Cloneable](../../java/lang/Cloneable.md "interface in java.lang"))
+  + javax.crypto.[MacSpi](MacSpi.md "class in javax.crypto")
+  + java.io.[OutputStream](../../java/io/OutputStream.md "class in java.io") (implements java.io.[Closeable](../../java/io/Closeable.md "interface in java.io"), java.io.[Flushable](../../java/io/Flushable.md "interface in java.io"))
+    - java.io.[FilterOutputStream](../../java/io/FilterOutputStream.md "class in java.io")
+      * javax.crypto.[CipherOutputStream](CipherOutputStream.md "class in javax.crypto")
+  + javax.crypto.[SealedObject](SealedObject.md "class in javax.crypto") (implements java.io.[Serializable](../../java/io/Serializable.md "interface in java.io"))
+  + javax.crypto.[SecretKeyFactory](SecretKeyFactory.md "class in javax.crypto")
+  + javax.crypto.[SecretKeyFactorySpi](SecretKeyFactorySpi.md "class in javax.crypto")
+  + java.lang.[Throwable](../../java/lang/Throwable.md "class in java.lang") (implements java.io.[Serializable](../../java/io/Serializable.md "interface in java.io"))
+    - java.lang.[Exception](../../java/lang/Exception.md "class in java.lang")
+      * java.security.[GeneralSecurityException](../../java/security/GeneralSecurityException.md "class in java.security")
+        + javax.crypto.[BadPaddingException](BadPaddingException.md "class in javax.crypto")
+          - javax.crypto.[AEADBadTagException](AEADBadTagException.md "class in javax.crypto")
+        + javax.crypto.[DecapsulateException](DecapsulateException.md "class in javax.crypto")
+        + javax.crypto.[ExemptionMechanismException](ExemptionMechanismException.md "class in javax.crypto")
+        + javax.crypto.[IllegalBlockSizeException](IllegalBlockSizeException.md "class in javax.crypto")
+        + javax.crypto.[NoSuchPaddingException](NoSuchPaddingException.md "class in javax.crypto")
+        + javax.crypto.[ShortBufferException](ShortBufferException.md "class in javax.crypto")
+
+## Interface Hierarchy
+
+* javax.security.auth.[Destroyable](../security/auth/Destroyable.md "interface in javax.security.auth")
+  + javax.crypto.[SecretKey](SecretKey.md "interface in javax.crypto") (also extends java.security.[Key](../../java/security/Key.md "interface in java.security"))
+* javax.crypto.[KEMSpi](KEMSpi.md "interface in javax.crypto")
+* javax.crypto.[KEMSpi.DecapsulatorSpi](KEMSpi.DecapsulatorSpi.md "interface in javax.crypto")
+* javax.crypto.[KEMSpi.EncapsulatorSpi](KEMSpi.EncapsulatorSpi.md "interface in javax.crypto")
+* java.io.[Serializable](../../java/io/Serializable.md "interface in java.io")
+  + java.security.[Key](../../java/security/Key.md "interface in java.security")
+    - javax.crypto.[SecretKey](SecretKey.md "interface in javax.crypto") (also extends javax.security.auth.[Destroyable](../security/auth/Destroyable.md "interface in javax.security.auth"))

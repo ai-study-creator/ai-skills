@@ -1,0 +1,1099 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [javax.swing](package-summary.md)
+
+# Class JLabel
+
+[java.lang.Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+[java.awt.Component](../../java/awt/Component.md "class in java.awt")
+
+[java.awt.Container](../../java/awt/Container.md "class in java.awt")
+
+[javax.swing.JComponent](JComponent.md "class in javax.swing")
+
+javax.swing.JLabel
+
+All Implemented Interfaces:
+:   `ImageObserver`, `MenuContainer`, `Serializable`, `Accessible`, `SwingConstants`
+
+Direct Known Subclasses:
+:   `BasicComboBoxRenderer`, `DefaultListCellRenderer`, `DefaultTableCellRenderer`, `DefaultTreeCellRenderer`
+
+---
+
+[@JavaBean](../../java/beans/JavaBean.md "annotation interface in java.beans")([defaultProperty](../../java/beans/JavaBean.md#defaultProperty())="UI",
+[description](../../java/beans/JavaBean.md#description())="A component that displays a short string and an icon.")
+public class JLabel
+extends [JComponent](JComponent.md "class in javax.swing")
+implements [SwingConstants](SwingConstants.md "interface in javax.swing"), [Accessible](../accessibility/Accessible.md "interface in javax.accessibility")
+
+A display area for a short text string or an image,
+or both.
+A label does not react to input events.
+As a result, it cannot get the keyboard focus.
+A label can, however, display a keyboard alternative
+as a convenience for a nearby component
+that has a keyboard alternative but can't display it.
+
+A `JLabel` object can display
+either text, an image, or both.
+You can specify where in the label's display area
+the label's contents are aligned
+by setting the vertical and horizontal alignment.
+By default, labels are vertically centered
+in their display area.
+Text-only labels are leading edge aligned, by default;
+image-only labels are horizontally centered, by default.
+
+You can also specify the position of the text
+relative to the image.
+By default, text is on the trailing edge of the image,
+with the text and image vertically aligned.
+
+A label's leading and trailing edge are determined from the value of its
+[`ComponentOrientation`](../../java/awt/ComponentOrientation.md "class in java.awt") property. At present, the default
+ComponentOrientation setting maps the leading edge to left and the trailing
+edge to right.
+
+Finally, you can use the `setIconTextGap` method
+to specify how many pixels
+should appear between the text and the image.
+The default is 4 pixels.
+
+See [How to Use Labels](https://docs.oracle.com/javase/tutorial/uiswing/components/label.html)
+in *The Java Tutorial*
+for further documentation.
+
+**Warning:** Swing is not thread safe. For more
+information see [Swing's Threading
+Policy](package-summary.md#threading).
+
+**Warning:**
+Serialized objects of this class will not be compatible with
+future Swing releases. The current serialization support is
+appropriate for short term storage or RMI between applications running
+the same version of Swing. As of 1.4, support for long term storage
+of all JavaBeans
+has been added to the `java.beans` package.
+Please see [`XMLEncoder`](../../java/beans/XMLEncoder.md "class in java.beans").
+
+Since:
+:   1.2
+
+* ## Nested Class Summary
+
+  Nested Classes
+
+  Modifier and Type
+
+  Class
+
+  Description
+
+  `protected class`
+
+  `JLabel.AccessibleJLabel`
+
+  The class used to obtain the accessible role for this object.
+
+  ## Nested classes/interfaces inherited from class javax.swing.[JComponent](JComponent.md "class in javax.swing")
+
+  `JComponent.AccessibleJComponent`
+
+  ## Nested classes/interfaces inherited from class java.awt.[Container](../../java/awt/Container.md "class in java.awt")
+
+  `Container.AccessibleAWTContainer`
+
+  ## Nested classes/interfaces inherited from class java.awt.[Component](../../java/awt/Component.md "class in java.awt")
+
+  `Component.AccessibleAWTComponent, Component.BaselineResizeBehavior, Component.BltBufferStrategy, Component.FlipBufferStrategy`
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `protected Component`
+
+  `labelFor`
+
+  The Component this label is for; null if the label
+  is not the label for a component
+
+  ### Fields inherited from class javax.swing.[JComponent](JComponent.md "class in javax.swing")
+
+  `listenerList, TOOL_TIP_TEXT_KEY, ui, UNDEFINED_CONDITION, WHEN_ANCESTOR_OF_FOCUSED_COMPONENT, WHEN_FOCUSED, WHEN_IN_FOCUSED_WINDOW`
+
+  ### Fields inherited from class java.awt.[Component](../../java/awt/Component.md "class in java.awt")
+
+  `accessibleContext, BOTTOM_ALIGNMENT, CENTER_ALIGNMENT, LEFT_ALIGNMENT, RIGHT_ALIGNMENT, TOP_ALIGNMENT`
+
+  ### Fields inherited from interface java.awt.image.[ImageObserver](../../java/awt/image/ImageObserver.md "interface in java.awt.image")
+
+  `ABORT, ALLBITS, ERROR, FRAMEBITS, HEIGHT, PROPERTIES, SOMEBITS, WIDTH`
+
+  ### Fields inherited from interface javax.swing.[SwingConstants](SwingConstants.md "interface in javax.swing")
+
+  `BOTTOM, CENTER, EAST, HORIZONTAL, LEADING, LEFT, NEXT, NORTH, NORTH_EAST, NORTH_WEST, PREVIOUS, RIGHT, SOUTH, SOUTH_EAST, SOUTH_WEST, TOP, TRAILING, VERTICAL, WEST`
+* ## Constructor Summary
+
+  Constructors
+
+  Constructor
+
+  Description
+
+  `JLabel()`
+
+  Creates a `JLabel` instance with
+  no image and with an empty string for the title.
+
+  `JLabel(String text)`
+
+  Creates a `JLabel` instance with the specified text.
+
+  `JLabel(String text,
+  int horizontalAlignment)`
+
+  Creates a `JLabel` instance with the specified
+  text and horizontal alignment.
+
+  `JLabel(String text,
+  Icon icon,
+  int horizontalAlignment)`
+
+  Creates a `JLabel` instance with the specified
+  text, image, and horizontal alignment.
+
+  `JLabel(Icon image)`
+
+  Creates a `JLabel` instance with the specified image.
+
+  `JLabel(Icon image,
+  int horizontalAlignment)`
+
+  Creates a `JLabel` instance with the specified
+  image and horizontal alignment.
+* ## Method Summary
+
+  All MethodsInstance MethodsConcrete Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `protected int`
+
+  `checkHorizontalKey(int key,
+  String message)`
+
+  Verify that key is a legal value for the horizontalAlignment properties.
+
+  `protected int`
+
+  `checkVerticalKey(int key,
+  String message)`
+
+  Verify that key is a legal value for the
+  verticalAlignment or verticalTextPosition properties.
+
+  `AccessibleContext`
+
+  `getAccessibleContext()`
+
+  Get the AccessibleContext of this object
+
+  `Icon`
+
+  `getDisabledIcon()`
+
+  Returns the icon used by the label when it's disabled.
+
+  `int`
+
+  `getDisplayedMnemonic()`
+
+  Return the keycode that indicates a mnemonic key.
+
+  `int`
+
+  `getDisplayedMnemonicIndex()`
+
+  Returns the character, as an index, that the look and feel should
+  provide decoration for as representing the mnemonic character.
+
+  `int`
+
+  `getHorizontalAlignment()`
+
+  Returns the alignment of the label's contents along the X axis.
+
+  `int`
+
+  `getHorizontalTextPosition()`
+
+  Returns the horizontal position of the label's text,
+  relative to its image.
+
+  `Icon`
+
+  `getIcon()`
+
+  Returns the graphic image (glyph, icon) that the label displays.
+
+  `int`
+
+  `getIconTextGap()`
+
+  Returns the amount of space between the text and the icon
+  displayed in this label.
+
+  `Component`
+
+  `getLabelFor()`
+
+  Get the component this is labelling.
+
+  `String`
+
+  `getText()`
+
+  Returns the text string that the label displays.
+
+  `LabelUI`
+
+  `getUI()`
+
+  Returns the L&F object that renders this component.
+
+  `String`
+
+  `getUIClassID()`
+
+  Returns a string that specifies the name of the l&f class
+  that renders this component.
+
+  `int`
+
+  `getVerticalAlignment()`
+
+  Returns the alignment of the label's contents along the Y axis.
+
+  `int`
+
+  `getVerticalTextPosition()`
+
+  Returns the vertical position of the label's text,
+  relative to its image.
+
+  `boolean`
+
+  `imageUpdate(Image img,
+  int infoflags,
+  int x,
+  int y,
+  int w,
+  int h)`
+
+  If the component is not showing or either the icon or disabled
+  icon is not an `ImageIcon` with an `Image`
+  equal to the passed in `Image`, return `false`;
+  otherwise it will delegate to the super-class.
+
+  `protected String`
+
+  `paramString()`
+
+  Returns a string representation of this JLabel.
+
+  `void`
+
+  `setDisabledIcon(Icon disabledIcon)`
+
+  Set the icon to be displayed if this JLabel is "disabled"
+  (JLabel.setEnabled(false)).
+
+  `void`
+
+  `setDisplayedMnemonic(char aChar)`
+
+  Specifies the displayedMnemonic as a char value.
+
+  `void`
+
+  `setDisplayedMnemonic(int key)`
+
+  Specify a keycode that indicates a mnemonic key.
+
+  `void`
+
+  `setDisplayedMnemonicIndex(int index)`
+
+  Provides a hint to the look and feel as to which character in the
+  text should be decorated to represent the mnemonic.
+
+  `void`
+
+  `setHorizontalAlignment(int alignment)`
+
+  Sets the alignment of the label's contents along the X axis.
+
+  `void`
+
+  `setHorizontalTextPosition(int textPosition)`
+
+  Sets the horizontal position of the label's text,
+  relative to its image.
+
+  `void`
+
+  `setIcon(Icon icon)`
+
+  Defines the icon this component will display.
+
+  `void`
+
+  `setIconTextGap(int iconTextGap)`
+
+  If both the icon and text properties are set, this property
+  defines the space between them.
+
+  `void`
+
+  `setLabelFor(Component c)`
+
+  Set the component this is labelling.
+
+  `void`
+
+  `setText(String text)`
+
+  Defines the single line of text this component will display.
+
+  `void`
+
+  `setUI(LabelUI ui)`
+
+  Sets the L&F object that renders this component.
+
+  `void`
+
+  `setVerticalAlignment(int alignment)`
+
+  Sets the alignment of the label's contents along the Y axis.
+
+  `void`
+
+  `setVerticalTextPosition(int textPosition)`
+
+  Sets the vertical position of the label's text,
+  relative to its image.
+
+  `void`
+
+  `updateUI()`
+
+  Resets the UI property to a value from the current look and feel.
+
+  ### Methods inherited from class javax.swing.[JComponent](JComponent.md "class in javax.swing")
+
+  `addAncestorListener, addNotify, addVetoableChangeListener, computeVisibleRect, contains, createToolTip, disable, enable, firePropertyChange, firePropertyChange, firePropertyChange, fireVetoableChange, getActionForKeyStroke, getActionMap, getAlignmentX, getAlignmentY, getAncestorListeners, getAutoscrolls, getBaseline, getBaselineResizeBehavior, getBorder, getBounds, getClientProperty, getComponentGraphics, getComponentPopupMenu, getConditionForKeyStroke, getDebugGraphicsOptions, getDefaultLocale, getFontMetrics, getGraphics, getHeight, getInheritsPopupMenu, getInputMap, getInputMap, getInputVerifier, getInsets, getInsets, getListeners, getLocation, getMaximumSize, getMinimumSize, getNextFocusableComponent, getPopupLocation, getPreferredSize, getRegisteredKeyStrokes, getRootPane, getSize, getToolTipLocation, getToolTipText, getToolTipText, getTopLevelAncestor, getTransferHandler, getVerifyInputWhenFocusTarget, getVetoableChangeListeners, getVisibleRect, getWidth, getX, getY, grabFocus, hide, isDoubleBuffered, isLightweightComponent, isManagingFocus, isOpaque, isOptimizedDrawingEnabled, isPaintingForPrint, isPaintingOrigin, isPaintingTile, isRequestFocusEnabled, isValidateRoot, paint, paintBorder, paintChildren, paintComponent, paintImmediately, paintImmediately, print, printAll, printBorder, printChildren, printComponent, processComponentKeyEvent, processKeyBinding, processKeyEvent, processMouseEvent, processMouseMotionEvent, putClientProperty, registerKeyboardAction, registerKeyboardAction, removeAncestorListener, removeNotify, removeVetoableChangeListener, repaint, repaint, requestDefaultFocus, requestFocus, requestFocus, requestFocusInWindow, requestFocusInWindow, resetKeyboardActions, reshape, revalidate, scrollRectToVisible, setActionMap, setAlignmentX, setAlignmentY, setAutoscrolls, setBackground, setBorder, setComponentPopupMenu, setDebugGraphicsOptions, setDefaultLocale, setDoubleBuffered, setEnabled, setFocusTraversalKeys, setFont, setForeground, setInheritsPopupMenu, setInputMap, setInputVerifier, setMaximumSize, setMinimumSize, setNextFocusableComponent, setOpaque, setPreferredSize, setRequestFocusEnabled, setToolTipText, setTransferHandler, setUI, setVerifyInputWhenFocusTarget, setVisible, unregisterKeyboardAction, update`
+
+  ### Methods inherited from class java.awt.[Container](../../java/awt/Container.md "class in java.awt")
+
+  `add, add, add, add, add, addContainerListener, addImpl, addPropertyChangeListener, addPropertyChangeListener, applyComponentOrientation, areFocusTraversalKeysSet, countComponents, deliverEvent, doLayout, findComponentAt, findComponentAt, getComponent, getComponentAt, getComponentAt, getComponentCount, getComponents, getComponentZOrder, getContainerListeners, getFocusTraversalKeys, getFocusTraversalPolicy, getLayout, getMousePosition, insets, invalidate, isAncestorOf, isFocusCycleRoot, isFocusCycleRoot, isFocusTraversalPolicyProvider, isFocusTraversalPolicySet, layout, list, list, locate, minimumSize, paintComponents, preferredSize, printComponents, processContainerEvent, processEvent, remove, remove, removeAll, removeContainerListener, setComponentZOrder, setFocusCycleRoot, setFocusTraversalPolicy, setFocusTraversalPolicyProvider, setLayout, transferFocusDownCycle, validate, validateTree`
+
+  ### Methods inherited from class java.awt.[Component](../../java/awt/Component.md "class in java.awt")
+
+  `action, add, addComponentListener, addFocusListener, addHierarchyBoundsListener, addHierarchyListener, addInputMethodListener, addKeyListener, addMouseListener, addMouseMotionListener, addMouseWheelListener, bounds, checkImage, checkImage, coalesceEvents, contains, createImage, createImage, createVolatileImage, createVolatileImage, disableEvents, dispatchEvent, enable, enableEvents, enableInputMethods, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, firePropertyChange, getBackground, getBounds, getColorModel, getComponentListeners, getComponentOrientation, getCursor, getDropTarget, getFocusCycleRootAncestor, getFocusListeners, getFocusTraversalKeysEnabled, getFont, getForeground, getGraphicsConfiguration, getHierarchyBoundsListeners, getHierarchyListeners, getIgnoreRepaint, getInputContext, getInputMethodListeners, getInputMethodRequests, getKeyListeners, getLocale, getLocation, getLocationOnScreen, getMouseListeners, getMouseMotionListeners, getMousePosition, getMouseWheelListeners, getName, getParent, getPropertyChangeListeners, getPropertyChangeListeners, getSize, getToolkit, getTreeLock, gotFocus, handleEvent, hasFocus, inside, isBackgroundSet, isCursorSet, isDisplayable, isEnabled, isFocusable, isFocusOwner, isFocusTraversable, isFontSet, isForegroundSet, isLightweight, isMaximumSizeSet, isMinimumSizeSet, isPreferredSizeSet, isShowing, isValid, isVisible, keyDown, keyUp, list, list, list, location, lostFocus, mouseDown, mouseDrag, mouseEnter, mouseExit, mouseMove, mouseUp, move, nextFocus, paintAll, postEvent, prepareImage, prepareImage, processComponentEvent, processFocusEvent, processHierarchyBoundsEvent, processHierarchyEvent, processInputMethodEvent, processMouseWheelEvent, remove, removeComponentListener, removeFocusListener, removeHierarchyBoundsListener, removeHierarchyListener, removeInputMethodListener, removeKeyListener, removeMouseListener, removeMouseMotionListener, removeMouseWheelListener, removePropertyChangeListener, removePropertyChangeListener, repaint, repaint, repaint, requestFocus, requestFocus, requestFocusInWindow, resize, resize, setBounds, setBounds, setComponentOrientation, setCursor, setDropTarget, setFocusable, setFocusTraversalKeysEnabled, setIgnoreRepaint, setLocale, setLocation, setLocation, setMixingCutoutShape, setName, setSize, setSize, show, show, size, toString, transferFocus, transferFocusBackward, transferFocusUpCycle`
+
+  ### Methods inherited from class java.lang.[Object](../../../java.base/java/lang/Object.md "class in java.lang")
+
+  `clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+* ## Field Details
+
+  + ### labelFor
+
+    protected [Component](../../java/awt/Component.md "class in java.awt") labelFor
+
+    The Component this label is for; null if the label
+    is not the label for a component
+* ## Constructor Details
+
+  + ### JLabel
+
+    public JLabel([String](../../../java.base/java/lang/String.md "class in java.lang") text,
+    [Icon](Icon.md "interface in javax.swing") icon,
+    int horizontalAlignment)
+
+    Creates a `JLabel` instance with the specified
+    text, image, and horizontal alignment.
+    The label is centered vertically in its display area.
+    The text is on the trailing edge of the image.
+
+    Parameters:
+    :   `text` - The text to be displayed by the label.
+    :   `icon` - The image to be displayed by the label.
+    :   `horizontalAlignment` - One of the following constants
+        defined in `SwingConstants`:
+        `LEFT`,
+        `CENTER`,
+        `RIGHT`,
+        `LEADING` or
+        `TRAILING`.
+  + ### JLabel
+
+    public JLabel([String](../../../java.base/java/lang/String.md "class in java.lang") text,
+    int horizontalAlignment)
+
+    Creates a `JLabel` instance with the specified
+    text and horizontal alignment.
+    The label is centered vertically in its display area.
+
+    Parameters:
+    :   `text` - The text to be displayed by the label.
+    :   `horizontalAlignment` - One of the following constants
+        defined in `SwingConstants`:
+        `LEFT`,
+        `CENTER`,
+        `RIGHT`,
+        `LEADING` or
+        `TRAILING`.
+  + ### JLabel
+
+    public JLabel([String](../../../java.base/java/lang/String.md "class in java.lang") text)
+
+    Creates a `JLabel` instance with the specified text.
+    The label is aligned against the leading edge of its display area,
+    and centered vertically.
+
+    Parameters:
+    :   `text` - The text to be displayed by the label.
+  + ### JLabel
+
+    public JLabel([Icon](Icon.md "interface in javax.swing") image,
+    int horizontalAlignment)
+
+    Creates a `JLabel` instance with the specified
+    image and horizontal alignment.
+    The label is centered vertically in its display area.
+
+    Parameters:
+    :   `image` - The image to be displayed by the label.
+    :   `horizontalAlignment` - One of the following constants
+        defined in `SwingConstants`:
+        `LEFT`,
+        `CENTER`,
+        `RIGHT`,
+        `LEADING` or
+        `TRAILING`.
+  + ### JLabel
+
+    public JLabel([Icon](Icon.md "interface in javax.swing") image)
+
+    Creates a `JLabel` instance with the specified image.
+    The label is centered vertically and horizontally
+    in its display area.
+
+    Parameters:
+    :   `image` - The image to be displayed by the label.
+  + ### JLabel
+
+    public JLabel()
+
+    Creates a `JLabel` instance with
+    no image and with an empty string for the title.
+    The label is centered vertically
+    in its display area.
+    The label's contents, once set, will be displayed on the leading edge
+    of the label's display area.
+* ## Method Details
+
+  + ### getUI
+
+    public [LabelUI](plaf/LabelUI.md "class in javax.swing.plaf") getUI()
+
+    Returns the L&F object that renders this component.
+
+    Overrides:
+    :   `getUI` in class `JComponent`
+
+    Returns:
+    :   LabelUI object
+  + ### setUI
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([hidden](../../java/beans/BeanProperty.md#hidden())=true,
+    [visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The UI object that implements the Component\'s LookAndFeel.")
+    public void setUI([LabelUI](plaf/LabelUI.md "class in javax.swing.plaf") ui)
+
+    Sets the L&F object that renders this component.
+
+    Parameters:
+    :   `ui` - the LabelUI L&F object
+
+    See Also:
+    :   - [`UIDefaults.getUI(javax.swing.JComponent)`](UIDefaults.md#getUI(javax.swing.JComponent))
+  + ### updateUI
+
+    public void updateUI()
+
+    Resets the UI property to a value from the current look and feel.
+
+    Overrides:
+    :   `updateUI` in class `JComponent`
+
+    See Also:
+    :   - [`JComponent.updateUI()`](JComponent.md#updateUI())
+  + ### getUIClassID
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false)
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getUIClassID()
+
+    Returns a string that specifies the name of the l&f class
+    that renders this component.
+
+    Overrides:
+    :   `getUIClassID` in class `JComponent`
+
+    Returns:
+    :   the string "LabelUI"
+
+    See Also:
+    :   - [`JComponent.getUIClassID()`](JComponent.md#getUIClassID())
+        - [`UIDefaults.getUI(javax.swing.JComponent)`](UIDefaults.md#getUI(javax.swing.JComponent))
+  + ### getText
+
+    public [String](../../../java.base/java/lang/String.md "class in java.lang") getText()
+
+    Returns the text string that the label displays.
+
+    Returns:
+    :   a String
+
+    See Also:
+    :   - [`setText(java.lang.String)`](#setText(java.lang.String))
+  + ### setText
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="Defines the single line of text this component will display.")
+    public void setText([String](../../../java.base/java/lang/String.md "class in java.lang") text)
+
+    Defines the single line of text this component will display. If
+    the value of text is null or empty string, nothing is displayed.
+
+    The default value of this property is null.
+
+    This is a JavaBeans bound property.
+
+    Parameters:
+    :   `text` - the single line of text this component will display
+
+    See Also:
+    :   - [`setVerticalTextPosition(int)`](#setVerticalTextPosition(int))
+        - [`setHorizontalTextPosition(int)`](#setHorizontalTextPosition(int))
+        - [`setIcon(javax.swing.Icon)`](#setIcon(javax.swing.Icon))
+  + ### getIcon
+
+    public [Icon](Icon.md "interface in javax.swing") getIcon()
+
+    Returns the graphic image (glyph, icon) that the label displays.
+
+    Returns:
+    :   an Icon
+
+    See Also:
+    :   - [`setIcon(javax.swing.Icon)`](#setIcon(javax.swing.Icon))
+  + ### setIcon
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([preferred](../../java/beans/BeanProperty.md#preferred())=true,
+    [visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The icon this component will display.")
+    public void setIcon([Icon](Icon.md "interface in javax.swing") icon)
+
+    Defines the icon this component will display. If
+    the value of icon is null, nothing is displayed.
+
+    The default value of this property is null.
+
+    This is a JavaBeans bound property.
+
+    Parameters:
+    :   `icon` - the default icon this component will display
+
+    See Also:
+    :   - [`setVerticalTextPosition(int)`](#setVerticalTextPosition(int))
+        - [`setHorizontalTextPosition(int)`](#setHorizontalTextPosition(int))
+        - [`getIcon()`](#getIcon())
+  + ### getDisabledIcon
+
+    public [Icon](Icon.md "interface in javax.swing") getDisabledIcon()
+
+    Returns the icon used by the label when it's disabled.
+    If no disabled icon has been set this will forward the call to
+    the look and feel to construct an appropriate disabled Icon.
+
+    Some look and feels might not render the disabled Icon, in which
+    case they will ignore this.
+
+    Returns:
+    :   the `disabledIcon` property
+
+    See Also:
+    :   - [`setDisabledIcon(javax.swing.Icon)`](#setDisabledIcon(javax.swing.Icon))
+        - [`LookAndFeel.getDisabledIcon(javax.swing.JComponent, javax.swing.Icon)`](LookAndFeel.md#getDisabledIcon(javax.swing.JComponent,javax.swing.Icon))
+        - [`ImageIcon`](ImageIcon.md "class in javax.swing")
+  + ### setDisabledIcon
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The icon to display if the label is disabled.")
+    public void setDisabledIcon([Icon](Icon.md "interface in javax.swing") disabledIcon)
+
+    Set the icon to be displayed if this JLabel is "disabled"
+    (JLabel.setEnabled(false)).
+
+    The default value of this property is null.
+
+    Parameters:
+    :   `disabledIcon` - the Icon to display when the component is disabled
+
+    See Also:
+    :   - [`getDisabledIcon()`](#getDisabledIcon())
+        - [`JComponent.setEnabled(boolean)`](JComponent.md#setEnabled(boolean))
+  + ### setDisplayedMnemonic
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The mnemonic keycode.")
+    public void setDisplayedMnemonic(int key)
+
+    Specify a keycode that indicates a mnemonic key.
+    This property is used when the label is part of a larger component.
+    If the labelFor property of the label is not null, the label will
+    call the requestFocus method of the component specified by the
+    labelFor property when the mnemonic is activated.
+
+    Parameters:
+    :   `key` - a keycode that indicates a mnemonic key
+
+    See Also:
+    :   - [`getLabelFor()`](#getLabelFor())
+        - [`setLabelFor(java.awt.Component)`](#setLabelFor(java.awt.Component))
+  + ### setDisplayedMnemonic
+
+    public void setDisplayedMnemonic(char aChar)
+
+    Specifies the displayedMnemonic as a char value.
+
+    Parameters:
+    :   `aChar` - a char specifying the mnemonic to display
+
+    See Also:
+    :   - [`setDisplayedMnemonic(int)`](#setDisplayedMnemonic(int))
+  + ### getDisplayedMnemonic
+
+    public int getDisplayedMnemonic()
+
+    Return the keycode that indicates a mnemonic key.
+    This property is used when the label is part of a larger component.
+    If the labelFor property of the label is not null, the label will
+    call the requestFocus method of the component specified by the
+    labelFor property when the mnemonic is activated.
+
+    Returns:
+    :   int value for the mnemonic key
+
+    See Also:
+    :   - [`getLabelFor()`](#getLabelFor())
+        - [`setLabelFor(java.awt.Component)`](#setLabelFor(java.awt.Component))
+  + ### setDisplayedMnemonicIndex
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="the index into the String to draw the keyboard character mnemonic at")
+    public void setDisplayedMnemonicIndex(int index)
+    throws [IllegalArgumentException](../../../java.base/java/lang/IllegalArgumentException.md "class in java.lang")
+
+    Provides a hint to the look and feel as to which character in the
+    text should be decorated to represent the mnemonic. Not all look and
+    feels may support this. A value of -1 indicates either there is no
+    mnemonic, the mnemonic character is not contained in the string, or
+    the developer does not wish the mnemonic to be displayed.
+
+    The value of this is updated as the properties relating to the
+    mnemonic change (such as the mnemonic itself, the text...).
+    You should only ever have to call this if
+    you do not wish the default character to be underlined. For example, if
+    the text was 'Save As', with a mnemonic of 'a', and you wanted the 'A'
+    to be decorated, as 'Save As', you would have to invoke
+    `setDisplayedMnemonicIndex(5)` after invoking
+    `setDisplayedMnemonic(KeyEvent.VK_A)`.
+
+    Parameters:
+    :   `index` - Index into the String to underline
+
+    Throws:
+    :   `IllegalArgumentException` - will be thrown if `index`
+        is >= length of the text, or < -1
+
+    Since:
+    :   1.4
+  + ### getDisplayedMnemonicIndex
+
+    public int getDisplayedMnemonicIndex()
+
+    Returns the character, as an index, that the look and feel should
+    provide decoration for as representing the mnemonic character.
+
+    Returns:
+    :   index representing mnemonic character
+
+    Since:
+    :   1.4
+
+    See Also:
+    :   - [`setDisplayedMnemonicIndex(int)`](#setDisplayedMnemonicIndex(int))
+  + ### checkHorizontalKey
+
+    protected int checkHorizontalKey(int key,
+    [String](../../../java.base/java/lang/String.md "class in java.lang") message)
+
+    Verify that key is a legal value for the horizontalAlignment properties.
+
+    Parameters:
+    :   `key` - the property value to check
+    :   `message` - the IllegalArgumentException detail message
+
+    Returns:
+    :   the key value if `key` is a legal value for the
+        horizontalAlignment properties
+
+    Throws:
+    :   `IllegalArgumentException` - if key isn't LEFT, CENTER, RIGHT,
+        LEADING or TRAILING.
+
+    See Also:
+    :   - [`setHorizontalTextPosition(int)`](#setHorizontalTextPosition(int))
+        - [`setHorizontalAlignment(int)`](#setHorizontalAlignment(int))
+  + ### checkVerticalKey
+
+    protected int checkVerticalKey(int key,
+    [String](../../../java.base/java/lang/String.md "class in java.lang") message)
+
+    Verify that key is a legal value for the
+    verticalAlignment or verticalTextPosition properties.
+
+    Parameters:
+    :   `key` - the property value to check
+    :   `message` - the IllegalArgumentException detail message
+
+    Returns:
+    :   the key value if `key` is a legal value for the
+        verticalAlignment or verticalTextPosition properties
+
+    Throws:
+    :   `IllegalArgumentException` - if key isn't TOP, CENTER, or BOTTOM.
+
+    See Also:
+    :   - [`setVerticalAlignment(int)`](#setVerticalAlignment(int))
+        - [`setVerticalTextPosition(int)`](#setVerticalTextPosition(int))
+  + ### getIconTextGap
+
+    public int getIconTextGap()
+
+    Returns the amount of space between the text and the icon
+    displayed in this label.
+
+    Returns:
+    :   an int equal to the number of pixels between the text
+        and the icon.
+
+    See Also:
+    :   - [`setIconTextGap(int)`](#setIconTextGap(int))
+  + ### setIconTextGap
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [description](../../java/beans/BeanProperty.md#description())="If both the icon and text properties are set, this property defines the space between them.")
+    public void setIconTextGap(int iconTextGap)
+
+    If both the icon and text properties are set, this property
+    defines the space between them.
+
+    The default value of this property is 4 pixels.
+
+    This is a JavaBeans bound property.
+
+    Parameters:
+    :   `iconTextGap` - the space between the icon and text properties
+
+    See Also:
+    :   - [`getIconTextGap()`](#getIconTextGap())
+  + ### getVerticalAlignment
+
+    public int getVerticalAlignment()
+
+    Returns the alignment of the label's contents along the Y axis.
+
+    Returns:
+    :   The value of the verticalAlignment property, one of the
+        following constants defined in `SwingConstants`:
+        `TOP`,
+        `CENTER`, or
+        `BOTTOM`.
+
+    See Also:
+    :   - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+        - [`setVerticalAlignment(int)`](#setVerticalAlignment(int))
+  + ### setVerticalAlignment
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [enumerationValues](../../java/beans/BeanProperty.md#enumerationValues())={"SwingConstants.TOP","SwingConstants.CENTER","SwingConstants.BOTTOM"},
+    [description](../../java/beans/BeanProperty.md#description())="The alignment of the label\'s contents along the Y axis.")
+    public void setVerticalAlignment(int alignment)
+
+    Sets the alignment of the label's contents along the Y axis.
+
+    The default value of this property is CENTER.
+
+    Parameters:
+    :   `alignment` - One of the following constants
+        defined in `SwingConstants`:
+        `TOP`,
+        `CENTER` (the default), or
+        `BOTTOM`.
+
+    See Also:
+    :   - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+        - [`getVerticalAlignment()`](#getVerticalAlignment())
+  + ### getHorizontalAlignment
+
+    public int getHorizontalAlignment()
+
+    Returns the alignment of the label's contents along the X axis.
+
+    Returns:
+    :   The value of the horizontalAlignment property, one of the
+        following constants defined in `SwingConstants`:
+        `LEFT`,
+        `CENTER`,
+        `RIGHT`,
+        `LEADING` or
+        `TRAILING`.
+
+    See Also:
+    :   - [`setHorizontalAlignment(int)`](#setHorizontalAlignment(int))
+        - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+  + ### setHorizontalAlignment
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [enumerationValues](../../java/beans/BeanProperty.md#enumerationValues())={"SwingConstants.LEFT","SwingConstants.CENTER","SwingConstants.RIGHT","SwingConstants.LEADING","SwingConstants.TRAILING"},
+    [description](../../java/beans/BeanProperty.md#description())="The alignment of the label\'s content along the X axis.")
+    public void setHorizontalAlignment(int alignment)
+
+    Sets the alignment of the label's contents along the X axis.
+
+    This is a JavaBeans bound property.
+
+    Parameters:
+    :   `alignment` - One of the following constants
+        defined in `SwingConstants`:
+        `LEFT`,
+        `CENTER` (the default for image-only labels),
+        `RIGHT`,
+        `LEADING` (the default for text-only labels) or
+        `TRAILING`.
+
+    See Also:
+    :   - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+        - [`getHorizontalAlignment()`](#getHorizontalAlignment())
+  + ### getVerticalTextPosition
+
+    public int getVerticalTextPosition()
+
+    Returns the vertical position of the label's text,
+    relative to its image.
+
+    Returns:
+    :   One of the following constants
+        defined in `SwingConstants`:
+        `TOP`,
+        `CENTER`, or
+        `BOTTOM`.
+
+    See Also:
+    :   - [`setVerticalTextPosition(int)`](#setVerticalTextPosition(int))
+        - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+  + ### setVerticalTextPosition
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([expert](../../java/beans/BeanProperty.md#expert())=true,
+    [visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [enumerationValues](../../java/beans/BeanProperty.md#enumerationValues())={"SwingConstants.TOP","SwingConstants.CENTER","SwingConstants.BOTTOM"},
+    [description](../../java/beans/BeanProperty.md#description())="The vertical position of the text relative to it\'s image.")
+    public void setVerticalTextPosition(int textPosition)
+
+    Sets the vertical position of the label's text,
+    relative to its image.
+
+    The default value of this property is CENTER.
+
+    This is a JavaBeans bound property.
+
+    Parameters:
+    :   `textPosition` - One of the following constants
+        defined in `SwingConstants`:
+        `TOP`,
+        `CENTER` (the default), or
+        `BOTTOM`.
+
+    See Also:
+    :   - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+        - [`getVerticalTextPosition()`](#getVerticalTextPosition())
+  + ### getHorizontalTextPosition
+
+    public int getHorizontalTextPosition()
+
+    Returns the horizontal position of the label's text,
+    relative to its image.
+
+    Returns:
+    :   One of the following constants
+        defined in `SwingConstants`:
+        `LEFT`,
+        `CENTER`,
+        `RIGHT`,
+        `LEADING` or
+        `TRAILING`.
+
+    See Also:
+    :   - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+  + ### setHorizontalTextPosition
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([expert](../../java/beans/BeanProperty.md#expert())=true,
+    [visualUpdate](../../java/beans/BeanProperty.md#visualUpdate())=true,
+    [enumerationValues](../../java/beans/BeanProperty.md#enumerationValues())={"SwingConstants.LEFT","SwingConstants.CENTER","SwingConstants.RIGHT","SwingConstants.LEADING","SwingConstants.TRAILING"},
+    [description](../../java/beans/BeanProperty.md#description())="The horizontal position of the label\'s text, relative to its image.")
+    public void setHorizontalTextPosition(int textPosition)
+
+    Sets the horizontal position of the label's text,
+    relative to its image.
+
+    Parameters:
+    :   `textPosition` - One of the following constants
+        defined in `SwingConstants`:
+        `LEFT`,
+        `CENTER`,
+        `RIGHT`,
+        `LEADING`, or
+        `TRAILING` (the default).
+
+    See Also:
+    :   - [`SwingConstants`](SwingConstants.md "interface in javax.swing")
+  + ### imageUpdate
+
+    public boolean imageUpdate([Image](../../java/awt/Image.md "class in java.awt") img,
+    int infoflags,
+    int x,
+    int y,
+    int w,
+    int h)
+
+    If the component is not showing or either the icon or disabled
+    icon is not an `ImageIcon` with an `Image`
+    equal to the passed in `Image`, return `false`;
+    otherwise it will delegate to the super-class.
+
+    Specified by:
+    :   `imageUpdate` in interface `ImageObserver`
+
+    Overrides:
+    :   `imageUpdate` in class `Component`
+
+    Parameters:
+    :   `img` - the `Image` to be compared
+    :   `infoflags` - flags used to repaint the label when the image
+        is updated and which determine how much is to be painted
+    :   `x` - the x coordinate
+    :   `y` - the y coordinate
+    :   `w` - the width
+    :   `h` - the height
+
+    Returns:
+    :   `false` if the infoflags indicate that the
+        image is completely loaded; `true` otherwise.
+
+    See Also:
+    :   - [`ImageObserver`](../../java/awt/image/ImageObserver.md "interface in java.awt.image")
+        - [`Component.imageUpdate(java.awt.Image, int, int, int, int, int)`](../../java/awt/Component.md#imageUpdate(java.awt.Image,int,int,int,int,int))
+  + ### paramString
+
+    protected [String](../../../java.base/java/lang/String.md "class in java.lang") paramString()
+
+    Returns a string representation of this JLabel. This method
+    is intended to be used only for debugging purposes, and the
+    content and format of the returned string may vary between
+    implementations. The returned string may be empty but may not
+    be `null`.
+
+    Overrides:
+    :   `paramString` in class `JComponent`
+
+    Returns:
+    :   a string representation of this JLabel.
+  + ### getLabelFor
+
+    public [Component](../../java/awt/Component.md "class in java.awt") getLabelFor()
+
+    Get the component this is labelling.
+
+    Returns:
+    :   the Component this is labelling. Can be null if this
+        does not label a Component. If the displayedMnemonic
+        property is set and the labelFor property is also set, the label
+        will call the requestFocus method of the component specified by the
+        labelFor property when the mnemonic is activated.
+
+    See Also:
+    :   - [`getDisplayedMnemonic()`](#getDisplayedMnemonic())
+        - [`setDisplayedMnemonic(int)`](#setDisplayedMnemonic(int))
+  + ### setLabelFor
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([description](../../java/beans/BeanProperty.md#description())="The component this is labelling.")
+    public void setLabelFor([Component](../../java/awt/Component.md "class in java.awt") c)
+
+    Set the component this is labelling. Can be null if this does not
+    label a Component. If the displayedMnemonic property is set
+    and the labelFor property is also set, the label will
+    call the requestFocus method of the component specified by the
+    labelFor property when the mnemonic is activated.
+
+    Parameters:
+    :   `c` - the Component this label is for, or null if the label is
+        not the label for a component
+
+    See Also:
+    :   - [`getDisplayedMnemonic()`](#getDisplayedMnemonic())
+        - [`setDisplayedMnemonic(int)`](#setDisplayedMnemonic(int))
+  + ### getAccessibleContext
+
+    [@BeanProperty](../../java/beans/BeanProperty.md "annotation interface in java.beans")([bound](../../java/beans/BeanProperty.md#bound())=false,
+    [expert](../../java/beans/BeanProperty.md#expert())=true,
+    [description](../../java/beans/BeanProperty.md#description())="The AccessibleContext associated with this Label.")
+    public [AccessibleContext](../accessibility/AccessibleContext.md "class in javax.accessibility") getAccessibleContext()
+
+    Get the AccessibleContext of this object
+
+    Specified by:
+    :   `getAccessibleContext` in interface `Accessible`
+
+    Overrides:
+    :   `getAccessibleContext` in class `Component`
+
+    Returns:
+    :   the AccessibleContext of this object

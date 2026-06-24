@@ -1,0 +1,20 @@
+= Spring Boot Actuator and Observability
+
+== Actuator
+- Expose only the endpoints you need.
+- Use health, info, metrics, and loggers intentionally.
+- Separate readiness from liveness when deployment semantics require it.
+
+== Metrics
+- Prefer stable metric names and low-cardinality tags.
+- Measure latency, errors, and saturation on critical paths.
+- Make business metrics visible, not just technical metrics.
+
+== Tracing and logging
+- Carry correlation IDs through request handling.
+- Include enough structured fields to debug production issues.
+- Keep trace spans focused on meaningful boundaries.
+
+== Production checks
+- Verify that the signals arrive before trusting the dashboard.
+- Alert only on conditions that need action.

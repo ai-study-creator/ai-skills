@@ -1,0 +1,586 @@
+Module [java.desktop](../../module-summary.md)
+
+Package [javax.swing](package-summary.md)
+
+# Interface ListSelectionModel
+
+All Known Implementing Classes:
+:   `DefaultListSelectionModel`
+
+---
+
+public interface ListSelectionModel
+
+This interface represents the current state of the
+selection for any of the components that display a
+list of values with stable indices. The selection is
+modeled as a set of intervals, each interval represents
+a contiguous range of selected list elements.
+The methods for modifying the set of selected intervals
+all take a pair of indices, index0 and index1, that represent
+a closed interval, i.e. the interval includes both index0 and
+index1.
+
+Since:
+:   1.2
+
+See Also:
+:   * [`DefaultListSelectionModel`](DefaultListSelectionModel.md "class in javax.swing")
+
+* ## Field Summary
+
+  Fields
+
+  Modifier and Type
+
+  Field
+
+  Description
+
+  `static final int`
+
+  `MULTIPLE_INTERVAL_SELECTION`
+
+  A value for the selectionMode property: select one or more
+  contiguous ranges of indices at a time.
+
+  `static final int`
+
+  `SINGLE_INTERVAL_SELECTION`
+
+  A value for the selectionMode property: select one contiguous
+  range of indices at a time.
+
+  `static final int`
+
+  `SINGLE_SELECTION`
+
+  A value for the selectionMode property: select one list index
+  at a time.
+* ## Method Summary
+
+  All MethodsInstance MethodsAbstract MethodsDefault Methods
+
+  Modifier and Type
+
+  Method
+
+  Description
+
+  `void`
+
+  `addListSelectionListener(ListSelectionListener x)`
+
+  Add a listener to the list that's notified each time a change
+  to the selection occurs.
+
+  `void`
+
+  `addSelectionInterval(int index0,
+  int index1)`
+
+  Changes the selection to be the set union of the current selection
+  and the indices between `index0` and `index1` inclusive.
+
+  `void`
+
+  `clearSelection()`
+
+  Change the selection to the empty set.
+
+  `int`
+
+  `getAnchorSelectionIndex()`
+
+  Return the first index argument from the most recent call to
+  setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+
+  `int`
+
+  `getLeadSelectionIndex()`
+
+  Return the second index argument from the most recent call to
+  setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+
+  `int`
+
+  `getMaxSelectionIndex()`
+
+  Returns the last selected index or -1 if the selection is empty.
+
+  `int`
+
+  `getMinSelectionIndex()`
+
+  Returns the first selected index or -1 if the selection is empty.
+
+  `default int[]`
+
+  `getSelectedIndices()`
+
+  Returns an array of all of the selected indices in the selection model,
+  in increasing order.
+
+  `default int`
+
+  `getSelectedItemsCount()`
+
+  Returns the number of selected items.
+
+  `int`
+
+  `getSelectionMode()`
+
+  Returns the current selection mode.
+
+  `boolean`
+
+  `getValueIsAdjusting()`
+
+  Returns `true` if the selection is undergoing a series of changes.
+
+  `void`
+
+  `insertIndexInterval(int index,
+  int length,
+  boolean before)`
+
+  Insert `length` indices beginning before/after `index`.
+
+  `boolean`
+
+  `isSelectedIndex(int index)`
+
+  Returns true if the specified index is selected.
+
+  `boolean`
+
+  `isSelectionEmpty()`
+
+  Returns true if no indices are selected.
+
+  `void`
+
+  `removeIndexInterval(int index0,
+  int index1)`
+
+  Remove the indices in the interval `index0,index1` (inclusive) from
+  the selection model.
+
+  `void`
+
+  `removeListSelectionListener(ListSelectionListener x)`
+
+  Remove a listener from the list that's notified each time a
+  change to the selection occurs.
+
+  `void`
+
+  `removeSelectionInterval(int index0,
+  int index1)`
+
+  Changes the selection to be the set difference of the current selection
+  and the indices between `index0` and `index1` inclusive.
+
+  `void`
+
+  `setAnchorSelectionIndex(int index)`
+
+  Set the anchor selection index.
+
+  `void`
+
+  `setLeadSelectionIndex(int index)`
+
+  Set the lead selection index.
+
+  `void`
+
+  `setSelectionInterval(int index0,
+  int index1)`
+
+  Changes the selection to be between `index0` and `index1`
+  inclusive.
+
+  `void`
+
+  `setSelectionMode(int selectionMode)`
+
+  Sets the selection mode.
+
+  `void`
+
+  `setValueIsAdjusting(boolean valueIsAdjusting)`
+
+  Sets the `valueIsAdjusting` property, which indicates whether
+  or not upcoming selection changes should be considered part of a single
+  change.
+
+* ## Field Details
+
+  + ### SINGLE\_SELECTION
+
+    static final int SINGLE\_SELECTION
+
+    A value for the selectionMode property: select one list index
+    at a time.
+
+    See Also:
+    :   - [`setSelectionMode(int)`](#setSelectionMode(int))
+        - [Constant Field Values](../../../constant-values.md#javax.swing.ListSelectionModel.SINGLE_SELECTION)
+  + ### SINGLE\_INTERVAL\_SELECTION
+
+    static final int SINGLE\_INTERVAL\_SELECTION
+
+    A value for the selectionMode property: select one contiguous
+    range of indices at a time.
+
+    See Also:
+    :   - [`setSelectionMode(int)`](#setSelectionMode(int))
+        - [Constant Field Values](../../../constant-values.md#javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION)
+  + ### MULTIPLE\_INTERVAL\_SELECTION
+
+    static final int MULTIPLE\_INTERVAL\_SELECTION
+
+    A value for the selectionMode property: select one or more
+    contiguous ranges of indices at a time.
+
+    See Also:
+    :   - [`setSelectionMode(int)`](#setSelectionMode(int))
+        - [Constant Field Values](../../../constant-values.md#javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+* ## Method Details
+
+  + ### setSelectionInterval
+
+    void setSelectionInterval(int index0,
+    int index1)
+
+    Changes the selection to be between `index0` and `index1`
+    inclusive. `index0` doesn't have to be less than or equal to
+    `index1`.
+
+    In `SINGLE_SELECTION` selection mode, only the second index
+    is used.
+
+    If this represents a change to the current selection, then each
+    `ListSelectionListener` is notified of the change.
+
+    Parameters:
+    :   `index0` - one end of the interval.
+    :   `index1` - other end of the interval
+
+    See Also:
+    :   - [`addListSelectionListener(javax.swing.event.ListSelectionListener)`](#addListSelectionListener(javax.swing.event.ListSelectionListener))
+  + ### addSelectionInterval
+
+    void addSelectionInterval(int index0,
+    int index1)
+
+    Changes the selection to be the set union of the current selection
+    and the indices between `index0` and `index1` inclusive.
+    `index0` doesn't have to be less than or equal to `index1`.
+
+    In `SINGLE_SELECTION` selection mode, this is equivalent
+    to calling `setSelectionInterval`, and only the second index
+    is used. In `SINGLE_INTERVAL_SELECTION` selection mode, this
+    method behaves like `setSelectionInterval`, unless the given
+    interval is immediately adjacent to or overlaps the existing selection,
+    and can therefore be used to grow the selection.
+
+    If this represents a change to the current selection, then each
+    `ListSelectionListener` is notified of the change.
+
+    Parameters:
+    :   `index0` - one end of the interval.
+    :   `index1` - other end of the interval
+
+    See Also:
+    :   - [`addListSelectionListener(javax.swing.event.ListSelectionListener)`](#addListSelectionListener(javax.swing.event.ListSelectionListener))
+        - [`setSelectionInterval(int, int)`](#setSelectionInterval(int,int))
+  + ### removeSelectionInterval
+
+    void removeSelectionInterval(int index0,
+    int index1)
+
+    Changes the selection to be the set difference of the current selection
+    and the indices between `index0` and `index1` inclusive.
+    `index0` doesn't have to be less than or equal to `index1`.
+
+    In `SINGLE_INTERVAL_SELECTION` selection mode, if the removal
+    would produce two disjoint selections, the removal is extended through
+    the greater end of the selection. For example, if the selection is
+    `0-10` and you supply indices `5,6` (in any order) the
+    resulting selection is `0-4`.
+
+    If this represents a change to the current selection, then each
+    `ListSelectionListener` is notified of the change.
+
+    Parameters:
+    :   `index0` - one end of the interval.
+    :   `index1` - other end of the interval
+
+    See Also:
+    :   - [`addListSelectionListener(javax.swing.event.ListSelectionListener)`](#addListSelectionListener(javax.swing.event.ListSelectionListener))
+  + ### getMinSelectionIndex
+
+    int getMinSelectionIndex()
+
+    Returns the first selected index or -1 if the selection is empty.
+
+    Returns:
+    :   the first selected index or -1 if the selection is empty.
+  + ### getMaxSelectionIndex
+
+    int getMaxSelectionIndex()
+
+    Returns the last selected index or -1 if the selection is empty.
+
+    Returns:
+    :   the last selected index or -1 if the selection is empty.
+  + ### isSelectedIndex
+
+    boolean isSelectedIndex(int index)
+
+    Returns true if the specified index is selected.
+
+    Parameters:
+    :   `index` - an index
+
+    Returns:
+    :   `true` if the specified index is selected
+  + ### getAnchorSelectionIndex
+
+    int getAnchorSelectionIndex()
+
+    Return the first index argument from the most recent call to
+    setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+    The most recent index0 is considered the "anchor" and the most recent
+    index1 is considered the "lead". Some interfaces display these
+    indices specially, e.g. Windows95 displays the lead index with a
+    dotted yellow outline.
+
+    Returns:
+    :   the anchor selection index
+
+    See Also:
+    :   - [`getLeadSelectionIndex()`](#getLeadSelectionIndex())
+        - [`setSelectionInterval(int, int)`](#setSelectionInterval(int,int))
+        - [`addSelectionInterval(int, int)`](#addSelectionInterval(int,int))
+  + ### setAnchorSelectionIndex
+
+    void setAnchorSelectionIndex(int index)
+
+    Set the anchor selection index.
+
+    Parameters:
+    :   `index` - the anchor selection index
+
+    See Also:
+    :   - [`getAnchorSelectionIndex()`](#getAnchorSelectionIndex())
+  + ### getLeadSelectionIndex
+
+    int getLeadSelectionIndex()
+
+    Return the second index argument from the most recent call to
+    setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+
+    Returns:
+    :   the lead selection index.
+
+    See Also:
+    :   - [`getAnchorSelectionIndex()`](#getAnchorSelectionIndex())
+        - [`setSelectionInterval(int, int)`](#setSelectionInterval(int,int))
+        - [`addSelectionInterval(int, int)`](#addSelectionInterval(int,int))
+  + ### setLeadSelectionIndex
+
+    void setLeadSelectionIndex(int index)
+
+    Set the lead selection index.
+
+    Parameters:
+    :   `index` - the lead selection index
+
+    See Also:
+    :   - [`getLeadSelectionIndex()`](#getLeadSelectionIndex())
+  + ### clearSelection
+
+    void clearSelection()
+
+    Change the selection to the empty set. If this represents
+    a change to the current selection then notify each ListSelectionListener.
+
+    See Also:
+    :   - [`addListSelectionListener(javax.swing.event.ListSelectionListener)`](#addListSelectionListener(javax.swing.event.ListSelectionListener))
+  + ### isSelectionEmpty
+
+    boolean isSelectionEmpty()
+
+    Returns true if no indices are selected.
+
+    Returns:
+    :   `true` if no indices are selected.
+  + ### insertIndexInterval
+
+    void insertIndexInterval(int index,
+    int length,
+    boolean before)
+
+    Insert `length` indices beginning before/after `index`. This is typically
+    called to sync the selection model with a corresponding change
+    in the data model.
+
+    Parameters:
+    :   `index` - the beginning of the interval
+    :   `length` - the length of the interval
+    :   `before` - if `true`, interval inserts before the `index`,
+        otherwise, interval inserts after the `index`
+  + ### removeIndexInterval
+
+    void removeIndexInterval(int index0,
+    int index1)
+
+    Remove the indices in the interval `index0,index1` (inclusive) from
+    the selection model. This is typically called to sync the selection
+    model width a corresponding change in the data model.
+
+    Parameters:
+    :   `index0` - the beginning of the interval
+    :   `index1` - the end of the interval
+  + ### setValueIsAdjusting
+
+    void setValueIsAdjusting(boolean valueIsAdjusting)
+
+    Sets the `valueIsAdjusting` property, which indicates whether
+    or not upcoming selection changes should be considered part of a single
+    change. The value of this property is used to initialize the
+    `valueIsAdjusting` property of the `ListSelectionEvent`s that
+    are generated.
+
+    For example, if the selection is being updated in response to a user
+    drag, this property can be set to `true` when the drag is initiated
+    and set to `false` when the drag is finished. During the drag,
+    listeners receive events with a `valueIsAdjusting` property
+    set to `true`. At the end of the drag, when the change is
+    finalized, listeners receive an event with the value set to `false`.
+    Listeners can use this pattern if they wish to update only when a change
+    has been finalized.
+
+    Setting this property to `true` begins a series of changes that
+    is to be considered part of a single change. When the property is changed
+    back to `false`, an event is sent out characterizing the entire
+    selection change (if there was one), with the event's
+    `valueIsAdjusting` property set to `false`.
+
+    Parameters:
+    :   `valueIsAdjusting` - the new value of the property
+
+    See Also:
+    :   - [`getValueIsAdjusting()`](#getValueIsAdjusting())
+        - [`ListSelectionEvent.getValueIsAdjusting()`](event/ListSelectionEvent.md#getValueIsAdjusting())
+  + ### getValueIsAdjusting
+
+    boolean getValueIsAdjusting()
+
+    Returns `true` if the selection is undergoing a series of changes.
+
+    Returns:
+    :   true if the selection is undergoing a series of changes
+
+    See Also:
+    :   - [`setValueIsAdjusting(boolean)`](#setValueIsAdjusting(boolean))
+  + ### setSelectionMode
+
+    void setSelectionMode(int selectionMode)
+
+    Sets the selection mode. The following list describes the accepted
+    selection modes:
+    - `ListSelectionModel.SINGLE_SELECTION` -
+      Only one list index can be selected at a time. In this mode,
+      `setSelectionInterval` and `addSelectionInterval` are
+      equivalent, both replacing the current selection with the index
+      represented by the second argument (the "lead").- `ListSelectionModel.SINGLE_INTERVAL_SELECTION` -
+        Only one contiguous interval can be selected at a time.
+        In this mode, `addSelectionInterval` behaves like
+        `setSelectionInterval` (replacing the current selection),
+        unless the given interval is immediately adjacent to or overlaps
+        the existing selection, and can therefore be used to grow it.- `ListSelectionModel.MULTIPLE_INTERVAL_SELECTION` -
+          In this mode, there's no restriction on what can be selected.
+
+    Parameters:
+    :   `selectionMode` - the selection mode
+
+    Throws:
+    :   `IllegalArgumentException` - if the selection mode isn't
+        one of those allowed
+
+    See Also:
+    :   - [`getSelectionMode()`](#getSelectionMode())
+  + ### getSelectionMode
+
+    int getSelectionMode()
+
+    Returns the current selection mode.
+
+    Returns:
+    :   the current selection mode
+
+    See Also:
+    :   - [`setSelectionMode(int)`](#setSelectionMode(int))
+  + ### addListSelectionListener
+
+    void addListSelectionListener([ListSelectionListener](event/ListSelectionListener.md "interface in javax.swing.event") x)
+
+    Add a listener to the list that's notified each time a change
+    to the selection occurs.
+
+    Parameters:
+    :   `x` - the ListSelectionListener
+
+    See Also:
+    :   - [`removeListSelectionListener(javax.swing.event.ListSelectionListener)`](#removeListSelectionListener(javax.swing.event.ListSelectionListener))
+        - [`setSelectionInterval(int, int)`](#setSelectionInterval(int,int))
+        - [`addSelectionInterval(int, int)`](#addSelectionInterval(int,int))
+        - [`removeSelectionInterval(int, int)`](#removeSelectionInterval(int,int))
+        - [`clearSelection()`](#clearSelection())
+        - [`insertIndexInterval(int, int, boolean)`](#insertIndexInterval(int,int,boolean))
+        - [`removeIndexInterval(int, int)`](#removeIndexInterval(int,int))
+  + ### removeListSelectionListener
+
+    void removeListSelectionListener([ListSelectionListener](event/ListSelectionListener.md "interface in javax.swing.event") x)
+
+    Remove a listener from the list that's notified each time a
+    change to the selection occurs.
+
+    Parameters:
+    :   `x` - the ListSelectionListener
+
+    See Also:
+    :   - [`addListSelectionListener(javax.swing.event.ListSelectionListener)`](#addListSelectionListener(javax.swing.event.ListSelectionListener))
+  + ### getSelectedIndices
+
+    default int[] getSelectedIndices()
+
+    Returns an array of all of the selected indices in the selection model,
+    in increasing order.
+
+    Returns:
+    :   all of the selected indices, in increasing order,
+        or an empty array if nothing is selected
+
+    Since:
+    :   11
+
+    See Also:
+    :   - [`removeSelectionInterval(int, int)`](#removeSelectionInterval(int,int))
+        - [`addListSelectionListener(javax.swing.event.ListSelectionListener)`](#addListSelectionListener(javax.swing.event.ListSelectionListener))
+  + ### getSelectedItemsCount
+
+    default int getSelectedItemsCount()
+
+    Returns the number of selected items.
+
+    Returns:
+    :   the number of selected items, 0 if no items are selected
+
+    Since:
+    :   11
