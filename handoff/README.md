@@ -77,7 +77,7 @@ Install once at the user level so handoff is available from any project:
 /path/to/handoff/install.sh all        # both
 ```
 
-`install.sh <vendor>` symlinks the skill into the vendor's user-level config,
+`install.sh <vendor>` copies the skill into the vendor's user-level config,
 appends the protocol to the user-level memory file (idempotent — skips if
 already present), and copies the command where supported. Restart the agent (or
 run `/skills`) afterward.
@@ -104,7 +104,7 @@ CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 
 # 1. Skill
 mkdir -p "$CODEX_HOME/skills/handoff"
-ln -sf "$HANDOFF/SKILL.md" "$CODEX_HOME/skills/handoff/SKILL.md"
+cp "$HANDOFF/SKILL.md" "$CODEX_HOME/skills/handoff/SKILL.md"
 
 # 2. Protocol rule (append to user-level memory file)
 printf '\n' >> "$CODEX_HOME/AGENTS.md" && cat "$HANDOFF/protocol.md" >> "$CODEX_HOME/AGENTS.md"
@@ -121,7 +121,7 @@ CLAUDE_HOME="${CLAUDE_HOME:-$HOME/.claude}"
 
 # 1. Skill
 mkdir -p "$CLAUDE_HOME/skills/handoff"
-ln -sf "$HANDOFF/SKILL.md" "$CLAUDE_HOME/skills/handoff/SKILL.md"
+cp "$HANDOFF/SKILL.md" "$CLAUDE_HOME/skills/handoff/SKILL.md"
 
 # 2. Protocol rule (append to user-level memory file)
 printf '\n' >> "$CLAUDE_HOME/CLAUDE.md" && cat "$HANDOFF/protocol.md" >> "$CLAUDE_HOME/CLAUDE.md"
@@ -174,8 +174,11 @@ $handoff            # Codex (skill) — or /skills
 /handoff            # Claude Code (slash command)
 ```
 
-The agent inspects `git status` / `git diff`, reconstructs the session, and
-writes/updates `handoff.md`. **Start your next session with:**
+The agent inspects `git status`, uncommitted diffs, and committed branch changes
+against an automatically detected base branch when available. If `handoff.md`
+already exists, the agent updates it in place: it preserves still-relevant
+history and decisions, reconciles old open tasks, removes stale duplication, and
+refreshes the current state. **Start your next session with:**
 
 ```text
 Read the project memory file and handoff.md. Continue from the "Open tasks"
@@ -210,6 +213,10 @@ Usage: `codex-handoff` / `claude-handoff` (optionally pass a repo path).
 
 - The `git` commands degrade gracefully — if the target isn't a git repo, the
   skill falls back to inspecting the working tree and session context.
+- Branch summaries use the first available comparison base from upstream,
+  `origin/main`, `origin/master`, local `main`, or local `master`.
+- Repeated handoffs update one current `handoff.md`; they do not append a full
+  dated log unless you explicitly ask.
 - `handoff.md` is **not committed** unless you explicitly ask.
 - Secrets, tokens, `.env` values, and sensitive logs are **never** written into
   `handoff.md`.

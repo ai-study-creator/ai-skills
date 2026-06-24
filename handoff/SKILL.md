@@ -17,16 +17,58 @@ Produce the clearest possible "history memory" for this coding session so that a
 2. Inspect repository state:
    - Run `git status --short`.
    - Run `git diff --stat`.
+   - Run `git diff --cached --stat`.
+   - Run `git diff --name-status`.
+   - Run `git diff --cached --name-status`.
+   - Detect committed branch work:
+     - Run `git branch --show-current`.
+     - Find the first available comparison base in this order:
+       1. upstream branch from `git rev-parse --abbrev-ref --symbolic-full-name @{u}`
+       2. `origin/main`
+       3. `origin/master`
+       4. local `main`
+       5. local `master`
+     - If a comparison base exists, run:
+       - `git log --oneline <base>..HEAD`
+       - `git diff --stat <base>...HEAD`
+       - `git diff --name-status <base>...HEAD`
+       - Inspect meaningful files changed by `<base>...HEAD`.
+     - If no comparison base exists, state that branch-base inspection was unavailable and continue.
    - Inspect meaningful changed files.
    - Read existing `handoff.md` if present.
    - If this is not a git repository, the `git` commands will fail or print nothing — that is fine. Fall back to inspecting the working tree directly and the current session context.
 3. Reconstruct the session state from:
    - current conversation context
    - changed files
-   - git diff
+   - uncommitted git diffs
+   - committed branch diff and log, when available
    - existing docs
+   - existing `handoff.md`, when present
    - TODO/FIXME comments if relevant
 4. Write or update `handoff.md`.
+
+## Branch diff rules
+
+- Always separate committed branch work from uncommitted working-tree work.
+- Use the detected comparison base only as context. Do not assume every branch commit happened in the current session unless conversation context or existing `handoff.md` supports that.
+- Prefer `git diff <base>...HEAD` over `git diff <base>..HEAD` for branch summaries because it compares from the merge base.
+- Record the comparison base used. If the base is missing or uncertain, say so explicitly.
+- If `git fetch` would be needed to refresh remote refs, do not run it unless the user explicitly asked for network access; use available local refs and note that they may be stale.
+
+## Existing `handoff.md` merge rules
+
+When `handoff.md` already exists, merge in place instead of blindly appending or overwriting:
+
+- Preserve still-relevant objective history, decisions, constraints, blockers, and implementation context.
+- Reconcile prior open tasks:
+  - move completed tasks to `Completed work`
+  - keep still-open tasks in `Open tasks`
+  - mark obsolete tasks as obsolete with a short reason, or remove them if they add no future value
+  - keep blocked tasks in `Blockers / questions`
+- Update stale status from current repository state and current session context.
+- De-duplicate repeated commands, repeated file notes, and repeated history.
+- Keep one current `handoff.md` file. Do not append a full new dated handoff unless the user asks for an archive-style log.
+- If you cannot determine whether old content is still relevant, preserve it under `Important context / history memory` and mark the uncertainty.
 
 ## Required `handoff.md` structure
 
@@ -40,6 +82,13 @@ What we are trying to accomplish.
 ## Session summary
 
 Concise narrative of what happened in this session.
+
+## Branch context
+
+- Current branch:
+- Comparison base:
+- Committed branch changes:
+- Uncommitted changes:
 
 ## Completed work
 

@@ -57,9 +57,13 @@ done
 
 install_skill() { # $1 = skills base dir
   local base="$1"
+  local dest="$base/handoff/SKILL.md"
   mkdir -p "$base/handoff"
-  ln -sf "$PKG_DIR/SKILL.md" "$base/handoff/SKILL.md"
-  echo "  skill    -> $base/handoff/SKILL.md"
+  if [ -L "$dest" ]; then
+    rm "$dest"
+  fi
+  cp "$PKG_DIR/SKILL.md" "$dest"
+  echo "  skill    -> $dest"
 }
 
 merge_protocol() { # $1 = memory file path
