@@ -44,8 +44,8 @@ You don't need all three — the skill alone works — but together they make
 
 | Vendor | Memory file | Skill location | Command |
 |---|---|---|---|
-| **Codex** (OpenAI) | `AGENTS.md` | `.agents/skills/handoff/SKILL.md` | `$handoff` or `/skills` (skill is the trigger) |
-| **Claude Code** (Anthropic) | `CLAUDE.md` | `.claude/skills/handoff/SKILL.md` | `.claude/commands/handoff.md` → `/handoff` |
+| **Codex** (OpenAI) | `~/.codex/AGENTS.md` | `~/.codex/skills/handoff/SKILL.md` | `$handoff` or `/skills` (skill is the trigger) |
+| **Claude Code** (Anthropic) | `~/.claude/CLAUDE.md` | `~/.claude/skills/handoff/SKILL.md` | `~/.claude/commands/handoff.md` → `/handoff` |
 | **Any other** (Gemini, Cursor, …) | `AGENTS.md` / `GEMINI.md` | n/a | paste `protocol.md` into the memory file; say `handoff` |
 
 The skill and protocol use the shared `SKILL.md` + `AGENTS.md` conventions, so
@@ -68,18 +68,27 @@ handoff/
 
 ## Quick install
 
-From inside the repo you want handoff in:
+Install once at the user level so handoff is available from any project:
 
 ```bash
 # pick one
-/path/to/handoff/install.sh codex .     # Codex
-/path/to/handoff/install.sh claude .    # Claude Code
-/path/to/handoff/install.sh all .       # both
+/path/to/handoff/install.sh codex      # Codex
+/path/to/handoff/install.sh claude     # Claude Code
+/path/to/handoff/install.sh all        # both
 ```
 
-`install.sh <vendor> [project-dir]` symlinks the skill, appends the protocol to
-the memory file (idempotent — skips if already present), and copies the command.
-Restart the agent (or run `/skills`) afterward.
+`install.sh <vendor>` symlinks the skill into the vendor's user-level config,
+appends the protocol to the user-level memory file (idempotent — skips if
+already present), and copies the command where supported. Restart the agent (or
+run `/skills`) afterward.
+
+To install into a single project instead, pass `--project`:
+
+```bash
+/path/to/handoff/install.sh codex --project .       # Codex in this repo
+/path/to/handoff/install.sh claude --project .      # Claude Code in this repo
+/path/to/handoff/install.sh all --project ~/code/app
+```
 
 ---
 
@@ -91,33 +100,50 @@ Prefer to wire it by hand? `HANDOFF` below is the path to this package.
 
 ```bash
 HANDOFF=/path/to/handoff
+CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 
 # 1. Skill
-mkdir -p .agents/skills/handoff
-ln -sf "$HANDOFF/SKILL.md" .agents/skills/handoff/SKILL.md
+mkdir -p "$CODEX_HOME/skills/handoff"
+ln -sf "$HANDOFF/SKILL.md" "$CODEX_HOME/skills/handoff/SKILL.md"
 
-# 2. Protocol rule (append to repo memory file)
-printf '\n' >> AGENTS.md && cat "$HANDOFF/protocol.md" >> AGENTS.md
+# 2. Protocol rule (append to user-level memory file)
+printf '\n' >> "$CODEX_HOME/AGENTS.md" && cat "$HANDOFF/protocol.md" >> "$CODEX_HOME/AGENTS.md"
 ```
 
-Trigger it in Codex with `$handoff` or `/skills`. (Codex custom prompts are
-deprecated, so there is no command layer to install.)
+Trigger it in Codex from any project with `$handoff` or `/skills`. (Codex custom
+prompts are deprecated, so there is no command layer to install.)
 
 ### Claude Code (Anthropic)
 
 ```bash
 HANDOFF=/path/to/handoff
+CLAUDE_HOME="${CLAUDE_HOME:-$HOME/.claude}"
 
 # 1. Skill
-mkdir -p .claude/skills/handoff
-ln -sf "$HANDOFF/SKILL.md" .claude/skills/handoff/SKILL.md
+mkdir -p "$CLAUDE_HOME/skills/handoff"
+ln -sf "$HANDOFF/SKILL.md" "$CLAUDE_HOME/skills/handoff/SKILL.md"
 
-# 2. Protocol rule (append to repo memory file)
-printf '\n' >> CLAUDE.md && cat "$HANDOFF/protocol.md" >> CLAUDE.md
+# 2. Protocol rule (append to user-level memory file)
+printf '\n' >> "$CLAUDE_HOME/CLAUDE.md" && cat "$HANDOFF/protocol.md" >> "$CLAUDE_HOME/CLAUDE.md"
 
 # 3. Slash command  ->  /handoff
-mkdir -p .claude/commands
-cp "$HANDOFF/command.md" .claude/commands/handoff.md
+mkdir -p "$CLAUDE_HOME/commands"
+cp "$HANDOFF/command.md" "$CLAUDE_HOME/commands/handoff.md"
+```
+
+### Project-local setup
+
+Use project-local setup only when you want one repository to carry its own
+handoff configuration:
+
+```bash
+HANDOFF=/path/to/handoff
+
+# Codex
+"$HANDOFF/install.sh" codex --project /path/to/repo
+
+# Claude Code
+"$HANDOFF/install.sh" claude --project /path/to/repo
 ```
 
 ### Any other vendor (generic)
